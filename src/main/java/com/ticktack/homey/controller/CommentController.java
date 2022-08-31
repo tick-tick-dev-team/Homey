@@ -1,6 +1,10 @@
 package com.ticktack.homey.controller;
 
-public class CommentController {	
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class CommentController {
+
 	
 
 }
