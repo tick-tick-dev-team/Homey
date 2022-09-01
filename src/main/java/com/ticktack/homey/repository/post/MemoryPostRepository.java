@@ -65,6 +65,10 @@ public class MemoryPostRepository implements PostRepository {
 		// 게시물id로 게시물 하나 조회
 		return Optional.ofNullable(store.get(postId));
 	}
+	
+	public void clearStore() {
+		store.clear();
+	}
 
 
 
