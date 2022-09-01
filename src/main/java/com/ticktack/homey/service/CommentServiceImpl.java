@@ -1,7 +1,5 @@
 package com.ticktack.homey.service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.ticktack.homey.domain.Comment;
@@ -35,15 +33,14 @@ public class CommentServiceImpl implements CommentService {
 	 * 게시글의 댓글 등록
 	 * */
 	@Override
-	public int commInsert(Comment comm) {
+	public Comment commInsert(Comment comm) {
 		return commentRepository.commInsert(comm);
 	}
 
 	/**
-	 * 게시글의 댓글, 답글 수정
 	 * */
 	@Override
-	public int commUpdate(Comment comm) {
+	public Comment commUpdate(Comment comm) {
 		return commentRepository.commUpdate(comm);
 	}
 

@@ -51,12 +51,11 @@ public class MemoryCommRepository implements CommentRepository {
 	 * */
 	public boolean commExist(Comment comm) {
 		boolean result = false;
-		if (comm.getCommUpid() == null) {
-			result = store.containsKey(comm.getCommId());
-		} else {
+		if (comm.getCommUpid() != null) {
 			result = replyStore.containsKey(comm.getCommUpid());
-		}
-		
+		} else {
+			result = store.containsKey(comm.getCommId());
+		}		
 		return result;
 	}
 
@@ -104,7 +103,13 @@ public class MemoryCommRepository implements CommentRepository {
 	 * */
 	@Override
 	public Comment commUpdate(Comment comm) {
-		return null;
+		if( comm.getCommUpid() != null ) {
+			replyStore.put(comm.getCommUpid(), comm);
+			return replyStore.get(comm.getCommUpid());
+		}else {
+			store.put(comm.getCommId(), comm);
+			return store.get(comm.getCommId());
+		}
 	}
 
 	/**
@@ -112,6 +117,16 @@ public class MemoryCommRepository implements CommentRepository {
 	 * */
 	@Override
 	public int commDelete(Comment comm) {
+		boolean result = false; 
+		if( comm.getCommUpid() != null ) {
+			replyStore.remove(comm.getCommUpid());
+			result = replyStore.containsKey(comm.getCommUpid());
+		}else {
+			store.remove(comm.getCommId());
+			result = store.containsKey(comm.getCommUpid());
+		}
+		
+		
 		return 0;
 	}
 

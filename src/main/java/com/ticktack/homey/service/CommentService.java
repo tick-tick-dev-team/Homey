@@ -13,10 +13,10 @@ public interface CommentService {
 	List<Comment> replyAllList(Comment comm);
 	
 	// 댓글, 답글 등록
-	int commInsert(Comment comm);
+	Comment commInsert(Comment comm);
 	
 	// 댓글, 답글 수정
-	int commUpdate(Comment comm);
+	Comment commUpdate(Comment comm);
 	
 	// 댓글, 답글 삭제
 	int commDelete(Comment comm);
