@@ -21,13 +21,6 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepository.commAllList(comm);
 	}
 	
-	/**
-	 * 게시글의 답글 조회
-	 * */
-	@Override
-	public List<Comment> replyAllList(Comment comm) {
-		return commentRepository.replyAllList(comm);
-	}
 		
 	/**
 	 * 게시글의 댓글 등록
@@ -48,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
 	 * 게시글의 댓글, 답글 삭제
 	 * */
 	@Override
-	public int commDelete(Comment comm) {
+	public boolean commDelete(Comment comm) {
 		return commentRepository.commDelete(comm);
 	}
 
