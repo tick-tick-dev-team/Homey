@@ -1,112 +1,97 @@
 package com.ticktack.homey.repository.comment;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Comment;
 
 public class MemoryCommRepository implements CommentRepository {
-	
+
 	private static Map<Long, Comment> store = new HashMap<>();
 	private static Map<Long, Comment> replyStore = new HashMap<>();
-	
+
 	private Long commSequence = 0L;
-	private Long replySequence = 0L;
+
+	// private Long replySequence = 0L;
 	/**
 	 * 게시글의 댓글 전체 조회
-	 * */
+	 */
 	@Override
 	public List<Comment> commAllList(Comment comm) {
-		return null;
+		List<Comment> commList = new ArrayList<Comment>();
+		List<Comment> replyList = new ArrayList<Comment>();
+		List<Comment> resultList = new ArrayList<Comment>();
+
+		commList = store.values().stream().filter(comment -> comment.getPostId().equals(comm.getPostId()))
+				.collect(Collectors.toList());
+
+		replyList = store.values().stream().filter(comment -> comment.getPostId().equals(comm.getPostId()))
+				.collect(Collectors.toList());
+
+		for (int i = 0; i < commList.size(); i++) {
+			resultList.add(commList.get(i));
+			for (int j = 0; j < replyList.size(); j++) {
+				if (commList.get(i).getCommId() == replyList.get(j).getCommUpid()) {
+					resultList.add(replyList.get(j));
+				}
+			}
+		}
+
+		return resultList;
 	}
 
-	/**
-	 * 게시글의 댓글 총 갯수
-	 * */
-	@Override
-	public int commAllCount(Comment comm) {
-		return 0;
-	}
-
-	/**
-	 * 댓글의 답글 전체 조회
-	 * */
-	@Override
-	public List<Comment> replyAllList(Comment comm) {
-		return null;
-	}
-	
-	/**
-	 * 댓글의 답글 총 갯수
-	 * */
-	@Override
-	public int replyAllCount(Comment comm) {
-		return 0;
-	}
-	
 	/**
 	 * 댓글, 답글 존재 여부
-	 * */
+	 */
+	@Override
 	public boolean commExist(Comment comm) {
 		boolean result = false;
 		if (comm.getCommUpid() != null) {
 			result = replyStore.containsKey(comm.getCommUpid());
 		} else {
 			result = store.containsKey(comm.getCommId());
-		}		
+		}
 		return result;
 	}
 
 	/**
-	 * 댓글 등록
-	 * */
+	 * 댓글, 답글 등록
+	 */
 	@Override
 	public Comment commInsert(Comment comm) {
+
+		Comment result = new Comment();
+
 		comm.setCommDate(new Date());
 		comm.setCommUdate(new Date());
 		comm.setCommId(++commSequence);
-		boolean result = commExist(comm);
-		if( result) {
-			comm.setCommId(++commSequence);
+
+		if (comm.getCommUpid() != null) {
+			replyStore.put(comm.getCommId(), comm);
+			result = replyStore.put(comm.getCommId(), comm);
 		} else {
-			commSequence = 0L;
-			comm.setCommId(++commSequence);
+			store.put(comm.getCommId(), comm);
+			result = store.put(comm.getCommId(), comm);
 		}
 
-		store.put(comm.getCommId(), comm);
-		return store.get(comm.getCommId());
-	}
-
-	/**
-	 * 답글 등록
-	 */
-	@Override
-	public Comment replyInsert(Comment comm) {
-		comm.setCommDate(new Date());
-		comm.setCommUdate(new Date());
-		boolean result = commExist(comm);
-		if( result) {
-			comm.setCommUpid(++replySequence);
-		} else {
-			replySequence = 0L;
-			comm.setCommUpid(++replySequence);
-		}
-		
-		replyStore.put(comm.getCommUpid(), comm);
-		return store.get(comm.getCommUpid());
+		return result;
 	}
 
 	/**
 	 * 댓글, 답글 수정
-	 * */
+	 */
 	@Override
 	public Comment commUpdate(Comment comm) {
-		if( comm.getCommUpid() != null ) {
+		if (comm.getCommUpid() != null) {
 			replyStore.put(comm.getCommUpid(), comm);
 			return replyStore.get(comm.getCommUpid());
-		}else {
+		} else {
 			store.put(comm.getCommId(), comm);
 			return store.get(comm.getCommId());
 		}
@@ -114,22 +99,22 @@ public class MemoryCommRepository implements CommentRepository {
 
 	/**
 	 * 댓글, 답글 삭제
-	 * */
+	 */
 	@Override
-	public int commDelete(Comment comm) {
-		boolean result = false; 
-		if( comm.getCommUpid() != null ) {
-			replyStore.remove(comm.getCommUpid());
-			result = replyStore.containsKey(comm.getCommUpid());
-		}else {
+	public boolean commDelete(Comment comm) {
+		boolean result = false;
+		if (comm.getCommUpid() != null) {
+			replyStore.remove(comm.getCommId());
+		} else {
 			store.remove(comm.getCommId());
-			result = store.containsKey(comm.getCommUpid());
+			// 댓글 삭제시 답글 전체 삭제
+			Set<Entry<Long, Comment>> entrySet = replyStore.entrySet();
+			for (Entry<Long, Comment> entry : entrySet) {
+				if (entry.getValue().getCommUpid() == comm.getCommId()) {
+					replyStore.remove(entry.getKey());
+				}
+			}
 		}
-		
-		
-		return 0;
+		return result;
 	}
-
-
-
 }
