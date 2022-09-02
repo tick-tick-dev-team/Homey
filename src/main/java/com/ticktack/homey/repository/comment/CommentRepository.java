@@ -1,8 +1,10 @@
 package com.ticktack.homey.repository.comment;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ticktack.homey.domain.Comment;
+import com.ticktack.homey.domain.Post;
 
 public interface CommentRepository {
 	

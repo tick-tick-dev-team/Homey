@@ -14,7 +14,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	/**
-	 * 게시글의 댓글 조회
+	 * 게시글의 댓글,답글 조회
 	 * */
 	@Override
 	public List<Comment> commAllList(Comment comm) {	
@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
 	
 		
 	/**
-	 * 게시글의 댓글 등록
+	 * 게시글의 댓글, 답글 등록
 	 * */
 	@Override
 	public Comment commInsert(Comment comm) {
@@ -31,6 +31,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	/**
+	 * 게시글의 댓글, 답글 수정
 	 * */
 	@Override
 	public Comment commUpdate(Comment comm) {
