@@ -5,8 +5,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+import com.ticktack.homey.repository.user.MemoryUserRepository;
+import com.ticktack.homey.repository.user.UserRepository;
 import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.PostServiceImpl;
+import com.ticktack.homey.service.UserService;
+import com.ticktack.homey.service.UserServiceImpl;
 
 @Configuration
 public class SpringConfig {
@@ -20,4 +24,15 @@ public class SpringConfig {
 	public PostService postService() {
 		return new PostServiceImpl(postRepository());
 	}
+	
+	
+	@Bean
+	public UserRepository userRepository() {
+		return new MemoryUserRepository();
+	}
+	
+	/*@Bean
+	public UserService userService() {
+		return new UserServiceImpl(userRepository);
+	}*/
 }
