@@ -23,5 +23,8 @@ public interface CommentRepository {
 	// 댓글, 답글 존재 여부
 	boolean commExist(Comment comm);
 	
+	// 댓글, 답글 한건 조회
+	Optional<Comment> findById(Comment comm);
+	
 
 }

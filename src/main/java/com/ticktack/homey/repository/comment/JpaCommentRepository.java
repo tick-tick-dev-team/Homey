@@ -2,6 +2,7 @@ package com.ticktack.homey.repository.comment;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.ticktack.homey.domain.Comment;
 
@@ -35,6 +36,12 @@ public class JpaCommentRepository implements CommentRepository {
 	public boolean commExist(Comment comm) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Optional<Comment> findById(Comment comm) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

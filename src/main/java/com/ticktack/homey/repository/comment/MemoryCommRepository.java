@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Comment;
+import com.ticktack.homey.domain.Post;
 
 public class MemoryCommRepository implements CommentRepository {
 
@@ -17,8 +19,8 @@ public class MemoryCommRepository implements CommentRepository {
 	private static Map<Long, Comment> replyStore = new HashMap<>();
 
 	private Long commSequence = 0L;
-
 	// private Long replySequence = 0L;
+	
 	/**
 	 * 게시글의 댓글 전체 조회
 	 */
@@ -31,7 +33,7 @@ public class MemoryCommRepository implements CommentRepository {
 		commList = store.values().stream().filter(comment -> comment.getPostId().equals(comm.getPostId()))
 				.collect(Collectors.toList());
 
-		replyList = store.values().stream().filter(comment -> comment.getPostId().equals(comm.getPostId()))
+		replyList = replyStore.values().stream().filter(comment -> comment.getPostId().equals(comm.getPostId()))
 				.collect(Collectors.toList());
 
 		for (int i = 0; i < commList.size(); i++) {
@@ -88,11 +90,15 @@ public class MemoryCommRepository implements CommentRepository {
 	 */
 	@Override
 	public Comment commUpdate(Comment comm) {
+
+		comm.setCommUdate(new Date());
+		
 		if (comm.getCommUpid() != null) {
-			replyStore.put(comm.getCommUpid(), comm);
-			return replyStore.get(comm.getCommUpid());
+			replyStore.put(comm.getCommId(), comm);
+			return replyStore.get(comm.getCommId());
 		} else {
 			store.put(comm.getCommId(), comm);
+			System.out.println("sotre 체크"+store.get(comm.getCommId()));
 			return store.get(comm.getCommId());
 		}
 	}
@@ -117,4 +123,31 @@ public class MemoryCommRepository implements CommentRepository {
 		}
 		return result;
 	}
+	
+	/**
+	 * 댓글, 답글 한건 조회
+	 * */
+	@Override
+	public Optional<Comment> findById(Comment comm) {
+		
+		if (comm.getCommUpid() != null) {
+			return Optional.ofNullable(replyStore.get(comm.getCommId()));
+		}else {
+			return Optional.ofNullable(store.get(comm.getCommId()));
+		}
+	}
+	
+	
+	public void clearStore() {
+		store.clear();
+	}
+	
+	public void clearReplyStore() {
+		replyStore.clear();
+	}
+
+
+	
+
+	
 }
