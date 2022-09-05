@@ -78,7 +78,6 @@ public class PostServiceImpl implements PostService{
 			List<Comment> comments = commentRepository.commAllList(comment);
 			
 			form.setCOMMENT_LIST(comments);		
-			
 		});
 		return postForms;
 	}
