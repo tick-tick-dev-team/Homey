@@ -22,18 +22,21 @@ public class PostController {
 
 	private final PostService postService;
 	private final AttachService attachService;
+	private final CommentService commentService;
 	
-	public PostController(PostService postService, AttachService attachService) {
+	public PostController(PostService postService, AttachService attachService, CommentService commentService) {
 		super();
 		this.postService = postService;
 		this.attachService = attachService;
+		this.commentService = commentService;
 	}
+	
 	// test용 selectHome
 	@GetMapping("/homes/{homeId}")
 	public String selectHomeTest (@PathVariable("homeId")Long homeId, Model model) {
 		// 더미데이터 삽입
 		setPosts(postService, names, contents);
-		
+				
 		//List<Post> postList = postService.findByHomeId(homeId);
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
 		
@@ -111,27 +114,26 @@ public class PostController {
 					post.setPOST_HOME(userId);
 					post.setPOST_CONT(names[i] + "의 " + content);
 					post.setPOST_WRITER(userId);
-					
-					
-					
+
 					postService.createPost(post);
+					setComments(commentService, names, post.getPOST_ID());
 				}
 			}
 		}
 	}
 	
 	private void setComments (CommentService commentService, String[] names, Long postId) {
-		
+		System.out.println("더미 댓글 삽입 시작");
 		for (int i = 0; i<names.length; i++) {
 			Comment comment = new Comment();
 			Long userId = i + 1L;
 			comment.setPostId(postId);
 			comment.setCommCont(names[i] + "님의 댓글");
 			comment.setCommWriter(userId.toString());
+			
+			commentService.commInsert(comment);
 		}
-
 		// List<Comment> result = commentService.commAllList(comm);
-		
 	}
 	
 	

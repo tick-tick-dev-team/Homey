@@ -34,10 +34,18 @@
 					</div>
 				</div>
 
-				<div class="comments"></div>
+				<div class="comments">
+					<ul>
+						<li th:each="comment : ${post.COMMENT_LIST}">
+							<span th:text="|${comment.commWriter}|">작성자 id</span>
+							<span th:text="|${comment.commCont}|">내용</span>
+						</li>
+					</ul>
+				</div>
 			</li>
 		</ul>
 	</section>
+	
 
 </body>
 </html>
