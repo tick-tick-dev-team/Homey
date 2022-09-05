@@ -1,6 +1,7 @@
 package com.ticktack.homey.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.service.AttachService;
@@ -32,8 +34,11 @@ public class PostController {
 		// 더미데이터 삽입
 		setPosts(postService, names, contents);
 		
-		List<Post> postList = postService.findByHomeId(homeId);
-		model.addAttribute("postList", postList);
+		//List<Post> postList = postService.findByHomeId(homeId);
+		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
+		
+		
+		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
 		
 		return "homes/selectHome";
@@ -107,10 +112,26 @@ public class PostController {
 					post.setPOST_CONT(names[i] + "의 " + content);
 					post.setPOST_WRITER(userId);
 					
+					
+					
 					postService.createPost(post);
 				}
 			}
 		}
+	}
+	
+	private void setComments (CommentService commentService, String[] names, Long postId) {
+		
+		for (int i = 0; i<names.length; i++) {
+			Comment comment = new Comment();
+			Long userId = i + 1L;
+			comment.setPostId(postId);
+			comment.setCommCont(names[i] + "님의 댓글");
+			comment.setCommWriter(userId.toString());
+		}
+
+		// List<Comment> result = commentService.commAllList(comm);
+		
 	}
 	
 	

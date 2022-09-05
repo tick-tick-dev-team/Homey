@@ -80,4 +80,23 @@ public class Post {
 		ATTF_ID = aTTF_ID;
 	}
 	
+	public PostForm getFormFromPost() {
+		
+		PostForm form = new PostForm();
+		
+		form.setPOST_ID(this.getPOST_ID());
+		form.setPOST_CONT(this.getPOST_CONT());
+		form.setPOST_HOME(this.getPOST_HOME());
+		
+		form.setPOST_DATE(this.getPOST_DATE().toString());
+		form.setPOST_UPDATE(this.getPOST_UPDATE().toString());
+		
+		form.setPOST_WRITER(this.getPOST_WRITER());
+		form.setPOST_UWRITER(this.getPOST_UWRITER());
+		
+		form.setATTF_ID(this.getATTF_ID());
+		
+		return form;
+	}
+	
 }
