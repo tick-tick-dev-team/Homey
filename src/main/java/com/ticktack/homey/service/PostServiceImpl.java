@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
-import com.ticktack.homey.domain.PostWithFile;
 import com.ticktack.homey.repository.post.PostRepository;
 
 public class PostServiceImpl implements PostService{
@@ -45,9 +44,9 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostWithFile createPostWithFile(Post post, Attach attach) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Post> findAll() {
+		return postRepository.findAll();
 	}
+	
 
 }

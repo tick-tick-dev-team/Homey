@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
-import com.ticktack.homey.domain.PostWithFile;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.post.PostRepository;
 
@@ -56,14 +55,8 @@ public class PostAttachServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostWithFile createPostWithFile(Post post, Attach attach) {
-		Attach savedAttach = attachRepository.save(attach);
-		post.setATTF_ID(attach.getATTF_ID());
-		Post savedPost = postRepository.save(post);
-		
-		PostWithFile postFile = new PostWithFile(savedPost, savedAttach);
-
-		return postFile;
+	public List<Post> findAll() {
+		return postRepository.findAll();
 	}
 	
 	
