@@ -22,7 +22,6 @@ public interface PostRepository {
 	// 게시물 존재 여부
 	boolean existsById(Long postId);
 	
-	
 	// 테스트용
 	// 사이트 게시물 전체 조회
 	List<Post> findAll();
@@ -30,6 +29,4 @@ public interface PostRepository {
 	// 게시물 1개 조회
 	Optional<Post> findById(Long postId);
 	
-	
-
 }
