@@ -1,15 +1,41 @@
 package com.ticktack.homey.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Post {
+	
+	// 게시물 ID (auto-increment)
 	Long POST_ID;
+	
+	// 게시물 내용
 	String POST_CONT;
+	
+	// 게시물 최초 작성자ID
 	Long POST_WRITER;
+	
+	// 게시물 최초 등록일
 	Date POST_DATE;
+	
+	// 게시물 수정자 ID
 	Long POST_UWRITER;
+	
+	// 게시물 수정일
 	Date POST_UPDATE;
+	
+	// Home ID
 	Long POST_HOME;
+	
+	// 첨부파일 ID
+	Long ATTF_ID;
+	
+	// test
+	
+	// 첨부파일 정보 객체
+	Attach ATTF_OBJ;
+	
+	// 댓글 리스트
+	List<Comment> COMMENT_LIST;
 	
 	
 	
@@ -55,6 +81,25 @@ public class Post {
 	}
 	public void setPOST_HOME(Long pOST_HOME) {
 		POST_HOME = pOST_HOME;
+	}
+	public Long getATTF_ID() {
+		return ATTF_ID;
+	}
+	public void setATTF_ID(Long aTTF_ID) {
+		ATTF_ID = aTTF_ID;
+	}
+	
+	public Attach getATTF_OBJ() {
+		return ATTF_OBJ;
+	}
+	public void setATTF_OBJ(Attach aTTF_OBJ) {
+		ATTF_OBJ = aTTF_OBJ;
+	}
+	public List<Comment> getCOMMENT_LIST() {
+		return COMMENT_LIST;
+	}
+	public void setCOMMENT_LIST(List<Comment> cOMMENT_LIST) {
+		COMMENT_LIST = cOMMENT_LIST;
 	}
 	
 	

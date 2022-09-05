@@ -1,9 +1,12 @@
 package com.ticktack.homey.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
+import com.ticktack.homey.domain.PostWithFile;
 
 public interface PostService {
 	
@@ -25,4 +28,8 @@ public interface PostService {
 	
 	// 게시물 삭제
 	public Long deletePost(Long postId);
+	
+	
+	// 게시물 + 첨부파일 생성
+	public PostWithFile createPostWithFile (Post post, Attach attach);
 }
