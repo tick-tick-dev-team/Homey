@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
+import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.post.PostRepository;
 
@@ -57,6 +58,12 @@ public class PostAttachServiceImpl implements PostService{
 	@Override
 	public List<Post> findAll() {
 		return postRepository.findAll();
+	}
+
+	@Override
+	public List<PostForm> findAllByHomeId(Long homeId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

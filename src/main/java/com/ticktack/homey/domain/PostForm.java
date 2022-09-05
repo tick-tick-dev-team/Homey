@@ -116,5 +116,7 @@ public class PostForm {
 		COMMENT_LIST = cOMMENT_LIST;
 	}
 	
+
+	
 	
 }
