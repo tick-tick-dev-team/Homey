@@ -1,5 +1,6 @@
 package com.ticktack.homey.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,30 +16,20 @@ public class Post {
 	Long POST_WRITER;
 	
 	// 게시물 최초 등록일
-	Date POST_DATE;
+	LocalDateTime POST_DATE;
 	
 	// 게시물 수정자 ID
 	Long POST_UWRITER;
 	
 	// 게시물 수정일
-	Date POST_UPDATE;
+	LocalDateTime POST_UPDATE;
 	
 	// Home ID
 	Long POST_HOME;
 	
 	// 첨부파일 ID
 	Long ATTF_ID;
-	
-	// test
-	
-	// 첨부파일 정보 객체
-	Attach ATTF_OBJ;
-	
-	// 댓글 리스트
-	List<Comment> COMMENT_LIST;
-	
-	
-	
+
 	
 	public Long getPOST_ID() {
 		return POST_ID;
@@ -58,10 +49,10 @@ public class Post {
 	public void setPOST_WRITER(Long pOST_WRITER) {
 		POST_WRITER = pOST_WRITER;
 	}
-	public Date getPOST_DATE() {
+	public LocalDateTime getPOST_DATE() {
 		return POST_DATE;
 	}
-	public void setPOST_DATE(Date pOST_DATE) {
+	public void setPOST_DATE(LocalDateTime pOST_DATE) {
 		POST_DATE = pOST_DATE;
 	}
 	public Long getPOST_UWRITER() {
@@ -70,10 +61,10 @@ public class Post {
 	public void setPOST_UWRITER(Long pOST_UWRITER) {
 		POST_UWRITER = pOST_UWRITER;
 	}
-	public Date getPOST_UPDATE() {
+	public LocalDateTime getPOST_UPDATE() {
 		return POST_UPDATE;
 	}
-	public void setPOST_UPDATE(Date pOST_UPDATE) {
+	public void setPOST_UPDATE(LocalDateTime pOST_UPDATE) {
 		POST_UPDATE = pOST_UPDATE;
 	}
 	public Long getPOST_HOME() {
@@ -88,19 +79,5 @@ public class Post {
 	public void setATTF_ID(Long aTTF_ID) {
 		ATTF_ID = aTTF_ID;
 	}
-	
-	public Attach getATTF_OBJ() {
-		return ATTF_OBJ;
-	}
-	public void setATTF_OBJ(Attach aTTF_OBJ) {
-		ATTF_OBJ = aTTF_OBJ;
-	}
-	public List<Comment> getCOMMENT_LIST() {
-		return COMMENT_LIST;
-	}
-	public void setCOMMENT_LIST(List<Comment> cOMMENT_LIST) {
-		COMMENT_LIST = cOMMENT_LIST;
-	}
-	
 	
 }
