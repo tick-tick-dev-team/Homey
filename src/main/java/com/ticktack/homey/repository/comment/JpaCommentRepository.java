@@ -7,6 +7,36 @@ import com.ticktack.homey.domain.Comment;
 
 public class JpaCommentRepository implements CommentRepository {
 
+	@Override
+	public List<Comment> commAllList(Comment comm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Comment commInsert(Comment comm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Comment commUpdate(Comment comm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean commDelete(Comment comm) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean commExist(Comment comm) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 
