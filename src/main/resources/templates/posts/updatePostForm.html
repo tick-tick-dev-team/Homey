@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+	    
+	    <form th:action="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" method="post">
+            <!-- 회원정보 -->
+            <input type="hidden" id="POST_ID" name="POST_ID" th:value="${post.POST_ID}">
+            <input type="hidden" id="POST_WRITER" name="POST_WRITER" th:value="${post.POST_WRITER}">
+            <input type="hidden" id="POST_HOME" name="POST_HOME" th:value="${post.POST_HOME}">
+            <input type="hidden" id="POST_DATE" name="POST_DATE" th:value="${post.POST_DATE}">	    
+	
+	        <h1 class="form-title">게시물 수정</h1>
+	        <div class="form-group">
+	            <label for="content"></label>
+	            <textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
+	            th:text="${post.POST_CONT}" name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
+	        
+	            <button class="btn-border bg-green" type="submit">등록</button>
+	        </div>
+	
+	    </form>
+	</section> 
+</body>
+</html>
