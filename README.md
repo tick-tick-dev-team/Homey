@@ -29,4 +29,7 @@ dummyData.setComment(postId);
 
 // postId 전달하면 해당 게시물에 1개의 첨부파일 정보 생성하고 생성된 첨부파일 id 반환
 Long attf_id = dummyData.setAttach(postId);
+
+// Comment객체 전달하면 해당 댓글에 대한 대댓글 생성
+setReplyComments(comment)
 ```
