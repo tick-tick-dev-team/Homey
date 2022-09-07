@@ -19,6 +19,7 @@
 	            <label for="content"></label>
 	            <textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
 	            th:text="${post.POST_CONT}" name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
+	            <input type="hidden" id="ATTF_ID" name="ATTF_ID" th:value="${post.ATTF_ID}">	
 	        
 	            <button class="btn-border bg-green" type="submit">등록</button>
 	        </div>

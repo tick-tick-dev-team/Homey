@@ -3,6 +3,7 @@ package com.ticktack.homey.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
-import com.ticktack.homey.service.attach.AttachService;
-import com.ticktack.homey.service.comment.CommentService;
-import com.ticktack.homey.service.post.PostService;
+
+import com.ticktack.homey.dummy.DummyData;
+import com.ticktack.homey.service.AttachService;
+import com.ticktack.homey.service.CommentService;
+import com.ticktack.homey.service.PostService;
+
 
 @Controller
 public class PostController {
@@ -23,23 +28,26 @@ public class PostController {
 	private final PostService postService;
 	private final AttachService attachService;
 	private final CommentService commentService;
+	// 더미데이터 가져오기
+	private final DummyData dummyData;
 	
-	public PostController(PostService postService, AttachService attachService, CommentService commentService) {
+	public PostController(PostService postService, AttachService attachService, 
+			CommentService commentService, DummyData dummyData) {
 		super();
 		this.postService = postService;
 		this.attachService = attachService;
 		this.commentService = commentService;
+		this.dummyData = dummyData;
 	}
-	
+
 	// test용 selectHome
 	@GetMapping("/homes/{homeId}")
 	public String selectHomeTest (@PathVariable("homeId")Long homeId, Model model) {
-		// 더미데이터 삽입
-		setPosts(postService, names, contents);
+		// 더미 게시물 삽입
+		dummyData.setPosts();
 				
 		//List<Post> postList = postService.findByHomeId(homeId);
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
-		
 		
 		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
@@ -53,6 +61,7 @@ public class PostController {
 	@GetMapping("/posts/{homeId}/new")
 	public String createPostForm(@PathVariable("homeId")Long homeId, Model model) {
 		model.addAttribute("homeId", homeId);
+		
 		return "posts/createPostForm";
 	}
 	
@@ -62,6 +71,7 @@ public class PostController {
 	public String createPost (@PathVariable("homeId")Long homeId, Post post) {
 		post.setPOST_HOME(homeId);
 		postService.createPost(post);
+		
 		return "redirect:/homes/" + homeId;
 	}	
 	
@@ -70,6 +80,7 @@ public class PostController {
 	public String updatePostForm(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
 		Post post = postService.findById(postId).get();
 		model.addAttribute("post", post);
+		
 		return "posts/updatePostForm";
 	}
 	
@@ -77,15 +88,11 @@ public class PostController {
 	// 게시물 수정
 	@PostMapping("/posts/{homeId}/update/{postId}")
 	public String updatePost (@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId,
-			PostForm form) {
-		Post post = new Post();
-		post.setPOST_ID(form.getPOST_ID());
-		post.setPOST_HOME(form.getPOST_HOME());
-		post.setPOST_UWRITER(form.getPOST_UWRITER());
-		post.setPOST_CONT(form.getPOST_CONT());
-		post.setPOST_DATE(LocalDateTime.parse(form.getPOST_DATE()));
+			PostForm post) {
 		
-		postService.updatePost(post);
+		Post updatedPost = post.getPostFromPostForm();
+		postService.updatePost(updatedPost);
+		
 		return "redirect:/homes/" + homeId;
 	}
 	
@@ -93,49 +100,13 @@ public class PostController {
 	// 게시물 삭제
 	@PostMapping("/posts/{homeId}/delete/{postId}")
 	public String deletePost(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId) {
+		// 첨부파일 id 있으면 첨부파일 정보 삭제
+		Optional<Long>attf_id = postService.findAttfIdById(postId);
+		attf_id.ifPresent(id -> attachService.deleteAttach(id));
+		
 		postService.deletePost(postId);
+		
 		return "redirect:/homes/" + homeId;
 	}
-	
-	// 더미데이터 삽입
-	private String[] names = {"224", "사장", "팝도"};
-	private String[] contents = {"게시물1", "게시물2", "게시물3"};
-	
-	private void setPosts (PostService postService, String[] names, String[] contents) {
-		List<Post> result = postService.findAll();
-		
-		if(result.size()==0) {
-			System.out.println("더미 게시물 삽입 시작");
-			for (int i=0; i<names.length; i++) {
-				for (String content: contents) {
-					
-					Post post = new Post();
-					Long userId = i+1L;
-					post.setPOST_HOME(userId);
-					post.setPOST_CONT(names[i] + "의 " + content);
-					post.setPOST_WRITER(userId);
-
-					postService.createPost(post);
-					setComments(commentService, names, post.getPOST_ID());
-				}
-			}
-		}
-	}
-	
-	private void setComments (CommentService commentService, String[] names, Long postId) {
-		System.out.println("더미 댓글 삽입 시작");
-		for (int i = 0; i<names.length; i++) {
-			Comment comment = new Comment();
-			Long userId = i + 1L;
-			comment.setPostId(postId);
-			comment.setCommCont(names[i] + "님의 댓글");
-			comment.setCommWriter(userId.toString());
-			
-			commentService.commInsert(comment);
-		}
-		// List<Comment> result = commentService.commAllList(comm);
-	}
-	
-	
 	
 }

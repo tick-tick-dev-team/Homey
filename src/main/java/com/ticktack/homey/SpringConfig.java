@@ -3,18 +3,20 @@ package com.ticktack.homey;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.ticktack.homey.dummy.DummyData;
+import com.ticktack.homey.dummy.DummyDataImpl;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.attach.MemoryAttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
-import com.ticktack.homey.service.attach.AttachService;
-import com.ticktack.homey.service.attach.AttachServiceImpl;
-import com.ticktack.homey.service.comment.CommentService;
-import com.ticktack.homey.service.comment.CommentServiceImpl;
-import com.ticktack.homey.service.post.PostService;
-import com.ticktack.homey.service.post.PostServiceImpl;
+import com.ticktack.homey.service.AttachService;
+import com.ticktack.homey.service.AttachServiceImpl;
+import com.ticktack.homey.service.CommentService;
+import com.ticktack.homey.service.CommentServiceImpl;
+import com.ticktack.homey.service.PostService;
+import com.ticktack.homey.service.PostServiceImpl;
 
 @Configuration
 public class SpringConfig {
@@ -49,5 +51,10 @@ public class SpringConfig {
 	@Bean
 	public CommentService commentService() {
 		return new CommentServiceImpl(commentRepository());
+	}
+	
+	@Bean
+	public DummyData dummyData () {
+		return new DummyDataImpl(postService(), attachService(), commentService());
 	}
 }

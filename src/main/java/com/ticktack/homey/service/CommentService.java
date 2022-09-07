@@ -1,4 +1,4 @@
-package com.ticktack.homey.service.comment;
+package com.ticktack.homey.service;
 
 import java.util.List;
 import java.util.Optional;

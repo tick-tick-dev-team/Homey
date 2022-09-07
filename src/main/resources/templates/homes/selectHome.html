@@ -21,6 +21,9 @@
 							th:text="${post.POST_UPDATE}">수정일</span>
 					</div>
 					<p th:text="${post.POST_CONT}">작성 내용</p>
+					
+					<a href="#" th:if="${post.ATTF_OBJ!=null}" th:text="${post.ATTF_OBJ.ATTF_REALNM}">첨부파일명</a>
+					
 					<div class="btn-wrap flex-end">
 						<a class="btn"
 							th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}"

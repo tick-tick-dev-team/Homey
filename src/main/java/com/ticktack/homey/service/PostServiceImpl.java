@@ -1,10 +1,7 @@
-package com.ticktack.homey.service.post;
+package com.ticktack.homey.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Attach;
@@ -14,6 +11,7 @@ import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+
 
 public class PostServiceImpl implements PostService{
 	
@@ -57,6 +55,11 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public List<Post> findAll() {
 		return postRepository.findAll();
+	}
+	
+	@Override
+	public Optional<Long> findAttfIdById(Long postId) {
+		return postRepository.findAttfIdById(postId);
 	}
 
 	@Override

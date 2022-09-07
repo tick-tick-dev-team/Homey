@@ -1,10 +1,8 @@
-package com.ticktack.homey.service.post;
+package com.ticktack.homey.service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 
@@ -35,4 +33,7 @@ public interface PostService {
 	// test용
 	// 모든 게시물 조회
 	public List<Post> findAll();
+	
+	// 첨부파일 id 조회
+	public Optional<Long> findAttfIdById(Long postId);
 }

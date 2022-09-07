@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.ticktack.homey.domain.Comment;
-import com.ticktack.homey.service.comment.CommentService;
+import com.ticktack.homey.service.CommentService;
 
 @Controller
 public class CommentController {

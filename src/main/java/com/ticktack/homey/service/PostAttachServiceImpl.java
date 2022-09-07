@@ -1,11 +1,8 @@
-package com.ticktack.homey.service.post;
+package com.ticktack.homey.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.repository.attach.AttachRepository;
@@ -62,6 +59,12 @@ public class PostAttachServiceImpl implements PostService{
 
 	@Override
 	public List<PostForm> findAllByHomeId(Long homeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<Long> findAttfIdById(Long postId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
