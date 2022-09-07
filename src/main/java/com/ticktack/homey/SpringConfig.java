@@ -3,6 +3,8 @@ package com.ticktack.homey;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.ticktack.homey.dummy.DummyData;
+import com.ticktack.homey.dummy.DummyDataImpl;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.attach.MemoryAttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
@@ -45,5 +47,10 @@ public class SpringConfig {
 	@Bean
 	public CommentService commentService() {
 		return new CommentServiceImpl(commentRepository());
+	}
+	
+	@Bean
+	public DummyData dummyData () {
+		return new DummyDataImpl(postService(), attachService(), commentService());
 	}
 }
