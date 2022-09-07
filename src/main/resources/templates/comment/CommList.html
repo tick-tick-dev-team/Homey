@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>댓글, 답글 테스트 페이지</title>
+<script type="text/javascript">
+
+/* 댓글 등록 버튼 */
+function commentAdd(){
+	alert("댓글 등록!");
+	return;
+}
+
+</script>
+</head>
+<body>
+	<section>
+		<div>
+			<h2>Comment List</h2>
+			<p th:text="${postId} + '번째 게시글'">해당되는 게시글이 존재하지 않습니다.<p>
+		</div>
+		<div class="comments">
+			<p th:if="${commList.size==0}" class="no-resultList"><small style="color:lightGray;">댓글이 존재하지 않습니다.</small></p>
+			<ul th:unless="${commList.size==0}" class="list-wrap">
+				<li th:each="comm : ${commList}">
+					<span th:text="|${comment.commCont}|">내용</span>
+					<span th:text="|${comment.commUwriter}|" >작성자</span>
+					<span th:text="|${comment.commUdate}|">날짜</span>
+				</li>
+			</ul>
+		</div>
+		<div class="commentAdd">
+			<form>
+				<textarea name="commCont" placeholder="댓글을 입력하세요"></textarea>
+				<button type="button" onclick="javascript:commentAdd();">등록</button>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
