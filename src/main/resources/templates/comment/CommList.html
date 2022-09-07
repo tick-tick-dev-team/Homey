@@ -22,10 +22,10 @@ function commentAdd(){
 		<div class="comments">
 			<p th:if="${commList.size==0}" class="no-resultList"><small style="color:lightGray;">댓글이 존재하지 않습니다.</small></p>
 			<ul th:unless="${commList.size==0}" class="list-wrap">
-				<li th:each="comm : ${commList}">
-					<span th:text="|${comment.commCont}|">내용</span>
-					<span th:text="|${comment.commUwriter}|" >작성자</span>
-					<span th:text="|${comment.commUdate}|">날짜</span>
+				<li th:each="comment : ${commList}">
+					<span th:text="${comment.commCont}">내용</span>
+					<span th:text="${comment.commUwriter}" >작성자</span>
+					<span th:text="${comment.commUdate}">날짜</span>
 				</li>
 			</ul>
 		</div>
