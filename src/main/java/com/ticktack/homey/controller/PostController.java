@@ -66,9 +66,11 @@ public class PostController {
 	
 	// 게시물 등록
 	@PostMapping("/posts/{homeId}/new")
-	public String createPost (@PathVariable("homeId")Long homeId, Post post) {
+	public String createPost (@PathVariable("homeId")Long homeId, PostForm post) {
 		post.setPOST_HOME(homeId);
-		postService.createPost(post);
+		
+		Post newPost = post.getPostFromPostForm();
+		postService.createPost(newPost);
 		
 		return "redirect:/homes/" + homeId;
 	}	

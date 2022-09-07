@@ -56,7 +56,7 @@ public class DummyDataImpl implements DummyData{
 					setComments(post.getPOST_ID());
 					
 					// 첨부파일 추가
-					post.setATTF_ID(setAttach(post.getPOST_ID()));
+					//post.setATTF_ID(setAttach(post.getPOST_ID()));
 				}
 			}
 		}
@@ -76,7 +76,20 @@ public class DummyDataImpl implements DummyData{
 			comment.setCommWriter(userId.toString());
 			
 			commentService.commInsert(comment);
+			if(i%2==0) {
+				setReplyComments(comment);
+			}
 		}		
+	}
+	private void setReplyComments(Comment comment) {
+		Comment reply = new Comment();
+		
+		reply.setPostId(comment.getPostId());
+		reply.setCommCont("-->" + comment.getCommCont() + "에 대한 대댓글");
+		reply.setCommWriter(comment.getCommWriter());
+		reply.setCommUpid(comment.getCommId());
+		
+		commentService.commInsert(reply);
 	}
 
 	// postId 전달하면 해당 게시물에 1개의 첨부파일 정보 생성
