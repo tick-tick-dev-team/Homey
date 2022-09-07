@@ -18,6 +18,10 @@ public interface DummyData {
 	public void setComments(Long postId);
 	
 	
+	// 더미 대댓글
+	public void setReplyComments(Long postId);
+	
+	
 	// 더미 첨부파일 정보
 	public Long setAttach(Long postId);
 
