@@ -1,30 +1,25 @@
-package com.ticktack.homey.service;
+package com.ticktack.homey.service.post;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Attach;
-import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.repository.attach.AttachRepository;
-import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.post.PostRepository;
 
-public class PostServiceImpl implements PostService{
+public class PostAttachServiceImpl implements PostService{
+	// 첨부파일 정보도 가져오는 서비스
 	
 	private final PostRepository postRepository;
-	private final CommentRepository commentRepository;
 	private final AttachRepository attachRepository;
 
-	public PostServiceImpl(PostRepository postRepository, CommentRepository commentRepository, AttachRepository attachRepository) {
+	public PostAttachServiceImpl(PostRepository postRepository, AttachRepository attachRepository) {
 		super();
 		this.postRepository = postRepository;
-		this.commentRepository = commentRepository;
 		this.attachRepository = attachRepository;
 	}
 
@@ -50,6 +45,12 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Long deletePost(Long postId) {
+		// 첨부파일 id가 있으면 삭제
+		Optional<Long> attf_id = Optional.ofNullable(postRepository.findById(postId).get().getATTF_ID());
+		attf_id.ifPresent(id -> {
+			attachRepository.delete(id);
+		});
+		// 게시물 삭제
 		postRepository.delete(postId);
 		return postId;
 	}
@@ -61,26 +62,10 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<PostForm> findAllByHomeId(Long homeId) {
-		List<Post> posts = postRepository.findByHomeId(homeId);
-		
-		List<PostForm> postForms = posts.stream().map(post -> post.getFormFromPost()).collect(Collectors.toList());
-		
-		postForms.forEach(form -> {
-			// 첨부파일 정보 가져오기
-			Optional<Attach> attach = attachRepository.findById(form.getATTF_ID());
-			attach.ifPresent(f -> {
-				form.setATTF_OBJ(f);
-			});
-
-			// 댓글
-			Comment comment = new Comment();
-			comment.setPostId(form.getPOST_ID());
-			List<Comment> comments = commentRepository.commAllList(comment);
-			
-			form.setCOMMENT_LIST(comments);		
-		});
-		return postForms;
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
 	
 
 }

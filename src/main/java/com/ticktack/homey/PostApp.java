@@ -2,7 +2,7 @@ package com.ticktack.homey;
 
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.repository.post.PostRepository;
-import com.ticktack.homey.service.PostService;
+import com.ticktack.homey.service.post.PostService;
 
 public class PostApp {
 

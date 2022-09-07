@@ -9,16 +9,17 @@ import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
-import com.ticktack.homey.service.AttachService;
-import com.ticktack.homey.service.AttachServiceImpl;
-import com.ticktack.homey.service.CommentService;
-import com.ticktack.homey.service.CommentServiceImpl;
-import com.ticktack.homey.service.PostService;
-import com.ticktack.homey.service.PostServiceImpl;
+import com.ticktack.homey.service.attach.AttachService;
+import com.ticktack.homey.service.attach.AttachServiceImpl;
+import com.ticktack.homey.service.comment.CommentService;
+import com.ticktack.homey.service.comment.CommentServiceImpl;
+import com.ticktack.homey.service.post.PostService;
+import com.ticktack.homey.service.post.PostServiceImpl;
 
 @Configuration
 public class SpringConfig {
 	
+	/* 게시글 */
 	@Bean
 	public PostRepository postRepository() {
 		return new MemoryPostRepository();
@@ -29,6 +30,7 @@ public class SpringConfig {
 		return new PostServiceImpl(postRepository(), commentRepository(), attachRepository());
 	}
 	
+	/* 첨부파일 */
 	@Bean
 	public AttachRepository attachRepository() {
 		return new MemoryAttachRepository();
@@ -38,6 +40,8 @@ public class SpringConfig {
 	public AttachService attachService () {
 		return new AttachServiceImpl(attachRepository());
 	}
+	
+	/* 댓글, 답글 */
 	@Bean
 	public CommentRepository commentRepository() {
 		return new MemoryCommRepository();

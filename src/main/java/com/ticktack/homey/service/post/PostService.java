@@ -1,4 +1,4 @@
-package com.ticktack.homey.service;
+package com.ticktack.homey.service.post;
 
 import java.util.List;
 import java.util.Map;

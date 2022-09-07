@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+import com.ticktack.homey.service.post.PostService;
+import com.ticktack.homey.service.post.PostServiceImpl;
 
 class PostServiceImplTest {
 	

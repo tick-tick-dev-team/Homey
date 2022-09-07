@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
-import com.ticktack.homey.service.AttachService;
-import com.ticktack.homey.service.CommentService;
-import com.ticktack.homey.service.PostService;
+import com.ticktack.homey.service.attach.AttachService;
+import com.ticktack.homey.service.comment.CommentService;
+import com.ticktack.homey.service.post.PostService;
 
 @Controller
 public class PostController {
