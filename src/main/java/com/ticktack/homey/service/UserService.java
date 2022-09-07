@@ -12,7 +12,7 @@ import com.ticktack.homey.domain.User;
 public interface UserService {
 
 	//회원가입
-	public User createUser(User user);
+	public String createUser(User user);
 	//회원전체조회
 	public List<User> findByUser();
 	//회원상세조회

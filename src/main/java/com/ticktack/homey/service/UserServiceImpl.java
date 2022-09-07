@@ -16,9 +16,21 @@ public class UserServiceImpl implements UserService {
 	
 	//회원가입
 	@Override
-	public User createUser(User user) {
-		return userRepository.createUser(user);
+	public String createUser(User user) {
+		validateDuplicateNick(user); //중복닉네임검증
+		userRepository.createUser(user);
+		
+		return user.getUsernick();
 	}
+	
+	//중복닉네임검증
+	private void validateDuplicateNick(User user) {
+		userRepository.findByNick(user.getUsernick())
+			.ifPresent(u -> {
+				throw new IllegalStateException("이미 존재하는 별명입니다.");
+			});
+	}
+	
 	//회원전체조회
 	@Override
 	public List<User> findByUser(){
@@ -42,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	}
 	//로그인
 	/*@Override
-	public User login(User user) {
+	public Boolean login(User user) {
 		return userRepository.login(user);
 	}*/
 	//세션확인

@@ -70,16 +70,14 @@ public class MemoryUserRepository implements UserRepository{
 
 	//회원탈퇴
 	@Override
-	public void deleteUser(Long userId) {
-		store.remove(userId);
+	public void deleteUser(Long userid) {
+		store.remove(userid);
 	}
 	
+	//로그인시 패스워드
 	@Override
-	public User login(User user){
-		user.getUserid();
-		user.getUserpass();
-		/*https://kitty-geno.tistory.com/131 를 봤는데 헷갈려짐*/	
-		return user;
+	public Optional<User> findByPass(String userpass){
+		return Optional.ofNullable(store.get(userpass));
 	}
 	
 	/*@Override

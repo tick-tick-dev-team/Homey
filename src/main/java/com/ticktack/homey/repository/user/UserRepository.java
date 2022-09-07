@@ -23,10 +23,10 @@ public interface UserRepository {
 		User updateUser(User user);
 		
 		//회원탈퇴
-		void deleteUser(Long userId);
+		void deleteUser(Long userid);
 		
-		//로그인
-		User login(User user);
+		//로그인시 패스워드
+		Optional<User> findByPass(String userpass);
 		
 		//세션확인
 		//Session Session(Session session);
