@@ -35,4 +35,7 @@ public interface PostService {
 	// test용
 	// 모든 게시물 조회
 	public List<Post> findAll();
+	
+	// 첨부파일 id 조회
+	public Optional<Long> findAttfIdById(Long postId);
 }

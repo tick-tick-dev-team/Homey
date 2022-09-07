@@ -3,6 +3,7 @@ package com.ticktack.homey.domain;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class Post {
 	
@@ -80,6 +81,7 @@ public class Post {
 		ATTF_ID = aTTF_ID;
 	}
 	
+	// Post를 PostForm 객체로 변환해서 반환
 	public PostForm getFormFromPost() {
 		
 		PostForm form = new PostForm();
@@ -88,8 +90,8 @@ public class Post {
 		form.setPOST_CONT(this.getPOST_CONT());
 		form.setPOST_HOME(this.getPOST_HOME());
 		
-		form.setPOST_DATE(this.getPOST_DATE().toString());
-		form.setPOST_UPDATE(this.getPOST_UPDATE().toString());
+		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> form.setPOST_DATE(s.toString()));
+		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> form.setPOST_UPDATE(s.toString()));
 		
 		form.setPOST_WRITER(this.getPOST_WRITER());
 		form.setPOST_UWRITER(this.getPOST_UWRITER());

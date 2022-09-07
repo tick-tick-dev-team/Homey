@@ -1,7 +1,10 @@
 package com.ticktack.homey.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -116,6 +119,26 @@ public class PostForm {
 		COMMENT_LIST = cOMMENT_LIST;
 	}
 	
+	
+	// PostForm을 Post 객체로 변환해서 반환
+	public Post getPostFromPostForm () {
+		Post post = new Post();
+		
+		post.setPOST_ID(this.getPOST_ID());
+		post.setPOST_CONT(this.getPOST_CONT());
+		post.setPOST_HOME(this.getPOST_HOME());
+		
+		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> post.setPOST_DATE(LocalDateTime.parse(s)));
+		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> post.setPOST_UPDATE(LocalDateTime.parse(s)));
+		
+		post.setPOST_WRITER(this.getPOST_WRITER());
+		post.setPOST_UWRITER(this.getPOST_UWRITER());
+		
+		post.setATTF_ID(this.getATTF_ID());
+		
+		return post;		
+	}
+
 
 	
 	
