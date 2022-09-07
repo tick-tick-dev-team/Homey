@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.dummy.DummyData;
@@ -47,6 +48,16 @@ public class CommentController {
 		model.addAttribute("commList", result);
 		model.addAttribute("postId", postId);
 		return "comment/CommList";
+	}
+	
+	/**
+	 * ajax
+	 * */
+	@GetMapping("/commentAdd")
+	@ResponseBody
+	public String commentAdd(Model model) {
+		System.out.println("ajax 호출!");
+		return "success!!";
 	}
 	
 

@@ -6,10 +6,31 @@
 <script type="text/javascript">
 
 /* 댓글 등록 버튼 */
-function commentAdd(form){
-	document.forms[] 
-	alert("댓글 등록!");
-	return;
+function commentAdd(){
+	var frm = document.getElementById("frm");
+	console.log(frm.commCont.value);
+	console.log(frm.commWriter.value);
+	console.log(frm.postId.value);
+	
+	// AJAX 호출
+	httpRequest = new XMLHttpRequest();
+    httpRequest.open('GET', '/commentAdd', true);
+    httpRequest.responseType = "json";
+    httpRequest.send();
+    
+    httpRequest.onreadystatechange = () => {
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		     if (httpRequest.status === 200) {
+		    	 /* alert(httpRequest.response);
+		    	 alert(httpRequest.responseText);
+		    	 alert(httpRequest.text); */
+		     } else { 
+		    	 alert("실패"); 
+		     }
+		}
+	} 
+
+ // AJAX 호출 끝
 }
 
 </script>
@@ -27,12 +48,15 @@ function commentAdd(form){
 					<span th:text="${comment.commCont}">내용</span>
 					<span th:text="${comment.commUwriter}" >작성자</span>
 					<span th:text="${comment.commUdate}">날짜</span>
+					<button type="button">답글</button>
 				</li>
 			</ul>
 		</div>
-		<div class="commentAdd">
-			<form name="comment">
+		<div class="commentAdd"> 
+			<form id="frm">
 				<textarea name="commCont" placeholder="댓글을 입력하세요"></textarea>
+				<input type="hidden" name="postId" th:value="${postId}" />
+				<input type="hidden" name="commWriter" value="popdo" />
 				<button type="button" onclick="javascript:commentAdd();">등록</button>
 			</form>
 		</div>
