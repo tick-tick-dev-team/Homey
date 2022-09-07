@@ -65,6 +65,12 @@ public class PostAttachServiceImpl implements PostService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Optional<Long> findAttfIdById(Long postId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

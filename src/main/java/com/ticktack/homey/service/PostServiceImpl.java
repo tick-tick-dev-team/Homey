@@ -58,6 +58,11 @@ public class PostServiceImpl implements PostService{
 	public List<Post> findAll() {
 		return postRepository.findAll();
 	}
+	
+	@Override
+	public Optional<Long> findAttfIdById(Long postId) {
+		return postRepository.findAttfIdById(postId);
+	}
 
 	@Override
 	public List<PostForm> findAllByHomeId(Long homeId) {
