@@ -31,7 +31,6 @@ public class DummyDataImpl implements DummyData{
 	@Override
 	public void setUsers() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	// usernames 개수만큼 homeId 생성 -> 하나의 홈에 postContents 개수만큼 게시물 생성
@@ -54,13 +53,13 @@ public class DummyDataImpl implements DummyData{
 					
 					// 댓글 추가
 					setComments(post.getPOST_ID());
-					
+					// 대댓글 추가
+					setReplyComments(post.getPOST_ID());
 					// 첨부파일 추가
 					post.setATTF_ID(setAttach(post.getPOST_ID()));
 				}
 			}
 		}
-		
 	}
 
 	// postId 전달하면 해당 게시물에 usernames 개수만큼 댓글 생성
@@ -76,7 +75,28 @@ public class DummyDataImpl implements DummyData{
 			comment.setCommWriter(userId.toString());
 			
 			commentService.commInsert(comment);
-		}		
+		}
+	}
+	
+	@Override
+	public void setReplyComments(Long postId) {
+		System.out.println("더미 대댓글 삽입 시작");
+		Comment tmp = new Comment();
+		tmp.setPostId(postId);
+		List<Comment> comments = commentService.commAllList(tmp);
+		
+		for (Comment comment : comments) {
+			if(comment.getCommId()%2!=0) {
+				Comment reply = new Comment();
+				
+				reply.setPostId(comment.getPostId());
+				reply.setCommCont("-->" + comment.getCommCont() + "에 대한 대댓글");
+				reply.setCommWriter(comment.getCommWriter());
+				reply.setCommUpid(comment.getCommId());
+				
+				commentService.commInsert(reply);
+			}
+		}
 	}
 
 	// postId 전달하면 해당 게시물에 1개의 첨부파일 정보 생성
@@ -94,7 +114,7 @@ public class DummyDataImpl implements DummyData{
 		attach.setATTF_SIZE(filenames[Id].length() + 0L);
 		
 		attachService.createAttach(attach);
-		System.out.println(attach.toString());
+		//System.out.println(attach.toString());
 		
 		return attach.getATTF_ID();
 	}
