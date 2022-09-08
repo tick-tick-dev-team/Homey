@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="configFragment">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            
+            <!-- 공통 css -->
+            <!-- 로컬 -->
+            <!-- <link rel="stylesheet" href="../../static/css/style.css">
+            <link rel="stylesheet" href="../../static/css/main.css"> -->
+    
+            <!-- 서버 -->
+            <link rel="stylesheet" th:href="@{/css/style.css}">
+            <link rel="stylesheet" th:href="@{/css/main.css}">
+            
+            <!-- 공통 js plugins -->
+            <script src="https://kit.fontawesome.com/451f49eee4.js" crossorigin="anonymous"></script>
+    
+    
+            <!-- default_layout 사용하는 페이지 단독으로 넣을 css 공간 -->
+            <th:block layout:fragment="css">
+    
+            </th:block>
+    
+            <!-- default_layout 사용하는 페이지 단독으로 넣을 script 공간 -->
+            <th:block layout:fragment="script">
+    
+            </th:block>
+        </head>
+
+
+    </th:block>
+</html>

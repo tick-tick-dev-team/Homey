@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+    <head>
+
+    
+        <!-- 로컬 -->
+        <!-- <link rel="stylesheet" href="../../static/css/style.css">
+        <link rel="stylesheet" href="../../static/css/main.css">
+
+        <script src="https://kit.fontawesome.com/451f49eee4.js" crossorigin="anonymous"></script> -->
+    </head>
+
+<th:block th:fragment="headerFragment">
+    <!-- header -->
+    <header id="main-header">
+        <div class="container flex-between">
+            <h1>
+                <a class="logo" href="#">Homey</a>
+                <i class="fa-solid fa-house"></i>
+            </h1>
+            
+            
+            <ul class="flex-end">
+                <li><a href="/users/login" th:value="로그인">로그인</a></li>
+                <li><a href="/users/join" th:value="회원가입">회원가입</a></li>
+            </ul>
+        </div>
+    </header>
+</th:block>
+</html>

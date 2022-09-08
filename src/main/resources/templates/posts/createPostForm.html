@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+	<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default_layout}">	
+
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css"></th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script"></th:block>	
+
+<body layout:fragment="content">
 	<section>
 	    <form th:action="@{|/posts/${homeId}/new|}" method="post">
 	        <!-- 회원정보 -->
