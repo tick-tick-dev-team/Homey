@@ -2,11 +2,11 @@ package com.ticktack.homey.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ticktack.homey.domain.Comment;
@@ -53,13 +53,17 @@ public class CommentController {
 	}
 	
 	/**
-	 * ajax 
+	 * 댓글 등록
 	 * */
-	@GetMapping("/commentAdd")
+	@PostMapping("/commentAdd")
 	@ResponseBody
-	public String commentAdd(HttpServletRequest request, Model model) {
-		System.out.println("ajax 호출!");
-		return "success!!";
+	public Comment commentAdd(@RequestBody Comment comm , Model model) {
+		Comment result = new Comment();
+		
+		result = commentService.commInsert(comm);
+		System.out.println(result.toString());
+		
+		return result;
 	}
 	
 

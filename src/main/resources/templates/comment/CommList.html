@@ -8,25 +8,36 @@
 /* 댓글 등록 버튼 */
 function commentAdd(){
 	var frm = document.getElementById("frm");
-	console.log(frm.commCont.value);
-	console.log(frm.commWriter.value);
-	console.log(frm.postId.value);
 	
 	// AJAX 호출
 	httpRequest = new XMLHttpRequest();
-    httpRequest.open('GET', '/commentAdd', true);
-    httpRequest.responseType = "json";
-    httpRequest.send();
+    httpRequest.open('POST', '/commentAdd', true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    var data = {
+    		commCont   : frm.commCont.value,
+    		commWriter : frm.commWriter.value,
+    		postId     : frm.postId.value
+    		};
+    
+    // 받는 타입을 정해주면 JSON 타입이 아니면 controller에서 넘겨줘도 못받음
+    //httpRequest.responseType = "json";
+    
+    httpRequest.send(JSON.stringify(data));
     
     httpRequest.onreadystatechange = () => {
 	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
 		     if (httpRequest.status === 200) {
-		    	 /* alert(httpRequest.response);
-		    	 alert(httpRequest.responseText);
-		    	 alert(httpRequest.text); */
-		    	 console.log(httpRequest.responseText); // 전송된 데이터가 출력됨
-		         const result = JSON.parse(httpRequest.response);
-		    	 alert(result);
+		    	 // JSON 타입
+		    	 console.log(httpRequest.response);
+		    	 var result = JSON.parse(httpRequest.response);
+		    	 console.log(result.commCont);
+		    	 
+		    	 const ul = document.getElementsByClassName("list-wrap")[0];
+		    	 const li = document.createElement("li");
+		    	 const textNode = document.createTextNode(result.commCont);
+		    	 li.appendChild(textNode);
+		    	 ul.appendChild(li);
+		    	 frm.commCont.value = "";
 		     } else { 
 		    	 alert("실패"); 
 		     }
@@ -46,7 +57,7 @@ function commentAdd(){
 		</div>
 		<div class="comments">
 			<p th:if="${commList.size==0}" class="no-resultList"><small style="color:lightGray;">댓글이 존재하지 않습니다.</small></p>
-			<ul th:unless="${commList.size==0}" class="list-wrap">
+			<ul id="commUl" th:unless="${commList.size==0}" class="list-wrap">
 				<li th:each="comment : ${commList}">
 					<span th:text="${comment.commCont}">내용</span>
 					<span th:text="${comment.commUwriter}" >작성자</span>
