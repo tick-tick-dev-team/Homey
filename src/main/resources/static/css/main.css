@@ -1,0 +1,46 @@
+#main-header {
+    position: fixed;
+    top: 0;
+    background-color: yellow;
+    height: 8em;
+}
+
+.container {
+    width:80em;
+    margin: 0 auto;
+}
+
+#main-header .logo a {
+    font-size: 2.6em;
+}
+#main-header ul {
+    width: 11em;
+}
+#main-header li {
+    width:45%;
+}
+#main-header li a {
+    font-size: 1.2em;
+}
+#main-header li:hover a {
+    color: aqua;
+}
+
+#main-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #ededed;
+    padding: 1em 0;
+}
+
+#main-footer .developers h3 {
+    margin-bottom: 1em;
+}
+#main-footer .developers ul li {
+    margin-bottom: 1em;
+}
+#main-footer .developers ul li:last-child {
+    margin-bottom: 0;
+}
