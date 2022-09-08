@@ -24,6 +24,9 @@ function commentAdd(){
 		    	 /* alert(httpRequest.response);
 		    	 alert(httpRequest.responseText);
 		    	 alert(httpRequest.text); */
+		    	 console.log(httpRequest.responseText); // 전송된 데이터가 출력됨
+		         const result = JSON.parse(httpRequest.response);
+		    	 alert(result);
 		     } else { 
 		    	 alert("실패"); 
 		     }

@@ -2,6 +2,8 @@ package com.ticktack.homey.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +57,7 @@ public class CommentController {
 	 * */
 	@GetMapping("/commentAdd")
 	@ResponseBody
-	public String commentAdd(Model model) {
+	public String commentAdd(HttpServletRequest request, Model model) {
 		System.out.println("ajax 호출!");
 		return "success!!";
 	}
