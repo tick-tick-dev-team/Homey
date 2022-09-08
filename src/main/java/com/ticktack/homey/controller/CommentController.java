@@ -24,7 +24,7 @@ public class CommentController {
 	
 	
 	/**
-	 * 댓글
+	 * 게시글 테스트
 	 * */
 	@GetMapping("/postList")
 	public String postListMain() {
@@ -32,7 +32,7 @@ public class CommentController {
 	}
 	
 	/**
-	 * 댓글
+	 * 댓글 목록
 	 * */
 	@GetMapping("/comment")
 	public String CommListMain(String num, Model model) {
@@ -51,7 +51,7 @@ public class CommentController {
 	}
 	
 	/**
-	 * ajax
+	 * ajax 
 	 * */
 	@GetMapping("/commentAdd")
 	@ResponseBody
