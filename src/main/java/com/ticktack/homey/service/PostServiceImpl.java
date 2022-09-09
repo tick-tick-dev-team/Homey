@@ -2,28 +2,22 @@ package com.ticktack.homey.service;
 
 import java.util.List;
 import java.util.Optional;
+<<<<<<< HEAD
+=======
 import java.util.stream.Collectors;
+>>>>>>> refs/heads/main
 
-import com.ticktack.homey.domain.Attach;
-import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
-import com.ticktack.homey.domain.PostForm;
-import com.ticktack.homey.repository.attach.AttachRepository;
-import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.post.PostRepository;
 
 
 public class PostServiceImpl implements PostService{
 	
 	private final PostRepository postRepository;
-	private final CommentRepository commentRepository;
-	private final AttachRepository attachRepository;
 
-	public PostServiceImpl(PostRepository postRepository, CommentRepository commentRepository, AttachRepository attachRepository) {
+	public PostServiceImpl(PostRepository postRepository) {
 		super();
 		this.postRepository = postRepository;
-		this.commentRepository = commentRepository;
-		this.attachRepository = attachRepository;
 	}
 
 	@Override
@@ -56,6 +50,8 @@ public class PostServiceImpl implements PostService{
 		return postId;
 	}
 
+<<<<<<< HEAD
+=======
 	@Override
 	public List<Post> findAll() {
 		return postRepository.findAll();
@@ -90,4 +86,5 @@ public class PostServiceImpl implements PostService{
 	}
 	
 
+>>>>>>> refs/heads/main
 }

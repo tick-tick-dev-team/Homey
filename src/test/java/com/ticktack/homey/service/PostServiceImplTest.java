@@ -21,7 +21,7 @@ class PostServiceImplTest {
 	@BeforeEach
 	public void beforeEach () {
 		postRepository = new MemoryPostRepository();
-		postService = new PostServiceImpl(postRepository, null, null);
+		postService = new PostServiceImpl(postRepository);
 	}
 	
 	@AfterEach

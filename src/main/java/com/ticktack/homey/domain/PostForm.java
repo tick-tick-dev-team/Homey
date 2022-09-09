@@ -1,3 +1,4 @@
+
 package com.ticktack.homey.domain;
 
 import java.time.LocalDateTime;
