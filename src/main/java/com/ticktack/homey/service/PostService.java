@@ -25,4 +25,14 @@ public interface PostService {
 	
 	// 게시물 삭제
 	public Long deletePost(Long postId);
+<<<<<<< HEAD
+=======
+	
+	// test용
+	// 모든 게시물 조회
+	public List<Post> findAll();
+	
+	// 첨부파일 id 조회
+	public Optional<Long> findAttfIdById(Long postId);
+>>>>>>> refs/heads/main
 }

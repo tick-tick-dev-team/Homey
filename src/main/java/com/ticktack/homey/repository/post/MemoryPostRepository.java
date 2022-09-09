@@ -70,6 +70,12 @@ public class MemoryPostRepository implements PostRepository {
 		store.clear();
 	}
 
+	@Override
+	public Optional<Long> findAttfIdById(Long postId) {
+		// 게시물 첨부파일 id 반환
+		return Optional.ofNullable(store.get(postId).getATTF_ID());
+	}
+
 
 
 }

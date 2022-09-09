@@ -1,19 +1,17 @@
 package com.ticktack.homey.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
-import com.ticktack.homey.repository.post.PostRepository;
+
 
 class PostServiceImplTest {
 	

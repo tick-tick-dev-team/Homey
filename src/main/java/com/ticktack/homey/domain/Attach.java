@@ -67,6 +67,16 @@ public class Attach {
 		ATTF_SIZE = aTTF_SIZE;
 	}
 	
+	@Override
+	public String toString() {
+		return "첨부파일 id : " + ATTF_ID +
+				" / 첨부파일 경로 : " + ATTF_ROUTE + 
+				" / 서버측 파일명 : " + ATTF_SERNM + 
+				" / 실제 파일명 : " + ATTF_REALNM + 
+				" / 파일 확장자 : " + ATTF_EXE + 
+				" / 파일 사이즈 : " + ATTF_SIZE + "KB";
+	}
+	
 	
 
 }

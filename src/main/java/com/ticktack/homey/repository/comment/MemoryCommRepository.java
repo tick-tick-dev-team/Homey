@@ -66,6 +66,7 @@ public class MemoryCommRepository implements CommentRepository {
 	public Comment commInsert(Comment comm) {
 		comm.setCommDate(new Date());
 		comm.setCommUdate(new Date());
+		comm.setCommUwriter(comm.getCommWriter());
 		comm.setCommId(++commSequence);
 		boolean result = commExist(comm);
 		if( result) {
