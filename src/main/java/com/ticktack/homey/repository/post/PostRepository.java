@@ -29,8 +29,6 @@ public interface PostRepository {
 	// 게시물 1개 조회
 	Optional<Post> findById(Long postId);
 	
-	
-
 	// 첨부파일 id 조회
 	Optional<Long> findAttfIdById (Long postId);
 	
