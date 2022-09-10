@@ -1,5 +1,6 @@
 package com.ticktack.homey.repository.post;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class MemoryPostRepository implements PostRepository {
 	public Post save(Post post) {
 		// id, 생성일, 수정일 넣고 저장
 		post.setPOST_ID(++sequence);
-		post.setPOST_DATE(new Date());
+		post.setPOST_DATE(LocalDateTime.now());
 		post.setPOST_UPDATE(post.getPOST_DATE());		
 		
 		store.put(post.getPOST_ID(), post);
@@ -37,7 +38,7 @@ public class MemoryPostRepository implements PostRepository {
 	@Override
 	public Post update(Post post) {
 		// 수정 일시 변경 후 저장
-		post.setPOST_UPDATE(new Date());
+		post.setPOST_UPDATE(LocalDateTime.now());
 		store.put(post.getPOST_ID(), post);
 		return store.get(post.getPOST_ID());
 	}
