@@ -1,16 +1,17 @@
 package com.ticktack.homey.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ticktack.homey.domain.Comment;
 
 public interface CommentService {
 	
-	// 댓글 조회
+	// 댓글, 답글 전체 조회
 	List<Comment> commAllList(Comment comm);
 	
-	// 답글 조회
-	List<Comment> replyAllList(Comment comm);
+	// 댓글, 답글 한건 조회
+	Optional<Comment> findById(Comment comm);
 	
 	// 댓글, 답글 등록
 	Comment commInsert(Comment comm);
@@ -19,7 +20,7 @@ public interface CommentService {
 	Comment commUpdate(Comment comm);
 	
 	// 댓글, 답글 삭제
-	int commDelete(Comment comm);
+	boolean commDelete(Comment comm);
 	
 	
 
