@@ -1,7 +1,7 @@
+
 package com.ticktack.homey;
 
 import com.ticktack.homey.domain.Post;
-import com.ticktack.homey.repository.post.PostRepository;
 import com.ticktack.homey.service.PostService;
 
 public class PostApp {
@@ -22,3 +22,4 @@ public class PostApp {
 	}
 
 }
+

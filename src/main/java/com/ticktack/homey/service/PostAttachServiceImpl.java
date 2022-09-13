@@ -1,11 +1,8 @@
 package com.ticktack.homey.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.repository.attach.AttachRepository;

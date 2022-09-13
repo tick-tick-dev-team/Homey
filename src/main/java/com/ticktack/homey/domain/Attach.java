@@ -1,7 +1,6 @@
 package com.ticktack.homey.domain;
 
 public class Attach {
-	
 	// 첨부파일 ID (auto-increment)
 	Long ATTF_ID;
 	

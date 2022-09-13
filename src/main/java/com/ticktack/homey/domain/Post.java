@@ -82,6 +82,7 @@ public class Post {
 	}
 	
 	// Post를 PostForm 객체로 변환해서 반환
+
 	public PostForm getFormFromPost() {
 		
 		PostForm form = new PostForm();

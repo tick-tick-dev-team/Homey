@@ -87,10 +87,20 @@ public class Comment {
 
 	@Override
 	public String toString() {
+		return "Comment [commId=" + commId + ", postId=" + postId + ", commUpid=" + commUpid + ", commCont=" + commCont
+				+ ", commWriter=" + commWriter + ", commDate=" + commDate + ", commUwriter=" + commUwriter
+				+ ", commUdate=" + commUdate + "]";
+	}
+
+/*	@Override
+	public String toString() {
 		return "댓글 [댓글ID=" + commId + ", 게시글ID=" + postId + ", 댓글상위ID=" + commUpid + ", 댓글내용=" + commCont
 				+ ", 작성자=" + commWriter + ", 작성일자=" + commDate + ", 수정자=" + commUwriter
 				+ ", 수정일자=" + commUdate + "]";
 	}
+	
+	*/
+	
 	
 	
 
