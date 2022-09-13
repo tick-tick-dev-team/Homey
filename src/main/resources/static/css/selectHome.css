@@ -1,0 +1,131 @@
+#selectHome .container {
+    width: 70em;
+}
+
+
+section {
+    position: relative;
+    padding: 2em;
+    margin: 2em 0;
+}
+#selectHome section {
+    background-color: #ededed;
+}
+section .section-header {
+    position: relative;
+    height: auto;
+    margin-bottom: 2em;
+}
+section .section-title {
+    text-align: center;
+    font-size: 2em;
+}
+#postList .section-header .btn-new {
+    position : absolute;
+    right: 0;
+    top: 0;
+    font-size: 1.5em;
+    padding: 0.4em 2em;
+    font-weight: bold;
+}
+#postList .no-resultList {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 2em;
+    background-color: #fff
+}
+
+/* 바로 아래 자식 li에만 적용 */
+#postList .list-wrap > li {
+    height: auto;
+    background-color: #fff;
+    margin-bottom: 2em;
+}
+#postList .list-wrap > li:last-child {
+    margin-bottom: 0;
+}
+#postList .list-wrap li .content-wrap {
+    padding: 1em;
+}
+#postList .list-wrap li .content-wrap .info {
+    font-size: 1.2em;
+}
+
+/* 세로줄 삽입 */
+#postList .list-wrap li .content-wrap .info span::after {
+    content: "";
+    display: inline-block;
+    width: 0.1em;
+    height: 1em;
+    margin: 0 0.8em;
+    background-color: #e4e8eb;
+    vertical-align: -0.1em;
+}
+
+#postList .list-wrap li .content-wrap .content p {
+    margin: 1em 0;
+    font-size: 1.5em;
+}
+#postList .list-wrap li .content-wrap .attf-name a{
+    color: blue;
+}
+#postList .list-wrap li .content-wrap .attf-name:hover a {
+    color: rgb(0, 110, 255);
+}
+#postList .list-wrap li .btn-wrap a, 
+#postList .list-wrap li .btn-wrap button{
+    font-size: 1.2em;
+    padding: 0.3em 0.7em;
+}
+#postList .list-wrap li .content-wrap .btn-wrap a {
+    margin-right: 0.3em;
+}
+
+#postList .list-wrap li .comments {
+    background-color: #FDDCE5;
+}
+#postList .list-wrap li .comments ul {
+    /* border-bottom: 1px solid #ededed; */
+    padding: 1em;
+}
+
+#postList .list-wrap li .comments ul > li {
+    margin-bottom:1em;
+}
+#postList .list-wrap li .comments ul > li:last-child {
+    margin-bottom:0;
+}
+
+#postList .list-wrap li .comments .info span::after {
+    content: "";
+    display: inline-block;
+    width: 0.1em;
+    height: 1em;
+    margin: 0 0.5em;
+    background-color: grey;
+    vertical-align: -0.1em;
+}
+#postList .list-wrap li .comments .content {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+}
+#postList .list-wrap li .comments .input-wrap {
+    width: 100%;
+    background-color: #fcecf0;
+    padding: 1em;
+}
+#postList .list-wrap li .comments .input-wrap input {
+    width: 90%;
+    padding: 0.5em;
+}
+#postList .list-wrap li .comments .input-wrap button{
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+}
+#postList .list-wrap li .comments .btn-wrap a, 
+#postList .list-wrap li .comments .btn-wrap button{
+    font-size: 1em;
+    padding: 0.3em 0.7em;
+}
+
+

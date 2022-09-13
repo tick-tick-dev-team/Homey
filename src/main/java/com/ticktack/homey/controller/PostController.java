@@ -47,6 +47,16 @@ public class PostController {
 		//List<Post> postList = postService.findByHomeId(homeId);
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
 		
+		// 더미 첨부파일 정보, 댓글, 대댓글 삽입
+		for (PostForm form : postFormList) {
+			dummyData.setAttach(form.getPOST_ID());
+//			dummyData.setComments(form.getPOST_ID());
+//			dummyData.setReplyComments(form.getPOST_ID());
+		}
+		
+		// 더미 집주인
+		model.addAttribute("owner", dummyData.getUser(homeId.intValue()));
+		
 		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
 		
@@ -59,6 +69,8 @@ public class PostController {
 	@GetMapping("/posts/{homeId}/new")
 	public String createPostForm(@PathVariable("homeId")Long homeId, Model model) {
 		model.addAttribute("homeId", homeId);
+		// 더미 로그인 유저
+		model.addAttribute("writer", dummyData.getUser(homeId.intValue()));
 		
 		return "posts/createPostForm";
 	}

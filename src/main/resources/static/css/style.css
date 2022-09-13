@@ -59,10 +59,14 @@ input:focus {
 
 html {
     /* 10px -> 1rem */
-    font-size: 62.5%; 
+    font-size: 62.5%;     
+    /* font-family: 'Nanum Myeongjo', serif; */
+    font-family: 'Noto Sans KR', sans-serif;
 }
 body {
     position: relative;
-    overflow: hidden;
-    padding: 8em 0 10em;
+    padding-top: 8.5em;
+    overflow:auto;
+    min-height: 100%;
+    height: auto;
 }

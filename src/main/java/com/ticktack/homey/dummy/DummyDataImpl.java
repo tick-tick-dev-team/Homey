@@ -5,19 +5,23 @@ import java.util.List;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
+import com.ticktack.homey.domain.User;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.CommentService;
 import com.ticktack.homey.service.PostService;
+import com.ticktack.homey.service.UserService;
 
 public class DummyDataImpl implements DummyData{
 	
 	// userService 추가 필요
+	private final UserService userService;
 	private final PostService postService;
 	private final AttachService attachService;
 	private final CommentService commentService;
 
-	public DummyDataImpl(PostService postService, AttachService attachService, CommentService commentService) {
+	public DummyDataImpl(UserService userService, PostService postService, AttachService attachService, CommentService commentService) {
 		super();
+		this.userService = userService;
 		this.postService = postService;
 		this.attachService = attachService;
 		this.commentService = commentService;
@@ -30,7 +34,20 @@ public class DummyDataImpl implements DummyData{
 
 	@Override
 	public void setUsers() {
-		// TODO Auto-generated method stub
+//		List<User> result = userService.findByUser();
+//		
+//		// 추후 진행
+//		if(result.size()==0) {
+//			System.out.println("더미 사용자 삽입 시작");
+//		}	
+		
+	}
+	@Override
+	public User getUser(int num) {
+		User user = new User();
+		user.setUser_id(num+0L);
+		user.setUsernick(usernames[num-1]);
+		return user;
 	}
 
 	// usernames 개수만큼 homeId 생성 -> 하나의 홈에 postContents 개수만큼 게시물 생성
@@ -50,13 +67,6 @@ public class DummyDataImpl implements DummyData{
 					post.setPOST_WRITER(userId);
 
 					postService.createPost(post);
-					
-					// 댓글 추가
-					setComments(post.getPOST_ID());
-					// 대댓글 추가
-					setReplyComments(post.getPOST_ID());
-					// 첨부파일 추가
-					post.setATTF_ID(setAttach(post.getPOST_ID()));
 				}
 			}
 		}
@@ -85,18 +95,21 @@ public class DummyDataImpl implements DummyData{
 		tmp.setPostId(postId);
 		List<Comment> comments = commentService.commAllList(tmp);
 		
-		for (Comment comment : comments) {
-			if(comment.getCommId()%2!=0) {
-				Comment reply = new Comment();
-				
-				reply.setPostId(comment.getPostId());
-				reply.setCommCont("-->" + comment.getCommCont() + "에 대한 대댓글");
-				reply.setCommWriter(comment.getCommWriter());
-				reply.setCommUpid(comment.getCommId());
-				
-				commentService.commInsert(reply);
+		if(comments!=null) {
+			for (Comment comment : comments) {
+				if(comment.getCommId()%2!=0) {
+					Comment reply = new Comment();
+					
+					reply.setPostId(comment.getPostId());
+					reply.setCommCont("-->" + comment.getCommCont() + "에 대한 대댓글");
+					reply.setCommWriter(comment.getCommWriter());
+					reply.setCommUpid(comment.getCommId());
+					
+					commentService.commInsert(reply);
+				}
 			}
 		}
+
 	}
 
 	// postId 전달하면 해당 게시물에 1개의 첨부파일 정보 생성
