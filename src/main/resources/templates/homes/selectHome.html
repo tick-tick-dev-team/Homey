@@ -1,11 +1,18 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+	<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default_layout}">	
+
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css"></th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script"></th:block>	
+	
+<body layout:fragment="content">
 	<section id="postList">
 		<h1>흔적 남기기</h1>
 		<a class="btn-border bg-green" th:href="@{|/posts/${homeId}/new|}"
@@ -44,7 +51,50 @@
 			</li>
 		</ul>
 	</section>
-	
+
+	<h1>테스트용 시작</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용</h1>
+	<h1>테스트용 마지막</h1>
 
 </body>
 </html>

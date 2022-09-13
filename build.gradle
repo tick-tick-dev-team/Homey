@@ -14,8 +14,20 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
+		
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test:2.2.2.RELEASE') {
+    	exclude group: 'junit'
+    	exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
+	testImplementation('org.junit.jupiter:junit-jupiter-engine:5.5.2')
+	testImplementation('org.junit.jupiter:junit-jupiter-params:5.5.2')
+
 }
 
 tasks.named('test') {
