@@ -21,7 +21,7 @@ public class MemoryPostRepository implements PostRepository {
 		// id, 생성일, 수정일 넣고 저장
 		post.setPOST_ID(++sequence);
 		post.setPOST_DATE(LocalDateTime.now());
-		post.setPOST_UPDATE(post.getPOST_DATE());		
+//		post.setPOST_UPDATE(post.getPOST_DATE());		
 		
 		store.put(post.getPOST_ID(), post);
 		return store.get(post.getPOST_ID());

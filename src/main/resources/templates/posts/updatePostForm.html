@@ -17,12 +17,14 @@
 </head>	
 
 <!-- 고유 CSS 추가 -->
-<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/postForm.css}">
+</th:block>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script"></th:block>	
 
-<body id="updatePostForm" class="postFormBody" layout:fragment="content">
+<body id="PostForm" layout:fragment="content">
 	<div class="container">
 		<section>
 			<h1 class="section-title">게시물 수정</h1>

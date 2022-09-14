@@ -1,19 +1,22 @@
-.postFormBody .container {
+#PostForm .container {
     width: 70em;
 }
-.postFormBody form {
+#PostForm section {
+    background-color: #ededed;
+}
+#PostForm form {
     width: 100%;
 }
-.postFormBody form .form-group {
+#PostForm form .form-group {
     width: 100%;
     margin: 1em 0;
     position: relative;
 }
-.postFormBody form .form-group #POST_CONT {
+#PostForm form .form-group #POST_CONT {
     width: 100%;
     padding: 0.5em;
 }
-.postFormBody button {
+#PostForm button {
     margin-top:0.5em;
     font-size: 1.5em;
     padding: 0.4em 2em;

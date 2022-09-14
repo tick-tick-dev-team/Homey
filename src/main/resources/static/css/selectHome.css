@@ -1,25 +1,34 @@
-#selectHome .container {
+#selectHome #content .container {
     width: 70em;
-}
-
-
-section {
-    position: relative;
-    padding: 2em;
-    margin: 2em 0;
 }
 #selectHome section {
     background-color: #ededed;
 }
-section .section-header {
-    position: relative;
-    height: auto;
-    margin-bottom: 2em;
+
+/* 프로필 영역 */
+section#profile {
+    width: 70%;
+    background-color: #fff;
+    padding: 1em;
+    margin: 2em auto;
 }
-section .section-title {
-    text-align: center;
-    font-size: 2em;
+#profile .img-wrap {
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 2em;
 }
+#profile .intro-wrap {
+    font-size: 1.5em;
+    max-width: calc(100% - 10em);
+}
+#profile .intro-wrap p {
+    margin-top: 1em;
+}
+
+
+/* 게시물 목록 영역 */
 #postList .section-header .btn-new {
     position : absolute;
     right: 0;
