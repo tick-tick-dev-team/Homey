@@ -25,11 +25,13 @@ button {
     border: none;
     cursor: pointer;
 }
-input {
+input, textarea {
     outline: none;
     border: none;
+    font-family: 'Noto Sans KR', sans-serif;
 }
-input:focus {
+input:focus,
+textarea:focus {
     outline: none;
 }
 /* default flex 클래스 */
@@ -59,10 +61,16 @@ input:focus {
 
 html {
     /* 10px -> 1rem */
-    font-size: 62.5%; 
+    font-size: 62.5%;     
+    /* font-family: 'Nanum Myeongjo', serif; */
+    font-family: 'Noto Sans KR', sans-serif;
 }
 body {
     position: relative;
-    overflow: hidden;
-    padding: 8em 0 10em;
+    overflow:auto;
+    height: 100%;
+}
+
+main {
+    padding-top: 8.5em;
 }

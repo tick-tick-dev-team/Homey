@@ -5,33 +5,48 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default_layout}">	
 
+<!-- 로컬 -->
+<head>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<link rel="stylesheet" href="../../static/css/selectHome.css">
+	<link rel="stylesheet" href="../../static/css/postForm.css">
+
+	<script src="https://kit.fontawesome.com/b638b1d7ed.js" crossorigin="anonymous"></script>
+</head>	
+
 <!-- 고유 CSS 추가 -->
-<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/postForm.css}">
+</th:block>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script"></th:block>	
 
-<body layout:fragment="content">
-	<section>
-	    <form th:action="@{|/posts/${homeId}/new|}" method="post">
-	        <!-- 회원정보 -->
-	        <input type="hidden" id="POST_HOME" name="POST_HOME" th:value="${homeId}">
-	        
-	        <h1 class="form-title">게시물 작성</h1>
-	
-	        <div class="form-group">
-	            <label for="POST_CONT"></label>
-	            <textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
-	            name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
-	            
-	            <div class="flex-between form-label-wrap">
-	                <label for="POST_WRITER">작성자 아이디</label>
-	                <input class="form-input" autocomplete="off" type="text" id="POST_WRITER" name="POST_WRITER" placeholder="아이디를 입력하세요" th:value="${homeId}">                
-	            </div>
-	            <button class="btn-border bg-green" type="submit">등록</button>
-	        </div>
-	
-	    </form>
-	</section>
+<body id="PostForm" layout:fragment="content">
+	<div class="container">
+		<section>
+			<h1 class="section-title">게시물 작성</h1>
+			<form th:action="@{|/posts/${homeId}/new|}" method="post">
+				<!-- 회원정보 -->
+				<input type="hidden" id="POST_HOME" name="POST_HOME" th:value="${homeId}">
+				<input type="hidden" id="POST_WRITER" name="POST_WRITER" th:value="${writer.user_id}">
+		
+				<div class="form-group">
+					<label for="POST_CONT"></label>
+					<textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
+					name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
+					
+					<!-- <div class="flex-between form-label-wrap">
+						<label for="POST_WRITER">작성자 아이디</label>
+						<input class="form-input" autocomplete="off" type="text" id="POST_WRITER" name="POST_WRITER" placeholder="아이디를 입력하세요" th:value="${homeId}">                
+					</div> -->
+					<button class="btn-border bg-green" type="submit">등록</button>
+				</div>
+		
+			</form>
+		</section>
+	</div>
+
 </body>
 </html>

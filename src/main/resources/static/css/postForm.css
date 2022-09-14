@@ -1,0 +1,25 @@
+#PostForm .container {
+    width: 70em;
+}
+#PostForm section {
+    background-color: #ededed;
+}
+#PostForm form {
+    width: 100%;
+}
+#PostForm form .form-group {
+    width: 100%;
+    margin: 1em 0;
+    position: relative;
+}
+#PostForm form .form-group #POST_CONT {
+    width: 100%;
+    padding: 0.5em;
+}
+#PostForm button {
+    margin-top:0.5em;
+    font-size: 1.5em;
+    padding: 0.4em 2em;
+    font-weight: bold;
+}
+
