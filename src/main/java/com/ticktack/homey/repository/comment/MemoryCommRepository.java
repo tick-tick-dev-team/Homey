@@ -105,7 +105,7 @@ public class MemoryCommRepository implements CommentRepository {
 	}
 
 	/**
-	 * 댓글, 답글 삭제
+	 * 댓글, 답글 삭제 - 22.09.14 수정
 	 */
 	@Override
 	public boolean commDelete(Comment comm) {
@@ -129,7 +129,7 @@ public class MemoryCommRepository implements CommentRepository {
 	}
 	
 	/**
-	 * 댓글, 답글 한건 조회
+	 * 댓글, 답글 한건 조회 - 22.09.13 수정
 	 * */
 	@Override
 	public Optional<Comment> findById(Comment comm) {
