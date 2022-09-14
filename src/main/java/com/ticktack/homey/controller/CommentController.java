@@ -51,7 +51,7 @@ public class CommentController {
 		
 		model.addAttribute("commList", result);
 		model.addAttribute("postId", postId);
-		return "comment/CommList";
+		return "comment/CommList_postForm";
 	}
 	
 	/**
