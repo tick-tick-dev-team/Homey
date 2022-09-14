@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
+import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.service.AttachService;
@@ -48,6 +49,14 @@ public class DummyDataImpl implements DummyData{
 		user.setUser_id(num+0L);
 		user.setUsernick(usernames[num-1]);
 		return user;
+	}
+	@Override
+	public Home getHome(User user) {
+		Home home = new Home();
+		home.setHomeid(user.getUser_id());
+		home.setHomename(user.getUsernick() + "의 집");
+		home.setHomeinst(user.getUsernick() + "의 집에 오신 것을 환영합니다.");
+		return home;
 	}
 
 	// usernames 개수만큼 homeId 생성 -> 하나의 홈에 postContents 개수만큼 게시물 생성
