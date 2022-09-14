@@ -70,8 +70,10 @@ public class MemoryCommRepository implements CommentRepository {
 		Comment result = new Comment();
 
 		comm.setCommDate(new Date());
+		comm.setCommUwriter(comm.getCommWriter());
 		comm.setCommUdate(new Date());
 		comm.setCommId(++commSequence);
+
 
 		if (comm.getCommUpid() != null) {
 			replyStore.put(comm.getCommId(), comm);
@@ -110,8 +112,10 @@ public class MemoryCommRepository implements CommentRepository {
 		boolean result = false;
 		if (comm.getCommUpid() != null) {
 			replyStore.remove(comm.getCommId());
+			result = true;
 		} else {
 			store.remove(comm.getCommId());
+			result = true;
 			// 댓글 삭제시 답글 전체 삭제
 			Set<Entry<Long, Comment>> entrySet = replyStore.entrySet();
 			for (Entry<Long, Comment> entry : entrySet) {
@@ -120,6 +124,7 @@ public class MemoryCommRepository implements CommentRepository {
 				}
 			}
 		}
+		System.out.println("Memory 삭제 결과값 : " + result);
 		return result;
 	}
 	
@@ -128,12 +133,13 @@ public class MemoryCommRepository implements CommentRepository {
 	 * */
 	@Override
 	public Optional<Comment> findById(Comment comm) {
-		
-		if (comm.getCommUpid() != null) {
-			return Optional.ofNullable(replyStore.get(comm.getCommId()));
+		Optional<Comment> result = Optional.ofNullable(store.get(comm.getCommId()));
+		if(result != null) {
+			return result;
 		}else {
-			return Optional.ofNullable(store.get(comm.getCommId()));
+			return Optional.ofNullable(replyStore.get(comm.getCommId()));
 		}
+		
 	}
 	
 	

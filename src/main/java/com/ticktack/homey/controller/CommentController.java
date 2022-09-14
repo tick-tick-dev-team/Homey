@@ -1,9 +1,11 @@
 package com.ticktack.homey.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +66,27 @@ public class CommentController {
 		System.out.println(result.toString());
 		
 		return result;
+	}
+	
+	/**
+	 * 댓글 삭제
+	 * */
+	@DeleteMapping("/commentDelete")
+	@ResponseBody
+	public boolean commentDelete(@RequestBody Comment comm , Model model) {
+		boolean removeResult = false;
+		Comment findComm = new Comment();
+		
+		// 해당 댓글 or 답글 찾기
+		Optional<Comment> result = commentService.findById(comm);
+		
+		if(result != null) {
+			findComm.setCommId(result.get().getCommId());
+			findComm.setCommUpid(result.get().getCommUpid());
+			removeResult = commentService.commDelete(findComm);	
+			System.out.println("삭제 결과값 : " + removeResult);
+		}
+		return removeResult;
 	}
 	
 
