@@ -15,6 +15,7 @@ import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
+import com.ticktack.homey.domain.User;
 import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.CommentService;
@@ -47,6 +48,20 @@ public class PostController {
 		//List<Post> postList = postService.findByHomeId(homeId);
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
 		
+		// 더미 첨부파일 정보, 댓글, 대댓글 삽입
+		for (PostForm form : postFormList) {
+			form.setATTF_ID(dummyData.setAttach(form.getPOST_ID()));
+			form.setATTF_OBJ(attachService.findById(form.getATTF_ID()).get());
+			
+//			dummyData.setComments(form.getPOST_ID());
+//			dummyData.setReplyComments(form.getPOST_ID());
+		}
+		User dummyUser = dummyData.getUser(homeId.intValue());
+		
+		// 더미 집주인
+		model.addAttribute("owner", dummyUser);
+		model.addAttribute("home", dummyData.getHome(dummyUser));
+		
 		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
 		
@@ -59,6 +74,8 @@ public class PostController {
 	@GetMapping("/posts/{homeId}/new")
 	public String createPostForm(@PathVariable("homeId")Long homeId, Model model) {
 		model.addAttribute("homeId", homeId);
+		// 더미 로그인 유저
+		model.addAttribute("writer", dummyData.getUser(homeId.intValue()));
 		
 		return "posts/createPostForm";
 	}

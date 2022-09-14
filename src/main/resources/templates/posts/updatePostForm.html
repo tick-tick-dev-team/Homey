@@ -6,33 +6,48 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default_layout}">	
 
+<!-- 로컬 -->
+<head>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<link rel="stylesheet" href="../../static/css/selectHome.css">
+	<link rel="stylesheet" href="../../static/css/postForm.css">
+
+	<script src="https://kit.fontawesome.com/b638b1d7ed.js" crossorigin="anonymous"></script>
+</head>	
+
 <!-- 고유 CSS 추가 -->
-<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/postForm.css}">
+</th:block>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script"></th:block>	
 
-<body layout:fragment="content">
-	<section>
-	    
-	    <form th:action="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" method="post">
-            <!-- 회원정보 -->
-            <input type="hidden" id="POST_ID" name="POST_ID" th:value="${post.POST_ID}">
-            <input type="hidden" id="POST_WRITER" name="POST_WRITER" th:value="${post.POST_WRITER}">
-            <input type="hidden" id="POST_HOME" name="POST_HOME" th:value="${post.POST_HOME}">
-            <input type="hidden" id="POST_DATE" name="POST_DATE" th:value="${post.POST_DATE}">	    
-	
-	        <h1 class="form-title">게시물 수정</h1>
-	        <div class="form-group">
-	            <label for="content"></label>
-	            <textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
-	            th:text="${post.POST_CONT}" name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
-	            <input type="hidden" id="ATTF_ID" name="ATTF_ID" th:value="${post.ATTF_ID}">	
-	        
-	            <button class="btn-border bg-green" type="submit">등록</button>
-	        </div>
-	
-	    </form>
-	</section> 
+<body id="PostForm" layout:fragment="content">
+	<div class="container">
+		<section>
+			<h1 class="section-title">게시물 수정</h1>
+			<form th:action="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" method="post">
+				<!-- 회원정보 -->
+				<input type="hidden" id="POST_ID" name="POST_ID" th:value="${post.POST_ID}">
+				<input type="hidden" id="POST_WRITER" name="POST_WRITER" th:value="${post.POST_WRITER}">
+				<input type="hidden" id="POST_HOME" name="POST_HOME" th:value="${post.POST_HOME}">
+				<input type="hidden" id="POST_DATE" name="POST_DATE" th:value="${post.POST_DATE}">	    
+		
+				
+				<div class="form-group">
+					<label for="content"></label>
+					<textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
+					th:text="${post.POST_CONT}" name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
+					<input type="hidden" id="ATTF_ID" name="ATTF_ID" th:value="${post.ATTF_ID}">
+					<!-- 파일 첨부 추가 -->
+					<button class="btn-border bg-green" type="submit">수정</button>
+				</div>
+				
+			</form>
+		</section> 
+	</div>
+
 </body>
 </html>

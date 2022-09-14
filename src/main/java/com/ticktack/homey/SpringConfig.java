@@ -11,15 +11,28 @@ import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+import com.ticktack.homey.repository.user.MemoryUserRepository;
+import com.ticktack.homey.repository.user.UserRepository;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.AttachServiceImpl;
 import com.ticktack.homey.service.CommentService;
 import com.ticktack.homey.service.CommentServiceImpl;
 import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.PostServiceImpl;
+import com.ticktack.homey.service.UserService;
+import com.ticktack.homey.service.UserServiceImpl;
 
 @Configuration
 public class SpringConfig {
+	
+	@Bean
+	public UserRepository userRepository() {
+		return new MemoryUserRepository();
+	}
+	@Bean
+	public UserService userService() {
+		return new UserServiceImpl(userRepository());
+	}
 	
 	@Bean
 	public PostRepository postRepository() {
@@ -51,6 +64,6 @@ public class SpringConfig {
 	
 	@Bean
 	public DummyData dummyData () {
-		return new DummyDataImpl(postService(), attachService(), commentService());
+		return new DummyDataImpl(userService(), postService(), attachService(), commentService());
 	}
 }
