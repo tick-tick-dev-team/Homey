@@ -17,11 +17,10 @@ function commentAdd(){
     		commCont   : frm.commCont.value,
     		commWriter : frm.commWriter.value,
     		postId     : frm.postId.value
-    		};
+    };
     
     // 받는 타입을 정해주면 JSON 타입이 아니면 controller에서 넘겨줘도 못받음
     //httpRequest.responseType = "json";
-    
     httpRequest.send(JSON.stringify(data));
     
     httpRequest.onreadystatechange = () => {
@@ -34,18 +33,50 @@ function commentAdd(){
 		    	 
 		    	 const ul = document.getElementsByClassName("list-wrap")[0];
 		    	 const li = document.createElement("li");
-		    	 const textNode = document.createTextNode(result.commCont);
-		    	 li.appendChild(textNode);
+		    	 //const textNode = document.createTextNode(result.commCont);
+		    	 li.innerHTML = '<span>'+ result.commCont +'</span>'
+		    	 			  + '<span> '+ result.commUwriter +'</span>' 
+		    	 			  + '<span> '+ result.commUdate +' </span>'
+		    	 			  + '<button type="button">답글</button>&nbsp;'
+		    	 			  + '<button id="deleteBtn" type="button" commId="'+result.commId+'" onclick="javascript:CommentDelete(this);">삭제</button>'
 		    	 ul.appendChild(li);
 		    	 frm.commCont.value = "";
 		     } else { 
 		    	 alert("실패"); 
 		     }
 		}
-	} 
+	} 	// AJAX 호출 END
+} 	// function 댓글 등록 END
 
- // AJAX 호출 끝
-}
+
+/* 댓글 삭제 버튼 */
+function CommentDelete(e){
+	
+	const commId = e.getAttribute( 'commId' );
+	const li = e.parentNode;
+
+	// AJAX 호출
+	httpRequest = new XMLHttpRequest();
+    httpRequest.open('delete', '/commentDelete', true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    var data = {
+    		commId : commId
+    };
+    
+    httpRequest.send(JSON.stringify(data));
+    
+    httpRequest.onreadystatechange = () => {
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		     if (httpRequest.status === 200) {
+		    	 if(httpRequest.response){
+		    		 li.remove();
+		    	 };
+		     } else { 
+		    	 alert("실패"); 
+		     }
+		}
+	} 	// AJAX 호출 END
+}   // function 댓글 삭제 END
 
 </script>
 </head>
@@ -56,15 +87,18 @@ function commentAdd(){
 			<p th:text="${postId} + '번째 게시글'">해당되는 게시글이 존재하지 않습니다.<p>
 		</div>
 		<div class="comments">
-			<p th:if="${commList.size==0}" class="no-resultList"><small style="color:lightGray;">댓글이 존재하지 않습니다.</small></p>
-			<ul id="commUl" th:unless="${commList.size==0}" class="list-wrap">
-				<li th:each="comment : ${commList}">
-					<span th:text="${comment.commCont}">내용</span>
-					<span th:text="${comment.commUwriter}" >작성자</span>
-					<span th:text="${comment.commUdate}">날짜</span>
-					<button type="button">답글</button>
-				</li>
-			</ul>
+			<form id="listFrm">
+				<p th:if="${commList.size==0}" class="no-resultList"><small style="color:lightGray;">댓글이 존재하지 않습니다.</small></p>
+				<ul id="commUl" th:unless="${commList.size==0}" class="list-wrap">
+					<li th:each="comment : ${commList}">
+						<span th:text="${comment.commCont}">내용</span>
+						<span th:text="${comment.commUwriter}" >작성자</span>
+						<span th:text="${comment.commUdate}">날짜</span>
+						<button type="button">답글</button>
+						<button id="deleteBtn" type="button" th:commId="${comment.commId}" onclick="javascript:CommentDelete(this);">삭제</button>
+					</li>
+				</ul>
+			</form>
 		</div>
 		<div class="commentAdd"> 
 			<form id="frm">
