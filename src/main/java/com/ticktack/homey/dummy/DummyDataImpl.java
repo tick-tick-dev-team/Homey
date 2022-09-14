@@ -84,27 +84,34 @@ public class DummyDataImpl implements DummyData{
 	// postId 전달하면 해당 게시물에 usernames 개수만큼 댓글 생성
 	@Override
 	public void setComments(Long postId) {
-		System.out.println("더미 댓글 삽입 시작");
+		Comment comm = new Comment();
+		comm.setPostId(postId);
+		List<Comment> result = commentService.commAllList(comm);
 		
-		for (int i = 0; i<usernames.length; i++) {
-			Comment comment = new Comment();
-			Long userId = i + 1L;
-			comment.setPostId(postId);
-			comment.setCommCont(usernames[i] + "님의 댓글");
-			comment.setCommWriter(userId.toString());
+		if(result.size()==0) {
+			System.out.println("더미 댓글 삽입 시작");
 			
-			commentService.commInsert(comment);
+			for (int i = 0; i<usernames.length; i++) {
+				Comment comment = new Comment();
+				Long userId = i + 1L;
+				comment.setPostId(postId);
+				comment.setCommCont(usernames[i] + "님의 댓글");
+				comment.setCommWriter(userId.toString());
+				
+				commentService.commInsert(comment);
+			}
 		}
+
 	}
 	
 	@Override
 	public void setReplyComments(Long postId) {
-		System.out.println("더미 대댓글 삽입 시작");
 		Comment tmp = new Comment();
 		tmp.setPostId(postId);
 		List<Comment> comments = commentService.commAllList(tmp);
 		
-		if(comments!=null) {
+		if(comments.size()!=0 & comments.size()<=3) {
+			System.out.println("더미 대댓글 삽입 시작");
 			for (Comment comment : comments) {
 				if(comment.getCommId()%2!=0) {
 					Comment reply = new Comment();
