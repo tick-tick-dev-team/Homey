@@ -99,7 +99,7 @@ public class MemoryCommRepository implements CommentRepository {
 			return replyStore.get(comm.getCommId());
 		} else {
 			store.put(comm.getCommId(), comm);
-			System.out.println("sotre 체크"+store.get(comm.getCommId()));
+			System.out.println("store 체크"+store.get(comm.getCommId()));
 			return store.get(comm.getCommId());
 		}
 	}
@@ -139,7 +139,6 @@ public class MemoryCommRepository implements CommentRepository {
 		}else {
 			return Optional.ofNullable(replyStore.get(comm.getCommId()));
 		}
-		
 	}
 	
 	
