@@ -97,11 +97,12 @@ layout:decorate="~{layout/default_layout}">
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->
 									<div class="btn-wrap flex-end">
-										<a class="btn-border" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
-										<form method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
-											<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
+										<a class="btn-border" href="#" th:text="수정">수정</a>
+										<a class="btn-border" href="#" th:text="삭제">삭제</a>
+										<!-- <form method="POST" th:action="">
+											<input type="hidden" name="" id="" th:value="" />
 											<button class="btn-border" type="submit" name="submit">삭제</button>
-										</form>
+										</form> -->
 									</div>
 								</div>
 
@@ -115,11 +116,12 @@ layout:decorate="~{layout/default_layout}">
 										<span >2022.09.13 오후 4시 21분</span>
 									</div>
 									<div class="btn-wrap flex-end">
-										<a class="btn-border" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
-										<form method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
-											<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
+										<a class="btn-border" href="#" th:text="수정">수정</a>
+										<a class="btn-border" href="#" th:text="삭제">삭제</a>
+										<!-- <form method="POST" th:action="">
+											<input type="hidden" name="" id="" th:value="" />
 											<button class="btn-border" type="submit" name="submit">삭제</button>
-										</form>
+										</form> -->
 									</div>
 								</div>
 								<p class="content" >오늘 점심 뭐 먹었어?</p>

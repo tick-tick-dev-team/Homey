@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
+import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.domain.User;
@@ -38,6 +39,23 @@ public class PostController {
 		this.commentService = commentService;
 		this.dummyData = dummyData;
 	}
+	
+	private void getDummy(Long homeId) {
+		// 더미 게시물 삽입
+		dummyData.setPosts();
+		
+		//List<Post> postList = postService.findByHomeId(homeId);
+		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
+		
+		// 더미 첨부파일 정보, 댓글, 대댓글 삽입
+		for (PostForm form : postFormList) {
+			form.setATTF_ID(dummyData.setAttach(form.getPOST_ID()));
+			form.setATTF_OBJ(attachService.findById(form.getATTF_ID()).get());
+			
+			dummyData.setComments(form.getPOST_ID());
+			dummyData.setReplyComments(form.getPOST_ID());
+		}
+	}
 
 	// test용 selectHome
 	@GetMapping("/homes/{homeId}")
@@ -51,18 +69,19 @@ public class PostController {
 		// 더미 첨부파일 정보, 댓글, 대댓글 삽입
 		for (PostForm form : postFormList) {
 			form.setATTF_ID(dummyData.setAttach(form.getPOST_ID()));
-			form.setATTF_OBJ(attachService.findById(form.getATTF_ID()).get());
-			
-//			dummyData.setComments(form.getPOST_ID());
-//			dummyData.setReplyComments(form.getPOST_ID());
+			dummyData.setComments(form.getPOST_ID());
+			dummyData.setReplyComments(form.getPOST_ID());
 		}
+		// 더미 집주인
 		User dummyUser = dummyData.getUser(homeId.intValue());
 		
-		// 더미 집주인
-		model.addAttribute("owner", dummyUser);
-		model.addAttribute("home", dummyData.getHome(dummyUser));
+		// 더미 홈
+		Home dummyHome = dummyData.getHome(dummyUser);
 		
-		model.addAttribute("postList", postFormList);
+		model.addAttribute("owner", dummyUser);
+		model.addAttribute("home", dummyHome);
+		
+		model.addAttribute("postList", postService.findAllByHomeId(homeId));
 		model.addAttribute("homeId", homeId);
 		
 		return "homes/selectHome";
