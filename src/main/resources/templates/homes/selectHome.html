@@ -73,8 +73,10 @@ layout:decorate="~{layout/default_layout}">
 							<li class="content">
 								<p th:text="${post.POST_CONT}">오늘 점심에는 불고기 도시락을 먹었다.</p>
 							</li>
-							<li class="attf-name">
-								<a href="#" th:if="${post.ATTF_OBJ!=null}" th:text="${post.ATTF_OBJ.ATTF_REALNM}">첨부파일명</a>
+							<li class="attf-name" th:if="${post.ATTF_OBJ}">
+								<span>첨부파일 : </span>
+								<a th:href="|/attach/${post.POST_ID}|" th:text="${post.getATTF_OBJ().getATTF_REALNM()}"></a>
+								<!-- <img src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="" width="300" height="300"> -->
 							</li>
 						</ul>
 						<!-- <div class="btn-wrap flex-end">
