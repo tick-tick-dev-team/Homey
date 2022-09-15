@@ -122,7 +122,7 @@ function UpdateCancel(e){
 		</div>
 		<div class="comments">
 			<ul>
-		       <li th:each="comment : ${commList}">
+		       <li th:each="comment : ${commList}" th:commId="${comment.commId}">
 		           <div class="flex-between">
 		               <div class="info flex-start">
 		                   <span th:text="|작성자id = ${comment.commWriter}|">mk45118</span>
