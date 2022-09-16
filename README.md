@@ -33,3 +33,11 @@ Long attf_id = dummyData.setAttach(postId);
 // Comment객체 전달하면 해당 댓글에 대한 대댓글 생성 (직접 호출 불가, 현재 setComments() 메소드 안에서 호출함
 setReplyComments(comment)
 ```
+
+
+## 파일 업로드 기능 사용 전 세팅
+내 컴퓨터에 파일을 저장하기 위해 파일 저장 폴더를 미리 만들어두어야 한다.
+현재 `application.properties`를 확인하면 `file.dir=D:/practice/file/`라고 적혀있다.
+
+작성된 대로 D드라이브 밑에 /practice/file 폴더를 만들던가,
+새로운 폴더를 만들어 해당 경로를 application.properties의 file.dir에 업데이트해준다.
