@@ -117,7 +117,7 @@ public class DummyDataImpl implements DummyData{
 					Comment reply = new Comment();
 					
 					reply.setPostId(comment.getPostId());
-					reply.setCommCont("-->" + comment.getCommCont() + "에 대한 대댓글");
+					reply.setCommCont(" └ " + comment.getCommCont() + "에 대한 대댓글");
 					reply.setCommWriter(comment.getCommWriter());
 					reply.setCommUpid(comment.getCommId());
 					

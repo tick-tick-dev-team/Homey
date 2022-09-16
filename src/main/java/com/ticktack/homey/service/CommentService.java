@@ -21,6 +21,10 @@ public interface CommentService {
 	
 	// 댓글, 답글 삭제
 	boolean commDelete(Comment comm);
+
+	List<Comment> AllList(Long postId);
+	
+	List<Comment> replyAllList(Long postId);
 	
 	
 

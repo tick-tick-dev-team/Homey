@@ -1,5 +1,6 @@
 package com.ticktack.homey.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class CommentController {
 		
 		// 더미데이터
 		dummyData.setComments(postId);
+		dummyData.setReplyComments(postId);
 		
 		Comment comm = new Comment();
 		comm.setPostId(postId);
@@ -71,15 +73,15 @@ public class CommentController {
 	/**
 	 * 댓글 삭제
 	 * */
-	@DeleteMapping("/commentDelete")
+	@PostMapping("/commentDelete")
 	@ResponseBody
 	public boolean commentDelete(@RequestBody Comment comm , Model model) {
 		boolean removeResult = false;
-		
+
 		// 해당 댓글 or 답글 찾기
 		Comment result = commentService.findById(comm).get();
-		
-		if(result != null) {
+
+		if(result.getCommId() != null ) {
 			removeResult = commentService.commDelete(result);	
 			System.out.println("삭제 결과값 : " + removeResult);
 		}

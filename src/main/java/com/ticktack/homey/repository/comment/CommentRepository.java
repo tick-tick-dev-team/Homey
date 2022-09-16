@@ -25,5 +25,9 @@ public interface CommentRepository {
 	// 댓글, 답글 한건 조회
 	Optional<Comment> findById(Comment comm);
 	
+	List<Comment> AllList(Long postId);
+	
+	List<Comment> replyAllList(Long postId);
+	
 
 }
