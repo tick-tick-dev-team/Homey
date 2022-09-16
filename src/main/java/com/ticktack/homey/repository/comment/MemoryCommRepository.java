@@ -99,7 +99,6 @@ public class MemoryCommRepository implements CommentRepository {
 			return replyStore.get(comm.getCommId());
 		} else {
 			store.put(comm.getCommId(), comm);
-			System.out.println("store 체크"+store.get(comm.getCommId()));
 			return store.get(comm.getCommId());
 		}
 	}

@@ -75,18 +75,31 @@ public class CommentController {
 	@ResponseBody
 	public boolean commentDelete(@RequestBody Comment comm , Model model) {
 		boolean removeResult = false;
-		Comment findComm = new Comment();
 		
 		// 해당 댓글 or 답글 찾기
-		Optional<Comment> result = commentService.findById(comm);
+		Comment result = commentService.findById(comm).get();
 		
 		if(result != null) {
-			findComm.setCommId(result.get().getCommId());
-			findComm.setCommUpid(result.get().getCommUpid());
-			removeResult = commentService.commDelete(findComm);	
+			removeResult = commentService.commDelete(result);	
 			System.out.println("삭제 결과값 : " + removeResult);
 		}
 		return removeResult;
+	}
+	
+	/**
+	 * 댓글 수정
+	 * */
+	@PostMapping("/commentUpdate")
+	@ResponseBody
+	public Comment commentUpdate(@RequestBody Comment comm , Model model) {
+			
+		Comment result = commentService.findById(comm).get();
+		result.setCommCont(comm.getCommCont());
+		result = commentService.commUpdate(result);
+		
+		System.out.println("수정 : " + result.toString());
+		
+		return result;
 	}
 	
 

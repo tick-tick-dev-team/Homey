@@ -6,21 +6,20 @@
 <script type="text/javascript">
 
 /* 댓글 등록 버튼 */
-function CommentAdd(){
-	var frm = document.getElementById("frm");
+function CommentAdd(e){
+	var commCont = document.getElementById("commCont").value;
+	var postId = e.parentNode.parentNode.getAttribute( 'postId' );
 	
 	// AJAX 호출
 	httpRequest = new XMLHttpRequest();
     httpRequest.open('POST', '/commentAdd', true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     var data = {
-    		commCont   : frm.commCont.value,
-    		commWriter : frm.commWriter.value,
-    		postId     : frm.postId.value
+    		commCont   : commCont,
+    		commWriter : 'popdo',
+    		postId     : postId
     };
-    
-    // 받는 타입을 정해주면 JSON 타입이 아니면 controller에서 넘겨줘도 못받음
-    //httpRequest.responseType = "json";
+
     httpRequest.send(JSON.stringify(data));
     
     httpRequest.onreadystatechange = () => {
@@ -29,19 +28,24 @@ function CommentAdd(){
 		    	 // JSON 타입
 		    	 console.log(httpRequest.response);
 		    	 var result = JSON.parse(httpRequest.response);
-		    	 console.log(result.commCont);
-		    	 
-		    	 const ul = document.getElementsByClassName("list-wrap")[0];
-		    	 const li = document.createElement("li");
+		    	
+		    	 const div = document.querySelector('[postid="'+result.postId+'"]');
+		    	 const ul = div.querySelector('ul');
+ 		    	 const li = document.createElement("li");
 		    	 li.setAttribute('commId',result.commId);
-		    	 li.innerHTML = '<span>'+ result.commCont +'</span>'
-		    	 			  + '<span> '+ result.commUwriter +'</span>' 
-		    	 			  + '<span> '+ result.commUdate +' </span>'
-		    	 			  + '<button type="button">답글</button>&nbsp;'
-		    	 			  + '<button id="deleteBtn" type="button" onclick="javascript:CommentDelete(this);">삭제</button>&nbsp;'
-		    	 			  + '<button id="updateFormBtn" type="button" onclick="javascript:CommUpdateForm(this);">수정</button>';
+		    	 li.innerHTML = '<div class="flex-between">'
+				              + 	'<div class="info flex-start">'
+				              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
+				              + 		'<span>작성일자 = '+ result.commDate +'</span>'
+				              + 	'</div>'
+				              + 	'<div class="btn-wrap flex-end">'
+				              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+				              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>'
+				              + '	</div>'
+				           	  + '</div>'
+				              + '<p class="content">'+ result.commCont +'</p>';
 		    	 ul.appendChild(li);
-		    	 frm.commCont.value = "";
+		    	 document.getElementById("commCont").value= ""; 
 		     } else { 
 		    	 alert("실패"); 
 		     }
@@ -53,10 +57,12 @@ function CommentAdd(){
 /* 댓글 삭제 버튼 */
 function CommentDelete(e){
 	
-	const li = e.parentNode;
+	console.log(e);
+	const li = e.parentNode.parentNode.parentNode;
+	
 	const commId = li.getAttribute( 'commId' );
 
-	// AJAX 호출
+ 	// AJAX 호출
 	httpRequest = new XMLHttpRequest();
     httpRequest.open('delete', '/commentDelete', true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
@@ -78,38 +84,83 @@ function CommentDelete(e){
 		    	 alert("ajax 연결 실패!"); 
 		     }
 		}
-	} 	// AJAX 호출 END
+	} 	// AJAX 호출 END 
 }   // function 댓글 삭제 END
 
 
 /* 댓글 수정 폼 생성 */
 function CommUpdateForm(e){
 
-	const li = e.parentNode;
+	const li = e.parentNode.parentNode.parentNode;
+	const p = li.querySelector('p');
+	const content = p.textContent;
 	
-	const commId = li.getAttribute( 'commId' );	
-	const spanList = li.querySelectorAll("span");
 	
-	const commCont =  spanList[0].textContent;
-	const commUwriter =  spanList[1].textContent;
-	const commUdate =  spanList[2].textContent;
+	const div = document.createElement("div");
+	div.innerHTML = '<input autocomplete="off" type="text" id="commCont" name="commCont" value="'+content+'">'
+					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
+					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a>';
+	li.appendChild(div);
 	
-	li.innerHTML = '<form id="updateFrm"><textarea name="commCont">'+commCont+'</textarea>'
-					+ '<input type="hidden" name="commUwriter" value="update_Popdo">'
-					+ '<button id="updateBtn" type="button" onclick="javascript:CommUpdate(this);">댓글 수정</button>'
-					+ '<button id="updateCancelBtn" type="button" onclick="javascript:UpdateCancel(this);">취소</button>'
-					+'</form>';
+	p.setAttribute('style',"display:none;");
+	e.setAttribute('style',"display:none;");
+	
 }
-
 
 /* 댓글 수정 */
 function CommUpdate(e){
-	console.log("댓글수정");
+	
+	const div = e.parentNode;
+	const li = div.parentNode;
+	const p = li.querySelector('p');
+	
+	const commId = li.getAttribute( 'commId' );
+	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
+	const content = div.querySelector('[id=commCont]').value;
+	
+	// AJAX 호출
+	httpRequest = new XMLHttpRequest();
+    httpRequest.open('post', '/commentUpdate', true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    var data = {
+    		commId : commId,
+    		commCont : content,
+    		postId : postId
+    };
+    
+    httpRequest.send(JSON.stringify(data));
+    
+    httpRequest.onreadystatechange = () => {
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		     if (httpRequest.status === 200) {
+		    	 console.log(httpRequest.response);
+		    	 var result = JSON.parse(httpRequest.response);
+		    	 
+		    	 li.querySelectorAll('span')[1].textContent = result.commUdate;
+		    	 p.textContent = result.commCont;
+		    	 p.setAttribute('style',"display:block;");
+		    	 li.querySelectorAll('a')[0].setAttribute('style',"display:inline;");
+		    	 div.remove();   	 
+		    	 
+		     } else { 
+		    	 alert("ajax 연결 실패!"); 
+		     }
+		} 
+	} 	// AJAX 호출 END 
 }
 
 /* 댓글 수정 취소 */
 function UpdateCancel(e){
-	console.log("댓글수정 취소");
+	
+	const li = e.parentNode.parentNode;
+	const updateBtn = li.querySelectorAll('a')[0];
+	const p = li.querySelector('p');
+	const div = e.parentNode;
+	
+	updateBtn.setAttribute('style',"display:inline;");
+	p.setAttribute('style',"display:block;");
+	div.remove();
+	
 }
 
 </script>
@@ -120,18 +171,18 @@ function UpdateCancel(e){
 			<h2>Comment List</h2>
 			<p th:text="${postId} + '번째 게시글'">해당되는 게시글이 존재하지 않습니다.<p>
 		</div>
-		<div class="comments">
+		<div th:postId="${postId}" class="comments">
 			<ul>
 		       <li th:each="comment : ${commList}" th:commId="${comment.commId}">
 		           <div class="flex-between">
 		               <div class="info flex-start">
 		                   <span th:text="|작성자id = ${comment.commWriter}|">mk45118</span>
-		                   <span th:text="|작성일자 = ${comment.commDate}|">작성일자</span>
+		                   <span th:text="|작성일자 = ${comment.commUdate}|">작성일자</span>
 		               </div>
 		               <!-- 추후 사용자 정보 비교해서 버튼 보이기 -->
 		               <div class="btn-wrap flex-end">
-		                   <a class="btn-border" href="#" th:text="수정">수정</a>
-		                   <a class="btn-border" href="#" th:text="삭제">삭제</a>
+		                   <a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
+		                   <a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
 		               </div>
 		           </div>
 		           <p class="content" th:text="|${comment.commCont}|">댓글 내용</p>
@@ -139,7 +190,7 @@ function UpdateCancel(e){
 			</ul>
 		    <div class="input-wrap flex-between">
 		        <input autocomplete="off" type="text" id="commCont" name="commCont" placeholder="댓글을 입력하세요" >
-		        <button class="btn-border bg-green"type="button" onclick="javascript:CommentAdd();">등록</button>
+		        <button class="btn-border bg-green"type="button" onclick="javascript:CommentAdd(this);">등록</button>
 		    </div>
 		</div>
 		
