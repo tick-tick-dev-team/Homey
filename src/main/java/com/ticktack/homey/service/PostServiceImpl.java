@@ -34,8 +34,21 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public Optional<Post> findById(Long postId) {
-		return postRepository.findById(postId);
+	public PostForm findById(Long postId) {
+		PostForm form = postRepository.findById(postId).get().getFormFromPost();
+		
+		// 첨부파일 정보 가져오기
+		Optional<Attach> attach = attachRepository.findById(form.getATTF_ID());
+		attach.ifPresent(f -> {
+			form.setATTF_OBJ(f);
+		});
+
+		// 댓글
+		Comment comment = new Comment();
+		comment.setPostId(form.getPOST_ID());
+		form.setCOMMENT_LIST(commentRepository.commAllList(comment));		
+		
+		return form;
 	}
 
 	@Override

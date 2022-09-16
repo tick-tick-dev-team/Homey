@@ -1,5 +1,7 @@
 package com.ticktack.homey.domain;
 
+import java.util.Arrays;
+
 public class Attach {
 	// 첨부파일 ID (auto-increment)
 	Long ATTF_ID;
@@ -75,6 +77,12 @@ public class Attach {
 				" / 실제 파일명 : " + ATTF_REALNM + 
 				" / 파일 확장자 : " + ATTF_EXE + 
 				" / 파일 사이즈 : " + ATTF_SIZE + "KB";
+	}
+	
+	// 이미지 여부 반환
+	public boolean isImage() {
+		String[] ext = {"jpg", "jpeg", "png", "gif"};
+		return Arrays.stream(ext).anyMatch(this.getATTF_EXE().toLowerCase()::equals);
 	}
 	
 	
