@@ -20,13 +20,15 @@ public class PostForm {
 	Long POST_WRITER;
 	
 	// 게시물 최초 등록일
-	String POST_DATE;
+//	String POST_DATE;
+	LocalDateTime POST_DATE;
 	
 	// 게시물 수정자 ID
 	Long POST_UWRITER;
 	
 	// 게시물 수정일
-	String POST_UPDATE;
+//	String POST_UPDATE;
+	LocalDateTime POST_UPDATE;
 	
 	// Home ID
 	Long POST_HOME;
@@ -64,11 +66,20 @@ public class PostForm {
 		POST_WRITER = pOST_WRITER;
 	}
 
-	public String getPOST_DATE() {
+//	public String getPOST_DATE() {
+//		return POST_DATE;
+//	}
+//
+//	public void setPOST_DATE(String pOST_DATE) {
+//		POST_DATE = pOST_DATE;
+//	}
+	
+	
+	public LocalDateTime getPOST_DATE() {
 		return POST_DATE;
 	}
 
-	public void setPOST_DATE(String pOST_DATE) {
+	public void setPOST_DATE(LocalDateTime pOST_DATE) {
 		POST_DATE = pOST_DATE;
 	}
 
@@ -80,11 +91,20 @@ public class PostForm {
 		POST_UWRITER = pOST_UWRITER;
 	}
 
-	public String getPOST_UPDATE() {
+	
+//	public String getPOST_UPDATE() {
+//		return POST_UPDATE;
+//	}
+//
+//	public void setPOST_UPDATE(String pOST_UPDATE) {
+//		POST_UPDATE = pOST_UPDATE;
+//	}
+
+	public LocalDateTime getPOST_UPDATE() {
 		return POST_UPDATE;
 	}
 
-	public void setPOST_UPDATE(String pOST_UPDATE) {
+	public void setPOST_UPDATE(LocalDateTime pOST_UPDATE) {
 		POST_UPDATE = pOST_UPDATE;
 	}
 
@@ -129,8 +149,11 @@ public class PostForm {
 		post.setPOST_CONT(this.getPOST_CONT());
 		post.setPOST_HOME(this.getPOST_HOME());
 		
-		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> post.setPOST_DATE(LocalDateTime.parse(s)));
-		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> post.setPOST_UPDATE(LocalDateTime.parse(s)));
+		post.setPOST_DATE(this.getPOST_DATE());
+		post.setPOST_UPDATE(this.getPOST_UPDATE());
+		
+//		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> post.setPOST_DATE(LocalDateTime.parse(s)));
+//		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> post.setPOST_UPDATE(LocalDateTime.parse(s)));
 		
 		post.setPOST_WRITER(this.getPOST_WRITER());
 		post.setPOST_UWRITER(this.getPOST_UWRITER());
