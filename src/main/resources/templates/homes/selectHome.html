@@ -73,19 +73,14 @@ layout:decorate="~{layout/default_layout}">
 							<li class="content">
 								<p th:text="${post.POST_CONT}">오늘 점심에는 불고기 도시락을 먹었다.</p>
 							</li>
-							<li class="attf-name" th:if="${post.ATTF_OBJ}">
-								<span>첨부파일 : </span>
-								<a th:href="|/attach/${post.POST_ID}|" th:text="${post.getATTF_OBJ().getATTF_REALNM()}"></a>
-								<!-- <img src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="" width="300" height="300"> -->
+							<li th:if="${post.ATTF_OBJ}" class="attf-name" >
+							<img style="display:block;" th:if="${post.getATTF_OBJ().isImage()}" th:src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="" width="300" height="300">
+								<p>
+									<span>첨부파일 : </span>
+									<a th:href="|/attach/${post.POST_ID}|" th:text="${post.getATTF_OBJ().getATTF_REALNM()}"></a>
+								</p>
 							</li>
 						</ul>
-						<!-- <div class="btn-wrap flex-end">
-							<a class="btn-border bg-green" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
-							<form method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
-								<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
-								<button class="btn-border bg-red" type="submit" name="submit">삭제</button>
-							</form>
-						</div> -->
 					</div>
 	
 					<div class="comments">
@@ -101,10 +96,6 @@ layout:decorate="~{layout/default_layout}">
 									<div class="btn-wrap flex-end">
 										<a class="btn-border" href="#" th:text="수정">수정</a>
 										<a class="btn-border" href="#" th:text="삭제">삭제</a>
-										<!-- <form method="POST" th:action="">
-											<input type="hidden" name="" id="" th:value="" />
-											<button class="btn-border" type="submit" name="submit">삭제</button>
-										</form> -->
 									</div>
 								</div>
 
@@ -120,10 +111,6 @@ layout:decorate="~{layout/default_layout}">
 									<div class="btn-wrap flex-end">
 										<a class="btn-border" href="#" th:text="수정">수정</a>
 										<a class="btn-border" href="#" th:text="삭제">삭제</a>
-										<!-- <form method="POST" th:action="">
-											<input type="hidden" name="" id="" th:value="" />
-											<button class="btn-border" type="submit" name="submit">삭제</button>
-										</form> -->
 									</div>
 								</div>
 								<p class="content" >오늘 점심 뭐 먹었어?</p>
