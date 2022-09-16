@@ -18,7 +18,10 @@ public interface PostService {
 	
 	
 	// 게시물 하나 조회
-	public Optional<Post> findById(Long postId);
+//	public Optional<Post> findById(Long postId);
+	
+	// 게시물 하나 조회
+	public PostForm findById(Long postId);
 	
 	
 	// 게시물 생성
