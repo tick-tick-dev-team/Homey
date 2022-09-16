@@ -43,8 +43,9 @@
 					<input type="hidden" id="ATTF_ID" name="ATTF_ID" th:value="${post.ATTF_ID}">
 					<!-- 파일 첨부 추가 -->
 
-					<label for="ATTF_OBJ" th:text="|첨부파일 : ${post.getATTF_OBJ().getATTF_REALNM()}|" ></label>
+					<label for="ATTF_OBJ" >첨부파일</label>
 					<input type="file" name="ATTF_OBJ" id="ATTF_OBJ" >
+					<span th:if="${post.getATTF_OBJ()!=null}" th:text="|첨부파일 : ${post.getATTF_OBJ().getATTF_REALNM()}|">첨부파일명</span>
 
 					<button class="btn-border bg-green" type="submit">수정</button>
 				</div>

@@ -102,8 +102,7 @@ public class PostController {
 		@GetMapping("/attach/{postId}")
 		public ResponseEntity<Resource> downloadAttach(@PathVariable Long postId) throws MalformedURLException {
 
-			Post post = postService.findById(postId).get();
-			Attach attach = attachService.findById(post.getATTF_ID()).get();
+			Attach attach = postService.findById(postId).getATTF_OBJ();
 
 			String storeFileName = attach.getATTF_SERNM();
 			String originalFileName = attach.getATTF_REALNM();
@@ -161,7 +160,7 @@ public class PostController {
 	public String updatePostForm(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
 		
 		// to-do : post -> postForm 변경 필요 (repository부터 findById 새로만들기)
-		Post post = postService.findById(postId).get();
+		PostForm post = postService.findById(postId);
 		
 		model.addAttribute("post", post);
 		
