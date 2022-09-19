@@ -27,13 +27,17 @@ public interface PostService {
 	// 게시물 생성
 	public Post createPost(Post post);
 	
+	// 첨부파일 정보 생성
+	public Attach createAttach(Attach attach);	
 	
 	// 게시물 수정
 	public Post updatePost(Post post);
 	
-	
 	// 게시물 삭제
 	public Long deletePost(Long postId);
+	
+	// 첨부파일 정보 삭제
+	public Long deleteAttach(Long attf_id);
 	
 	// test용
 	// 모든 게시물 조회

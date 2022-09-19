@@ -1,14 +1,20 @@
 package com.ticktack.homey;
 
+// import javax.persistence.EntityManager;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.dummy.DummyDataImpl;
 import com.ticktack.homey.repository.attach.AttachRepository;
+//import com.ticktack.homey.repository.attach.JpaAttachRepository;
 import com.ticktack.homey.repository.attach.MemoryAttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
+//import com.ticktack.homey.repository.post.JpaPostRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
 import com.ticktack.homey.repository.user.MemoryUserRepository;
@@ -25,6 +31,19 @@ import com.ticktack.homey.service.UserServiceImpl;
 @Configuration
 public class SpringConfig {
 	
+//	private EntityManager em;
+//	
+//	@Autowired
+//	public SpringConfig(EntityManager em) {
+//		super();
+//		this.em = em;
+//	}
+	
+	@Bean
+	public Java8TimeDialect java8TimeDialect() {
+		return new Java8TimeDialect();
+	}
+	
 	@Bean
 	public UserRepository userRepository() {
 		return new MemoryUserRepository();
@@ -37,6 +56,7 @@ public class SpringConfig {
 	@Bean
 	public PostRepository postRepository() {
 		return new MemoryPostRepository();
+//		return new JpaPostRepository(em);
 	}
 	
 	@Bean
@@ -47,6 +67,7 @@ public class SpringConfig {
 	@Bean
 	public AttachRepository attachRepository() {
 		return new MemoryAttachRepository();
+//		return new JpaAttachRepository(em);
 	}
 	
 	@Bean

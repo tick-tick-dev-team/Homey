@@ -55,6 +55,11 @@ public class PostServiceImpl implements PostService{
 	public Post createPost(Post post) {
 		return postRepository.save(post);
 	}
+	
+	@Override
+	public Attach createAttach(Attach attach) {
+		return attachRepository.save(attach);
+	}
 
 	@Override
 	public Post updatePost(Post post) {
@@ -64,11 +69,18 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public Long deletePost(Long postId) {
 		// 첨부파일이 있으면 그것도 삭제
-//		Optional<Long>attf_id = findAttfIdById(postId);
-//		attf_id.ifPresent(id -> attachRepository.delete(id));
+		Optional<Long>attf_id = findAttfIdById(postId);
+		attf_id.ifPresent(id -> attachRepository.delete(id));
 		
 		postRepository.delete(postId);
 		return postId;
+	}
+	
+	// 첨부파일 정보 삭제
+	@Override
+	public Long deleteAttach(Long attf_id) {
+		attachRepository.delete(attf_id);
+		return attf_id;
 	}
 
 	@Override
