@@ -147,7 +147,6 @@ public class PostController {
 		attach.ifPresent(a -> {
 			form.setATTF_ID(postService.createAttach(a).getATTF_ID());
 		});
-		
 		postService.createPost(form.getPostFromPostForm());
 		
 		redirectAttributes.addAttribute("homeId", form.getPOST_HOME());

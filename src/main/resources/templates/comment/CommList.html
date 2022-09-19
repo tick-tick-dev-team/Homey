@@ -6,7 +6,7 @@
 <script type="text/javascript">
 
 /* 댓글 등록 버튼 */
-function commentAdd(){
+function CommentAdd(){
 	var frm = document.getElementById("frm");
 	
 	// AJAX 호출
@@ -33,12 +33,13 @@ function commentAdd(){
 		    	 
 		    	 const ul = document.getElementsByClassName("list-wrap")[0];
 		    	 const li = document.createElement("li");
-		    	 //const textNode = document.createTextNode(result.commCont);
+		    	 li.setAttribute('commId',result.commId);
 		    	 li.innerHTML = '<span>'+ result.commCont +'</span>'
 		    	 			  + '<span> '+ result.commUwriter +'</span>' 
 		    	 			  + '<span> '+ result.commUdate +' </span>'
 		    	 			  + '<button type="button">답글</button>&nbsp;'
-		    	 			  + '<button id="deleteBtn" type="button" commId="'+result.commId+'" onclick="javascript:CommentDelete(this);">삭제</button>'
+		    	 			  + '<button id="deleteBtn" type="button" onclick="javascript:CommentDelete(this);">삭제</button>&nbsp;'
+		    	 			  + '<button id="updateFormBtn" type="button" onclick="javascript:CommUpdateForm(this);">수정</button>';
 		    	 ul.appendChild(li);
 		    	 frm.commCont.value = "";
 		     } else { 
@@ -52,8 +53,8 @@ function commentAdd(){
 /* 댓글 삭제 버튼 */
 function CommentDelete(e){
 	
-	const commId = e.getAttribute( 'commId' );
 	const li = e.parentNode;
+	const commId = li.getAttribute( 'commId' );
 
 	// AJAX 호출
 	httpRequest = new XMLHttpRequest();
@@ -70,13 +71,46 @@ function CommentDelete(e){
 		     if (httpRequest.status === 200) {
 		    	 if(httpRequest.response){
 		    		 li.remove();
+		    	 }else {
+		    		 alert("댓글 삭제 실패!");
 		    	 };
 		     } else { 
-		    	 alert("실패"); 
+		    	 alert("ajax 연결 실패!"); 
 		     }
 		}
 	} 	// AJAX 호출 END
 }   // function 댓글 삭제 END
+
+
+/* 댓글 수정 폼 생성 */
+function CommUpdateForm(e){
+
+	const li = e.parentNode;
+	
+	const commId = li.getAttribute( 'commId' );	
+	const spanList = li.querySelectorAll("span");
+	
+	const commCont =  spanList[0].textContent;
+	const commUwriter =  spanList[1].textContent;
+	const commUdate =  spanList[2].textContent;
+	
+	li.innerHTML = '<form id="updateFrm"><textarea name="commCont">'+commCont+'</textarea>'
+					+ '<input type="hidden" name="commUwriter" value="update_Popdo">'
+					+ '<button id="updateBtn" type="button" onclick="javascript:CommUpdate(this);">댓글 수정</button>'
+					+ '<button id="updateCancelBtn" type="button" onclick="javascript:UpdateCancel(this);">취소</button>'
+					+'</form>';
+}
+
+
+/* 댓글 수정 */
+function CommUpdate(e){
+	console.log("댓글수정");
+}
+
+/* 댓글 수정 취소 */
+function UpdateCancel(e){
+	console.log("댓글수정 취소");
+}
 
 </script>
 </head>
@@ -90,12 +124,13 @@ function CommentDelete(e){
 			<form id="listFrm">
 				<p th:if="${commList.size==0}" class="no-resultList"><small style="color:lightGray;">댓글이 존재하지 않습니다.</small></p>
 				<ul id="commUl" th:unless="${commList.size==0}" class="list-wrap">
-					<li th:each="comment : ${commList}">
+					<li th:each="comment : ${commList}"  th:commId="${comment.commId}">
 						<span th:text="${comment.commCont}">내용</span>
 						<span th:text="${comment.commUwriter}" >작성자</span>
 						<span th:text="${comment.commUdate}">날짜</span>
 						<button type="button">답글</button>
-						<button id="deleteBtn" type="button" th:commId="${comment.commId}" onclick="javascript:CommentDelete(this);">삭제</button>
+						<button id="deleteBtn" type="button" onclick="javascript:CommentDelete(this);">삭제</button>
+						<button id="updateFormBtn" type="button" onclick="javascript:CommUpdateForm(this);">수정</button>
 					</li>
 				</ul>
 			</form>
@@ -105,7 +140,7 @@ function CommentDelete(e){
 				<textarea name="commCont" placeholder="댓글을 입력하세요"></textarea>
 				<input type="hidden" name="postId" th:value="${postId}" />
 				<input type="hidden" name="commWriter" value="popdo" />
-				<button type="button" onclick="javascript:commentAdd();">등록</button>
+				<button type="button" onclick="javascript:CommentAdd();">등록</button>
 			</form>
 		</div>
 	</section>

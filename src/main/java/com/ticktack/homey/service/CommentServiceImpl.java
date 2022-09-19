@@ -55,4 +55,14 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepository.findById(comm);
 	}
 
+	@Override
+	public List<Comment> AllList(Long postId) {
+		return commentRepository.AllList(postId);
+	}
+
+	@Override
+	public List<Comment> replyAllList(Long postId) {
+		return commentRepository.replyAllList(postId);
+	}
+
 }

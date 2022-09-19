@@ -99,7 +99,6 @@ public class MemoryCommRepository implements CommentRepository {
 			return replyStore.get(comm.getCommId());
 		} else {
 			store.put(comm.getCommId(), comm);
-			System.out.println("store 체크"+store.get(comm.getCommId()));
 			return store.get(comm.getCommId());
 		}
 	}
@@ -133,12 +132,20 @@ public class MemoryCommRepository implements CommentRepository {
 	 * */
 	@Override
 	public Optional<Comment> findById(Comment comm) {
+		
 		Optional<Comment> result = Optional.ofNullable(store.get(comm.getCommId()));
-		if(result != null) {
-			return result;
-		}else {
-			return Optional.ofNullable(replyStore.get(comm.getCommId()));
+		System.out.println(result.getClass());
+		
+		if(result.isPresent()) {
+			// 있음
+			System.out.println("댓글 한건 있음");
+		} else {
+			// 없음
+			System.out.println("대댓글 있음");
+			result = Optional.ofNullable(replyStore.get(comm.getCommId()));
 		}
+		return result;
+			
 	}
 	
 	
@@ -150,8 +157,23 @@ public class MemoryCommRepository implements CommentRepository {
 		replyStore.clear();
 	}
 
-
+	// 게시글의 댓글 모두 조회
+	@Override
+	public List<Comment> AllList(Long postId) {
+		List<Comment> commList = new ArrayList<Comment>();
+		commList = store.values().stream().filter(comment -> comment.getPostId().equals(postId))
+				.collect(Collectors.toList());
+		return commList;
+	}
 	
+	// 게시글의 대댓글 모두 조회
+	@Override
+	public List<Comment> replyAllList(Long postId) {
+		List<Comment> replyList = new ArrayList<Comment>();
+		replyList = replyStore.values().stream().filter(comment -> comment.getPostId().equals(postId))
+				.collect(Collectors.toList());
+		return replyList;
+	}
 
 	
 }
