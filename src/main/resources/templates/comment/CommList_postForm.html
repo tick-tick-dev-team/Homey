@@ -11,7 +11,7 @@ function CommentAdd(e){
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );
 	
 	// AJAX 호출
-	httpRequest = new XMLHttpRequest();
+	httpRequest = new XMLHttpRequest();  /* 통신에 사용 될 XMLHttpRequest 객체 정의 */
     httpRequest.open('POST', '/commentAdd', true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     var data = {
@@ -29,10 +29,11 @@ function CommentAdd(e){
 		    	 console.log(httpRequest.response);
 		    	 var result = JSON.parse(httpRequest.response);
 		    	
-		    	 const div = document.querySelector('[postid="'+result.postId+'"]');
-		    	 const ul = div.querySelector('ul');
- 		    	 const li = document.createElement("li");
-		    	 li.setAttribute('commId',result.commId);
+		    	 var div = document.querySelector('[postid="'+result.postId+'"]');
+		    	 var ul = div.querySelector('ul');
+ 		    	 var li = document.createElement("li");
+		    	 li.setAttribute('commId', result.commId );
+	    		 li.setAttribute('commUpid', 0 );
 		    	 li.innerHTML = '<div class="flex-between">'
 				              + 	'<div class="info flex-start">'
 				              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
@@ -40,7 +41,8 @@ function CommentAdd(e){
 				              + 	'</div>'
 				              + 	'<div class="btn-wrap flex-end">'
 				              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
-				              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>'
+				              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+				              +			'<a class="btn-border" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>'
 				              + '	</div>'
 				           	  + '</div>'
 				              + '<p class="content">'+ result.commCont +'</p>';
@@ -58,9 +60,9 @@ function CommentAdd(e){
 function CommentDelete(e){
 	
 	console.log(e);
-	const li = e.closest("li");
+	var li = e.closest("li");
 	
-	const commId = li.getAttribute( 'commId' );
+	var commId = li.getAttribute( 'commId' );
 
  	// AJAX 호출
 	httpRequest = new XMLHttpRequest();
@@ -78,6 +80,13 @@ function CommentDelete(e){
 	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
 		     if (httpRequest.status === 200) {
 		    	 if(httpRequest.response){
+		    		 // 대댓글 삭제 영역
+		    		 var list = document.querySelectorAll('li');
+		    		 for (let i=0; i< list.length; i++){
+		    			 if(list[i].getAttribute('commupid') == commId){
+		    				list[i].remove(); 
+		    			 }
+		    		 }
 		    		 li.remove();
 		    	 }else {
 		    		 alert("댓글 삭제 실패!");
@@ -93,12 +102,12 @@ function CommentDelete(e){
 /* 댓글 수정 폼 생성 */
 function CommUpdateForm(e){
 
-	const li = e.closest("li");
-	const p = li.querySelector('p');
-	const content = p.textContent;
+	var li = e.closest("li");
+	var p = li.querySelector('p');
+	var content = p.textContent;
 	
 	
-	const div = document.createElement("div");
+	var div = document.createElement("div");
 	div.innerHTML = '<input autocomplete="off" type="text" id="commCont" name="commCont" value="'+content+'">'
 					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
 					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a>';
@@ -112,13 +121,13 @@ function CommUpdateForm(e){
 /* 댓글 수정 */
 function CommUpdate(e){
 	
-	const div = e.parentNode;
-	const li = div.parentNode;
-	const p = li.querySelector('p');
+	var div = e.parentNode;
+	var li = div.parentNode;
+	var p = li.querySelector('p');
 	
-	const commId = li.getAttribute( 'commId' );
-	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
-	const content = div.querySelector('[id=commCont]').value;
+	var commId = li.getAttribute( 'commId' );
+	var postId = li.parentNode.parentNode.getAttribute( 'postid' );
+	var content = div.querySelector('[id=commCont]').value;
 	
 	// AJAX 호출
 	httpRequest = new XMLHttpRequest();
@@ -154,10 +163,10 @@ function CommUpdate(e){
 /* 댓글 수정 취소 */
 function UpdateCancel(e){
 	
-	const li = e.parentNode.parentNode;
-	const updateBtn = li.querySelectorAll('a')[0];
-	const p = li.querySelector('p');
-	const div = e.parentNode;
+	var li = e.parentNode.parentNode;
+	var updateBtn = li.querySelectorAll('a')[0];
+	var p = li.querySelector('p');
+	var div = e.parentNode;
 	
 	updateBtn.setAttribute('style',"display:inline;");
 	p.setAttribute('style',"display:block;");
@@ -165,6 +174,106 @@ function UpdateCancel(e){
 	
 }
 
+/* 댓글의 답글 등록 폼 */
+function CommentReplyAdd(e){
+	
+	const li = e.closest("li");
+	const commId = li.getAttribute( 'commId' );
+	
+	// 다음 댓글 노드 찾기
+	var nexSibling = li.nextElementSibling;
+	var preElement = li;
+	if(li.nextElementSibling != null){
+	 	while(nexSibling.getAttribute('commupid')!= 0){
+			if(nexSibling.nextElementSibling == null){
+				preElement = nexSibling;
+				nexSibling = li.parentNode;
+				break;
+			} else {
+				nexSibling = nexSibling.nextElementSibling;
+				preElement = nexSibling.previousElementSibling;
+			}
+		}		
+	} else {
+		nexSibling = li.parentNode;
+	}
+ 	var addli = document.createElement("li");
+ 	addli.innerHTML = '<input autocomplete="off" type="text" id="replyCommCont" name="commCont">'
+ 					+ '<input type="hidden" id="commUpid" name="commUpid" value="'+ commId +'">'
+					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="replyAdd(this)" th:text="등록">등록</a>'
+					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="replyCancel(this)" th:text="취소">취소</a>';
+ 	preElement.after(addli);
+ 	e.setAttribute('style',"display:none;");
+}
+
+/* 대댓글 등록 */
+function replyAdd(e){
+	const li = e.closest("li");
+	const commUpid = document.getElementById("commUpid").value;
+	const commCont = document.getElementById("replyCommCont").value;
+	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
+	
+	// AJAX 호출
+	httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', '/commentAdd', true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    var data = {
+    		commCont   : commCont,
+    		commWriter : 'popdo',
+    		commUpid   : commUpid,
+    		postId     : postId
+    };
+
+    httpRequest.send(JSON.stringify(data));
+    
+    httpRequest.onreadystatechange = () => {
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		     if (httpRequest.status === 200) {
+		    	 // JSON 타입
+		    	 console.log(httpRequest.response);
+		    	 var result = JSON.parse(httpRequest.response);
+		    	 
+		    	 li.setAttribute('commId', result.commId );
+	    		 li.setAttribute('commUpid', result.commUpid );
+		    	 li.innerHTML = '<div class="flex-between">'
+				              + 	'<div class="info flex-start">'
+				              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
+				              + 		'<span>작성일자 = '+ result.commDate +'</span>'
+				              + 	'</div>'
+				              + 	'<div class="btn-wrap flex-end">'
+				              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+				              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+				              + '	</div>'
+				           	  + '</div>'
+				              + '<p class="content"> └ '+ result.commCont +'</p>';
+				 // 댓글 노드에 답글 버튼 추가!
+	             var list = document.querySelectorAll('li');
+	          	 for (let i=0; i< list.length; i++){
+	          	 	if(list[i].getAttribute('commid') == commUpid){
+	          			list[i].querySelectorAll('a')[2].setAttribute('style',"display:inline;");
+	          		}
+	          	 }
+		     } else { 
+		    	 alert("실패"); 
+		     }
+		}
+	} 	// AJAX 호출 END
+	
+}
+
+/* 대댓글 취소 */
+function replyCancel(e){
+	const li = e.closest("li");
+	const commUpid = document.getElementById("commUpid").value;
+	
+	var list = document.querySelectorAll('li');
+	for (let i=0; i< list.length; i++){
+		if(list[i].getAttribute('commid') == commUpid){
+			list[i].querySelectorAll('a')[2].setAttribute('style',"display:inline;");
+		}
+	}
+	li.remove();
+}
 </script>
 </head>
 <body>
@@ -175,13 +284,8 @@ function UpdateCancel(e){
 		</div>
 		<div th:postId="${postId}" class="comments">
 			<ul>
-		       <li th:each="comment : ${commList}" th:commId="${comment.commId}">
-		       		<div th:if="${comment.commUpid != null}" class="no-resultList">
-		       			<p th:commUpid="${comment.commUpid}" th:text="|${comment.commCont}|">대댓글내용</p>
-	                    <a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
-	                    <a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
-		       		</div>
-					<div class="flex-between" th:unless="${comment.commUpid != null}">
+		       <li th:each="comment : ${commList}" th:commId="${comment.commId}" th:commUpid="${comment.commUpid != null ? comment.commUpid : 0 }">
+					<div class="flex-between" >
 		               <div class="info flex-start">
 		                   <span th:text="|작성자id = ${comment.commWriter}|">mk45118</span>
 		                   <span th:text="|작성일자 = ${comment.commUdate}|">작성일자</span>
@@ -190,9 +294,10 @@ function UpdateCancel(e){
 		               <div class="btn-wrap flex-end">
 		                   <a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
 		                   <a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
+		                   <a th:if="${comment.commUpid == null}" class="btn-border" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
 		               </div>
 		           </div>
-		           <p th:unless="${comment.commUpid != null}" class="content" th:text="|${comment.commCont}|">댓글 내용</p>
+		           <p class="content" th:text="|${comment.commCont}|">댓글 내용</p>
 		       </li>
 			</ul>
 		    <div class="input-wrap flex-between">
