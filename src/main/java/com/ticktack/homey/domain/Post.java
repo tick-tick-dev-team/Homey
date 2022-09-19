@@ -91,8 +91,11 @@ public class Post {
 		form.setPOST_CONT(this.getPOST_CONT());
 		form.setPOST_HOME(this.getPOST_HOME());
 		
-		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> form.setPOST_DATE(s.toString()));
-		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> form.setPOST_UPDATE(s.toString()));
+		form.setPOST_DATE(this.getPOST_DATE());
+		form.setPOST_UPDATE(this.getPOST_UPDATE());
+		
+//		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> form.setPOST_DATE(s.toString()));
+//		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> form.setPOST_UPDATE(s.toString()));
 		
 		form.setPOST_WRITER(this.getPOST_WRITER());
 		form.setPOST_UWRITER(this.getPOST_UWRITER());
