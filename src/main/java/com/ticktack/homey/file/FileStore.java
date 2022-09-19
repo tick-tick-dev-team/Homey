@@ -2,6 +2,10 @@ package com.ticktack.homey.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ticktack.homey.domain.Attach;
+
+import groovyjarjarantlr4.v4.codegen.SourceGenTriggers.alt_return;
 
 @Component
 public class FileStore {
@@ -57,4 +63,18 @@ public class FileStore {
 		return uuid + "." + ext;
 	}
 
+	// 로컬 파일
+	public void deleteStoreFile (Optional<Attach> attach) throws IOException{
+		attach.ifPresent(a -> {
+			System.out.println("deleteStoreFile : " + a.getATTF_ROUTE() + " 삭제 시작");
+			Path path = Paths.get(a.getATTF_ROUTE());
+			try {
+				Files.deleteIfExists(path);
+				System.out.println("deleteStoreFile : " + a.getATTF_ROUTE() + " 삭제 완료");
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("deleteStoreFile 에러 : " + e.getMessage());
+			}
+		});
+	}
 }
