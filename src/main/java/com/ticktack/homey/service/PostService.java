@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 
+@Transactional
 public interface PostService {
 	
 	// 게시물 전체조회

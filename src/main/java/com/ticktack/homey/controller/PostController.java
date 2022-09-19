@@ -140,11 +140,14 @@ public class PostController {
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		
 		// multipart file에서 attach 추출
-		Attach attach = fileStore.storeFile(form.getATTF_OBJ());
+		Optional<Attach> attach = Optional.ofNullable(fileStore.storeFile(form.getATTF_OBJ()));
 		
 		// attach, post DB에 저장
 		form.setPOST_HOME(homeId);
-		form.setATTF_ID(postService.createAttach(attach).getATTF_ID());
+		attach.ifPresent(a -> {
+			form.setATTF_ID(postService.createAttach(a).getATTF_ID());
+		});
+		
 		postService.createPost(form.getPostFromPostForm());
 		
 		redirectAttributes.addAttribute("homeId", form.getPOST_HOME());

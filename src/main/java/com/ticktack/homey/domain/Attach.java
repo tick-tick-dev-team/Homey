@@ -2,23 +2,36 @@ package com.ticktack.homey.domain;
 
 import java.util.Arrays;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Attach {
 	// 첨부파일 ID (auto-increment)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long ATTF_ID;
 	
 	// 파일경로
+	@Column(name="ATTF_ROUTE")
 	String ATTF_ROUTE;
 	
 	// 서버측파일명
+	@Column(name="ATTF_SERNM")
 	String  ATTF_SERNM;
 	
 	// 실제파일명
+	@Column(name="ATTF_REALNM")
 	String ATTF_REALNM;
 	
 	// 파일확장자
+	@Column(name="ATTF_EXE")
 	String ATTF_EXE;
 	
 	// 파일크기
+	@Column(name="ATTF_SIZE")
 	Long ATTF_SIZE;
 
 	public Long getATTF_ID() {

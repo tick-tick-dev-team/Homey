@@ -2,6 +2,8 @@ package com.ticktack.homey.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.repository.attach.AttachRepository;
 

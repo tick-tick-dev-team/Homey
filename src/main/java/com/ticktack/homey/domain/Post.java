@@ -1,34 +1,46 @@
 package com.ticktack.homey.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Post {
 	
 	// 게시물 ID (auto-increment)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long POST_ID;
 	
 	// 게시물 내용
+	@Column(name="POST_CONT")
 	String POST_CONT;
 	
 	// 게시물 최초 작성자ID
+	@Column(name="POST_WRITER")
 	Long POST_WRITER;
 	
 	// 게시물 최초 등록일
+	@Column(name="POST_DATE")
 	LocalDateTime POST_DATE;
 	
 	// 게시물 수정자 ID
+	@Column(name="POST_UWRITER")
 	Long POST_UWRITER;
 	
 	// 게시물 수정일
+	@Column(name="POST_UPDATE")
 	LocalDateTime POST_UPDATE;
 	
 	// Home ID
+	@Column(name="POST_HOME")
 	Long POST_HOME;
 	
 	// 첨부파일 ID
+	@Column(name="ATTF_ID")
 	Long ATTF_ID;
 
 	
