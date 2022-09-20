@@ -14,6 +14,8 @@ import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.attach.MemoryAttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
+import com.ticktack.homey.repository.home.HomeRepository;
+import com.ticktack.homey.repository.home.MemoryHomeRepository;
 //import com.ticktack.homey.repository.post.JpaPostRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
@@ -23,6 +25,8 @@ import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.AttachServiceImpl;
 import com.ticktack.homey.service.CommentService;
 import com.ticktack.homey.service.CommentServiceImpl;
+import com.ticktack.homey.service.HomeService;
+import com.ticktack.homey.service.HomeServiceImpl;
 import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.PostServiceImpl;
 import com.ticktack.homey.service.UserService;
@@ -45,11 +49,22 @@ public class SpringConfig {
 	}
 	
 	@Bean
+	public HomeRepository homeRepository() {
+		return new MemoryHomeRepository();
+	}
+	
+	@Bean
+	public HomeService homeService() {
+		return new HomeServiceImpl(homeRepository());
+	}
+	
+	@Bean
 	public UserRepository userRepository() {
 		return new MemoryUserRepository();
 	}
+	
 	@Bean
-	public UserService userService() {
+	public UserService userService () {
 		return new UserServiceImpl(userRepository());
 	}
 	

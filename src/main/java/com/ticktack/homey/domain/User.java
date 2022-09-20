@@ -2,6 +2,8 @@ package com.ticktack.homey.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class User {
 
 /* USER_ID              BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '사용자ID',
@@ -12,6 +14,7 @@ public class User {
    USER_BIRTH           DATE NULL COMMENT '생년월일',
    ATTF_ID              BIGINT NULL COMMENT '첨부파일ID'*/
 
+	
 	private Long user_id;
 	private String userpass;
 	private String usernick;
@@ -39,12 +42,6 @@ public class User {
 	}
 	private Long attf_id;
 	
-	public Long getUserid() {
-		return user_id;
-	}
-	public void setUserid(Long userid) {
-		this.user_id = userid;
-	}
 	public String getUserpass() {
 		return userpass;
 	}
@@ -63,11 +60,16 @@ public class User {
 	public void setUserjoin(Date userjoin) {
 		this.userjoin = userjoin;
 	}
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getUserbirth() {
 		return userbirth;
 	}
 	public void setUserbirth(Date userbirth) {
 		this.userbirth = userbirth;
 	}
+	
+	
+	
 
 }
