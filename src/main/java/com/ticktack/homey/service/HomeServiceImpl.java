@@ -14,8 +14,10 @@ public class HomeServiceImpl implements HomeService{
 		this.homeRepository = homeRepository;
 	}
 	//home 생성
-	public Home create(Home home) {
-		return homeRepository.create(home);
+	public Home createHome(Home home) {
+		home.setHomename(home.getUsernick()+"의 집");
+		home.setHomeuse("Y");
+		return homeRepository.createHome(home);
 	}
 	
 	//home 전체조회
@@ -23,6 +25,7 @@ public class HomeServiceImpl implements HomeService{
 	public List<Home> findByHome(Long homeId){
 		return homeRepository.findByHome(homeId);
 	}
+	
 	//home 상세조회
 	@Override
 	public Optional<Home> findById(Long homeId){
@@ -31,8 +34,12 @@ public class HomeServiceImpl implements HomeService{
 	//home 수정
 	@Override
 	public Home updateHome(Home home) {
+		home.setHomename(home.getHomename());
+		home.setHomeinst(home.getHomeinst());
+		home.setHomethema(home.getHomethema());
+		home.setHomeuse(home.getHomeuse());
 		
-		return homeRepository.update(home);
+		return homeRepository.updateHome(home);
 		
 	}
 }

@@ -17,6 +17,15 @@ public class Home {
 	private String homeuse;
 	private String homethema;
 	
+	//사용자 생성시 home만들기 위해
+	private String usernick;
+	
+	public String getUsernick() {
+		return usernick;
+	}
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
+	}
 	public Long getHomeid() {
 		return homeid;
 	}

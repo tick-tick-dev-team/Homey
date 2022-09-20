@@ -7,7 +7,7 @@ import com.ticktack.homey.domain.Home;
 
 public interface HomeService {
 	//home 생성
-	public Home create(Home home);
+	public Home createHome(Home home);
 	//home 전체조회
 	public List<Home> findByHome(Long homeId);
 	//home 상세조회

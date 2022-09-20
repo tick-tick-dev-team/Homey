@@ -8,7 +8,7 @@ import com.ticktack.homey.domain.Home;
 public interface HomeRepository {
 	
 	//Home 생성
-	Home create(Home home);
+	Home createHome(Home home);
 	
 	//home 전체조회
 	List<Home> findByHome(Long homeId);
@@ -17,6 +17,6 @@ public interface HomeRepository {
 	Optional<Home> findById(Long homeId);
 	
 	//home 수정
-	Home update(Home home);
+	Home updateHome(Home home);
 
 }

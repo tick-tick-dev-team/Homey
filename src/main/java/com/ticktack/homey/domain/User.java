@@ -12,6 +12,7 @@ public class User {
    USER_BIRTH           DATE NULL COMMENT '생년월일',
    ATTF_ID              BIGINT NULL COMMENT '첨부파일ID'*/
 
+	
 	private Long user_id;
 	private String userpass;
 	private String usernick;
@@ -39,12 +40,6 @@ public class User {
 	}
 	private Long attf_id;
 	
-	public Long getUserid() {
-		return user_id;
-	}
-	public void setUserid(Long userid) {
-		this.user_id = userid;
-	}
 	public String getUserpass() {
 		return userpass;
 	}
@@ -69,5 +64,8 @@ public class User {
 	public void setUserbirth(Date userbirth) {
 		this.userbirth = userbirth;
 	}
+	
+	
+	
 
 }

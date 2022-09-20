@@ -8,7 +8,7 @@ import com.ticktack.homey.domain.Home;
 public class MemoryHomeRepository implements HomeRepository {
 
 	@Override
-	public Home create(Home home) {
+	public Home createHome(Home home) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,7 +26,7 @@ public class MemoryHomeRepository implements HomeRepository {
 	}
 
 	@Override
-	public Home update(Home home) {
+	public Home updateHome(Home home) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -16,20 +16,15 @@ import com.ticktack.homey.domain.User;
 public class MemoryUserRepository implements UserRepository{
 
 	private static Map<Long, User> store = new HashMap<>(); //<키 자료형, 값 자료형>
-	private static long sequence = 0L; //0은 INT0 0L은 LONG0
+	private static long sequence = 0L; //0은 INT0 0L은 LONG0, sequence가 번호 생성
 	
 	//회원가입
 	@Override
 	public User createUser(User user) {
-		user.setUserid(++sequence);
-		user.setUserpass(new String());
-		user.setUsernick(new String());
-		user.setUserjoin(new Date());
-		user.setUserpower(new String());
-		user.setUserbirth(new Date());
-		
-		
-		store.put(user.getUserid(), user);
+		//id는  시스템이 정함
+		user.setUser_id(++sequence);
+				
+		store.put(user.getUser_id(), user);
 		return user;
 	}
 
@@ -37,6 +32,7 @@ public class MemoryUserRepository implements UserRepository{
 	//중복 닉 거르기 위해서
 	@Override
 	public Optional<User> findByNick(String usernick) {
+		//같은 경우에는 필터링, 찾으면 Optional로 찾은 것을 반환
 		return store.values().stream()
 				.filter(user->user.getUsernick().equals(usernick))
 				.findAny();
@@ -51,6 +47,7 @@ public class MemoryUserRepository implements UserRepository{
 	//회원상세조회
 	@Override
 	public Optional<User> findById(Long userid) {
+		//null이여도 반환가능
 		return Optional.ofNullable(store.get(userid));
 	}
 	
@@ -64,7 +61,7 @@ public class MemoryUserRepository implements UserRepository{
 		user.setUserpower(new String());
 		user.setUserbirth(new Date());
 		
-		store.put(user.getUserid(), user);
+		store.put(user.getUser_id(), user);
 		return user;
 	}
 
@@ -88,6 +85,7 @@ public class MemoryUserRepository implements UserRepository{
 	//모든 회원 조회
 	@Override
 	public List<User> findAll() {
+		//store된 user반환
 		return new ArrayList<>(store.values());
 	}
 	
