@@ -26,7 +26,17 @@ layout:decorate="~{layout/default_layout}">
 		<a th:href="@{/users}">회원목록</a>
 	</div>
 	
-	<ul>
+	여기 아래는 each문 돌립니다.
+	<h3>친구집 놀러가기</h3>
+	<ul th:each="home : ${homes}">
+		
+		<li th:text ="${home.homename}"></li>
+		
+	</ul>
+	
+	
+	여기 아래는 하드코딩
+	<ul th:each="home : ${homes}">
 		<li>친구집 놀러가기</li>
 		<li><a href="homey_s">사의집</a></li>
 		<li><a href="homey_p">팝의집</a></li>

@@ -11,7 +11,7 @@ public class Home {
 	
 	
 	private Long homeid;
-	private String userid;
+	private Long userid;
 	private String homename;
 	private String homeinst;
 	private String homeuse;
@@ -32,10 +32,10 @@ public class Home {
 	public void setHomeid(Long homeid) {
 		this.homeid = homeid;
 	}
-	public String getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 	public String getHomename() {

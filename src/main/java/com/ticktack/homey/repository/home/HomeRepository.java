@@ -11,7 +11,7 @@ public interface HomeRepository {
 	Home createHome(Home home);
 	
 	//home 전체조회
-	List<Home> findByHome(Long homeId);
+	List<Home> findHomes();
 	
 	//home 상세조회
 	Optional<Home> findById(Long homeId);
