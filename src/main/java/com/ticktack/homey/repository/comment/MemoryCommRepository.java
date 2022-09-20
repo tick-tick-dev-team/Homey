@@ -3,11 +3,10 @@ package com.ticktack.homey.repository.comment;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Comment;
@@ -115,15 +114,21 @@ public class MemoryCommRepository implements CommentRepository {
 		} else {
 			store.remove(comm.getCommId());
 			result = true;
-			// 댓글 삭제시 답글 전체 삭제
-			Set<Entry<Long, Comment>> entrySet = replyStore.entrySet();
-			for (Entry<Long, Comment> entry : entrySet) {
-				if (entry.getValue().getCommUpid() == comm.getCommId()) {
-					replyStore.remove(entry.getKey());
+			// 댓글 삭제시 답글 전체 삭제 - 22.09.19 수정 (HaspMap을 돌 때 안에 삭제를 하면 next 할때 map size 값이 달라져서 오류 발생)
+			ArrayList<Long> keyList = new ArrayList<Long>();
+			Iterator<Long> keys = replyStore.keySet().iterator();
+			while(keys.hasNext()) {
+				Long key = keys.next();
+				if(replyStore.get(key).getCommUpid() == comm.getCommId()) {
+					keyList.add(key);
+				}
+			}
+			if(keyList.size() > 0 ) {
+				for(Long i : keyList) {
+					replyStore.remove(i);
 				}
 			}
 		}
-		System.out.println("Memory 삭제 결과값 : " + result);
 		return result;
 	}
 	
@@ -133,15 +138,11 @@ public class MemoryCommRepository implements CommentRepository {
 	@Override
 	public Optional<Comment> findById(Comment comm) {
 		
-		Optional<Comment> result = Optional.ofNullable(store.get(comm.getCommId()));
-		System.out.println(result.getClass());
-		
+		Optional<Comment> result = Optional.ofNullable(store.get(comm.getCommId()));		
 		if(result.isPresent()) {
 			// 있음
-			System.out.println("댓글 한건 있음");
 		} else {
 			// 없음
-			System.out.println("대댓글 있음");
 			result = Optional.ofNullable(replyStore.get(comm.getCommId()));
 		}
 		return result;
@@ -174,6 +175,8 @@ public class MemoryCommRepository implements CommentRepository {
 				.collect(Collectors.toList());
 		return replyList;
 	}
+	
+	
 
 	
 }

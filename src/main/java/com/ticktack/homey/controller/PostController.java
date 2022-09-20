@@ -123,7 +123,6 @@ public class PostController {
 	}
 	
 	
-	
 	// 게시물 등록 폼 조회
 	@GetMapping("/posts/{homeId}/new")
 	public String createPostForm(@PathVariable("homeId")Long homeId, Model model) {
@@ -141,14 +140,14 @@ public class PostController {
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		
 		// multipart file에서 attach 추출
-		Attach attach = fileStore.storeFile(form.getATTF_OBJ());
+		Optional<Attach> attach = Optional.ofNullable(fileStore.storeFile(form.getATTF_OBJ()));
 		
-		// DB에 저장
+		// attach, post DB에 저장
 		form.setPOST_HOME(homeId);
-		form.setATTF_ID(attachService.createAttach(attach).getATTF_ID());
-		
-		Post newPost = form.getPostFromPostForm();
-		postService.createPost(newPost);
+		attach.ifPresent(a -> {
+			form.setATTF_ID(postService.createAttach(a).getATTF_ID());
+		});
+		postService.createPost(form.getPostFromPostForm());
 		
 		redirectAttributes.addAttribute("homeId", form.getPOST_HOME());
 		
@@ -159,7 +158,6 @@ public class PostController {
 	@GetMapping("/posts/{homeId}/update/{postId}")
 	public String updatePostForm(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
 		
-		// to-do : post -> postForm 변경 필요 (repository부터 findById 새로만들기)
 		PostForm post = postService.findById(postId);
 		
 		model.addAttribute("post", post);
@@ -176,7 +174,9 @@ public class PostController {
 		// multipart file에서 attach 추출
 		Attach attach = fileStore.storeFile(form.getATTF_OBJ());
 		if(attach!=null) {
-			form.setATTF_ID(attachService.createAttach(attach).getATTF_ID());
+			// 기존 파일 삭제
+			fileStore.deleteStoreFile(Optional.ofNullable(postService.findById(postId).getATTF_OBJ()));
+			form.setATTF_ID(postService.createAttach(attach).getATTF_ID());
 		}
 		// DB에 저장
 		form.setPOST_HOME(homeId);
@@ -191,11 +191,9 @@ public class PostController {
 	
 	// 게시물 삭제
 	@PostMapping("/posts/{homeId}/delete/{postId}")
-	public String deletePost(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId) {
-		// 첨부파일 id 있으면 첨부파일 정보 삭제
-		Optional<Long>attf_id = postService.findAttfIdById(postId);
-		attf_id.ifPresent(id -> attachService.deleteAttach(id));
+	public String deletePost(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId) throws IOException {
 		
+		fileStore.deleteStoreFile(Optional.ofNullable(postService.findById(postId).getATTF_OBJ()));
 		postService.deletePost(postId);
 		
 		return "redirect:/homes/" + homeId;
