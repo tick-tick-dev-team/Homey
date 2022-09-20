@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import com.ticktack.homey.domain.Home;
 
@@ -22,9 +23,8 @@ public class MemoryHomeRepository implements HomeRepository {
 	}
 	
 	@Override
-	public List<Home> findByHome(Long homeId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Home> findHomes() {
+		return new ArrayList<>(store.values());
 	}
 
 	@Override

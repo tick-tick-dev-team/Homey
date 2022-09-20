@@ -25,8 +25,8 @@ public class HomeServiceImpl implements HomeService{
 	
 	//home 전체조회
 	@Override
-	public List<Home> findByHome(Long homeId){
-		return homeRepository.findByHome(homeId);
+	public List<Home> findHomes(){
+		return homeRepository.findHomes();
 	}
 	
 	//home 상세조회
