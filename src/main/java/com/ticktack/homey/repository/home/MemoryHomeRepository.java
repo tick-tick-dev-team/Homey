@@ -1,15 +1,23 @@
 package com.ticktack.homey.repository.home;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.ticktack.homey.domain.Home;
 
 public class MemoryHomeRepository implements HomeRepository {
 
+	private static Map<Long, Home> store = new HashMap<>();
+	private static long sequence = 0L;
+	
 	@Override
 	public Home createHome(Home home) {
-		// TODO Auto-generated method stub
+		
+		home.setHomeid(++sequence);
+		
+		store.put(home.getHomeid(), home);
 		return null;
 	}
 	

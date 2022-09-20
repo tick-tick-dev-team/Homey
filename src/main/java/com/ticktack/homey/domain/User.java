@@ -2,6 +2,8 @@ package com.ticktack.homey.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class User {
 
 /* USER_ID              BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '사용자ID',
@@ -58,6 +60,8 @@ public class User {
 	public void setUserjoin(Date userjoin) {
 		this.userjoin = userjoin;
 	}
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getUserbirth() {
 		return userbirth;
 	}

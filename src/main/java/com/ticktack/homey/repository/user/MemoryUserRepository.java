@@ -40,7 +40,7 @@ public class MemoryUserRepository implements UserRepository{
 
 	//회원전체조회
 	@Override
-	public List<User> findByUser(){
+	public List<User> findUsers(){
 		return new ArrayList<>(store.values());
 	}
 	

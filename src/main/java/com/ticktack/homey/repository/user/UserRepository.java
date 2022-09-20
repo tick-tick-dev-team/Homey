@@ -14,7 +14,7 @@ public interface UserRepository {
 		Optional<User> findByNick(String usernick);
 		
 		//회원전체조회
-		List<User> findByUser();
+		List<User> findUsers();
 		
 		//회원상세조회
 		Optional<User> findById(Long userid);

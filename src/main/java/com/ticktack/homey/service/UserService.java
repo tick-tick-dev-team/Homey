@@ -14,7 +14,7 @@ public interface UserService {
 	//회원가입
 	public String createUser(User user);
 	//회원전체조회
-	public List<User> findByUser();
+	public List<User> findUsers();
 	//회원상세조회
 	public Optional<User> findById(Long userId);
 	//회원정보수정

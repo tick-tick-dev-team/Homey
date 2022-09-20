@@ -11,7 +11,7 @@ import com.ticktack.homey.repository.user.UserRepository;
 public class UserServiceImpl implements UserService {
 	
 	private UserRepository userRepository;
-	private PasswordEncoder passwordEncoder;
+	//private PasswordEncoder passwordEncoder;
 	
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 		validateDuplicateNick(user); //중복닉네임검증
 		
 		//비밀번호 암호화
-		String encodedPassword = passwordEncoder.encode(user.getUserpass());
-		user.setUserpass(encodedPassword);
+		//String encodedPassword = passwordEncoder.encode(user.getUserpass());
+		//user.setUserpass(encodedPassword);
 		
 		userRepository.createUser(user);
 		
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	
 	//회원전체조회
 	@Override
-	public List<User> findByUser(){
+	public List<User> findUsers(){
 		return userRepository.findAll();
 	}
 	//회원상세조회 

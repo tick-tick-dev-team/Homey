@@ -1,7 +1,10 @@
 package com.ticktack.homey.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -33,12 +36,19 @@ public class UserController {
 		
 		userService.createUser(user);
 		
-		//home테이블에 usernick도 추가?
+		//home테이블에 usernick도 추가 필요없음, 바로 설정한다.
 		Home home = new Home();
-		home.setUsernick(form.getUsernick());
+		home.setHomename(form.getUsernick()+"의 집");
 		homeService.createHome(home);
 		
 		return "redirect:/";
+	}
+	
+	@GetMapping("users")
+	public String list(Model model) {
+		List<User> users = userService.findUsers();
+		model.addAttribute("users", users );
+		return "users/userList";
 	}
 	
 	

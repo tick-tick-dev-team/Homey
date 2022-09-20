@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ticktack.homey.domain.Home;
+import com.ticktack.homey.domain.User;
 
 public interface HomeService {
 	//home 생성
