@@ -39,13 +39,11 @@ public class JpaCommentRepository implements CommentRepository {
 
 	@Override
 	public List<Comment> AllList(Long postId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Comment> replyAllList(Long postId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
