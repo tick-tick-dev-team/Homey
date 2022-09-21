@@ -101,10 +101,10 @@ public class PostServiceImpl implements PostService{
 		
 		postForms.forEach(form -> {
 			// 첨부파일 정보 가져오기
-			Optional<Attach> attach = attachRepository.findById(form.getATTF_ID());
-			attach.ifPresent(f -> {
-				form.setATTF_OBJ(f);
-			});
+//			Optional<Attach> attach = attachRepository.findById(form.getATTF_ID());
+//			attach.ifPresent(f -> {
+//				form.setATTF_OBJ(f);
+//			});
 
 			// 댓글
 			Comment comment = new Comment();

@@ -61,17 +61,17 @@ public class PostController {
 	@GetMapping("/homes/{homeId}")
 	public String selectHomeTest (@PathVariable("homeId")Long homeId, Model model) {
 		// 더미 게시물 삽입
-		dummyData.setPosts();
+		//dummyData.setPosts();
 				
 		//List<Post> postList = postService.findByHomeId(homeId);
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
 		
 		// 더미 첨부파일 정보, 댓글, 대댓글 삽입
-		for (PostForm form : postFormList) {
-			// form.setATTF_ID(dummyData.setAttach(form.getPOST_ID()));
-			dummyData.setComments(form.getPOST_ID());
-			dummyData.setReplyComments(form.getPOST_ID());
-		}
+//		for (PostForm form : postFormList) {
+//			// form.setATTF_ID(dummyData.setAttach(form.getPOST_ID()));
+//			dummyData.setComments(form.getPOST_ID());
+//			dummyData.setReplyComments(form.getPOST_ID());
+//		}
 		// 더미 집주인
 		User dummyUser = dummyData.getUser(homeId.intValue());
 		

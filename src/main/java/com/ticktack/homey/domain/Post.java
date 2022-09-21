@@ -36,7 +36,7 @@ public class Post {
 	LocalDateTime POST_UPDATE;
 	
 	// Home ID
-	@Column(name="POST_HOME")
+	@Column(name="HOME_ID")
 	Long POST_HOME;
 	
 	// 첨부파일 ID
