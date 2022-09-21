@@ -11,22 +11,31 @@ public class Home {
 	
 	
 	private Long homeid;
-	private String userid;
+	private Long userid;
 	private String homename;
 	private String homeinst;
 	private String homeuse;
 	private String homethema;
 	
+	//사용자 생성시 home만들기 위해
+	private String usernick;
+	
+	public String getUsernick() {
+		return usernick;
+	}
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
+	}
 	public Long getHomeid() {
 		return homeid;
 	}
 	public void setHomeid(Long homeid) {
 		this.homeid = homeid;
 	}
-	public String getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 	public String getHomename() {

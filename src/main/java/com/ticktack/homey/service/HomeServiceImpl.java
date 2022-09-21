@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ticktack.homey.domain.Home;
+import com.ticktack.homey.domain.User;
 import com.ticktack.homey.repository.home.HomeRepository;
 
 public class HomeServiceImpl implements HomeService{
@@ -13,16 +14,21 @@ public class HomeServiceImpl implements HomeService{
 	public HomeServiceImpl(HomeRepository homeRepository) {
 		this.homeRepository = homeRepository;
 	}
+	
 	//home 생성
-	public Home create(Home home) {
-		return homeRepository.create(home);
+	public Home createHome(Home home) {
+		
+		//home.setHomename(user.getUsernick()+"의 집"); 은 UserController에서 진행
+		home.setHomeuse("Y");
+		return homeRepository.createHome(home);
 	}
 	
 	//home 전체조회
 	@Override
-	public List<Home> findByHome(Long homeId){
-		return homeRepository.findByHome(homeId);
+	public List<Home> findHomes(){
+		return homeRepository.findHomes();
 	}
+	
 	//home 상세조회
 	@Override
 	public Optional<Home> findById(Long homeId){
@@ -31,8 +37,12 @@ public class HomeServiceImpl implements HomeService{
 	//home 수정
 	@Override
 	public Home updateHome(Home home) {
+		home.setHomename(home.getHomename());
+		home.setHomeinst(home.getHomeinst());
+		home.setHomethema(home.getHomethema());
+		home.setHomeuse(home.getHomeuse());
 		
-		return homeRepository.update(home);
+		return homeRepository.updateHome(home);
 		
 	}
 }

@@ -80,11 +80,8 @@ public class CommentController {
 
 		// 해당 댓글 or 답글 찾기
 		Comment result = commentService.findById(comm).get();
-
-		if(result.getCommId() != null ) {
-			removeResult = commentService.commDelete(result);	
-			System.out.println("삭제 결과값 : " + removeResult);
-		}
+		removeResult = commentService.commDelete(result);
+		
 		return removeResult;
 	}
 	
