@@ -3,9 +3,12 @@ package com.ticktack.homey.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.repository.comment.CommentRepository;
 
+@Transactional
 public class CommentServiceImpl implements CommentService {
 	
 	private final CommentRepository commentRepository;

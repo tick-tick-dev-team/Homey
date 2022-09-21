@@ -3,13 +3,23 @@ package com.ticktack.homey.repository.comment;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
 import com.ticktack.homey.domain.Comment;
 
 public class JpaCommentRepository implements CommentRepository {
+	
+	private final EntityManager em;
+	
+	public JpaCommentRepository(EntityManager em) {
+		this.em = em;
+	}
 
 	@Override
 	public List<Comment> commAllList(Comment comm) {
-		return null;
+		List<Comment> result = em.createQuery("select c from Comment c where c.postId = :postId", Comment.class)
+				.setParameter("postId", comm.getPostId())
+				.getResultList();
+		return result;
 	}
 
 	@Override

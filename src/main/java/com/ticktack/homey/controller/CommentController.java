@@ -42,11 +42,7 @@ public class CommentController {
 	@GetMapping("/comment")
 	public String CommListMain(String num, Model model) {
 		Long postId = Long.parseLong(num);
-		
-		// 더미데이터
-		dummyData.setComments(postId);
-		dummyData.setReplyComments(postId);
-		
+				
 		Comment comm = new Comment();
 		comm.setPostId(postId);
 		List<Comment> result = commentService.commAllList(comm);

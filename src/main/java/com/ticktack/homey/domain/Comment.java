@@ -2,22 +2,38 @@ package com.ticktack.homey.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Comment {
 	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "COMM_ID")
 	private Long commId;
 	
+	@Column(name = "POST_ID")
 	private Long postId;
 	
+	@Column(name = "COMM_UPID")
 	private Long commUpid;
 	
+	@Column(name = "COMM_CONT")
 	private String commCont;
 	
+	@Column(name = "COMM_WRITER")
 	private String commWriter;
 	
+	@Column(name = "COMM_DATE")
 	private Date commDate;
 	
+	@Column(name = "COMM_UWRITER")
 	private String commUwriter;
 	
+	@Column(name = "COMM_UDATE")
 	private Date commUdate;
 	
 
