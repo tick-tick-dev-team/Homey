@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.Attach;
 
 public class JpaAttachRepository implements AttachRepository {
@@ -16,6 +18,7 @@ public class JpaAttachRepository implements AttachRepository {
 	}
 
 	@Override
+	@Transactional
 	public Attach save(Attach attach) {
 		em.persist(attach);
 		return attach;
@@ -27,8 +30,9 @@ public class JpaAttachRepository implements AttachRepository {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long attachId) {
-		em.createQuery("delete a from Attach a where a.attachId = :ATTF_ID")
+		em.createQuery("delete from Attach a where a.ATTF_ID = :attachId")
 		.setParameter("attachId", attachId)
 		.executeUpdate();		
 	}

@@ -160,6 +160,9 @@ public class PostController {
 		
 		PostForm post = postService.findById(postId);
 		
+		// 더미 로그인 유저
+		model.addAttribute("writer", dummyData.getUser(homeId.intValue()));
+		
 		model.addAttribute("post", post);
 		
 		return "posts/updatePostForm";

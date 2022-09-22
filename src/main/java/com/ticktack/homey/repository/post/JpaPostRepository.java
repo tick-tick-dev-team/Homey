@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.Post;
 
 public class JpaPostRepository implements PostRepository {
@@ -18,9 +20,11 @@ public class JpaPostRepository implements PostRepository {
 	}
 
 	@Override
+	@Transactional
 	public Post save(Post post) {
 		// id, 생성일, 수정일 넣고 저장
 		post.setPOST_DATE(LocalDateTime.now());
+		post.setPOST_UPDATE(post.getPOST_DATE());
 		em.persist(post);
 		return post;
 	}
@@ -35,6 +39,7 @@ public class JpaPostRepository implements PostRepository {
 	}
 
 	@Override
+	@Transactional
 	public Post update(Post post) {
 		post.setPOST_UPDATE(LocalDateTime.now());
 		em.merge(post);
@@ -42,8 +47,9 @@ public class JpaPostRepository implements PostRepository {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long postId) {
-		em.createQuery("delete from Post p where p.postId = :POST_ID")
+		em.createQuery("delete from Post p where p.POST_ID = :postId")
 		.setParameter("postId", postId)
 		.executeUpdate();
 	}
