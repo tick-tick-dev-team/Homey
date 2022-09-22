@@ -96,7 +96,7 @@ public class DummyDataImpl implements DummyData{
 				Long userId = i + 1L;
 				comment.setPostId(postId);
 				comment.setCommCont(usernames[i] + "님의 댓글");
-				comment.setCommWriter(userId.toString());
+				comment.setCommWriter(userId);
 				
 				commentService.commInsert(comment);
 			}

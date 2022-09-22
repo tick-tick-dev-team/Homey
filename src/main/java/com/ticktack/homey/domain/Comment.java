@@ -25,17 +25,19 @@ public class Comment {
 	private String commCont;
 	
 	@Column(name = "COMM_WRITER")
-	private String commWriter;
+	private Long commWriter;
 	
 	@Column(name = "COMM_DATE")
 	private Date commDate;
 	
 	@Column(name = "COMM_UWRITER")
-	private String commUwriter;
+	private Long commUwriter;
 	
 	@Column(name = "COMM_UDATE")
 	private Date commUdate;
 	
+	@Column(name = "NUM")
+	private int num;
 
 	public Long getCommId() {
 		return commId;
@@ -49,16 +51,16 @@ public class Comment {
 		return postId;
 	}
 
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
 	public Long getCommUpid() {
 		return commUpid;
 	}
 
 	public void setCommUpid(Long commUpid) {
 		this.commUpid = commUpid;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
 	}
 
 	public String getCommCont() {
@@ -69,11 +71,11 @@ public class Comment {
 		this.commCont = commCont;
 	}
 
-	public String getCommWriter() {
+	public Long getCommWriter() {
 		return commWriter;
 	}
 
-	public void setCommWriter(String commWriter) {
+	public void setCommWriter(Long commWriter) {
 		this.commWriter = commWriter;
 	}
 
@@ -85,11 +87,11 @@ public class Comment {
 		this.commDate = commDate;
 	}
 
-	public String getCommUwriter() {
+	public Long getCommUwriter() {
 		return commUwriter;
 	}
 
-	public void setCommUwriter(String commUwriter) {
+	public void setCommUwriter(Long commUwriter) {
 		this.commUwriter = commUwriter;
 	}
 

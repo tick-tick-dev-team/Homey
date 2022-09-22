@@ -16,7 +16,7 @@ public class JpaCommentRepository implements CommentRepository {
 
 	@Override
 	public List<Comment> commAllList(Comment comm) {
-		List<Comment> result = em.createQuery("select c from Comment c where c.postId = :postId", Comment.class)
+		List<Comment> result = em.createQuery("select c, COALESCE(c.commUpid, c.commId + 0) as c.num from Comment c where c.postId = :postId order by num, comm_id", Comment.class)
 				.setParameter("postId", comm.getPostId())
 				.getResultList();
 		return result;
