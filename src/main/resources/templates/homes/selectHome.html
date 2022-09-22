@@ -104,20 +104,6 @@ layout:decorate="~{layout/default_layout}">
 
 								<p class="content" th:text="|${comment.commCont}|">댓글 내용</p>
 							</li>
-							<!-- 댓글 예시 -->
-							<li>
-								<div class="flex-between">
-									<div class="info flex-start">
-										<span >mk45118</span>
-										<span >2022.09.13 오후 4시 21분</span>
-									</div>
-									<div class="btn-wrap flex-end">
-										<a class="btn-border" href="#" th:text="수정">수정</a>
-										<a class="btn-border" href="#" th:text="삭제">삭제</a>
-									</div>
-								</div>
-								<p class="content" >오늘 점심 뭐 먹었어?</p>
-							</li>
 						</ul>
 						<div class="input-wrap flex-between">
 							<input autocomplete="off" type="text" id="commCont" name="commCont" placeholder="댓글을 입력하세요" >
