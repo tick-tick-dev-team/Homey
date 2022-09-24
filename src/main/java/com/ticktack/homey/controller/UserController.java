@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ticktack.homey.domain.Home;
@@ -50,6 +51,13 @@ public class UserController {
 		List<User> users = userService.findUsers();
 		model.addAttribute("users", users );
 		return "users/userList";
+	}
+	
+	@PostMapping("users")
+	public String MyPage(Long userId, Model model) {
+		User result = userService.findById(userId).get();
+		model.addAttribute("users", result );
+		return "users/myPage";
 	}
 	
 	

@@ -2,8 +2,15 @@ package com.ticktack.homey.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
 public class User {
 
 /* USER_ID              BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '사용자ID',
@@ -14,12 +21,23 @@ public class User {
    USER_BIRTH           DATE NULL COMMENT '생년월일',
    ATTF_ID              BIGINT NULL COMMENT '첨부파일ID'*/
 
-	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "USER_ID")
 	private Long user_id;
+	
+	@Column(name = "USER_PASS")
 	private String userpass;
+	
+	@Column(name = "USER_NICK")
 	private String usernick;
+	
+	@Column(name = "USER_JOIN")
 	private Date userjoin;
+	
+	@Column(name = "USER_POWER")
 	private String userpower;
+	
+	@Column(name = "USER_BIRTH")
 	private Date userbirth;
 	
 	public Long getUser_id() {

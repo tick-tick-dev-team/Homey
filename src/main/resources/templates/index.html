@@ -24,6 +24,7 @@ layout:decorate="~{layout/default_layout}">
 	</form>
 		<a th:href="@{/users/new}">회원가입</a>
 		<a th:href="@{/users}">회원목록</a>
+		<a href="javascript:goMyPage();">마이페이지</a>
 	</div>
 	
 	여기 아래는 each문 돌립니다.
@@ -42,6 +43,22 @@ layout:decorate="~{layout/default_layout}">
 		<li><a href="homey_p">팝의집</a></li>
 		<li><a href="homey_e">24의 집</a></li>
 	</ul>
-    
+    <script>
+	function goMyPage(){
+		var form = document.createElement('form');
+		var hiddenField = document.createElement('input');
+		
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', '/users');
+		
+		hiddenField.setAttribute('type', 'hidden');
+		hiddenField.setAttribute('name', 'userId');
+		hiddenField.setAttribute('value', 1);
+		
+		form.appendChild(hiddenField);
+		document.body.appendChild(form);
+		form.submit();
+	}
+</script>
 </body>
 </html>

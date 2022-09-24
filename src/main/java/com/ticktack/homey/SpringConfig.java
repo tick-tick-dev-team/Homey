@@ -21,6 +21,7 @@ import com.ticktack.homey.repository.home.MemoryHomeRepository;
 //import com.ticktack.homey.repository.post.JpaPostRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+import com.ticktack.homey.repository.user.JpaUserRepository;
 import com.ticktack.homey.repository.user.MemoryUserRepository;
 import com.ticktack.homey.repository.user.UserRepository;
 import com.ticktack.homey.service.AttachService;
@@ -64,7 +65,8 @@ public class SpringConfig {
 	
 	@Bean
 	public UserRepository userRepository() {
-		return new MemoryUserRepository();
+		return new JpaUserRepository(em);
+//		return new MemoryUserRepository();
 	}
 	
 	@Bean
