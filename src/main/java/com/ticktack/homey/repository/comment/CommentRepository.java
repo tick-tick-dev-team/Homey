@@ -28,6 +28,9 @@ public interface CommentRepository {
 	List<Comment> AllList(Long postId);
 	
 	List<Comment> replyAllList(Long postId);
+
+	// commUpid 입력 메서드
+	Comment commUpidUpdate(Comment result);
 	
 
 }

@@ -35,9 +35,6 @@ public class Comment {
 	
 	@Column(name = "COMM_UDATE")
 	private Date commUdate;
-	
-	@Column(name = "NUM")
-	private int num;
 
 	public Long getCommId() {
 		return commId;

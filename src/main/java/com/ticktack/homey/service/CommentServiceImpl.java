@@ -1,5 +1,6 @@
 package com.ticktack.homey.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,17 @@ public class CommentServiceImpl implements CommentService {
 	 * */
 	@Override
 	public Comment commInsert(Comment comm) {
-		return commentRepository.commInsert(comm);
+		// commCont, CommWriter, postId만 넘어옴
+		comm.setCommDate(new Date());
+		comm.setCommUwriter(comm.getCommWriter());
+		comm.setCommUdate(comm.getCommDate());
+		Comment result = commentRepository.commInsert(comm);
+		
+		if(result.getCommUpid() == null) {
+			result.setCommUpid(result.getCommId());
+			commentRepository.commUpidUpdate(result);
+		}
+		return result;
 	}
 
 	/**
@@ -39,6 +50,8 @@ public class CommentServiceImpl implements CommentService {
 	 * */
 	@Override
 	public Comment commUpdate(Comment comm) {
+		comm.setCommUdate(new Date());
+		comm.setCommUwriter(comm.getCommWriter());
 		return commentRepository.commUpdate(comm);
 	}
 

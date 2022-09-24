@@ -16,7 +16,7 @@ public class JpaCommentRepository implements CommentRepository {
 
 	@Override
 	public List<Comment> commAllList(Comment comm) {
-		List<Comment> result = em.createQuery("select c, COALESCE(c.commUpid, c.commId + 0) as c.num from Comment c where c.postId = :postId order by num, comm_id", Comment.class)
+		List<Comment> result = em.createQuery("select c from Comment c where c.postId = :postId order by commUpid, commId", Comment.class)
 				.setParameter("postId", comm.getPostId())
 				.getResultList();
 		return result;
@@ -24,17 +24,22 @@ public class JpaCommentRepository implements CommentRepository {
 
 	@Override
 	public Comment commInsert(Comment comm) {
-		return null;
+		em.persist(comm);
+		return comm;
 	}
 
 	@Override
 	public Comment commUpdate(Comment comm) {
-		return null;
+		em.merge(comm);
+		return comm;
 	}
 
 	@Override
 	public boolean commDelete(Comment comm) {
-		return false;
+		em.createQuery("delete from Comment c where c.commId = :commId or c.commUpid = :commId")
+		.setParameter("commId", comm.getCommId())
+		.executeUpdate();
+		return true;
 	}
 
 	@Override
@@ -44,7 +49,7 @@ public class JpaCommentRepository implements CommentRepository {
 
 	@Override
 	public Optional<Comment> findById(Comment comm) {
-		return null;
+		return Optional.ofNullable(em.find(Comment.class, comm.getCommId()));
 	}
 
 	@Override
@@ -57,6 +62,12 @@ public class JpaCommentRepository implements CommentRepository {
 		return null;
 	}
 
+	/* 댓글 생성 후에 commUpid 넣어주는 메서드  */
+	@Override
+	public Comment commUpidUpdate(Comment comm) {
+		em.merge(comm);
+		return comm;
+	}
 
 
 }

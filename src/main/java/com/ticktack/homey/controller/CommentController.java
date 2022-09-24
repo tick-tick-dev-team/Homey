@@ -72,9 +72,9 @@ public class CommentController {
 		boolean removeResult = false;
 
 		// 해당 댓글 or 답글 찾기
-		Comment result = commentService.findById(comm).get();
-		removeResult = commentService.commDelete(result);
-		
+		// Comment result = commentService.findById(comm).get();
+		removeResult = commentService.commDelete(comm);
+		System.out.println("삭제값 : "+removeResult);
 		return removeResult;
 	}
 	

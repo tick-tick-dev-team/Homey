@@ -16,7 +16,7 @@ function CommentAdd(e){
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     var data = {
     		commCont   : commCont,
-    		commWriter : 'popdo',
+    		commWriter : 1,
     		postId     : postId
     };
 
@@ -33,7 +33,7 @@ function CommentAdd(e){
 		    	 var ul = div.querySelector('ul');
  		    	 var li = document.createElement("li");
 		    	 li.setAttribute('commId', result.commId );
-	    		 li.setAttribute('commUpid', 0 );
+	    		 li.setAttribute('commUpid', result.commUpid );
 		    	 li.innerHTML = '<div class="flex-between">'
 				              + 	'<div class="info flex-start">'
 				              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
@@ -184,7 +184,8 @@ function CommentReplyAdd(e){
 	var nexSibling = li.nextElementSibling;
 	var preElement = li;
 	if(li.nextElementSibling != null){
-	 	while(nexSibling.getAttribute('commupid')!= 0){
+		console.log("비교 : " + nexSibling.getAttribute('commupid'))
+	 	while(nexSibling.getAttribute('commupid')!= nexSibling.getAttribute('commid')){
 			if(nexSibling.nextElementSibling == null){
 				preElement = nexSibling;
 				nexSibling = li.parentNode;
@@ -197,6 +198,8 @@ function CommentReplyAdd(e){
 	} else {
 		nexSibling = li.parentNode;
 	}
+	console.log(nexSibling);
+	console.log(preElement);
  	var addli = document.createElement("li");
  	addli.innerHTML = '<input autocomplete="off" type="text" id="replyCommCont" name="commCont">'
  					+ '<input type="hidden" id="commUpid" name="commUpid" value="'+ commId +'">'
@@ -219,7 +222,7 @@ function replyAdd(e){
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     var data = {
     		commCont   : commCont,
-    		commWriter : 'popdo',
+    		commWriter : 1,
     		commUpid   : commUpid,
     		postId     : postId
     };
@@ -283,7 +286,7 @@ function replyCancel(e){
 		</div>
 		<div th:postId="${postId}" class="comments">
 			<ul>
-		       <li th:each="comment : ${commList}" th:commId="${comment.commId}" th:commUpid="${comment.commUpid != null ? comment.commUpid : 0 }">
+		       <li th:each="comment : ${commList}" th:commId="${comment.commId}" th:commUpid="${comment.commUpid}">
 					<div class="flex-between" >
 		               <div class="info flex-start">
 		                   <span th:text="|작성자id = ${comment.commWriter}|">mk45118</span>
@@ -293,7 +296,7 @@ function replyCancel(e){
 		               <div class="btn-wrap flex-end">
 		                   <a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
 		                   <a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
-		                   <a th:if="${comment.commUpid == null}" class="btn-border" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
+		                   <a th:if="${comment.commUpid == comment.commId}" class="btn-border" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
 		               </div>
 		           </div>
 		           <p class="content" th:text="|${comment.commCont}|">댓글 내용</p>
