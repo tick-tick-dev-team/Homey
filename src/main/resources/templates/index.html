@@ -24,7 +24,8 @@ layout:decorate="~{layout/default_layout}">
 	</form>
 		<a th:href="@{/users/new}">회원가입</a>
 		<a th:href="@{/users}">회원목록</a>
-		<a href="javascript:goMyPage();">마이페이지</a>
+		 <!-- @{|/users/${userId}|} -->
+		<a th:href="@{|/users/1|}">마이페이지</a>
 	</div>
 	
 	여기 아래는 each문 돌립니다.
@@ -48,8 +49,8 @@ layout:decorate="~{layout/default_layout}">
 		var form = document.createElement('form');
 		var hiddenField = document.createElement('input');
 		
-		form.setAttribute('method', 'post');
-		form.setAttribute('action', '/users');
+		form.setAttribute('method', 'GET');
+		form.setAttribute('action', '/users/{userId}');
 		
 		hiddenField.setAttribute('type', 'hidden');
 		hiddenField.setAttribute('name', 'userId');

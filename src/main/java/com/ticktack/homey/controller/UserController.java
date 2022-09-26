@@ -53,13 +53,13 @@ public class UserController {
 		return "users/userList";
 	}
 	
-	@PostMapping("users")
-	public String MyPage(Long userId, Model model) {
+	@GetMapping("/users/{userId}")
+	public String MyPage2(@PathVariable Long userId, Model model) {
 		User result = userService.findById(userId).get();
 		model.addAttribute("users", result );
 		return "users/myPage";
 	}
-	
+
 	
 
 }
