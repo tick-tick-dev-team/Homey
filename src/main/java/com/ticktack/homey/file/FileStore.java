@@ -21,13 +21,19 @@ public class FileStore {
 
     @Value("${file.dir}")
 	private String fileDir;
+    
+    private String tmpFileDir = System.getProperty("java.io.tmpdir");
 
     // 파일 이름 입력받아 전체 경로 반환
     public String getFullPath(String filename) {
 		return fileDir + filename;
 	}
+    
+    public String getTmpFullPath(String filename) {
+		return tmpFileDir + filename;
+	}
 
-    	// 파일 정보 하나 반환
+    // 파일 정보 하나 반환
 	public Attach storeFile(MultipartFile multipartFile) throws IllegalStateException, IOException {
 		if(multipartFile.isEmpty()) {
 			return null;
@@ -63,7 +69,7 @@ public class FileStore {
 		return uuid + "." + ext;
 	}
 
-	// 로컬 파일
+	// 로컬 파일 삭제
 	public void deleteStoreFile (Optional<Attach> attach) throws IOException{
 		attach.ifPresent(a -> {
 			System.out.println("deleteStoreFile : " + a.getATTF_ROUTE() + " 삭제 시작");
@@ -77,4 +83,17 @@ public class FileStore {
 			}
 		});
 	}
+	
+	// multipartFile 에서 임시파일 생성해 리턴
+	public String storeTmpFile(MultipartFile multipartFile) throws IllegalStateException, IOException {
+		if(multipartFile.isEmpty()) {
+			return null;
+		}
+		
+		String originalFileName = multipartFile.getOriginalFilename();
+		multipartFile.transferTo(new File(getTmpFullPath(originalFileName)));
+		return originalFileName;
+	}
+	
+	
 }

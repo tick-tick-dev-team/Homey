@@ -87,40 +87,40 @@ public class PostController {
 		return "homes/selectHome";
 	}
 
-	// 첨부 이미지 조회
-	@ResponseBody
-	@GetMapping("/images/{filename}")
-	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-		
-		// file:D:/practice/file/diec-e93k.png
-		// url이라 띄어쓰기까지 정확해야 한다 
-		// 보안 취약
-		return new UrlResource("file:" + fileStore.getFullPath(filename));
-	}
-	
-	// @ResponseBody 대신 ResponseEntity : header 정보 추가 가능
-	@GetMapping("/attach/{postId}")
-	public ResponseEntity<Resource> downloadAttach(@PathVariable Long postId) throws MalformedURLException {
-
-		Attach attach = postService.findById(postId).getATTF_OBJ();
-
-		String storeFileName = attach.getATTF_SERNM();
-		String originalFileName = attach.getATTF_REALNM();
-		
-		UrlResource urlResource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
-		System.out.println("uploadFileName=" + originalFileName);
-		// log.info("uploadFileName={}", originalFileName);
-		
-		// 한글 깨짐 방지 UTF-8 인코딩
-		String encodedOriginalFileName = UriUtils.encode(originalFileName, StandardCharsets.UTF_8);
-		
-		// header 정보 추가 안하면 url은 파일을 보여주기만 함
-		String contentDisposition = "attachment; filename=\"" + encodedOriginalFileName + "\"";
-		
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-				.body(urlResource);
-	}
+//	// 첨부 이미지 조회
+//	@ResponseBody
+//	@GetMapping("/images/{filename}")
+//	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+//		
+//		// file:D:/practice/file/diec-e93k.png
+//		// url이라 띄어쓰기까지 정확해야 한다 
+//		// 보안 취약
+//		return new UrlResource("file:" + fileStore.getFullPath(filename));
+//	}
+//	
+//	// @ResponseBody 대신 ResponseEntity : header 정보 추가 가능
+//	@GetMapping("/attach/{postId}")
+//	public ResponseEntity<Resource> downloadAttach(@PathVariable Long postId) throws MalformedURLException {
+//
+//		Attach attach = postService.findById(postId).getATTF_OBJ();
+//
+//		String storeFileName = attach.getATTF_SERNM();
+//		String originalFileName = attach.getATTF_REALNM();
+//		
+//		UrlResource urlResource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
+//		System.out.println("uploadFileName=" + originalFileName);
+//		// log.info("uploadFileName={}", originalFileName);
+//		
+//		// 한글 깨짐 방지 UTF-8 인코딩
+//		String encodedOriginalFileName = UriUtils.encode(originalFileName, StandardCharsets.UTF_8);
+//		
+//		// header 정보 추가 안하면 url은 파일을 보여주기만 함
+//		String contentDisposition = "attachment; filename=\"" + encodedOriginalFileName + "\"";
+//		
+//		return ResponseEntity.ok()
+//				.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+//				.body(urlResource);
+//	}
 	
 	
 	// 게시물 등록 폼 조회
