@@ -77,11 +77,13 @@ layout:decorate="~{layout/default_layout}">
 								<p th:text="${post.POST_CONT}">오늘 점심에는 불고기 도시락을 먹었다.</p>
 							</li>
 							<li th:if="${post.ATTF_OBJ}" class="attf-name" >
-								<img style="display:block;" th:if="${post.getATTF_OBJ().isImage()}" th:src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="" width="300" height="300">
-									<p>
-										<span>첨부파일 : </span>
-										<a th:href="|/attach/${post.POST_ID}|" th:text="${post.getATTF_OBJ().getATTF_REALNM()}"></a>
-									</p>
+								<div id="image-container">
+									<img th:if="${post.getATTF_OBJ().isImage()}" th:src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="">
+								</div>
+								<p>
+									<span>첨부파일 : </span>
+									<a th:href="|/attach/${post.POST_ID}|" th:text="${post.getATTF_OBJ().getATTF_REALNM()}"></a>
+								</p>
 							</li>
 						</ul>
 					</div>

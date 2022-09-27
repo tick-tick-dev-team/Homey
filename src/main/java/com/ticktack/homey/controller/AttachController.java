@@ -80,9 +80,11 @@ public class AttachController {
 	@ResponseBody
 	@PostMapping("/tmp/new")
 	public Resource createTmp (MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		System.out.println("attachController : createTmp");
 		
 		// 임시 파일 저장
 		Optional.ofNullable(file).ifPresent(f -> {
+			System.out.println("파일명 : " + file.getOriginalFilename());
 			try {
 				fileStore.storeTmpFile(f);
 			} catch (IllegalStateException e) {
