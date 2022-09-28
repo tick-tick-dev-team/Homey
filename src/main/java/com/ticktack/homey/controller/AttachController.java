@@ -10,6 +10,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class AttachController {
 	private final PostService postService;
 	private final AttachService attachService;
 	
-	// 파일 업로드
+	// 파일 처리 관련 클래스
 	private final FileStore fileStore;
 	
 	public AttachController(PostService postService, AttachService attachService, 
@@ -42,6 +43,22 @@ public class AttachController {
 		this.attachService = attachService;
 		this.fileStore = fileStore;
 	}
+	
+	// 첨부파일 삭제
+	@DeleteMapping("/attach/{attachId}")
+	public boolean deleteAttach(@PathVariable Long attachId) {
+
+		System.out.println("attachController - deleteAttach attachId = " + attachId);
+
+		Optional<Attach> attach = attachService.findById(attachId);
+		if(attach.isPresent()) {
+			attachService.deleteAttach(attach.get().getATTF_ID());
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	// 첨부 이미지 조회
 	@ResponseBody
