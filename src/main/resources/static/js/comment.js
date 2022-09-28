@@ -8,18 +8,21 @@
 function CommentAdd(e){
 	var commCont = document.getElementById("commCont").value;
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );	
-	
+	var result = '';
 	var data = {
 	    		commCont   : commCont,
 	    		commWriter : 1,
 	    		postId     : postId
 	};
-	var result =  AjaxFn('POST', '/commentAdd' , data);
-	result = JSON.stringify(result);
-	console.log(result);
+	result =  JSON.stringify(AjaxFn('POST', '/commentAdd' , data));
+	console.log('________________JSON 형태 변환 Result타입___________________');
+	console.log(result.postId);
+	console.log(result["postId"]);
 	
-	var div = document.querySelector('[postid="'+result.postId+'"]');
-	console.log()
+	var div = document.querySelector('[postid="'+postId+'"]');
+
+	console.log('________________div 요소 찾기___________________');
+	console.log(div);
 	var ul = div.querySelector('ul');
 	var li = document.createElement("li");
 	li.setAttribute('commId', result.commId );
