@@ -1,39 +1,3 @@
-function selectFile (input) {
-
-    const reader = new FileReader();
-
-    
-
-    const filename = input.value;
-    const file = input.files[0];
-    alert("파일이름: " + filename.substring(filename.lastIndexOf("\\")+1)); 
-    alert("파일이름: " + input.files[0].name); 
-    
-    
-
-    
-    // ajax
-    httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', '/tmp/new', true);
-//    httpRequest.setRequestHeader('Content-Type', 'multipart/form-data');
-    
-    httpRequest.send(file);
-    
-    httpRequest.onreadystatechange = () => {
-    	if (httpRequest.readyState === XMLHttpRequest.DONE) {
-    		if (httpRequest.status === 200) {
-    			const resourceUrl = JSON.parse(httpRequest.response);
-    			console.log(resourceUrl);
-    			
-    			const img = document.querySelector("img#showImg");
-    			img.setAttribute('src', resourceUrl);
-    		} else {
-    			alert("실패 : " +  httpRequest.status);
-    		}
-    	}
-    }
-}
-
 function setThumbnail(event) {
     const reader = new FileReader();
 
@@ -95,7 +59,8 @@ function deleteAttach(i) {
             }
         }
     }
-
     // 화면에서 이미지 삭제
     parent.firstChild.remove();
 }
+
+
