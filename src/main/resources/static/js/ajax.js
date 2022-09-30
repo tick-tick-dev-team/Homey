@@ -43,5 +43,5 @@ function AjaxFn(api, url , data){
     
     console.log(result)
     
-    return JSON.stringify(result);
+    return result;
 }

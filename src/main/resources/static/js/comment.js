@@ -8,13 +8,14 @@
 function CommentAdd(e){
 	var commCont = document.getElementById("commCont").value;
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );	
-	var result = '';
 	var data = {
 	    		commCont   : commCont,
 	    		commWriter : 1,
 	    		postId     : postId
 	};
-	result =  JSON.stringify(AjaxFn('POST', '/commentAdd' , data));
+	var result =  JSON.parse(AjaxFn('POST', '/commentAdd' , data));
+	console.log(result);
+	console.log(typeof result);
 	console.log('________________JSON 형태 변환 Result타입___________________');
 	console.log(result.postId);
 	console.log(result["postId"]);
