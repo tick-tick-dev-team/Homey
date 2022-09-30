@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +49,10 @@ public class HomeController {
 	}
 	
 	//로그아웃
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/";
-	}
+//	@GetMapping("/logout")
+//	public String logout(HttpServletRequest request, HttpServletResponse response) {
+//		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+//        return "redirect:/";
+//	}
 
 }
