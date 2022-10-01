@@ -4,16 +4,33 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layout/default_layout}">	
 
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css"></th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script"></th:block>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-로그인 성공!
+<body layout:fragment="content">
+<div align="center">
+로그인 성공!<br>
+환영합니다!!!!
+<div th:text="${info}"></div><br>
 <a th:href="@{/users}">회원목록</a>
-<a th:href="@{/logout}">로그아웃</a>
- <form action="#" th:action="@{/logout}" method="post">
+	<h3>친구집 놀러가기</h3>
+	<ul th:each="home : ${homes}">
+		
+		<li th:text ="${home.homename}" th:href="@{/homes/?homeId={home.homeid}}"></li>
+		
+	</ul>
+<br>
+<a class="btn" th:href="@{/logout}">로그아웃</a>
+ <!-- <form action="#" th:action="@{/logout}" method="post">
             <input type="submit" value="Logout"/>
- </form>
+ </form> -->
+</div>
 </body>
 </html>
