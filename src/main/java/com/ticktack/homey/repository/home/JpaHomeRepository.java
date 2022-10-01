@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.Home;
 
+@Transactional
 public class JpaHomeRepository implements HomeRepository  {
 
 	private EntityManager em;

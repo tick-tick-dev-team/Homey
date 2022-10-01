@@ -39,10 +39,10 @@ public class MemoryUserRepository implements UserRepository{
 	}
 	
 	//로그인을 위해.. 못하겠음;;
-	@Override
+	/*@Override
 	public User findBynick(String usernick) {
 		return null;
-	}
+	}*/
 
 	//회원전체조회
 	@Override
@@ -84,18 +84,19 @@ public class MemoryUserRepository implements UserRepository{
 	public Optional<User> findByPass(String userpass){
 		return Optional.ofNullable(store.get(userpass));
 	}
+
+
+	@Override
+	public User findBynick(String usernick) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	/*@Override
 	public Session{
 	}*/
 	
 	
-	//모든 회원 조회
-	@Override
-	public List<User> findAll() {
-		//store된 user반환
-		return new ArrayList<>(store.values());
-	}
 	
 
 }

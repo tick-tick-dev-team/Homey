@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	//회원전체조회
 	@Override
 	public List<User> findUsers(){
-		return userRepository.findAll();
+		return userRepository.findUsers();
 	}
 	//회원상세조회 
 	@Override

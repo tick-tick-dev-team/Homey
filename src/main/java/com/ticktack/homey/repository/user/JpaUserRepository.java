@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.User;
 
+@Transactional
 public class JpaUserRepository implements UserRepository{
 
 	private final EntityManager em;
@@ -23,14 +26,16 @@ public class JpaUserRepository implements UserRepository{
 
 	@Override
 	public Optional<User> findByNick(String usernick) {
-		User user = em.find(User.class, usernick);
-		return Optional.ofNullable(user);
+		return em.createQuery("select u from User u where u.usernick = :usernick", User.class)
+				.setParameter("usernick",usernick)
+				.getResultList().stream().findAny();
 	}
-
+	
 	@Override
 	public User findBynick(String usernick) {
-		User user = em.find(User.class, usernick);
-		return user;
+		return em.createQuery("select u from User u where u.usernick = :usernick", User.class)
+				.setParameter("usernick",usernick)
+				.getSingleResult();
 	}
 
 	@Override
@@ -63,11 +68,7 @@ public class JpaUserRepository implements UserRepository{
 		return null;
 	}
 
-	@Override
-	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	} 
+
 
 	
 }

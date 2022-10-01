@@ -38,11 +38,10 @@ public class UserController {
 		
 		userService.createUser(user);
 		
-		System.out.println("여기까지 됐음 ====");
 		
 		//home테이블에 usernick도 추가 필요없음, 바로 설정한다.
 		Home home = new Home();
-		home.setUserid(form.getUser_id());
+		home.setUserid(user.getUser_id());
 		home.setHomename(form.getUsernick()+"의 집");
 		homeService.createHome(home);
 		
