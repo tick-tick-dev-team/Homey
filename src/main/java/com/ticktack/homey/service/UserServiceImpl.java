@@ -3,6 +3,7 @@ package com.ticktack.homey.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ticktack.homey.domain.User;
@@ -12,6 +13,8 @@ public class UserServiceImpl implements UserService {
 	
 	private UserRepository userRepository;
 	//private PasswordEncoder passwordEncoder;
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -19,16 +22,16 @@ public class UserServiceImpl implements UserService {
 	
 	//회원가입
 	@Override
-	public String createUser(User user) {
+	public User createUser(User user) {
 		validateDuplicateNick(user); //중복닉네임검증
 		
-		//비밀번호 암호화
-		//String encodedPassword = passwordEncoder.encode(user.getUserpass());
-		//user.setUserpass(encodedPassword);
+		//패스워드암호화
+		String encodedPassword = passwordEncoder.encode(user.getUserpass());
+        user.setUserpass(encodedPassword);
 		
 		userRepository.createUser(user);
 		
-		return user.getUsernick();
+		return user;
 	}
 	
 	//중복닉네임검증

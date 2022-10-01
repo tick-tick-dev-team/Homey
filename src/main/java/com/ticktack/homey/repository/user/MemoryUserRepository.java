@@ -29,13 +29,19 @@ public class MemoryUserRepository implements UserRepository{
 	}
 
 
-	//중복 닉 거르기 위해서
+	//중복 닉 거르기 위해서, //로그인 로직을 위한 조회
 	@Override
 	public Optional<User> findByNick(String usernick) {
 		//같은 경우에는 필터링, 찾으면 Optional로 찾은 것을 반환
 		return store.values().stream()
 				.filter(user->user.getUsernick().equals(usernick))
 				.findAny();
+	}
+	
+	//로그인을 위해.. 못하겠음;;
+	@Override
+	public User findBynick(String usernick) {
+		return null;
 	}
 
 	//회원전체조회
@@ -50,6 +56,8 @@ public class MemoryUserRepository implements UserRepository{
 		//null이여도 반환가능
 		return Optional.ofNullable(store.get(userid));
 	}
+	
+	
 	
 	
 	//회원정보수정

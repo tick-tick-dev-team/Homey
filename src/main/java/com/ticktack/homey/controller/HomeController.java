@@ -22,7 +22,7 @@ public class HomeController {
 	@Autowired
 	private HomeService homeService;
 	
-	//첫화면, index페이지, login페이지, logout시 반환
+	//첫화면, index페이지, logout시 반환
 	@GetMapping("/")
 	public String list(Model model) {
 		List<Home> homes = homeService.findHomes();
@@ -30,11 +30,17 @@ public class HomeController {
 		return "index";
 	}
 	
+	//login페이지
+	@GetMapping("/loginForm")
+	public String loginForm(){
+		return "loginForm";
+	}
+	
 	//로그인 프로세스
-	@PostMapping("/doLogin")
+	/*@PostMapping("/doLogin")
 	public String loginProc(){
 		return "/homes";
-	}
+	}*/
 	
 	//로그인 성공시
 	@GetMapping("/homes")

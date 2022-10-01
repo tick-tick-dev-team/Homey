@@ -12,5 +12,8 @@ layout:decorate="~{layout/default_layout}">
 로그인 성공!
 <a th:href="@{/users}">회원목록</a>
 <a th:href="@{/logout}">로그아웃</a>
+ <form action="#" th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+ </form>
 </body>
 </html>
