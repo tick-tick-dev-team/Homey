@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
+import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Home;
@@ -87,10 +89,13 @@ public class PostController {
 	
 	// 게시물 등록 폼 조회
 	@GetMapping("/posts/{homeId}/new")
-	public String createPostForm(@PathVariable("homeId")Long homeId, Model model) {
+	public String createPostForm(@AuthenticationPrincipal PrincipalDetails details, @PathVariable("homeId")Long homeId, Model model) {
 		model.addAttribute("homeId", homeId);
-		// 더미 로그인 유저
-		model.addAttribute("writer", dummyData.getUser(homeId.intValue()));
+		// 로그인 유저
+		model.addAttribute("writer", userService.findById(homeId).get());
+		
+//		User user = userService.findByNick(details.getUsername()).get();
+//		model.addAttribute("writer", user);
 		
 		return "posts/createPostForm";
 	}
@@ -118,12 +123,14 @@ public class PostController {
 	
 	// 게시물 수정 폼 조회
 	@GetMapping("/posts/{homeId}/update/{postId}")
-	public String updatePostForm(@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
+	public String updatePostForm(@AuthenticationPrincipal PrincipalDetails details, @PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
 		
 		PostForm post = postService.findById(postId);
 		
-		// 더미 로그인 유저
-		model.addAttribute("writer", dummyData.getUser(homeId.intValue()));
+		// 로그인 유저
+		model.addAttribute("writer", userService.findById(homeId).get());
+//		User user = userService.findByNick(details.getUsername()).get();
+//		model.addAttribute("writer", user);
 		
 		model.addAttribute("post", post);
 		
