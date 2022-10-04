@@ -19,12 +19,16 @@ import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.service.HomeService;
+import com.ticktack.homey.service.UserService;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
 	private HomeService homeService;
+	
+	@Autowired
+	private UserService userService;
 	
 	//첫화면, index페이지, logout시 반환
 	@GetMapping("/")
@@ -44,21 +48,24 @@ public class HomeController {
 
 	//로그인 성공시
 	@GetMapping("/homes")
-	public String hometown(@AuthenticationPrincipal PrincipalDetails principal, Model model, Model who) {
+	public String hometown(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
 		//Authentication 객체를 통해 유저 정보를 가져올 수 있다.
 		List<Home> homes = homeService.findHomes();
 		model.addAttribute("homes", homes);
+		model.addAttribute("info", principal.getUsername()+"님");
 		
-		who.addAttribute("info", principal.getUsername()+"님");
+		//db의 유저정보 조회
+		User userinfo = userService.findBynick(principal);
+		model.addAttribute("userinfo", userinfo);
 		
 		return "homes/Homes";
 	}
 	
-	//로그인 실패시
+/*	//로그인 실패시
 	@GetMapping("/failLogin")
 	public String fail() {
 		return "failLogin";
-	}
+	}*/
 	
 	/*
 	 * //로그아웃

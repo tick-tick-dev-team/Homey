@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.repository.user.UserRepository;
 
@@ -64,16 +66,13 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteUser(userId);
 		return userId;
 	}
-	//로그인
-	/*@Override
-	public Boolean login(User user) {
-		return userRepository.login(user);
-	}*/
-	//세션확인
-	/*public Session(Session session){
-		return userRepository.Session(session);
+
+	//usernick으로 회원정보조회
+	@Override
+	public User findBynick(@AuthenticationPrincipal PrincipalDetails principal) {
+		return userRepository.findBynick(principal.getUsername());
 	}
-	*/
+
 
 
 }
