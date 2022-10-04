@@ -2,8 +2,11 @@ package com.ticktack.homey.service;
 
 import java.util.Optional;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.Attach;
 
+@Transactional
 public interface AttachService {
 	
 	// 첨부파일 정보 조회

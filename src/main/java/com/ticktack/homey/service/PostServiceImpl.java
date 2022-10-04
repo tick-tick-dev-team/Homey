@@ -37,10 +37,16 @@ public class PostServiceImpl implements PostService{
 	public PostForm findById(Long postId) {
 		PostForm form = postRepository.findById(postId).get().getFormFromPost();
 		
-		// 첨부파일 정보 가져오기
-		Optional<Attach> attach = attachRepository.findById(form.getATTF_ID());
-		attach.ifPresent(f -> {
-			form.setATTF_OBJ(f);
+		// 첨부파일 정보 가져오기	
+//		Optional<Long> attfId = Optional.ofNullable(form.getATTF_ID());
+//		attfId.ifPresent(id -> {
+//			form.setATTF_OBJ(attachRepository.findById(id).get());
+//		});
+		Optional<Long> attfId = Optional.ofNullable(form.getATTF_ID());
+		attfId.ifPresent(id -> {
+			attachRepository.findById(id).ifPresent(att -> {
+				form.setATTF_OBJ(att);
+			});
 		});
 
 		// 댓글
@@ -100,10 +106,12 @@ public class PostServiceImpl implements PostService{
 		List<PostForm> postForms = posts.stream().map(post -> post.getFormFromPost()).collect(Collectors.toList());
 		
 		postForms.forEach(form -> {
-			// 첨부파일 정보 가져오기
-			Optional<Attach> attach = attachRepository.findById(form.getATTF_ID());
-			attach.ifPresent(f -> {
-				form.setATTF_OBJ(f);
+			// 첨부파일 정보 가져오기	
+			Optional<Long> attfId = Optional.ofNullable(form.getATTF_ID());
+			attfId.ifPresent(id -> {
+				attachRepository.findById(id).ifPresent(att -> {
+					form.setATTF_OBJ(att);
+				});
 			});
 
 			// 댓글

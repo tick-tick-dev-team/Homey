@@ -21,7 +21,9 @@
 </th:block>
 
 <!-- 고유 스크립트 추가 -->
-<th:block layout:fragment="script"></th:block>	
+<th:block layout:fragment="script">
+	
+</th:block>	
 
 <body id="PostForm" layout:fragment="content">
 	<div class="container">
@@ -37,7 +39,10 @@
 					<textarea class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
 					name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
 					<label for="ATTF_OBJ">첨부파일</label>
-					<input type="file" name="ATTF_OBJ" id="ATTF_OBJ" >
+					<input onchange="setThumbnail(event);" type="file" name="ATTF_OBJ" id="ATTF_OBJ" >
+					<ul id="image-container">
+
+					</ul>					
 					
 					<!-- <div class="flex-between form-label-wrap">
 						<label for="POST_WRITER">작성자 아이디</label>
