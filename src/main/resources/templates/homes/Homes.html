@@ -22,9 +22,9 @@ layout:decorate="~{layout/default_layout}">
 <a th:href="@{/users}">회원목록</a>
 	<h3>친구집 놀러가기</h3>
 	<ul th:each="home : ${homes}">
-		
-		<li th:text ="${home.homename}" th:href="@{/homes/?homeId={home.homeid}}"></li>
-		
+		<li>
+			<a th:href="@{/homes/{id}(id=${home.homeid})}" th:text="${home.homename}"></a>
+		</li>		
 	</ul>
 <br>
 <a class="btn" th:href="@{/logout}">로그아웃</a>

@@ -31,21 +31,20 @@
 #main-header .logo {
     height: 100%;
 }
-#main-header a {
-    color: #fff;
-}
 #main-header .logo a {
     font-size: 2.6em;
     height: 100%;
     line-height: 1.7em;
     font-family: 'Lobster', cursive;
+    color: #fff;
 }
 #main-header li {
     width:auto;
     margin-right: 1em;
 }
-#main-header li a {
+#main-header li a, #main-header li span {
     font-size: 1.5em;
+    color: #fff;
 }
 #main-header li:hover a {
     color: aqua;
