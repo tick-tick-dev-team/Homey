@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.User;
 
+@Transactional
 public class JpaUserRepository implements UserRepository{
 
 	private final EntityManager em;
