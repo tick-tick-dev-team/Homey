@@ -13,7 +13,7 @@
  *   	
  * -- js 사용방법 예시
  *   
- *   var result = javascript:Ajax('GET', '/test/url', data)
+ *   var result = AjaxFn('GET', '/test/url', data);
  *   return 받는 데이터가 있다면 데이터는 JSON.parse(result) 해서 사용해야함;
  *   
  */
