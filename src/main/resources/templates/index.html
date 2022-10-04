@@ -15,51 +15,33 @@ layout:decorate="~{layout/default_layout}">
 <!-- Content -->
 <body layout:fragment="content">
     <!-- 여기에 html 코드 작성 -->
-    <h3>Homey</h3>
-    <div align="right">
-	<form th:action="@{/doLogin}" method="post">
-		<input type="text" name="usernick"> <br>
-		<input type="password" name="userpass"> <br>
-		<button>로그인</button>
-	</form>
-		<a th:href="@{/users/new}">회원가입</a>
-		<a th:href="@{/users}">회원목록</a>
-		 <!-- @{|/users/${userId}|} -->
+    <div align="center">
+	    <h3>Homey</h3>
+	    <!--<div align="right">
+		<form th:action="@{/login}" method="post">
+			<input type="text" name="usernick"> <br>
+			<input type="password" name="userpass"> <br>
+			<button>로그인</button>
+		</form> 
+			<a th:href="@{/users/new}">회원가입</a>
+			<a th:href="@{/users}">회원목록</a>
+
+		<!-- 221004 마이페이지 추가부분/Popdo -->
+		<!-- @{|/users/${userId}|} -->
 		<a th:href="@{|/users/1|}">마이페이지</a>
+	
+	
+	    <div class="main-container">
+	        <section>
+				<h1>친구집 놀러가기</h1>
+				<p th:if="${homes==0}" class="no-resultList" >등록된 홈이 없습니다.</p>
+					<ul th:each="home : ${homes}">
+					
+						<li th:text ="${home.homename}"></li>
+					
+					</ul>
+			</section>
+		</div>
 	</div>
-	
-	여기 아래는 each문 돌립니다.
-	<h3>친구집 놀러가기</h3>
-	<ul th:each="home : ${homes}">
-		
-		<li th:text ="${home.homename}"></li>
-		
-	</ul>
-	
-	
-	여기 아래는 하드코딩
-	<ul th:each="home : ${homes}">
-		<li>친구집 놀러가기</li>
-		<li><a href="homey_s">사의집</a></li>
-		<li><a href="homey_p">팝의집</a></li>
-		<li><a href="homey_e">24의 집</a></li>
-	</ul>
-    <script>
-	function goMyPage(){
-		var form = document.createElement('form');
-		var hiddenField = document.createElement('input');
-		
-		form.setAttribute('method', 'GET');
-		form.setAttribute('action', '/users/{userId}');
-		
-		hiddenField.setAttribute('type', 'hidden');
-		hiddenField.setAttribute('name', 'userId');
-		hiddenField.setAttribute('value', 1);
-		
-		form.appendChild(hiddenField);
-		document.body.appendChild(form);
-		form.submit();
-	}
-</script>
 </body>
 </html>

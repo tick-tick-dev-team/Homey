@@ -16,16 +16,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
 	
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	//implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	
-	
-	//jpa
-	//mysql
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'mysql:mysql-connector-java'
+	//로그인 및 타임리프-스프링시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
-	// java코드 수정 바로 재로딩 해주는 라이브러리
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 		
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -35,10 +29,19 @@ dependencies {
     	exclude group: 'junit'
     	exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	
+	//jpa 사용을 위해 추가
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	//mysql
+	runtimeOnly 'mysql:mysql-connector-java'
 
 	testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
 	testImplementation('org.junit.jupiter:junit-jupiter-engine:5.5.2')
 	testImplementation('org.junit.jupiter:junit-jupiter-params:5.5.2')
+	
+	//mysql
+	runtimeOnly 'mysql:mysql-connector-java'
 
 }
 

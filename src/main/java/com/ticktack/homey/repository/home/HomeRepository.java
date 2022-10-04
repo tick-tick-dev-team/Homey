@@ -14,7 +14,7 @@ public interface HomeRepository {
 	List<Home> findHomes();
 	
 	//home 상세조회
-	Optional<Home> findById(Long homeId);
+	Optional<Home> findById(Long homeid);
 	
 	//home 수정
 	Home updateHome(Home home);

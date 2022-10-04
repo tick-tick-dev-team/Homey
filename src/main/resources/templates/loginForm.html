@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+layout:decorate="~{layout/default_layout}">	
+
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css"></th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script"></th:block>
+
+<title>Homey</title>
+
+<!-- Content -->
+<body layout:fragment="content">
+코딩의 기쁨을 모르는 당신이 불쌍해요.<br>
+
+<form th:action="@{/login}" method="post">
+		<input type="text" name="usernick"> <br>
+		<input type="password" name="userpass"> <br>
+		<button>로그인</button>
+	</form>
+</body>
+</html>
