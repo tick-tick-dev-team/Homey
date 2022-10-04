@@ -32,6 +32,7 @@
 				<!-- 회원정보 -->
 				<input type="hidden" id="POST_ID" name="POST_ID" th:value="${post.POST_ID}">
 				<input type="hidden" id="POST_WRITER" name="POST_WRITER" th:value="${post.POST_WRITER}">
+				<input type="hidden" id="POST_UWRITER" name="POST_UWRITER" th:value="${writer.user_id}">
 				<input type="hidden" id="POST_HOME" name="POST_HOME" th:value="${post.POST_HOME}">
 				<input type="hidden" id="POST_DATE" name="POST_DATE" th:value="${post.POST_DATE}">	    
 		
@@ -44,9 +45,14 @@
 					<!-- 파일 첨부 추가 -->
 
 					<label for="ATTF_OBJ" >첨부파일</label>
-					<input type="file" name="ATTF_OBJ" id="ATTF_OBJ" >
-					<span th:if="${post.getATTF_OBJ()!=null}" th:text="|첨부파일 : ${post.getATTF_OBJ().getATTF_REALNM()}|">첨부파일명</span>
-					<img style="display:block;" th:if="${post.getATTF_OBJ()!=null and post.getATTF_OBJ().isImage()}" th:src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="" width="300" height="300">
+					<input type="file" name="ATTF_OBJ" id="ATTF_OBJ" onchange="setThumbnail(event);">
+					<ul id="image-container">
+						<li th:if="${post.getATTF_OBJ()!=null and post.getATTF_OBJ().isImage()}" id="${post.ATTF_ID}">
+							<span th:text="|첨부파일 : ${post.getATTF_OBJ().getATTF_REALNM()}|">첨부파일명</span>
+							<img th:src="|/images/${post.getATTF_OBJ().getATTF_SERNM()}|" alt="">
+							<i class="fa-solid fa-trash-can btn-delete" onclick="deleteAttach(this)"></i>
+						</li>
+					</ul>					
 
 					<button class="btn-border bg-green" type="submit">수정</button>
 				</div>

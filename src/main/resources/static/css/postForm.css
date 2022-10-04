@@ -23,3 +23,7 @@
     font-weight: bold;
 }
 
+i.btn-delete {
+    cursor: pointer;
+}
+
