@@ -47,4 +47,5 @@ setReplyComments(comment)
 ### findByNick
 중복회원을 찾기위해 사용, Optional<User> 타입을 반환, 결과가 여러개(getResultList)일수있다.
 ### findBynick
-로그인을 하기위해 사용, User 타입을 반환, 결과가 단 하나(getSingleResult)이다.
+로그인을 하기위해 사용, User 타입을 반환, 결과가 단 하나(getSingleResult)이다. 
+추가로 로그인한 유저 정보를 확인하는데에도 쓰도록 만들었다.
