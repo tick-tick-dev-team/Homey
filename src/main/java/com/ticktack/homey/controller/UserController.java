@@ -29,16 +29,19 @@ public class UserController {
 	/*회원가입*/
 	@PostMapping("users/new")
 	public String addUser(User form) {
+		System.out.println(form);
 		User user = new User();
 		user.setUsernick(form.getUsernick());
 		user.setUserpass(form.getUserpass());
 		user.setUserbirth(form.getUserbirth());
+		user.setUserpower("ROLE_USER");
 		
 		userService.createUser(user);
 		
+		
 		//home테이블에 usernick도 추가 필요없음, 바로 설정한다.
 		Home home = new Home();
-		home.setUserid(form.getUser_id());
+		home.setUserid(user.getUser_id());
 		home.setHomename(form.getUsernick()+"의 집");
 		homeService.createHome(home);
 		

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
+import com.ticktack.homey.auth.PrincipalDetailsService;
 import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.dummy.DummyDataImpl;
 import com.ticktack.homey.repository.attach.AttachRepository;
@@ -18,10 +19,12 @@ import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
 
 import com.ticktack.homey.repository.home.HomeRepository;
+import com.ticktack.homey.repository.home.JpaHomeRepository;
 import com.ticktack.homey.repository.home.MemoryHomeRepository;
 import com.ticktack.homey.repository.post.JpaPostRepository;
 import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+import com.ticktack.homey.repository.user.JpaUserRepository;
 import com.ticktack.homey.repository.user.MemoryUserRepository;
 import com.ticktack.homey.repository.user.UserRepository;
 import com.ticktack.homey.service.AttachService;
@@ -45,7 +48,10 @@ public class SpringConfig {
 		super();
 		this.em = em;
 	}
-
+	@Bean
+	public PrincipalDetailsService principalDetailsService() {
+		return new PrincipalDetailsService();
+	}
 	
 	@Bean
 	public Java8TimeDialect java8TimeDialect() {
@@ -54,7 +60,8 @@ public class SpringConfig {
 	
 	@Bean
 	public HomeRepository homeRepository() {
-		return new MemoryHomeRepository();
+		//return new MemoryHomeRepository();
+		return new JpaHomeRepository(em);
 	}
 	
 	@Bean
@@ -64,7 +71,8 @@ public class SpringConfig {
 	
 	@Bean
 	public UserRepository userRepository() {
-		return new MemoryUserRepository();
+		//return new MemoryUserRepository();
+		return new JpaUserRepository(em);
 	}
 	
 	@Bean

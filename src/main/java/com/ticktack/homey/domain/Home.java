@@ -1,6 +1,14 @@
 package com.ticktack.homey.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "home")
 public class Home {
 	/*HOME_ID              BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '집ID',
 	   USER_ID              BIGINT NOT NULL COMMENT '사용자ID',
@@ -9,23 +17,22 @@ public class Home {
 	   HOME_USE             CHAR(1) NOT NULL COMMENT '활성화여부',
 	   HOME_THEMA           VARCHAR(36) NULL COMMENT '테마' */
 	
-	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="home_id")
 	private Long homeid;
+	
+	@Column(name="user_id")
 	private Long userid;
+	
+	@Column(name="home_name")
 	private String homename;
+	@Column(name="home_inst")
 	private String homeinst;
+	@Column(name="home_use")
 	private String homeuse;
+	@Column(name="home_thema")
 	private String homethema;
 	
-	//사용자 생성시 home만들기 위해
-	private String usernick;
-	
-	public String getUsernick() {
-		return usernick;
-	}
-	public void setUsernick(String usernick) {
-		this.usernick = usernick;
-	}
 	public Long getHomeid() {
 		return homeid;
 	}
