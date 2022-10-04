@@ -44,7 +44,7 @@ setReplyComments(comment)
 
 
 ## UserRepository의 findByNick과 findBynick의 차이점
-###findByNick
+### findByNick
 중복회원을 찾기위해 사용, Optional<User> 타입을 반환, 결과가 여러개(getResultList)일수있다.
-###findBynick
+### findBynick
 로그인을 하기위해 사용, User 타입을 반환, 결과가 단 하나(getSingleResult)이다.
