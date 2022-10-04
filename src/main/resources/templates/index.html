@@ -36,7 +36,9 @@ layout:decorate="~{layout/default_layout}">
 				<p th:if="${homes==0}" class="no-resultList" >등록된 홈이 없습니다.</p>
 					<ul th:each="home : ${homes}">
 					
-						<li th:text ="${home.homename}"></li>
+						<li th:text ="${home.homename}">
+							<a th:href="@{/homes/?homeId={id}(id=${home.homeid})}" th:text="${home.homename}"></a>
+						</li>
 					
 					</ul>
 			</section>

@@ -37,6 +37,9 @@ public class PostFormFile {
 	
 	// 첨부파일 객체
 	MultipartFile ATTF_OBJ;
+
+	// 첨부파일 삭제 여부
+	boolean deleteAttach = false;
 	
 	// 댓글 리스트
 	List<Comment> COMMENT_LIST;
@@ -113,6 +116,14 @@ public class PostFormFile {
 		ATTF_OBJ = aTTF_OBJ;
 	}
 
+	public boolean isDeleteAttach() {
+		return deleteAttach;
+	}
+
+	public void setDeleteAttach(boolean deleteAttach) {
+		this.deleteAttach = deleteAttach;
+	}
+
 	public List<Comment> getCOMMENT_LIST() {
 		return COMMENT_LIST;
 	}
@@ -140,6 +151,8 @@ public class PostFormFile {
 		
 		return post;		
 	}
+
+
 
 
 	

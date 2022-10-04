@@ -129,7 +129,7 @@ public class PostController {
 		
 		// 로그인 유저
 		model.addAttribute("writer", userService.findById(homeId).get());
-//		User user = userService.findByNick(details.getUsername()).get();
+//		User user = userService.findBynick(details.getUsername());
 //		model.addAttribute("writer", user);
 		
 		model.addAttribute("post", post);
