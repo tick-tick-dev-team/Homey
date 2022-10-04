@@ -4,7 +4,7 @@
  *  1. 호출 방식 : GET, POST 등
  *  2. 경로 URL
  *  3. 넘기는 데이터 : 데이터 이름은 data, 형식은 JSON 형식으로 생성
- *  	ex) comment.js 참조
+ *  	ex) resources/static/js/comment.js 참조
  *  	var data = {
  *   		commCont   : commCont,
  *   		commWriter : 1,
@@ -13,7 +13,8 @@
  *   	
  * -- js 사용방법 예시
  *   
- *   javascript:Ajax('GET', '/test/url', data)
+ *   var result = javascript:Ajax('GET', '/test/url', data)
+ *   return 받는 데이터가 있다면 데이터는 JSON.parse(result) 해서 사용해야함;
  *   
  */
 
@@ -29,9 +30,8 @@ function AjaxFn(api, url , data){
 		     if (httpRequest.status === 200) {
 		    	 // JSON 타입
 		    	 result = httpRequest.response;
-		    	 console.log(typeof result);
 		     } else { 
-		    	 result = 'ajax 연결 실패!';
+		    	 result = null;
 		     }
 		     
 		}
@@ -40,8 +40,6 @@ function AjaxFn(api, url , data){
 	httpRequest.open(api, url, false);
     httpRequest.setRequestHeader('Content-Type', 'application/json');  
     httpRequest.send(JSON.stringify(data));
-    
-    console.log(result)
     
     return result;
 }

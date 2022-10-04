@@ -14,16 +14,8 @@ function CommentAdd(e){
 	    		postId     : postId
 	};
 	var result =  JSON.parse(AjaxFn('POST', '/commentAdd' , data));
-	console.log(result);
-	console.log(typeof result);
-	console.log('________________JSON 형태 변환 Result타입___________________');
-	console.log(result.postId);
-	console.log(result["postId"]);
 	
 	var div = document.querySelector('[postid="'+postId+'"]');
-
-	console.log('________________div 요소 찾기___________________');
-	console.log(div);
 	var ul = div.querySelector('ul');
 	var li = document.createElement("li");
 	li.setAttribute('commId', result.commId );
@@ -49,43 +41,24 @@ function CommentAdd(e){
 /* 댓글 삭제 버튼 */
 function CommentDelete(e){
 	
-	console.log(e);
 	var li = e.closest("li");
-	
 	var commId = li.getAttribute( 'commId' );
-
- 	// AJAX 호출
-	httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', '/commentDelete', true);
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
-    var data = {
+	var data = {
     		commId : commId
     };
-    
-    console.log(data);
-    console.log(JSON.stringify(data));
-    httpRequest.send(JSON.stringify(data));
-    
-    httpRequest.onreadystatechange = () => {
-	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-		     if (httpRequest.status === 200) {
-		    	 if(httpRequest.response){
-		    		 // 대댓글 삭제 영역
-		    		 var list = document.querySelectorAll('li');
-		    		 for (let i=0; i< list.length; i++){
-		    			 if(list[i].getAttribute('commupid') == commId){
-		    				list[i].remove(); 
-		    			 }
-		    		 }
-		    		 li.remove();
-		    	 }else {
-		    		 alert("댓글 삭제 실패!");
-		    	 };
-		     } else { 
-		    	 alert("ajax 연결 실패!"); 
-		     }
-		}
-	} 	// AJAX 호출 END 
+
+	var result = JSON.parse(AjaxFn('POST', '/commentDelete' , data));
+	console.log(result);
+	
+	if(result) {
+		var list = document.querySelectorAll('li');
+		 for (let i=0; i< list.length; i++){
+			 if(list[i].getAttribute('commupid') == commId){
+				list[i].remove(); 
+			 }
+		 }
+		 li.remove();
+	}
 }   // function 댓글 삭제 END
 
 
@@ -119,36 +92,21 @@ function CommUpdate(e){
 	var postId = li.parentNode.parentNode.getAttribute( 'postid' );
 	var content = div.querySelector('[id=commCont]').value;
 	
-	// AJAX 호출
-	httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', '/commentUpdate', true);
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
     var data = {
     		commId : commId,
     		commCont : content,
     		postId : postId
     };
-    
-    httpRequest.send(JSON.stringify(data));
-    
-    httpRequest.onreadystatechange = () => {
-	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-		     if (httpRequest.status === 200) {
-		    	 console.log(httpRequest.response);
-		    	 var result = JSON.parse(httpRequest.response);
-		    	 
-		    	 li.querySelectorAll('span')[1].textContent = result.commUdate;
-		    	 p.textContent = result.commCont;
-		    	 p.setAttribute('style',"display:block;");
-		    	 li.querySelectorAll('a')[0].setAttribute('style',"display:inline;");
-		    	 div.remove();   	 
-		    	 
-		     } else { 
-		    	 alert("ajax 연결 실패!"); 
-		     }
-		} 
-	} 	// AJAX 호출 END 
-}
+	
+	var result = JSON.parse(AjaxFn('POST', '/commentUpdate' , data));
+	if (result != null){
+		li.querySelectorAll('span')[1].textContent = result.commUdate;
+		p.textContent = result.commCont;
+		p.setAttribute('style',"display:block;");
+		li.querySelectorAll('a')[0].setAttribute('style',"display:inline;");
+		div.remove();
+	}	 
+} // function 댓글 수정 end 
 
 /* 댓글 수정 취소 */
 function UpdateCancel(e){
@@ -206,51 +164,36 @@ function replyAdd(e){
 	const commCont = document.getElementById("replyCommCont").value;
 	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
 	
-	// AJAX 호출
-	httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', '/commentAdd', true);
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
     var data = {
     		commCont   : commCont,
     		commWriter : 1,
     		commUpid   : commUpid,
     		postId     : postId
     };
-
-    httpRequest.send(JSON.stringify(data));
-    
-    httpRequest.onreadystatechange = () => {
-	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-		     if (httpRequest.status === 200) {
-		    	 // JSON 타입
-		    	 console.log(httpRequest.response);
-		    	 var result = JSON.parse(httpRequest.response);
-		    	 
-		    	 li.setAttribute('commId', result.commId );
-	    		 li.setAttribute('commUpid', result.commUpid );
-		    	 li.innerHTML = '<div class="flex-between">'
-				              + 	'<div class="info flex-start">'
-				              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
-				              + 		'<span>작성일자 = '+ result.commDate +'</span>'
-				              + 	'</div>'
-				              + 	'<div class="btn-wrap flex-end">'
-				              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
-				              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
-				              + '	</div>'
-				           	  + '</div>'
-				              + '<p class="content"> └ '+ result.commCont +'</p>';
-				 // 댓글 노드에 답글 버튼 추가!
-	             var list = document.querySelectorAll('li');
-	          	 for (let i=0; i< list.length; i++){
-	          	 	if(list[i].getAttribute('commid') == commUpid){
-	          			list[i].querySelectorAll('a')[2].setAttribute('style',"display:inline;");
-	          		}
-	          	 }
-		     } else { 
-		    	 alert("실패"); 
-		     }
-		}
-	} 	// AJAX 호출 END	
+	var result = JSON.parse(AjaxFn('POST', '/commentAdd' , data));
+	if(result != null){
+		li.setAttribute('commId', result.commId );
+		li.setAttribute('commUpid', result.commUpid );
+		li.innerHTML = '<div class="flex-between">'
+		              + 	'<div class="info flex-start">'
+		              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
+		              + 		'<span>작성일자 = '+ result.commDate +'</span>'
+		              + 	'</div>'
+		              + 	'<div class="btn-wrap flex-end">'
+		              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+		              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+		              + '	</div>'
+		           	  + '</div>'
+		              + '<p class="content"> └ '+ result.commCont +'</p>';
+		
+		// 댓글 노드에 답글 버튼 추가!
+        var list = document.querySelectorAll('li');
+     	for (let i=0; i< list.length; i++){
+     		if(list[i].getAttribute('commid') == commUpid){
+     			list[i].querySelectorAll('a')[2].setAttribute('style',"display:inline;");
+     		}
+     	}
+	}
 }
 
 /* 대댓글 취소 */
