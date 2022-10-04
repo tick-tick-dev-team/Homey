@@ -7,10 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ticktack.homey.domain.User;
+import com.ticktack.homey.repository.user.UserRepository;
 
 public class PrincipalDetails implements UserDetails {
 
 	private User user;
+	private UserRepository userRepository;
 	
 	public PrincipalDetails(User user) {
 		this.user = user;
@@ -28,6 +30,7 @@ public class PrincipalDetails implements UserDetails {
 		}); 
 		return collect;
 	}
+	
 
 	@Override
 	public String getPassword() {

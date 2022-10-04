@@ -13,17 +13,14 @@ public interface UserRepository {
 		//중복체크 시 사용할 NICK NULL인 경우 고려
 		Optional<User> findByNick(String usernick);
 		
-		//로그인을 위해
-		/*User findBynick(String usernick);*/
+		//로그인조회
+		User findBynick(String usernick);
 		
 		//회원전체조회
 		List<User> findUsers();
 		
 		//회원상세조회
 		Optional<User> findById(Long userid);
-		
-		//로그인조회
-		User findBynick(String usernick);
 		
 		//회원정보수정
 		User updateUser(User user);
@@ -34,8 +31,7 @@ public interface UserRepository {
 		//로그인시 패스워드
 		Optional<User> findByPass(String userpass);
 		
-		//세션확인
-		//Session Session(Session session);
+
 
 	
 }

@@ -30,10 +30,19 @@ layout:decorate="~{layout/default_layout}">
 		</li>
 	</ul>
 <br>
-<a class="btn" th:href="@{/logout}">로그아웃</a>
- <!-- <form action="#" th:action="@{/logout}" method="post">
-            <input type="submit" value="Logout"/>
- </form> -->
+
+<ul th:each="user: ${userinfo}">
+	<li th:text="${user.user_id}">
+	</li>
+	<li th:text="${user.userjoin}">
+	</li>
+	<li th:text="${user.usernick}">
+	</li>
+	<li th:text="${user.userpower}">
+	</li>
+</ul>
+
+
 </div>
 </body>
 </html>
