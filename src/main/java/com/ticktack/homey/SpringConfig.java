@@ -1,6 +1,7 @@
 package com.ticktack.homey;
 
 import javax.persistence.EntityManager;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import com.ticktack.homey.repository.attach.JpaAttachRepository;
 
 import com.ticktack.homey.repository.attach.MemoryAttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
+import com.ticktack.homey.repository.comment.JpaCommentRepository;
 import com.ticktack.homey.repository.comment.MemoryCommRepository;
 
 import com.ticktack.homey.repository.home.HomeRepository;
@@ -42,11 +44,13 @@ import com.ticktack.homey.service.UserServiceImpl;
 public class SpringConfig {
 	
 	private EntityManager em;
+	private DataSource datasource;
 	
 	@Autowired
-	public SpringConfig(EntityManager em) {
+	public SpringConfig(EntityManager em, DataSource datasource) {
 		super();
 		this.em = em;
+		this.datasource = datasource;
 	}
 	@Bean
 	public PrincipalDetailsService principalDetailsService() {
@@ -103,7 +107,8 @@ public class SpringConfig {
 	}
 	@Bean
 	public CommentRepository commentRepository() {
-		return new MemoryCommRepository();
+		return new JpaCommentRepository(em);
+//		return new MemoryCommRepository();
 	}
 	@Bean
 	public CommentService commentService() {

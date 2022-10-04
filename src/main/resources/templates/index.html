@@ -16,20 +16,22 @@ layout:decorate="~{layout/default_layout}">
 <body layout:fragment="content">
     <!-- 여기에 html 코드 작성 -->
     <div align="center">
-    <h3>Homey</h3>
-    <!--<div align="right">
-	<form th:action="@{/login}" method="post">
-		<input type="text" name="usernick"> <br>
-		<input type="password" name="userpass"> <br>
-		<button>로그인</button>
-	</form> 
-		<a th:href="@{/users/new}">회원가입</a>
-		<a th:href="@{/users}">회원목록</a>
-	</div> -->
+	    <h3>Homey</h3>
+	    <!--
+	    <div align="right">
+		<form th:action="@{/login}" method="post">
+			<input type="text" name="usernick"> <br>
+			<input type="password" name="userpass"> <br>
+			<button>로그인</button>
+		</form> 
+			<a th:href="@{/users/new}">회원가입</a>
+			<a th:href="@{/users}">회원목록</a>
+		-->
+		
 	
 	
-        <div class="main-container">
-            <section>
+	    <div class="main-container">
+	        <section>
 				<h1>친구집 놀러가기</h1>
 				<p th:if="${homes==0}" class="no-resultList" >등록된 홈이 없습니다.</p>
 					<ul th:each="home : ${homes}">
@@ -41,9 +43,6 @@ layout:decorate="~{layout/default_layout}">
 					</ul>
 			</section>
 		</div>
-	
-	
 	</div>
-    
 </body>
 </html>

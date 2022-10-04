@@ -1,12 +1,9 @@
 package com.ticktack.homey.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,11 +39,7 @@ public class CommentController {
 	@GetMapping("/comment")
 	public String CommListMain(String num, Model model) {
 		Long postId = Long.parseLong(num);
-		
-		// 더미데이터
-		dummyData.setComments(postId);
-		dummyData.setReplyComments(postId);
-		
+				
 		Comment comm = new Comment();
 		comm.setPostId(postId);
 		List<Comment> result = commentService.commAllList(comm);
@@ -79,9 +72,9 @@ public class CommentController {
 		boolean removeResult = false;
 
 		// 해당 댓글 or 답글 찾기
-		Comment result = commentService.findById(comm).get();
-		removeResult = commentService.commDelete(result);
-		
+		// Comment result = commentService.findById(comm).get();
+		removeResult = commentService.commDelete(comm);
+		System.out.println("삭제값 : "+removeResult);
 		return removeResult;
 	}
 	

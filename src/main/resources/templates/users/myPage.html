@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/default_layout}">	
+<head>
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script"></th:block>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+<style>
+	.img-box {
+		text-align: center;
+	}
+	img {
+	width: 20em;
+    height: 20em;
+	}
+	.img-btn-box {
+		text-align: center;
+	}
+	.img-btn {
+	font-size: 1.2em;
+    padding: 0.5em 1em;
+	}
+	
+</style>
+
+</head>
+<body layout:fragment="content">
+	<script>
+		function imgInsertForm(){
+			alert("이미지 수정");
+		}
+		function imgReset(){
+			alert("이미지 삭제")
+		}
+		function imgInsert(){
+			alert("이미지 등록!")
+		}
+	</script>
+	<div class = "container">
+		<section>
+			<div class="img-box">
+				<input type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
+				<a href="javascript:imgInsert();"><img src="/img/user_icon.png"></a>
+			</div>
+			<div class="img-btn-box">
+				<button class="img-btn" onclick="imgInsertForm()">수정</button>
+				<button class="img-btn" onclick="imgReset()">삭제</button>
+			</div>
+		</section>
+		<section>
+			<div class="content-wrap">
+				<form>
+					<div>
+						<span><input type="hidden" name="userId" th:value="${users.user_id}"></span>
+					</div>
+					<div>
+						<span>닉네임</span>
+						<span><input type="text" name="userId" th:value="${users.usernick}"></span>
+					</div>
+					<div>
+						<span>생일</span>
+						<span><input type="text" name="userId" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"></span>
+					</div>
+					<div>
+						<span>가입일</span>
+						<span><input type="text" name="userJoin" th:value="${users.userjoin}"></span>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

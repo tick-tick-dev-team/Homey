@@ -52,7 +52,7 @@ public class MemoryCommRepository implements CommentRepository {
 	@Override
 	public boolean commExist(Comment comm) {
 		boolean result = false;
-		if (comm.getCommUpid() != null) {
+		if (comm.getCommUpid() != comm.getCommId()) {
 			result = replyStore.containsKey(comm.getCommUpid());
 		} else {
 			result = store.containsKey(comm.getCommId());
@@ -74,7 +74,7 @@ public class MemoryCommRepository implements CommentRepository {
 		comm.setCommId(++commSequence);
 
 
-		if (comm.getCommUpid() != null) {
+		if (comm.getCommUpid() != comm.getCommId()) {
 			replyStore.put(comm.getCommId(), comm);
 			result = replyStore.put(comm.getCommId(), comm);
 		} else {
@@ -93,7 +93,7 @@ public class MemoryCommRepository implements CommentRepository {
 
 		comm.setCommUdate(new Date());
 		
-		if (comm.getCommUpid() != null) {
+		if (comm.getCommUpid() != comm.getCommId()) {
 			replyStore.put(comm.getCommId(), comm);
 			return replyStore.get(comm.getCommId());
 		} else {
@@ -108,7 +108,7 @@ public class MemoryCommRepository implements CommentRepository {
 	@Override
 	public boolean commDelete(Comment comm) {
 		boolean result = false;
-		if (comm.getCommUpid() != null) {
+		if (comm.getCommUpid() != comm.getCommId()) {
 			replyStore.remove(comm.getCommId());
 			result = true;
 		} else {
@@ -174,6 +174,12 @@ public class MemoryCommRepository implements CommentRepository {
 		replyList = replyStore.values().stream().filter(comment -> comment.getPostId().equals(postId))
 				.collect(Collectors.toList());
 		return replyList;
+	}
+
+	@Override
+	public Comment commUpidUpdate(Comment result) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

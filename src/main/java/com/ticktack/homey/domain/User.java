@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,14 +29,19 @@ public class User {
 
 	@Column(name="user_pass")
 	private String userpass;
+	
 	@Column(name="user_nick")
 	private String usernick;
+	
 	@Column(name="user_join") @CreationTimestamp
 	private Date userjoin;
+	
 	@Column(name="user_power")
 	private String userpower;
+	
 	@Column(name="user_birth") @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date userbirth;
+	
 	@Column(name="attf_id")
 	private Long attf_id;
 

@@ -60,11 +60,14 @@ public class HomeController {
 		return "failLogin";
 	}
 	
-	//로그아웃
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/";
-	}
+	/*
+	 * //로그아웃
+	 * 
+	 * @GetMapping("/logout") public String logout(HttpServletRequest request,
+	 * HttpServletResponse response) { new
+	 * SecurityContextLogoutHandler().logout(request, response,
+	 * SecurityContextHolder.getContext().getAuthentication()); return "redirect:/";
+	 * }
+	 */
 
 }

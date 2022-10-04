@@ -2,7 +2,6 @@ package com.ticktack.homey.repository.user;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.persistence.EntityManager;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -52,19 +51,16 @@ public class JpaUserRepository implements UserRepository{
 
 	@Override
 	public User updateUser(User user) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void deleteUser(Long userid) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Optional<User> findByPass(String userpass) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

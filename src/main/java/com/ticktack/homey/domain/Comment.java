@@ -2,24 +2,39 @@ package com.ticktack.homey.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Comment {
 	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "COMM_ID")
 	private Long commId;
 	
+	@Column(name = "POST_ID")
 	private Long postId;
 	
+	@Column(name = "COMM_UPID")
 	private Long commUpid;
 	
+	@Column(name = "COMM_CONT")
 	private String commCont;
 	
-	private String commWriter;
+	@Column(name = "COMM_WRITER")
+	private Long commWriter;
 	
+	@Column(name = "COMM_DATE")
 	private Date commDate;
 	
-	private String commUwriter;
+	@Column(name = "COMM_UWRITER")
+	private Long commUwriter;
 	
+	@Column(name = "COMM_UDATE")
 	private Date commUdate;
-	
 
 	public Long getCommId() {
 		return commId;
@@ -33,16 +48,16 @@ public class Comment {
 		return postId;
 	}
 
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
 	public Long getCommUpid() {
 		return commUpid;
 	}
 
 	public void setCommUpid(Long commUpid) {
 		this.commUpid = commUpid;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
 	}
 
 	public String getCommCont() {
@@ -53,11 +68,11 @@ public class Comment {
 		this.commCont = commCont;
 	}
 
-	public String getCommWriter() {
+	public Long getCommWriter() {
 		return commWriter;
 	}
 
-	public void setCommWriter(String commWriter) {
+	public void setCommWriter(Long commWriter) {
 		this.commWriter = commWriter;
 	}
 
@@ -69,11 +84,11 @@ public class Comment {
 		this.commDate = commDate;
 	}
 
-	public String getCommUwriter() {
+	public Long getCommUwriter() {
 		return commUwriter;
 	}
 
-	public void setCommUwriter(String commUwriter) {
+	public void setCommUwriter(Long commUwriter) {
 		this.commUwriter = commUwriter;
 	}
 
