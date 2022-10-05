@@ -63,7 +63,7 @@ layout:decorate="~{layout/default_layout}">
 
 								</div>
 
-								<div class="btn-wrap flex-end">
+								<div th:if="${writer.user_id==post.POST_WRITER}" class="btn-wrap flex-end">
 									<a class="btn-border" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
 									<form method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
 										<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
@@ -98,7 +98,7 @@ layout:decorate="~{layout/default_layout}">
 										<span th:text="|작성일자 =  ${comment.commDate}|">작성일자</span>
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->
-									<div class="btn-wrap flex-end">
+									<div th:if="${writer.user_id==comment.commWriter}" class="btn-wrap flex-end">
 										<a class="btn-border" href="#" th:text="수정">수정</a>
 										<a class="btn-border" href="#" th:text="삭제">삭제</a>
 									</div>
