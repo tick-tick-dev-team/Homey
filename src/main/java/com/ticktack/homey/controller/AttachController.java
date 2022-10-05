@@ -3,6 +3,7 @@ package com.ticktack.homey.controller;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.core.io.Resource;
@@ -20,11 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
 import com.ticktack.homey.domain.Attach;
-import com.ticktack.homey.domain.PostFormFile;
-import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.file.FileStore;
 import com.ticktack.homey.service.AttachService;
-import com.ticktack.homey.service.CommentService;
 import com.ticktack.homey.service.PostService;
 
 @Controller
@@ -124,6 +122,21 @@ public class AttachController {
 //		Optional.ofNullable(file).ifPresent(f -> fileStore.storeTmpFile(f));
 //		
 //		return new UrlResource("file:" + fileStore.getTmpFullPath(file.getOriginalFilename()));
-//	}	
+//	}
+	
+	// 프로필 파일 업로드
+	// 게시물 등록
+	@ResponseBody
+	@PostMapping("/profile")
+	public Attach profile (List<MultipartFile> files, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		
+		for(MultipartFile muti : files ) {
+			System.out.println(muti.toString());
+		}
+		
+		Attach result = new Attach();
+		
+		return result;
+	}	
 
 }

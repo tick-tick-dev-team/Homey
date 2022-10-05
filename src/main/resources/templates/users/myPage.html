@@ -6,51 +6,28 @@ layout:decorate="~{layout/default_layout}">
 <head>
 <!-- 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/myPage.css}">
 </th:block>
 
 <!-- 고유 스크립트 추가 -->
-<th:block layout:fragment="script"></th:block>
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/myPage.js}" ></script>
+</th:block>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<style>
-	.img-box {
-		text-align: center;
-	}
-	img {
-	width: 20em;
-    height: 20em;
-	}
-	.img-btn-box {
-		text-align: center;
-	}
-	.img-btn {
-	font-size: 1.2em;
-    padding: 0.5em 1em;
-	}
-	
-</style>
 
 </head>
 <body layout:fragment="content">
-	<script>
-		function imgInsertForm(){
-			alert("이미지 수정");
-		}
-		function imgReset(){
-			alert("이미지 삭제")
-		}
-		function imgInsert(){
-			alert("이미지 등록!")
-		}
-	</script>
 	<div class = "container">
 		<section>
-			<div class="img-box">
-				<input type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
-				<a href="javascript:imgInsert();"><img src="/img/user_icon.png"></a>
+			<div class="imgbox">
+				<img class="upload" alt="프로필_img" src="/img/user_icon.png" />
 			</div>
+			<form method="post" enctype="multipart/form-data" >
+				<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
+			</form>
 			<div class="img-btn-box">
-				<button class="img-btn" onclick="imgInsertForm()">수정</button>
+				<button class="img-btn" onclick="imgInsert()">수정</button>
 				<button class="img-btn" onclick="imgReset()">삭제</button>
 			</div>
 		</section>

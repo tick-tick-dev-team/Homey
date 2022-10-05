@@ -22,7 +22,7 @@ layout:decorate="~{layout/default_layout}">
 <a th:href="@{/users}">회원목록</a>
 <!-- 221004 마이페이지 추가부분/Popdo -->
 <!-- @{|/users/${userId}|} -->
-<a th:href="@{|/users/1|}">마이페이지</a>
+<a th:href="@{|/users/${userinfo.user_id}|}">마이페이지</a>
 	<h3>친구집 놀러가기</h3>
 	<ul th:each="home : ${homes}">
 		<li>
