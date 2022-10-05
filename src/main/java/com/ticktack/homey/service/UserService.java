@@ -3,8 +3,10 @@ package com.ticktack.homey.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.User;
 
 
@@ -21,9 +23,7 @@ public interface UserService {
 	public User updateUser(User user);
 	//회원탈퇴
 	public Long deleteUser(Long userId);
-	//로그인
-/*	public Boolean login(User user);*/
-	//세션확인
-	//public Session(Session session);
+	//usernick으로 회원정보조회
+	public User findBynick(@AuthenticationPrincipal PrincipalDetails principal);
 	
 }

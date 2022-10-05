@@ -41,3 +41,11 @@ setReplyComments(comment)
 
 작성된 대로 D드라이브 밑에 /practice/file 폴더를 만들던가,
 새로운 폴더를 만들어 해당 경로를 application.properties의 file.dir에 업데이트해준다.
+
+---
+## UserRepository의 findByNick과 findBynick의 차이점
+### findByNick
+중복회원을 찾기위해 사용, Optional<User> 타입을 반환, 결과가 여러개(getResultList)일수있다.
+### findBynick
+로그인을 하기위해 사용, User 타입을 반환, 결과가 단 하나(getSingleResult)이다. 
+추가로 로그인한 유저 정보를 확인하는데에도 쓰도록 만들었다.
