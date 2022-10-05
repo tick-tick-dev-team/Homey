@@ -4,8 +4,12 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layout/default_layout}">	
 
+<link rel="stylesheet" href="../../static/css/homes.css"> -->
+
 <!-- 고유 CSS 추가 -->
-<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/homes.css}">
+</th:block>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script"></th:block>
@@ -15,25 +19,37 @@ layout:decorate="~{layout/default_layout}">
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-<div align="center">
-로그인 성공!<br>
-환영합니다!!!!
-<div th:text="${info}"></div><br>
-<a th:href="@{/users}">회원목록</a>
-<!-- 221004 마이페이지 추가부분/Popdo -->
-<!-- @{|/users/${userId}|} -->
-<a th:href="@{|/users/1|}">마이페이지</a>
+<div class="container">
+	<div align="center">
+	로그인 성공!<br>
+	환영합니다!!!!
+	<div th:text="${info}"></div><br>
+	
+	<a th:href="@{/users}">회원목록</a>
+	
+	<!-- 221004 마이페이지 추가부분/Popdo -->
+	<!-- @{|/users/${userId}|} -->
+	<a th:href="@{|/users/1|}">마이페이지</a>
+	
 	<h3>친구집 놀러가기</h3>
-	<ul th:each="home : ${homes}">
-		<li>
-			<a th:href="@{/homes/{id}(id=${home.homeid})}" th:text="${home.homename}"></a>
+	<p th:if="${homes.size==0}" class="no-homes" >등록된 홈이 없습니다.</p>
+	<ul th:unless="${homes.size==0}"  class="flex-start" id="main-homelist">
+		<li th:each="home : ${homes}">
+			<a th:href="@{/homes/{id}(id=${home.homeid})}" >
+				<div class="img-wrap">
+			        <img src="https://via.placeholder.com/180" alt="">
+			    </div>
+			    <span class="username" th:text="${home.homename}">user1의 집</span>
+			</a>
 		</li>
 	</ul>
-<br>
-<a class="btn" th:href="@{/logout}">로그아웃</a>
- <!-- <form action="#" th:action="@{/logout}" method="post">
-            <input type="submit" value="Logout"/>
- </form> -->
+	<br>
+	<a class="btn" th:href="@{/logout}">로그아웃</a>
+	 <!-- <form action="#" th:action="@{/logout}" method="post">
+	            <input type="submit" value="Logout"/>
+	 </form> -->
+	</div>
 </div>
+
 </body>
 </html>

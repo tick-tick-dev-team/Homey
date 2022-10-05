@@ -143,11 +143,18 @@ public class PostController {
 	public String updatePost (@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId,
 			PostFormFile form, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		
+		// attach 삭제 여부
+		if(form.isDeleteAttach() && form.getATTF_ID()!=null) { // 기존파일 삭제
+			System.out.println("form.isDeleteAttach() = " + form.isDeleteAttach() + " / form.getATTF_ID() = " + form.getATTF_ID());
+			fileStore.deleteStoreFile(attachService.findById(form.getATTF_ID()));
+			form.setATTF_ID(null);
+		}
+		
 		// multipart file에서 attach 추출
 		Attach attach = fileStore.storeFile(form.getATTF_OBJ());
 		if(attach!=null) {
 			// 기존 파일 삭제
-			fileStore.deleteStoreFile(Optional.ofNullable(postService.findById(postId).getATTF_OBJ()));
+//			fileStore.deleteStoreFile(Optional.ofNullable(postService.findById(postId).getATTF_OBJ()));
 			form.setATTF_ID(postService.createAttach(attach).getATTF_ID());
 		}
 		// DB에 저장

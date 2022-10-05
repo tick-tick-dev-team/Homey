@@ -7,7 +7,7 @@ function setThumbnail(event) {
 
         const i = document.createElement('i');
         i.setAttribute('class', 'fa-solid fa-trash-can btn-delete');
-        i.onclick = deleteAttach(i);
+        i.addEventListener('click', deleteAttach);
 
         const img = document.createElement("img");
         img.setAttribute("src", event.target.result);
@@ -28,7 +28,7 @@ function setThumbnail(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
-function deleteAttach(i) {
+function deleteAttach() {
 
     const parent = document.querySelector("ul#image-container");
     const attachId = document.querySelector("input#ATTF_ID").value
@@ -37,30 +37,34 @@ function deleteAttach(i) {
     console.log("첨부파일 삭제 id = " + attachId);
 
     if(attachId) { // id값 이미 있으면 파일도 삭제하기
+        const deleteAttach = document.querySelector('#deleteAttach');
+        deleteAttach.value = true;
         // ajax
-        httpRequest = new XMLHttpRequest();
-        httpRequest.open('DELETE', '/attach/' + attachId, true);
-        // httpRequest.setRequestHeader('Content-Type', 'application/json');
+        // httpRequest = new XMLHttpRequest();
+        // httpRequest.open('DELETE', '/attach/' + attachId, true);
+        // // httpRequest.setRequestHeader('Content-Type', 'application/json');
 
-        // var data = {
-    	// 	attachId : attachId
-        // };
+        // // var data = {
+    	// // 	attachId : attachId
+        // // };
         
-        httpRequest.send();
+        // httpRequest.send();
         
-        httpRequest.onreadystatechange = () => {
-            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest.status === 200) {
-                    alert("기존파일 삭제 성공");
-                } else {
-                    alert("실패 : " +  httpRequest.status);
-                    console.log(httpRequest.response);
-                }
-            }
-        }
+        // httpRequest.onreadystatechange = () => {
+        //     if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        //         if (httpRequest.status === 200) {
+        //             alert("기존파일 삭제 성공");
+        //         } else {
+        //             alert("실패 : " +  httpRequest.status);
+        //             console.log(httpRequest.response);
+        //         }
+        //     }
+        // }
     }
     // 화면에서 이미지 삭제
-    parent.firstChild.remove();
+    // parent.firstChild.remove();
+    parent.innerHTML = "";
+    document.querySelector("input#ATTF_OBJ").value == "";
 }
 
 
