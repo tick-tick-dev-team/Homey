@@ -39,6 +39,9 @@ public class PostForm {
 	// 첨부파일 정보 객체
 	Attach ATTF_OBJ;
 	
+	// 첨부파일 삭제 여부
+	boolean deleteAttach = false;
+	
 	// 댓글 리스트
 	List<Comment> COMMENT_LIST;
 
@@ -91,15 +94,6 @@ public class PostForm {
 		POST_UWRITER = pOST_UWRITER;
 	}
 
-	
-//	public String getPOST_UPDATE() {
-//		return POST_UPDATE;
-//	}
-//
-//	public void setPOST_UPDATE(String pOST_UPDATE) {
-//		POST_UPDATE = pOST_UPDATE;
-//	}
-
 	public LocalDateTime getPOST_UPDATE() {
 		return POST_UPDATE;
 	}
@@ -130,6 +124,14 @@ public class PostForm {
 
 	public void setATTF_OBJ(Attach aTTF_OBJ) {
 		ATTF_OBJ = aTTF_OBJ;
+	}
+	
+	public boolean isDeleteAttach() {
+		return deleteAttach;
+	}
+
+	public void setDeleteAttach(boolean deleteAttach) {
+		this.deleteAttach = deleteAttach;
 	}
 
 	public List<Comment> getCOMMENT_LIST() {

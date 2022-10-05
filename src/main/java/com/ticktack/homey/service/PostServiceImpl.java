@@ -38,10 +38,6 @@ public class PostServiceImpl implements PostService{
 		PostForm form = postRepository.findById(postId).get().getFormFromPost();
 		
 		// 첨부파일 정보 가져오기	
-//		Optional<Long> attfId = Optional.ofNullable(form.getATTF_ID());
-//		attfId.ifPresent(id -> {
-//			form.setATTF_OBJ(attachRepository.findById(id).get());
-//		});
 		Optional<Long> attfId = Optional.ofNullable(form.getATTF_ID());
 		attfId.ifPresent(id -> {
 			attachRepository.findById(id).ifPresent(att -> {
