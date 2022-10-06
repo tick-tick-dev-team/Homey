@@ -30,8 +30,9 @@ function getImageFiles(e) {
         
         if ([...files].length < 2) {
         	
-        	var result =  AjaxAttachFn('POST', '/profile' , fileData);
-            console.log(result);
+        	FetchFn('POST', '/profile' , fileData);
+        	//var result =  AjaxAttachFn('POST', '/profile' , fileData);
+            //console.log(result);
             
             uploadFiles.push(file);
             const reader = new FileReader();

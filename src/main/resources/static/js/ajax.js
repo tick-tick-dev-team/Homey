@@ -73,3 +73,19 @@ function AjaxAttachFn(api, url , fileData){
     
     return result;
 }
+
+function FetchFn(api, url , fileData){
+	
+	fetch( url,{
+        method : api,
+        mode : 'cors',
+        cache : 'no-cache',
+        /////Content Type은 json으로 명시한다.
+        headers: {'Content-Type': 'application/json'},
+        credentials : 'same-origin',
+        redirect : 'follow',
+        referrer : 'no-referrer',
+        body: JSON.stringify(fileData),
+	}).then(response => console.log(response));
+	
+}
