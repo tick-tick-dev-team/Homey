@@ -2,9 +2,10 @@
 <html lang="ko" 
 xmlns:th="http://www.thymeleaf.org" 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" 
 layout:decorate="~{layout/default_layout}">	
 
-<link rel="stylesheet" href="../../static/css/homes.css"> -->
+<link rel="stylesheet" href="../../static/css/homes.css">
 
 <!-- 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -19,8 +20,7 @@ layout:decorate="~{layout/default_layout}">
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-<div class="container">
-	<div align="center">
+<div class="container" sec:authorize="isAuthenticated()">
 	로그인 성공!<br>
 	환영합니다!!!!
 	<div th:text="${info}"></div><br>
@@ -45,17 +45,28 @@ layout:decorate="~{layout/default_layout}">
 	</ul>
 <br>
 
-<ul th:each="user: ${userinfo}">
-	<li th:text="${user.user_id}">
-	</li>
-	<li th:text="${user.userjoin}">
-	</li>
-	<li th:text="${user.usernick}">
-	</li>
-	<li th:text="${user.userpower}">
-	</li>
-</ul>
 </div>
+
+<div class="container" sec:authorize="isAnonymous()">
+
+	<h2>친구집에 놀러가려면 로그인이 필요해요</h2>
+	<p th:if="${homes.size==0}" class="no-homes" >등록된 홈이 없습니다.</p>
+	<ul th:unless="${homes.size==0}"  class="flex-start" id="main-homelist">
+		<li th:each="home : ${homes}">
+			<a th:href="@{/loginForm}" >
+				<div class="img-wrap">
+			        <img src="https://via.placeholder.com/180" alt="">
+			    </div>
+			    <span class="username" th:text="${home.homename}">user1의 집</span>
+			</a>
+		</li>
+	</ul>
+	
+<br>
+
+</div>
+
+
 
 </body>
 </html>

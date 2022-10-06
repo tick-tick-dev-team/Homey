@@ -57,7 +57,7 @@ public class PostController {
 	}
 
 	// test용 selectHome
-	@GetMapping("/homes/{homeId}")
+	@GetMapping("/homes/{homeId}/test")
 	public String selectHomeTest (@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId")Long homeId, Model model) {
 				
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
