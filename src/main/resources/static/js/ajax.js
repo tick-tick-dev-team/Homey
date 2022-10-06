@@ -43,3 +43,33 @@ function AjaxFn(api, url , data){
     
     return result;
 }
+
+function AjaxAttachFn(api, url , fileData){
+	
+	var result;
+	
+	for (var value of fileData.values()) {
+		console.log(value);
+	}
+	httpRequest = new XMLHttpRequest(); 
+	httpRequest.open(api, url, false);
+    httpRequest.setRequestHeader('Content-Type',false);
+    httpRequest.setRequestHeader('Process-Data',false);
+    httpRequest.send(fileData);
+
+    // AJAX 호출
+	
+    httpRequest.onreadystatechange = () => {
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		     if (httpRequest.status === 200) {
+		    	 // JSON 타입
+		    	 result = httpRequest.response;
+		     } else { 
+		    	 result = null;
+		     }
+		     
+		}
+	} 	// AJAX 호출 END
+    
+    return result;
+}

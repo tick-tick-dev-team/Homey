@@ -14,12 +14,12 @@ function getImageFiles(e) {
 	const files = e.currentTarget.files;
 	console.log(files);
 	var frm = document.getElementById('profile');
-	var fileData = new FormData();
+	const fileData = new FormData();
 	for(var i = 0; i < files.length; i++) {
-		fileData.append("uploadFile",files[i]);
+		fileData.append("files", files[0], files[0].name);
 	}
 	console.log(fileData);
-	
+
     const uploadFiles = [];
     
     [...files].forEach(file => {
@@ -29,21 +29,20 @@ function getImageFiles(e) {
         }
         
         if ([...files].length < 2) {
+        	
+        	var result =  AjaxAttachFn('POST', '/profile' , fileData);
+            console.log(result);
+            
             uploadFiles.push(file);
             const reader = new FileReader();
             const img = document.querySelector('.upload');
             console.log(img);
             reader.onload = (e) => {
-            	console.log(e);
-            	console.log(e.target.result);
             	img.setAttribute('src', e.target.result);
             	img.setAttribute('data-file', file.name);
             };
             reader.readAsDataURL(file);
             
-            
-            var result =  JSON.parse(AjaxFn('POST', '/profile' , fileData));
-            console.log(result);
         }
     });
 }

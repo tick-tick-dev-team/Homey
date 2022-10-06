@@ -3,7 +3,6 @@ package com.ticktack.homey.controller;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.core.io.Resource;
@@ -15,6 +14,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -128,9 +130,12 @@ public class AttachController {
 	// 게시물 등록
 	@ResponseBody
 	@PostMapping("/profile")
-	public Attach profile (List<MultipartFile> files, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+	public Attach profile (@RequestBody MultipartFile[] files, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		
-		for(MultipartFile muti : files ) {
+		
+		System.out.println("-------아작스 시작------");
+		System.out.println(files[0].toString());
+		for( MultipartFile muti : files ) {
 			System.out.println(muti.toString());
 		}
 		
