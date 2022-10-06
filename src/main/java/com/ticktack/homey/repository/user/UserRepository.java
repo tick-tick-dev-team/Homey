@@ -28,8 +28,6 @@ public interface UserRepository {
 		//회원탈퇴
 		void deleteUser(Long userid);
 		
-		//로그인시 패스워드
-		Optional<User> findByPass(String userpass);
 		
 
 
