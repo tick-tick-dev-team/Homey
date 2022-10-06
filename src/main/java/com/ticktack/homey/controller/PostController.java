@@ -1,26 +1,16 @@
 package com.ticktack.homey.controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriUtils;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
@@ -68,20 +58,25 @@ public class PostController {
 
 	// test용 selectHome
 	@GetMapping("/homes/{homeId}")
-	public String selectHomeTest (@PathVariable("homeId")Long homeId, Model model) {
+	public String selectHomeTest (@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId")Long homeId, Model model) {
 				
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
 		
 		// 집주인
-		User user = userService.findById(homeId).get();
+		User owner = userService.findById(homeId).get();
+		
+		// 로그인한 사용자
+		User writer = userService.findBynick(principal);
 		
 		// 홈 정보
 		Home home = homeService.findById(homeId).get();
 		
-		model.addAttribute("owner", user);
+		model.addAttribute("owner", owner);
+		model.addAttribute("writer", writer);
+		
 		model.addAttribute("home", home);
 		
-		model.addAttribute("postList", postService.findAllByHomeId(homeId));
+		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
 		
 		return "homes/selectHome";
@@ -89,13 +84,13 @@ public class PostController {
 	
 	// 게시물 등록 폼 조회
 	@GetMapping("/posts/{homeId}/new")
-	public String createPostForm(@AuthenticationPrincipal PrincipalDetails details, @PathVariable("homeId")Long homeId, Model model) {
-		model.addAttribute("homeId", homeId);
-		// 로그인 유저
-		model.addAttribute("writer", userService.findById(homeId).get());
+	public String createPostForm(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId")Long homeId, Model model) {
 		
-//		User user = userService.findByNick(details.getUsername()).get();
-//		model.addAttribute("writer", user);
+		model.addAttribute("homeId", homeId);
+		
+		// 로그인한 사용자
+		User writer = userService.findBynick(principal);
+		model.addAttribute("writer", writer);
 		
 		return "posts/createPostForm";
 	}
@@ -123,14 +118,13 @@ public class PostController {
 	
 	// 게시물 수정 폼 조회
 	@GetMapping("/posts/{homeId}/update/{postId}")
-	public String updatePostForm(@AuthenticationPrincipal PrincipalDetails details, @PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
+	public String updatePostForm(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId, Model model) {
 		
 		PostForm post = postService.findById(postId);
 		
-		// 로그인 유저
-		model.addAttribute("writer", userService.findById(homeId).get());
-//		User user = userService.findBynick(details.getUsername());
-//		model.addAttribute("writer", user);
+		// 로그인한 사용자
+		User writer = userService.findBynick(principal);
+		model.addAttribute("writer", writer);
 		
 		model.addAttribute("post", post);
 		
@@ -143,16 +137,26 @@ public class PostController {
 	public String updatePost (@PathVariable("homeId")Long homeId, @PathVariable("postId")Long postId,
 			PostFormFile form, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		
-		// multipart file에서 attach 추출
+		
 		Attach attach = fileStore.storeFile(form.getATTF_OBJ());
+		
+		// 새로운 파일 있는 경우
 		if(attach!=null) {
 			// 기존 파일 삭제
 			fileStore.deleteStoreFile(Optional.ofNullable(postService.findById(postId).getATTF_OBJ()));
 			form.setATTF_ID(postService.createAttach(attach).getATTF_ID());
 		}
-		// DB에 저장
+		
+		// 새로운 파일 없음 & 기존 파일 삭제하는 경우
+		if(form.isDeleteAttach() && form.getATTF_ID()!=null) { // 기존파일 삭제
+			System.out.println("form.isDeleteAttach() = " + form.isDeleteAttach() + " / form.getATTF_ID() = " + form.getATTF_ID());
+			fileStore.deleteStoreFile(attachService.findById(form.getATTF_ID()));
+			form.setATTF_ID(null);
+		}
+
 		form.setPOST_HOME(homeId);
 
+		// DB에 게시물 저장
 		Post updatedPost = form.getPostFromPostForm();
 		postService.updatePost(updatedPost);
 		
