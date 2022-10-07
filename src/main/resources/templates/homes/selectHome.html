@@ -29,6 +29,7 @@ layout:decorate="~{layout/default_layout}">
 		<!-- 집주인 프로필 등 -->
 		<section id="profile" class="flex-start">
 			<div class="img-wrap">
+				<img th:if="${attach!=null}" th:src="|/images/${attach.getATTF_SERNM()}|" alt="">
 				<img src="https://via.placeholder.com/100" alt="">
 			</div>
 			<div class="intro-wrap">
