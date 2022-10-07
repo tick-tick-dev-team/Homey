@@ -7,7 +7,7 @@ window.onload=function(){
     const upload = document.querySelector('.upload');
 
     upload.addEventListener('click', () => realUpload.click());
-    realUpload.addEventListener('change', getImageFiles);
+    realUpload.addEventListener('change', getProfileImg);
 }
 
 function getImageFiles(e) {
@@ -46,6 +46,39 @@ function getImageFiles(e) {
             
         }
     });
+}
+
+function getProfileImg(e) {
+	
+	const input_file = document.querySelector('#uploadFile');
+	const userId_input = document.querySelector('#userId');
+	
+	const userId = userId_input !=null ? userId_input.value : null;
+	
+	if(userId) {
+		const formData = new FormData();
+		formData.append('file', input_file.files[0]);
+		
+		fetch('/users/' + userId + '/profile', {
+			method : 'POST',
+			body : formData
+		})
+		.then((response) => response.json())
+		.then((attach) => {
+			
+			alert("프로필 변경 성공" + attach.attf_REALNM);
+			displayProfile(attach);
+		})
+		.catch((error) => {
+			console.error('==============error: ',  error);
+		});
+	}
+} 
+
+//파일 서버이름으로 url 생성해서 이미지 src에 넣어주는 메소드
+function displayProfile (attach) {
+	const img = document.querySelector('.upload');
+	img.setAttribute('src', "/images/" + attach.attf_SERNM);
 }
 
 

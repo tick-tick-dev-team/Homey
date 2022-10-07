@@ -21,7 +21,8 @@ layout:decorate="~{layout/default_layout}">
 	<div class = "container">
 		<section>
 			<div class="imgbox">
-				<img class="upload" alt="프로필_img" src="/img/user_icon.png" />
+				<img th:if="${attach!=null}" class="upload" alt="프로필_img" th:src="|/images/${attach.getATTF_SERNM()}|"/>
+				<img th:unless="${attach!=null}" class="upload" alt="프로필_img" src="/img/user_icon.png"/>
 			</div>
 			<form method="post" enctype="multipart/form-data" >
 				<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
@@ -35,19 +36,19 @@ layout:decorate="~{layout/default_layout}">
 			<div class="content-wrap">
 				<form>
 					<div>
-						<span><input type="hidden" name="userId" th:value="${users.user_id}"></span>
+						<span><input type="hidden" id="userId" name="userId" th:value="${users.user_id}"></span>
 					</div>
 					<div>
 						<span>닉네임</span>
-						<span><input type="text" name="userId" th:value="${users.usernick}"></span>
+						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}"></span>
 					</div>
 					<div>
 						<span>생일</span>
-						<span><input type="text" name="userId" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"></span>
+						<span><input type="text" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"></span>
 					</div>
 					<div>
 						<span>가입일</span>
-						<span><input type="text" name="userJoin" th:value="${users.userjoin}"></span>
+						<span><input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}"></span>
 					</div>
 				</form>
 			</div>
