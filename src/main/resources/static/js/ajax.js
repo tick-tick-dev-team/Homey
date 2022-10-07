@@ -56,6 +56,8 @@ function AjaxAttachFn(api, url , fileData){
     httpRequest.setRequestHeader('Content-Type',false);
     httpRequest.setRequestHeader('Process-Data',false);
     httpRequest.send(fileData);
+    
+    //'multipart\/form-data; boundary=${boundary}'
 
     // AJAX 호출
 	
