@@ -41,7 +41,7 @@ public class HomeController {
 	public String list(Model model) {
 		List<Home> homes = homeService.findHomes();
 		model.addAttribute("homes", homes);
-		return "redirect:homes/Homes";
+		return "redirect:/homes";
 	}
 	
 	//login페이지
@@ -63,6 +63,10 @@ public class HomeController {
 		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용하세요!
 		/*User userinfo = userService.findBynick(principal);
 		model.addAttribute("userinfo", userinfo);*/
+		
+		// 로그인한 사용자
+//		User writer = userService.findBynick(principal);
+//		model.addAttribute("writer", writer);
 		
 		return "homes/Homes";
 	}
