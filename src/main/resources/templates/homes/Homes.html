@@ -3,9 +3,17 @@
 xmlns:th="http://www.thymeleaf.org" 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" 
-layout:decorate="~{layout/default_layout}">	
+layout:decorate="~{layout/default_layout}">
 
-<link rel="stylesheet" href="../../static/css/homes.css">
+<!-- 로컬 -->
+<head>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<link rel="stylesheet" href="../../static/css/homes.css">
+	<script src="https://kit.fontawesome.com/b638b1d7ed.js" crossorigin="anonymous"></script>
+</head>
+
+
 
 <!-- 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -15,15 +23,8 @@ layout:decorate="~{layout/default_layout}">
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script"></th:block>
 
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
 <body layout:fragment="content">
-<div class="container" sec:authorize="isAuthenticated()">
-	로그인 성공!<br>
-	환영합니다!!!!
-	<div th:text="${info}"></div><br>
+<div class="container">
 	
 	<a th:href="@{/users}">회원목록</a>
 	
@@ -31,8 +32,11 @@ layout:decorate="~{layout/default_layout}">
 	<!-- @{|/users/${userId}|} -->
 	<a th:href="@{|/users/1|}">마이페이지</a>
 	
-	<h3>친구집 놀러가기</h3>
+	<h3 sec:authorize="isAuthenticated()">친구집 놀러가기</h3>
+	<h2 sec:authorize="isAnonymous()">친구집에 놀러가려면 로그인이 필요해요</h2>
+	
 	<p th:if="${homes.size==0}" class="no-homes" >등록된 홈이 없습니다.</p>
+	
 	<ul th:unless="${homes.size==0}"  class="flex-start" id="main-homelist">
 		<li th:each="home : ${homes}">
 			<a th:href="@{/homes/{id}(id=${home.homeid})}" >
@@ -43,30 +47,7 @@ layout:decorate="~{layout/default_layout}">
 			</a>
 		</li>
 	</ul>
-<br>
 
 </div>
-
-<div class="container" sec:authorize="isAnonymous()">
-
-	<h2>친구집에 놀러가려면 로그인이 필요해요</h2>
-	<p th:if="${homes.size==0}" class="no-homes" >등록된 홈이 없습니다.</p>
-	<ul th:unless="${homes.size==0}"  class="flex-start" id="main-homelist">
-		<li th:each="home : ${homes}">
-			<a th:href="@{/loginForm}" >
-				<div class="img-wrap">
-			        <img src="https://via.placeholder.com/180" alt="">
-			    </div>
-			    <span class="username" th:text="${home.homename}">user1의 집</span>
-			</a>
-		</li>
-	</ul>
-	
-<br>
-
-</div>
-
-
-
 </body>
 </html>

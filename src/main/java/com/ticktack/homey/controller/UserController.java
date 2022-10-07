@@ -1,6 +1,7 @@
 package com.ticktack.homey.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.User;
+import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
 import com.ticktack.homey.service.UserService;
 
@@ -20,6 +23,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private HomeService homeService;
+	@Autowired
+	private AttachService attachService;
 	
 	/*회원가입폼조회, /users/new*/
 	@GetMapping("/users/new")
@@ -60,6 +65,12 @@ public class UserController {
 	public String MyPage2(@PathVariable Long userId, Model model) {
 		User result = userService.findById(userId).get();
 		model.addAttribute("users", result );
+		
+		// 프로필 사진 있으면 반환
+		if(result.getAttf_id()!=null) {
+			Optional<Attach> profile = attachService.findById(result.getAttf_id());
+			profile.ifPresent(p -> model.addAttribute("attach", p));
+		}
 		return "users/myPage";
 	}
 

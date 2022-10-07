@@ -11,8 +11,9 @@ layout:decorate="~{layout/default_layout}">
 	<link rel="stylesheet" href="../../static/css/style.css">
 	<link rel="stylesheet" href="../../static/css/main.css">
 	<link rel="stylesheet" href="../../static/css/selectHome.css">
-
 	<script src="https://kit.fontawesome.com/b638b1d7ed.js" crossorigin="anonymous"></script>
+
+	<title th:text="${home.homename}"></title>
 </head>
 
 <!-- 고유 CSS 추가 -->
@@ -28,6 +29,7 @@ layout:decorate="~{layout/default_layout}">
 		<!-- 집주인 프로필 등 -->
 		<section id="profile" class="flex-start">
 			<div class="img-wrap">
+				<img th:if="${attach!=null}" th:src="|/images/${attach.getATTF_SERNM()}|" alt="">
 				<img src="https://via.placeholder.com/100" alt="">
 			</div>
 			<div class="intro-wrap">

@@ -1,6 +1,7 @@
 package com.ticktack.homey.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ticktack.homey.auth.PrincipalDetails;
+import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.domain.User;
+import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
 import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.UserService;
@@ -36,12 +39,15 @@ public class HomeController {
 	@Autowired
 	private PostService postService;
 	
+	@Autowired
+	private AttachService attachService;
+	
 	//첫화면, index페이지, logout시 반환
 	@GetMapping("/")
 	public String list(Model model) {
 		List<Home> homes = homeService.findHomes();
 		model.addAttribute("homes", homes);
-		return "redirect:homes/Homes";
+		return "redirect:/homes";
 	}
 	
 	//login페이지
@@ -63,6 +69,10 @@ public class HomeController {
 		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용하세요!
 		/*User userinfo = userService.findBynick(principal);
 		model.addAttribute("userinfo", userinfo);*/
+		
+		// 로그인한 사용자
+//		User writer = userService.findBynick(principal);
+//		model.addAttribute("writer", writer);
 		
 		return "homes/Homes";
 	}
@@ -90,6 +100,12 @@ public class HomeController {
 		
 		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
+		
+		// 프로필 사진 있으면 반환
+		if(writer.getAttf_id()!=null) {
+			Optional<Attach> profile = attachService.findById(writer.getAttf_id());
+			profile.ifPresent(p -> model.addAttribute("attach", p));
+		}
 		
 		return "homes/selectHome";
 	}
