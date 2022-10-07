@@ -78,12 +78,6 @@ public class MemoryUserRepository implements UserRepository{
 	public void deleteUser(Long userid) {
 		store.remove(userid);
 	}
-	
-	//로그인시 패스워드
-	@Override
-	public Optional<User> findByPass(String userpass){
-		return Optional.ofNullable(store.get(userpass));
-	}
 
 
 	@Override
@@ -92,9 +86,6 @@ public class MemoryUserRepository implements UserRepository{
 		return null;
 	}
 	
-	/*@Override
-	public Session{
-	}*/
 	
 	
 	

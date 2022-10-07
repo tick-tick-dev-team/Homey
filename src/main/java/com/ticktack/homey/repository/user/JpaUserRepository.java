@@ -59,10 +59,7 @@ public class JpaUserRepository implements UserRepository{
 		
 	}
 
-	@Override
-	public Optional<User> findByPass(String userpass) {
-		return null;
-	}
+	
 
 
 
