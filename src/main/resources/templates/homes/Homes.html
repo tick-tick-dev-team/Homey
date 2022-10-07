@@ -30,7 +30,7 @@ layout:decorate="~{layout/default_layout}">
 	
 	<!-- 221004 마이페이지 추가부분/Popdo -->
 	<!-- @{|/users/${userId}|} -->
-	<a th:href="@{|/users/1|}">마이페이지</a>
+	<a th:if="${userinfo!=null}" th:href="@{|/users/${userinfo.user_id}|}">마이페이지</a>
 	
 	<h3 sec:authorize="isAuthenticated()">친구집 놀러가기</h3>
 	<h2 sec:authorize="isAnonymous()">친구집에 놀러가려면 로그인이 필요해요</h2>

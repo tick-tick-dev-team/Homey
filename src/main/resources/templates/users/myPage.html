@@ -27,10 +27,6 @@ layout:decorate="~{layout/default_layout}">
 			<form method="post" enctype="multipart/form-data" >
 				<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
 			</form>
-			<div class="img-btn-box">
-				<button class="img-btn" onclick="imgInsert()">수정</button>
-				<button class="img-btn" onclick="imgReset()">삭제</button>
-			</div>
 		</section>
 		<section>
 			<div class="content-wrap">
@@ -40,7 +36,7 @@ layout:decorate="~{layout/default_layout}">
 					</div>
 					<div>
 						<span>닉네임</span>
-						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}"></span>
+						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}" readonly="readonly"></span>
 					</div>
 					<div>
 						<span>생일</span>
@@ -51,6 +47,10 @@ layout:decorate="~{layout/default_layout}">
 						<span><input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}"></span>
 					</div>
 				</form>
+				<div class="img-btn-box">
+					<button class="img-btn" onclick="imgInsert()">수정</button>
+					<button class="img-btn" onclick="imgReset()">삭제</button>
+			</div>
 			</div>
 		</section>
 	</div>

@@ -67,8 +67,12 @@ public class HomeController {
 		//model.addAttribute("info", principal.getUsername()+"님");
 		
 		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용하세요!
-		/*User userinfo = userService.findBynick(principal);
-		model.addAttribute("userinfo", userinfo);*/
+		if(principal != null) {
+			User userinfo = userService.findBynick(principal);
+			model.addAttribute("userinfo", userinfo);
+		} else {
+			model.addAttribute("userinfo", null);
+		}
 		
 		// 로그인한 사용자
 //		User writer = userService.findBynick(principal);
