@@ -5,8 +5,6 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -120,7 +118,7 @@ public class AttachController {
 	}
 	
 	// 임시파일 업로드
-	// 게시물 등록
+	// 프로필 등록
 	@ResponseBody
 	@PostMapping("/users/{userId}/profile")
 	public Attach createTmp2 (@PathVariable Long userId, MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
@@ -128,6 +126,8 @@ public class AttachController {
 		
 		// 임시 파일 저장
 		if(Optional.ofNullable(file).isPresent()) {
+			
+			profileCheck(userId); 
 			Attach attach = fileStore.storeFile(file);
 			
 			// attach db에 저장
@@ -140,24 +140,57 @@ public class AttachController {
 			});
 			return attach;
 		}
-		return null;			
+		return null;
 	}
 	
-	// 프로필 파일 업로드
-	// 게시물 등록
+	/*
+	 * 프로필 파일 리셋 및 리셋 결과값 - 10.08 popdo 추가
+	 * */ 
 	@ResponseBody
-	@PostMapping("/profile")
-	public Attach profile (@RequestBody MultipartFile[] files, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+	@PostMapping("/users/{userId}/profileReset/{attfId}")
+	public boolean profileReset (@PathVariable Long userId, @PathVariable Long attfId, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {		
+		System.out.println("----------------attachController : profileReset");
+		profileCheck(userId);
 		
-		System.out.println("-------아작스 시작------");
-		System.out.println(files[0].toString());
-		for( MultipartFile muti : files ) {
-			System.out.println(muti.toString());
+		// 파일 존재여부 확인
+		Optional<Attach> deleteAttach = attachService.findById(attfId);
+		if(deleteAttach.isPresent()) {
+			return false;
+		} else {
+			return true;
 		}
-		
-		Attach result = new Attach();
-		
-		return result;
-	}	
+
+	}
+	
+	/*
+	 * 기존 파일 있는지 확인 삭제 처리 - 10.08 popdo 추가
+	 * --> 해당 메서드를 어디에 정의해야 할지 다같이 논의 필요
+	 * */
+	public void profileCheck(Long userId) {
+		System.out.println("----------------attachController : profileCheck");
+		Long deleteAttfId;
+
+		Optional<User> user = userService.findById(userId);
+		if(user.get().getAttf_id()!= null) {
+			deleteAttfId = user.get().getAttf_id();
+			user.get().setAttf_id(null);
+			Optional<User> test = Optional.ofNullable(userService.updateUser(user.get()));
+			if(test.get().getAttf_id() == null) {
+				Optional<Attach> deleteAttach = attachService.findById(deleteAttfId);
+				if(deleteAttach.isPresent()) {
+					attachService.deleteAttach(deleteAttach.get().getATTF_ID());
+					try {
+						fileStore.deleteStoreFile(deleteAttach);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					System.out.println("--> [Error] deleteAttach.isPresent() : 기존파일이 존재하지 않습니다.");
+				} 
+			} else {
+				System.out.println("--> [Error] test.get().getAttf_id() == null : user의 기존 파일 null 처리가 정상적으로 처리되지 않았습니다.");
+			}		
+		}
+	}
 
 }

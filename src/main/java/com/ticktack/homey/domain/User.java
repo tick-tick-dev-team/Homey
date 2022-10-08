@@ -103,8 +103,13 @@ public class User {
 	public void setAttf_id(Long attf_id) {
 		this.attf_id = attf_id;
 	}
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", userpass=" + userpass + ", usernick=" + usernick + ", userjoin="
+				+ userjoin + ", userpower=" + userpower + ", userbirth=" + userbirth + ", attf_id=" + attf_id + "]";
+	}
 	
-
+	
 	
 
 }

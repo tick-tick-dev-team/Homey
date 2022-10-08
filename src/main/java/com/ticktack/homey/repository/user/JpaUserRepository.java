@@ -51,7 +51,7 @@ public class JpaUserRepository implements UserRepository{
 
 	@Override
 	public User updateUser(User user) {
-		return null;
+		return user;
 	}
 
 	@Override
