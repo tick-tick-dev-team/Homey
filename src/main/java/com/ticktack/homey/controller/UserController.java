@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
@@ -54,6 +55,18 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	/*별명중복체크*/
+	@ResponseBody
+	@PostMapping("/checkNick") 
+	public String checkNick(String usernick){
+		System.out.println(usernick);
+		String result = userService.checkNick(usernick);
+		System.out.println(result);
+		return result;
+	}
+	
+	
+	/* 사용자 목록 조회 */
 	@GetMapping("users")
 	public String list(Model model) {
 		List<User> users = userService.findUsers();

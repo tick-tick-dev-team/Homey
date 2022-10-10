@@ -37,13 +37,39 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 	
-	//중복닉네임검증
+	//중복닉네임검증 원래 코드
 	private void validateDuplicateNick(User user) {
 		userRepository.findByNick(user.getUsernick())
 			.ifPresent(u -> {
 				throw new IllegalStateException("이미 존재하는 별명입니다.");
 			});
 	}
+	
+	//중복닉네임검증
+	@Override
+	public String checkNick(String usernick) {
+		
+		System.out.println(usernick);
+		
+		Boolean check1 = userRepository.findByNick(usernick).isPresent();
+		
+		 System.out.println("hi===="+check1);
+		 
+		 if(check1 == true) {
+				return "사용 불가능한 별명입니다.";
+			}
+		 else {
+				return "사용 가능한 별명입니다.";
+		 }	
+		 
+		// return "사용가능합니다."
+		 
+	}
+	
+/*	private String check_nick(String usernick) {
+		 Optional<User> check = userRepository.findByNick(usernick);
+		 return check.orElse(null).toString();
+	}*/
 	
 	//회원전체조회
 	@Override
