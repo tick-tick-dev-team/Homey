@@ -15,6 +15,8 @@ public interface UserService {
 
 	//회원가입
 	public User createUser(User user);
+	//중복체크
+	public String checkNick(String usernick);
 	//회원전체조회
 	public List<User> findUsers();
 	//회원상세조회

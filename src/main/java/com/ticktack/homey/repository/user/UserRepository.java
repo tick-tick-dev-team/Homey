@@ -13,6 +13,9 @@ public interface UserRepository {
 		//중복체크 시 사용할 NICK NULL인 경우 고려
 		Optional<User> findByNick(String usernick);
 		
+		/*Long countBynick(String usernick);*/ 
+		
+		
 		//로그인조회
 		User findBynick(String usernick);
 		
