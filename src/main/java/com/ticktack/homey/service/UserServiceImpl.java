@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 	
-	//중복닉네임검증 원래 코드
+	//중복닉네임검증 원래 코드(뒷단에서 돌아감)
 	private void validateDuplicateNick(User user) {
 		userRepository.findByNick(user.getUsernick())
 			.ifPresent(u -> {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 			});
 	}
 	
-	//중복닉네임검증
+	//중복닉네임검증(앞단에서 fetch로 돌아감)
 	@Override
 	public String checkNick(String usernick) {
 		
@@ -62,14 +62,10 @@ public class UserServiceImpl implements UserService {
 				return "사용 가능한 별명입니다.";
 		 }	
 		 
-		// return "사용가능합니다."
 		 
 	}
 	
-/*	private String check_nick(String usernick) {
-		 Optional<User> check = userRepository.findByNick(usernick);
-		 return check.orElse(null).toString();
-	}*/
+
 	
 	//회원전체조회
 	@Override
