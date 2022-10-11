@@ -30,12 +30,6 @@ public class JpaUserRepository implements UserRepository{
 				.getResultList().stream().findAny();
 	}
 	
-/*	@Override
-	public Long countBynick(String usernick) {
-		return em.countQuery("select count(u) from User u where u.usernick = :usernick")
-				.setParameter("usernick", usernick)
-				.getSingleResult();
-	}*/
 	
 	@Override
 	public User findBynick(String usernick) {

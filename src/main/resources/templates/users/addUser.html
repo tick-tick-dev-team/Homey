@@ -12,8 +12,6 @@ layout:decorate="~{layout/default_layout}">
 <!-- 별명 중복, 비밀번호 확인  -->
 <script>
 
-		/* https://ssungkang.tistory.com/entry/javascript-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EC%8B%9C-%EC%95%84%EC%9D%B4%EB%94%94-%EC%A4%91%EB%B3%B5-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0-ajax */
-	
 	/* https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-AJAX-%EC%84%9C%EB%B2%84-%EC%9A%94%EC%B2%AD-%EB%B0%8F-%EC%9D%91%EB%8B%B5-fetch-api-%EB%B0%A9%EC%8B%9D
 		fetch에는 기본적으로 첫번째 인자에 요청할 url
 		기본적으로 http 메소드 중 Get으로 동작
@@ -25,22 +23,13 @@ layout:decorate="~{layout/default_layout}">
 	
 	async function check_id(){
 			
-			//const usernick = document.getElementById('formnick');
-			
-			/* const formData = new formData;
-			formData.append('usernick',document.getElementById('formnick').value )
-			const formData = new formData(document.getElementById('formnick'));
-			 
-			 formData.get('usernick'); */
-			
 			console.log('hi');
-			//console.log(document.getElementById('formnick'));
+
 			console.log(document.getElementById('formnick').value);
 			const userN = document.getElementById('formnick').value;
 			 
 			const formData = new FormData();
 			formData.append('usernick', userN);
-			/* formData.set('usernick', userN); */
 			formData.get('usernick')
 			
 			console.log("userN="+userN);
@@ -85,7 +74,7 @@ layout:decorate="~{layout/default_layout}">
 		
 		<form th:action="@{/users/new}" method="post">
 			<label>닉네임</label>:
-			<input type="text" class="usernick_input" id="formnick" name="usernick" required="required"><br>
+			<input type="text" class="usernick_input" id="formnick" name="usernick" required="required" maxlength='5'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
 			<span id="message"></span>
 			
