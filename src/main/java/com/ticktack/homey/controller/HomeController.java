@@ -113,5 +113,15 @@ public class HomeController {
 		
 		return "homes/selectHome";
 	}
+	
+	
+	@GetMapping("/homes/{homeId}/update")
+	public String updateHome(@PathVariable("homeId") Long homeId, Model model) {
+		Home home = homeService.findById(homeId).get();
+		model.addAttribute("home", home);
+		
+		return "homes/myHome";
+	}
+	
 
 }

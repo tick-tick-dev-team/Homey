@@ -35,6 +35,9 @@ layout:decorate="~{layout/default_layout}">
 			<div class="intro-wrap">
 				<h1 th:text="${home.homename}">OOO의 집</h1>
 				<p th:text="${home.homeinst}">OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다.</p>
+				<div th:if="${writer.user_id==home.userid}">
+				<a th:href="@{|/homes/${home.homeid}/update|}">마이홈수정</a>	
+				</div>
 			</div>
 		</section>
 
