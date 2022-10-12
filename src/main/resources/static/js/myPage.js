@@ -52,11 +52,11 @@ function getProfileImg(e) {
 	const file = e.currentTarget.files;
 	
 	const input_file = document.querySelector('#uploadFile');
-	const userId_input = document.querySelector('#userId');
+	const userId_input = document.querySelector('#user_id');
 	
 	const userId = userId_input !=null ? userId_input.value : null;
 
-	if(imgValidation(file)){
+	if(imgValidation(file) == false){
 		return;
 	} else {
 		if(userId) {
@@ -94,7 +94,7 @@ function displayProfile (attach) {
 function imgReset(e){
 	if(confirm("이미지를 리셋하시겠어요?")){
 		const attfId = document.getElementById('attf_id').value;
-		const userId = document.getElementById('userId').value;
+		const userId = document.getElementById('user_id').value;
 		
 		fetch('/users/' + userId + '/profileReset/' + attfId, {
 			method : 'POST'
@@ -132,7 +132,8 @@ function imgValidation(files){
 	});
 }
 
-function imgInsertForm() {
+function myPageUpdate(e) {
+	
 	
 }
 

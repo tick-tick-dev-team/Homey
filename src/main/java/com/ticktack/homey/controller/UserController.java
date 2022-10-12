@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.User;
@@ -62,7 +64,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/{userId}")
-	public String MyPage2(@PathVariable Long userId, Model model) {
+	public String MyPage2(@PathVariable Long userId, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		User result = userService.findById(userId).get();
 		model.addAttribute("users", result );
 		
@@ -71,6 +73,25 @@ public class UserController {
 			Optional<Attach> profile = attachService.findById(result.getAttf_id());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
+		return "users/myPage";
+	}
+	
+	/*
+	 * 마이페이지 정보 수정
+	 * */
+	@PostMapping("users/myPage")
+	public String myPageUpdate(User form, Model model) {
+		System.out.println("************ UserController : myPageUpdate");
+		System.out.println(form.toString());
+		User user = new User();
+		user.setUser_id(form.getUser_id());
+		user.setUsernick(form.getUsernick());
+		user.setUserpass(form.getUserpass());
+		user.setUserbirth(form.getUserbirth());
+		user.setUserpower("ROLE_USER");
+		
+		model.addAttribute("users", user );
+		
 		return "users/myPage";
 	}
 

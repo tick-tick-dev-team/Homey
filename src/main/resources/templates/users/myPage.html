@@ -2,7 +2,8 @@
 <html lang="ko" 
 xmlns:th="http://www.thymeleaf.org" 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout/default_layout}">	
+layout:decorate="~{layout/default_layout}"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >	
 <head>
 <!-- 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -34,26 +35,35 @@ layout:decorate="~{layout/default_layout}">
 		</section>
 		<section>
 			<div class="content-wrap">
-				<form>
+				<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/myPage">
 					<div>
-						<span><input type="hidden" id="userId" name="userId" th:value="${users.user_id}"></span>
+						<span><input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}"></span>
 					</div>
 					<div>
 						<span>닉네임</span>
 						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}" readonly="readonly"></span>
+					</div>
+					<div sec:authorize="isAuthenticated()">
+						<span>비밀번호 변경</span>
+						<span><input type="text" id="userpass" name="userpass"><span sec:authentication="userpass"></span></span>
+					</div>
+					<div>
+						<span>비밀번호 확인</span>
+						<span><input type="text" id="userpassConfirm" ></span>
 					</div>
 					<div>
 						<span>생일</span>
 						<span><input type="text" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"></span>
 					</div>
 					<div>
-						<span>가입일</span>
+						<span>회원가입일</span>
 						<span><input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}"></span>
 					</div>
+					<div>
+						<button type="submit">수정</button>
+					</div>
 				</form>
-				<div>
-					<button onclick="">수정</button>
-				</div>
+				
 			</div>
 		</section>
 	</div>
