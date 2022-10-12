@@ -14,6 +14,14 @@ layout:decorate="~{layout/default_layout}">
 	<script type="text/javascript" th:src="@{/js/myPage.js}" ></script>
 </th:block>
 <meta charset="UTF-8">
+
+<script>
+const result="${msg}"
+if(result==="updateSuccess"){
+	alert('수정완료!');
+}
+</script>
+
 <title>마이홈수정</title>
 </head>
 <body layout:fragment="content">
@@ -29,22 +37,24 @@ layout:decorate="~{layout/default_layout}">
 		</section>
 		<section>
 			<div class="content-wrap">
-				<form>
-					<div>
-						<span><input type="hidden" name="homeid" th:value="${home.homeid}"></span>
-					</div>
-					<div>
-						<span>집이름</span>
-						<span><input type="text" name="homename" th:value="${home.homename}" readonly="readonly"></span>
-					</div>
-					<div>
-						<span>집설명</span>
-						<span><input type="text" name="homeinst" th:value="${home.homeinst}"></span>
-					</div>
-					<div>
-						<span>테마</span>
-						<span><input type="text" name="homethema" th:value="${home.homethema}"></span>
-					</div>
+				<form th:action="@{|/homes/${homeId}/update|}" method="post">
+					
+						<input type="hidden" name="homeid" th:value="${home.homeid}">
+						<input type="hidden" name="userid" th:value="${home.userid}">
+					
+					<ul>
+						<li>집이름 : <input type="text" name="homename" th:value="${home.homename}" readonly="readonly"></li>
+
+						<li>집설명 : <input type="text" name="homeinst" th:value="${home.homeinst}"></li>
+
+						<li> 테마 : <input type="text" name="homethema" th:value="${home.homethema}"></li>
+						
+						<li>집 사용여부 : <input type="radio" name="homeuse" th:value="Y" th:checked="${home.homeuse eq 'Y'}">Y
+						<input type="radio" name="homeuse" th:value="N" th:checked="${home.homeuse eq 'N'}">N
+						</li>
+					</ul>
+					
+					<button type="submit">수정</button>
 				</form>
 				<div class="img-btn-box">
 					<button class="img-btn" onclick="imgInsert()">수정</button>
