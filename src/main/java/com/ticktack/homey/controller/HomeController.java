@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
@@ -116,11 +117,28 @@ public class HomeController {
 	
 	
 	@GetMapping("/homes/{homeId}/update")
-	public String updateHome(@PathVariable("homeId") Long homeId, Model model) {
+	public String updateHomeForm(@PathVariable("homeId") Long homeId, Model model) {
 		Home home = homeService.findById(homeId).get();
 		model.addAttribute("home", home);
 		
 		return "homes/myHome";
+	}
+	
+	@PostMapping("/homes/{homeId}/update")
+	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form, RedirectAttributes ra) {
+		Home home = new Home();
+		home.setHomeid(form.getHomeid());
+		home.setHomename(form.getHomename());
+		home.setHomeinst(form.getHomeinst());
+		home.setHomethema(form.getHomethema());
+		home.setHomeuse(form.getHomeuse());
+		home.setUserid(form.getUserid());
+		
+		homeService.updateHome(home);
+		
+		ra.addFlashAttribute("msg", "updateSuccess");
+		
+		return "redirect:/homes/{homeId}/update";
 	}
 	
 
