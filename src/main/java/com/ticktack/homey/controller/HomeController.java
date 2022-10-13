@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
@@ -69,9 +70,9 @@ public class HomeController {
 		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용하세요!
 		if(principal != null) {
 			User userinfo = userService.findBynick(principal);
-			model.addAttribute("userinfo", userinfo);
+			model.addAttribute("writer", userinfo);
 		} else {
-			model.addAttribute("userinfo", null);
+			model.addAttribute("writer", null);
 		}
 		
 		// 로그인한 사용자
@@ -113,5 +114,32 @@ public class HomeController {
 		
 		return "homes/selectHome";
 	}
+	
+	
+	@GetMapping("/homes/{homeId}/update")
+	public String updateHomeForm(@PathVariable("homeId") Long homeId, Model model) {
+		Home home = homeService.findById(homeId).get();
+		model.addAttribute("home", home);
+		
+		return "homes/myHome";
+	}
+	
+	@PostMapping("/homes/{homeId}/update")
+	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form, RedirectAttributes ra) {
+		Home home = new Home();
+		home.setHomeid(form.getHomeid());
+		home.setHomename(form.getHomename());
+		home.setHomeinst(form.getHomeinst());
+		home.setHomethema(form.getHomethema());
+		home.setHomeuse(form.getHomeuse());
+		home.setUserid(form.getUserid());
+		
+		homeService.updateHome(home);
+		
+		ra.addFlashAttribute("msg", "updateSuccess");
+		
+		return "redirect:/homes/{homeId}/update";
+	}
+	
 
 }

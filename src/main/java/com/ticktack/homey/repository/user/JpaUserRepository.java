@@ -30,6 +30,7 @@ public class JpaUserRepository implements UserRepository{
 				.getResultList().stream().findAny();
 	}
 	
+	
 	@Override
 	public User findBynick(String usernick) {
 		return em.createQuery("select u from User u where u.usernick = :usernick", User.class)
@@ -58,6 +59,8 @@ public class JpaUserRepository implements UserRepository{
 	public void deleteUser(Long userid) {
 		
 	}
+
+	
 
 	
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/default_layout}">	
+<head>
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/myPage.css}">
+</th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/myPage.js}" ></script>
+</th:block>
+<meta charset="UTF-8">
+
+<script>
+const result="${msg}"
+if(result==="updateSuccess"){
+	alert('수정완료!');
+}
+</script>
+
+<title>마이홈수정</title>
+</head>
+<body layout:fragment="content">
+	<div class = "container">
+		<section>
+			<div class="imgbox">
+				<img th:if="${attach!=null}" class="upload" alt="프로필_img" th:src="|/images/${attach.getATTF_SERNM()}|"/>
+				<img th:unless="${attach!=null}" class="upload" alt="프로필_img" src="/img/user_icon.png"/>
+			</div>
+			<form method="post" enctype="multipart/form-data" >
+				<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
+			</form>
+		</section>
+		<section>
+			<div class="content-wrap">
+				<form th:action="@{|/homes/${homeId}/update|}" method="post">
+					
+						<input type="hidden" name="homeid" th:value="${home.homeid}">
+						<input type="hidden" name="userid" th:value="${home.userid}">
+					
+					<ul>
+						<li>집이름 : <input type="text" name="homename" th:value="${home.homename}" readonly="readonly"></li>
+
+						<li>집설명 : <input type="text" name="homeinst" th:value="${home.homeinst}"></li>
+
+						<li> 테마 : <input type="text" name="homethema" th:value="${home.homethema}"></li>
+						
+						<li>집 사용여부 : <input type="radio" name="homeuse" th:value="Y" th:checked="${home.homeuse eq 'Y'}">Y
+						<input type="radio" name="homeuse" th:value="N" th:checked="${home.homeuse eq 'N'}">N
+						</li>
+					</ul>
+					
+					<button type="submit">수정</button>
+				</form>
+				<div class="img-btn-box">
+					<button class="img-btn" onclick="imgInsert()">수정</button>
+					<button class="img-btn" onclick="imgReset()">삭제</button>
+			</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

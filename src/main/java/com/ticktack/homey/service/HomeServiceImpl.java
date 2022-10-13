@@ -37,11 +37,6 @@ public class HomeServiceImpl implements HomeService{
 	//home 수정
 	@Override
 	public Home updateHome(Home home) {
-		home.setHomename(home.getHomename());
-		home.setHomeinst(home.getHomeinst());
-		home.setHomethema(home.getHomethema());
-		home.setHomeuse(home.getHomeuse());
-		
 		return homeRepository.updateHome(home);
 		
 	}

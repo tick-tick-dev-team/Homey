@@ -63,6 +63,18 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	/*별명중복체크*/
+	@ResponseBody
+	@PostMapping("/checkNick") 
+	public String checkNick(String usernick){
+		System.out.println(usernick);
+		String result = userService.checkNick(usernick);
+		System.out.println(result);
+		return result;
+	}
+	
+	
+	/* 사용자 목록 조회 */
 	@GetMapping("users")
 	public String list(Model model) {
 		List<User> users = userService.findUsers();
