@@ -116,6 +116,7 @@ public class HomeController {
 	}
 	
 	
+	/*myHome페이지(update)*/
 	@GetMapping("/homes/{homeId}/update")
 	public String updateHomeForm(@PathVariable("homeId") Long homeId, Model model) {
 		Home home = homeService.findById(homeId).get();
@@ -124,8 +125,9 @@ public class HomeController {
 		return "homes/myHome";
 	}
 	
+	/*myHome페이지(update)수정 눌렀을때*/
 	@PostMapping("/homes/{homeId}/update")
-	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form, RedirectAttributes ra) {
+	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {
 		Home home = new Home();
 		home.setHomeid(form.getHomeid());
 		home.setHomename(form.getHomename());
@@ -136,7 +138,6 @@ public class HomeController {
 		
 		homeService.updateHome(home);
 		
-		ra.addFlashAttribute("msg", "updateSuccess");
 		
 		return "redirect:/homes/{homeId}/update";
 	}

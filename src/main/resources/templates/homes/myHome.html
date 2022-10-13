@@ -16,9 +16,8 @@ layout:decorate="~{layout/default_layout}">
 <meta charset="UTF-8">
 
 <script>
-const result="${msg}"
-if(result==="updateSuccess"){
-	alert('수정완료!');
+function btn(){
+	alert("수정이 완료되었습니다!");
 }
 </script>
 
@@ -54,7 +53,7 @@ if(result==="updateSuccess"){
 						</li>
 					</ul>
 					
-					<button type="submit">수정</button>
+					<button type="submit" onclick="javascript:btn()">수정</button>
 				</form>
 				<div class="img-btn-box">
 					<button class="img-btn" onclick="imgInsert()">수정</button>
