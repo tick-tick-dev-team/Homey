@@ -41,15 +41,19 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 					</div>
 					<div>
 						<span>닉네임</span>
-						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}" readonly="readonly"></span>
+						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}" ></span>
 					</div>
-					<div sec:authorize="isAuthenticated()">
-						<span>비밀번호 변경</span>
-						<span><input type="text" id="userpass" name="userpass"><span sec:authentication="userpass"></span></span>
+					<div>
+						<span>기존 비밀번호</span>
+						<span><input type="text" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요."></span><button type="button" onclick="pwdCheck()">체크</button>
+					</div>
+					<div>
+						<span>변경 비밀번호</span>
+						<span><input type="text" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요."></span>
 					</div>
 					<div>
 						<span>비밀번호 확인</span>
-						<span><input type="text" id="userpassConfirm" ></span>
+						<span><input type="text" id="updatePwConfirm" name="updatePwConfirm" placeholder="변경할 비밀번호를 한번 더 입력하세요."></span>
 					</div>
 					<div>
 						<span>생일</span>
@@ -60,7 +64,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 						<span><input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}"></span>
 					</div>
 					<div>
-						<button type="submit">수정</button>
+						<!-- <button type="submit">수정</button> -->
 					</div>
 				</form>
 				

@@ -5,9 +5,12 @@
 window.onload=function(){
 	const realUpload = document.querySelector('.real-upload');
     const upload = document.querySelector('.upload');
+    const userpass = document.getElementById('userpass');
 
     upload.addEventListener('click', () => realUpload.click());
     realUpload.addEventListener('change', getProfileImg);
+    
+    
 }
 
 function getImageFiles(e) {
@@ -140,3 +143,20 @@ function myPageUpdate(e) {
 function imgInsert() {
 	alert("이미지 등록!")
 }
+
+function pwdCheck() {
+	const userpass = document.getElementById('userpass').value;
+	fetch('/users/pwdCheck/' + userpass, {
+		method : 'POST'
+	})
+	.then(function(response){
+		response.text().then(response.text() => {
+			if(Boolean(response.text())){
+				alert("체크!");
+			} else {
+				alert("실패!");
+			}
+		})
+	})
+}
+
