@@ -40,4 +40,10 @@ public class HomeServiceImpl implements HomeService{
 		return homeRepository.updateHome(home);
 		
 	}
+
+	// user_id로 home 조회 - 10.15 popdo 추가
+	@Override
+	public Optional<Home> findByUserId(Long userId) {
+		return homeRepository.findByUserId(userId);
+	}
 }

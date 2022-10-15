@@ -15,4 +15,7 @@ public interface HomeService {
 	public Optional<Home> findById(Long homeId);
 	//home 수정
 	public Home updateHome(Home home);
+	
+	//user_id로 home 조회 - 10.15 popdo 추가
+	public Optional<Home> findByUserId(Long userId);
 }

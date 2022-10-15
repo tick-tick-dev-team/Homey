@@ -8,8 +8,7 @@ window.onload=function(){
     const userpass = document.getElementById('userpass');
 
     upload.addEventListener('click', () => realUpload.click());
-    realUpload.addEventListener('change', getProfileImg);
-    
+    realUpload.addEventListener('change', getProfileImg);    
     
 }
 
@@ -135,28 +134,135 @@ function imgValidation(files){
 	});
 }
 
-function myPageUpdate(e) {
-	
-	
-}
-
-function imgInsert() {
-	alert("이미지 등록!")
-}
 
 function pwdCheck() {
-	const userpass = document.getElementById('userpass').value;
-	fetch('/users/pwdCheck/' + userpass, {
-		method : 'POST'
-	})
-	.then(function(response){
-		response.text().then(response.text() => {
-			if(Boolean(response.text())){
-				alert("체크!");
-			} else {
-				alert("실패!");
+	const userpass = document.getElementById('userpass');
+	const btn = document.getElementById('pwdCheckBtn');
+	
+	if(userpass.value == ""){
+		alert("비밀번호를 입력하세요.");
+		return;
+	}
+	fetch('/users/pwdCheck/'+ userpass.value ,{
+				method : 'POST'
+			})
+			.then(res => res.text())
+			.then(function(text){
+					console.log(text);
+					var isFalseBoolean = (text==='true');
+					if(isFalseBoolean){
+						userpass.setAttribute('readonly', "readonly");
+						btn.innerHTML = "체크완료✔";
+						btn.style.color = "#2585D9";
+						btn.disabled = true;
+					} else {
+						userpass.value == ""
+						alert("비밀번호가 일치하지 않습니다.");
+					}
+				}
+			);
+	
+}
+
+function check_pw(){
+		if(document.getElementById('userpass').getAttribute('readonly') != "readonly" 
+			&& document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
+			alert("기존 비밀번호를 체크하세요.")
+			document.getElementById('updatePw').value = "";
+			document.getElementById('updatePwConfirm').value = "";
+			document.getElementById('userpass').focus();
+			return;
+		} else {
+			if(document.getElementById('updatePw').value !=" && document.getElementById('updatePwConfirm').value!="){
+				if(document.getElementById('updatePw').value==document.getElementById('updatePwConfirm').value){
+					document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+	                document.getElementById('check').style.color= '#2585D9';
+				}
+				else{
+					document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+					document.getElementById('check').style.color='red';
+				}
 			}
+		}
+		
+}
+
+function sumitBtn(){
+	const frm = document.getElementById('myPageUpdateFrm');
+
+	const usernick = document.getElementById('usernick').value;
+	const userbirth = document.getElementById('userbirth').value;
+	const nickChage = document.getElementById('nickChage').value;
+	
+	if(userbirth == ""){
+		alert("생일을 선택하세요.");
+		return;
+	}
+	if(usernick == nickChage){
+		nickChage = "";
+	} else {
+		if(document.getElementById('nickCheck').style.display == 'none'){
+			alert("닉네임 중복검사 후 변경 가능합니다.")
+			return;
+		}
+	}
+	frm.sumit();
+	
+}
+
+async function check_id(){
+
+		const userN = document.getElementById('nickChage');
+		const btn = document.getElementById('nickCheckBtn');
+		 
+		const formData = new FormData();
+		formData.append('usernick', userN.value);
+		formData.get('usernick');
+		 
+		fetch('/checkNick',{
+			method : 'POST',
+			body : formData
 		})
-	})
+		.then(res => res.text())
+		.then(function(text){
+				console.log(text);
+				var result = text;
+				if(result == "사용 가능한 별명입니다."){
+					document.getElementById('nickCheck').style.display= 'inline';
+					document.getElementById('nickCheck').style.color= "#2585D9";
+				} else {
+					document.getElementById('nickCheck').style.display= 'none';
+					alert(result);
+				}
+			}
+		);
+}
+
+function UpdatePwBtn(){
+	const frm = document.getElementById('myPageUpdateFrm');
+	const check = document.getElementById('check');
+	
+	console.log(frm);
+	console.log(check);
+	
+	if(frm.userpass.value == ""){
+		alert("기존 비밀번호를 체크해주세요.");
+		return false;
+	}
+	if(frm.updatePw.value == "" ){
+		alert("변경할 비밀번호를 입력해주세요.");
+		return false;
+	}
+	if(document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
+		alert("기존 비밀번호를 입력 후 체크해주세요.");
+		return false;
+	}
+	if(check.innerHTML == "비밀번호가 일치하지 않습니다."){
+		alert("변경할 비밀번호가 일치하지 않습니다.");
+		return false;
+	}
+	
+	frm.userpass.value = frm.updatePw.value;
+	console.log(frm.userpass.value);
 }
 

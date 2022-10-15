@@ -35,36 +35,30 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 		</section>
 		<section>
 			<div class="content-wrap">
+				<div><h1>내 정보 수정</h1></div>
+				<div><a th:href="@{|/users/${users.user_id}/pwChange|}">비밀번호변경</a></div>
 				<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/myPage">
 					<div>
-						<span><input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}"></span>
+						<span><input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}">
+							<input type="hidden" id="usernick" name="usernick" th:value="${users.usernick}">
+						</span>
 					</div>
 					<div>
 						<span>닉네임</span>
-						<span><input type="text" id="usernick" name="usernick" th:value="${users.usernick}" ></span>
-					</div>
-					<div>
-						<span>기존 비밀번호</span>
-						<span><input type="text" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요."></span><button type="button" onclick="pwdCheck()">체크</button>
-					</div>
-					<div>
-						<span>변경 비밀번호</span>
-						<span><input type="text" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요."></span>
-					</div>
-					<div>
-						<span>비밀번호 확인</span>
-						<span><input type="text" id="updatePwConfirm" name="updatePwConfirm" placeholder="변경할 비밀번호를 한번 더 입력하세요."></span>
+						<span><input type="text" id="nickChage" name="nickChage" th:value="${users.usernick}" ></span>
+						<button id="nickCheckBtn" type="button" onclick="javascript:check_id();">중복검사</button>
+						<span id="nickCheck" style="display:none;">✔</span>
 					</div>
 					<div>
 						<span>생일</span>
-						<span><input type="text" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"></span>
+						<span><input type="date" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"></span>
 					</div>
 					<div>
 						<span>회원가입일</span>
-						<span><input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}"></span>
+						<span><input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}" readonly="readonly"></span>
 					</div>
 					<div>
-						<!-- <button type="submit">수정</button> -->
+						<button onclick="javascript:sumitBtn()">수정</button>
 					</div>
 				</form>
 				

@@ -103,16 +103,27 @@ public class UserController {
 	 * 마이페이지 정보 수정
 	 * */
 	@PostMapping("users/myPage")
-	public String myPageUpdate(User form, @RequestParam("updatePw") String updatePw, @RequestParam("updatePwConfirm") String updatePwConfirm, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
+	public String myPageUpdate(User form, @RequestParam String nickChage, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		System.out.println("************ UserController : myPageUpdate");
-		boolean pwd = passwordEncoder.matches(form.getUserpass(), principal.getPassword());
+		System.out.println("************ "+ nickChage);
+		User result = userService.findById(form.getUser_id()).get();
+		if(nickChage != null) {
+			result.setUsernick(nickChage);
+		}
+		result.setUserbirth(form.getUserbirth());
+		// user 수정
+		userService.updateUser(result);
+		
+		// 세션 변경 
+		
 
-		System.out.println("복호화 비밀번호 : "+ pwd);
-		System.out.println(form.toString());
+		// home name 수정
+		Home homeResult = homeService.findByUserId(form.getUser_id()).get();
+		homeResult.setHomename(result.getUsernick()+"의 집");
+		homeService.updateHome(homeResult);
+		System.out.println(homeResult.toString());
 		
-		model.addAttribute("users", form );
-		
-		return "users/myPage";
+		return "redirect:/users/"+ form.getUser_id();
 	}
 	
 	/*
@@ -124,7 +135,31 @@ public class UserController {
 		System.out.println("************ UserController : myPagePwdCheck");
 		return passwordEncoder.matches(userpass, principal.getPassword());
 	}
-
 	
+	/*
+	 * 마이페이지 비밀번호변경 페이지 이동
+	 * */
+	@GetMapping("/users/{userId}/pwChange")
+	public String myPagePasswordChage(@PathVariable Long userId, Model model) {
+		System.out.println("************ UserController : myPagePasswordChage");
+		User result = userService.findById(userId).get();
+		model.addAttribute("users", result );
+		return "users/myPagePwUpdate";
+	}
+	
+	@PostMapping("/users/pwUpdate")
+	public String pwUpdate(User form, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
+		System.out.println("************ UserController : pwUpdate");
+		System.out.println(form.getUserpass());
+		User result = userService.findById(form.getUser_id()).get();
+		result.setUserpass(passwordEncoder.encode(form.getUserpass()));
+		userService.updateUser(result);
+		
+		// 세션 변경
+		
+		
+		model.addAttribute("users", result );
+		return "users/myPagePwUpdate";
+	}
 
 }
