@@ -114,7 +114,7 @@ public class UserController {
 		// user 수정
 		userService.updateUser(result);
 		
-		// 세션 변경 
+		// 세션 변경 필요
 		
 
 		// home name 수정
@@ -155,7 +155,7 @@ public class UserController {
 		result.setUserpass(passwordEncoder.encode(form.getUserpass()));
 		userService.updateUser(result);
 		
-		// 세션 변경
+		// 세션 변경 필요
 		
 		
 		model.addAttribute("users", result );

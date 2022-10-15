@@ -207,7 +207,6 @@ function sumitBtn(){
 		}
 	}
 	frm.sumit();
-	
 }
 
 async function check_id(){
@@ -245,6 +244,21 @@ function UpdatePwBtn(){
 	console.log(frm);
 	console.log(check);
 	
+	if(pwValication(frm)){
+		frm.userpass.value = frm.updatePw.value;
+		frm.sumit();
+	} else {
+		return false;
+	}
+
+	
+
+}
+
+function pwValication(frm){
+	const check = document.getElementById('check');
+	var result = true;
+	
 	if(frm.userpass.value == ""){
 		alert("기존 비밀번호를 체크해주세요.");
 		return false;
@@ -261,8 +275,6 @@ function UpdatePwBtn(){
 		alert("변경할 비밀번호가 일치하지 않습니다.");
 		return false;
 	}
-	
-	frm.userpass.value = frm.updatePw.value;
-	console.log(frm.userpass.value);
+	return true;
 }
 
