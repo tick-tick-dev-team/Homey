@@ -8,60 +8,9 @@ layout:decorate="~{layout/default_layout}">
 <th:block layout:fragment="css"></th:block>
 
 <!-- 고유 스크립트 추가 -->
-<th:block layout:fragment="script"></th:block>
-<!-- 별명 중복, 비밀번호 확인  -->
-<script>
-
-	/* https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-AJAX-%EC%84%9C%EB%B2%84-%EC%9A%94%EC%B2%AD-%EB%B0%8F-%EC%9D%91%EB%8B%B5-fetch-api-%EB%B0%A9%EC%8B%9D
-		fetch에는 기본적으로 첫번째 인자에 요청할 url
-		기본적으로 http 메소드 중 Get으로 동작
-		fetch를 통해 ajax 를 호출 시 해당 주소에 요청을 보낸 다음, 응답객체(Promise object Response 를 받는다.
-		그러면 첫번째 then에서 그 응답을 받고
-		res.text()메서드로 팡싱한 text 값을 리턴
-		그러면 다음 then에서 리턴받은 text값을 받고 원하는 처리
-	*/
-	
-	async function check_id(){
-			
-			console.log('hi');
-
-			console.log(document.getElementById('formnick').value);
-			const userN = document.getElementById('formnick').value;
-			 
-			const formData = new FormData();
-			formData.append('usernick', userN);
-			formData.get('usernick')
-			
-			console.log("userN="+userN);
-			console.log("this is "+formData.usernick);
-			 
-			 
-			fetch('/checkNick',{
-				method : 'POST',
-				body : formData
-			})
-			.then(res => res.text())
-			.then(text => alert(text));
-		}
-
-
-	function check_pw(){
-		const target = document.getElementById('target_btn');
-		
-		if(document.getElementById('pw').value !=" && document.getElementById('pw2').value!="){
-			if(document.getElementById('pw').value==document.getElementById('pw2').value){
-				document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
-                document.getElementById('check').style.color='blue';
-				target.disabled = false;
-			}
-			else{
-				document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
-				document.getElementById('check').style.color='red';
-				target.disabled = true;
-			}
-		}
-	}
-</script>
+<th:block layout:fragment="script">
+<script type="text/javascript" th:src="@{/js/addUser.js}" ></script>
+</th:block>
 
 <meta charset="UTF-8">
 <title>회원가입화면</title>
@@ -76,7 +25,6 @@ layout:decorate="~{layout/default_layout}">
 			<label>닉네임</label>:
 			<input type="text" class="usernick_input" id="formnick" name="usernick" required="required" maxlength='5'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
-			<span id="message"></span>
 			
 			<label>비밀번호</label>:
 			<input type="password" name="userpass" id="pw" onchange="javascript:check_pw();" required><br>
@@ -86,7 +34,7 @@ layout:decorate="~{layout/default_layout}">
 			<label>생년월일</label>:
 			<input type="date" name="userbirth">
 			<br>
-			<button type="submit" id='target_btn'>가입하기</button>
+			<button type="submit" id='target_btn' disabled>가입하기</button>
 		</form>
 	</div>
 	

@@ -15,7 +15,7 @@ import com.ticktack.homey.repository.user.UserRepository;
 public class UserServiceImpl implements UserService {
 	
 	private UserRepository userRepository;
-	//private PasswordEncoder passwordEncoder;
+	
 	@Autowired
     private PasswordEncoder passwordEncoder;
 	
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	private void validateDuplicateNick(User user) {
 		userRepository.findByNick(user.getUsernick())
 			.ifPresent(u -> {
-				throw new IllegalStateException("이미 존재하는 별명입니다.");
+				throw new IllegalStateException("이미 존재하는 별명입니다. 새로고침 후에는 별명 작성 및 중복검사를 해주세요..");
 			});
 	}
 	
