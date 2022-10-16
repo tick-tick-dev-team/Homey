@@ -69,4 +69,13 @@ public class Home {
 	public void setHomethema(String homethema) {
 		this.homethema = homethema;
 	}
+	
+	// popdo 결과값 테스트용 추가
+	@Override
+	public String toString() {
+		return "Home [homeid=" + homeid + ", userid=" + userid + ", homename=" + homename + ", homeinst=" + homeinst
+				+ ", homeuse=" + homeuse + ", homethema=" + homethema + "]";
+	}
+	
+	
 }

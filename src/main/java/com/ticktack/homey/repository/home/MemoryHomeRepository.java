@@ -39,6 +39,12 @@ public class MemoryHomeRepository implements HomeRepository {
 		return null;
 	}
 
+	@Override
+	public Optional<Home> findByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 

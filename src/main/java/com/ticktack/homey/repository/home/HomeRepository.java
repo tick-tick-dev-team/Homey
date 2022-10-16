@@ -18,5 +18,8 @@ public interface HomeRepository {
 	
 	//home 수정
 	Home updateHome(Home home);
+	
+	//user_id로 home 조회 - 10.15 popdo 추가
+	Optional<Home> findByUserId(Long userId);
 
 }

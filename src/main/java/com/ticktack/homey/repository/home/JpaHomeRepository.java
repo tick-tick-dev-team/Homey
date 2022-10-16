@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ticktack.homey.domain.Home;
+import com.ticktack.homey.domain.Post;
 
 @Transactional
 public class JpaHomeRepository implements HomeRepository  {
@@ -46,6 +47,15 @@ public class JpaHomeRepository implements HomeRepository  {
 		em.merge(home);
 		
 		return home;
+	}
+
+	@Override
+	public Optional<Home> findByUserId(Long userId) {
+		// user_id로 Home 정보 반환
+		Home result = em.createQuery("select h from Home h where h.userid=:userId", Home.class)
+				.setParameter("userId", userId)
+				.getSingleResult();
+		return Optional.ofNullable(result);
 	}
 
 }

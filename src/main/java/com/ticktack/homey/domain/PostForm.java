@@ -43,7 +43,7 @@ public class PostForm {
 	boolean deleteAttach = false;
 	
 	// 댓글 리스트
-	List<Comment> COMMENT_LIST;
+	List<CommentImgForm> COMMENT_LIST;
 
 	public Long getPOST_ID() {
 		return POST_ID;
@@ -134,11 +134,11 @@ public class PostForm {
 		this.deleteAttach = deleteAttach;
 	}
 
-	public List<Comment> getCOMMENT_LIST() {
+	public List<CommentImgForm> getCOMMENT_LIST() {
 		return COMMENT_LIST;
 	}
 
-	public void setCOMMENT_LIST(List<Comment> cOMMENT_LIST) {
+	public void setCOMMENT_LIST(List<CommentImgForm> cOMMENT_LIST) {
 		COMMENT_LIST = cOMMENT_LIST;
 	}
 	

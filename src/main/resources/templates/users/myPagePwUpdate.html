@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/default_layout}"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >	
+<head>
+<!-- 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/myPage.css}">
+</th:block>
+
+<!-- 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/myPage.js}" ></script>
+</th:block>
+<meta charset="UTF-8">
+<title>비밀번호 변경</title>
+
+</head>
+<body layout:fragment="content">
+	<div class = "container">
+		<section>
+			<div class="content-wrap">
+			<div><h1>비밀번호 변경</h1></div>
+				<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/pwUpdate">
+					<div>
+						<span><input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}"></span>
+					</div>
+					<div>
+						<span>기존 비밀번호</span>
+						<span><input type="text" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요."></span><button id="pwdCheckBtn" type="button" onclick="javascript:pwdCheck()">체크</button>
+					</div>
+					<div>
+						<span>변경 비밀번호</span>
+						<span><input type="text" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요." onchange="javascript:check_pw();" required></span>
+					</div>
+					<div>
+						<span>비밀번호 확인</span>
+						<span><input type="text" id="updatePwConfirm" name="updatePwConfirm" placeholder="변경할 비밀번호를 한번 더 입력하세요." onchange="javascript:check_pw();" required></span><span id="check"></span>
+					</div>
+					<div>
+						<a th:href="@{|/users/${users.user_id}|}">이전</a>
+						<button onclick="javascript:UpdatePwBtn();return false;">수정</button>
+					</div>
+				</form>
+				
+			</div>
+		</section>
+	</div>
+</body>
+</html>

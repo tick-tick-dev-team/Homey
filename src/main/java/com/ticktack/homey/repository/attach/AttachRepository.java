@@ -15,4 +15,5 @@ public interface AttachRepository {
 	
 	// 첨부파일 1개 삭제
 	void delete(Long attachId);
+	
 }
