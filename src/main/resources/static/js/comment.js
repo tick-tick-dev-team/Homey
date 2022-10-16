@@ -6,11 +6,11 @@
 
 /* 댓글 등록 버튼 */
 function CommentAdd(e){
-	var commCont = document.getElementById("commCont").value;
+	var commCont = e.previousElementSibling.value;
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );	
 	var data = {
 	    		commCont   : commCont,
-	    		commWriter : 1,
+	    		commWriter : document.getElementById("writer").value,
 	    		postId     : postId
 	};
 	var result =  JSON.parse(AjaxFn('POST', '/commentAdd' , data));
@@ -33,7 +33,7 @@ function CommentAdd(e){
 	           	  + '</div>'
 	              + '<p class="content">'+ result.commCont +'</p>';
 	ul.appendChild(li);
-	document.getElementById("commCont").value= ""; 
+	e.previousElementSibling.value= ""; 
 		    
 } 	// function 댓글 등록 END
 
@@ -41,24 +41,29 @@ function CommentAdd(e){
 /* 댓글 삭제 버튼 */
 function CommentDelete(e){
 	
-	var li = e.closest("li");
-	var commId = li.getAttribute( 'commId' );
-	var data = {
-    		commId : commId
-    };
+	if(confirm("답글까지 모두 삭제됩니다. 삭제하시겠습니까?")){
+		var li = e.closest("li");
+		var commId = li.getAttribute( 'commId' );
+		var data = {
+	    		commId : commId
+	    };
 
-	var result = JSON.parse(AjaxFn('POST', '/commentDelete' , data));
-	console.log(result);
+		var result = JSON.parse(AjaxFn('POST', '/commentDelete' , data));
+		console.log(result);
 	
-	if(result) {
-		var list = document.querySelectorAll('li');
-		 for (let i=0; i< list.length; i++){
-			 if(list[i].getAttribute('commupid') == commId){
-				list[i].remove(); 
+		if(result) {
+			var list = document.querySelectorAll('li');
+			 for (let i=0; i< list.length; i++){
+				 if(list[i].getAttribute('commupid') == commId){
+					list[i].remove(); 
+				 }
 			 }
-		 }
-		 li.remove();
+			 li.remove();
+		}
+	} else {
+		return;
 	}
+	
 }   // function 댓글 삭제 END
 
 
@@ -100,7 +105,7 @@ function CommUpdate(e){
 	
 	var result = JSON.parse(AjaxFn('POST', '/commentUpdate' , data));
 	if (result != null){
-		li.querySelectorAll('span')[1].textContent = result.commUdate;
+		li.querySelectorAll('span')[1].textContent = "작성일자 = "+result.commUdate;
 		p.textContent = result.commCont;
 		p.setAttribute('style',"display:block;");
 		li.querySelectorAll('a')[0].setAttribute('style',"display:inline;");
@@ -160,13 +165,13 @@ function CommentReplyAdd(e){
 /* 대댓글 등록 */
 function replyAdd(e){
 	const li = e.closest("li");
-	const commUpid = document.getElementById("commUpid").value;
-	const commCont = document.getElementById("replyCommCont").value;
+	const commUpid = e.previousElementSibling.value;
+	const commCont = e.previousElementSibling.previousElementSibling.value;
 	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
 	
     var data = {
     		commCont   : commCont,
-    		commWriter : 1,
+    		commWriter : document.getElementById("writer").value,
     		commUpid   : commUpid,
     		postId     : postId
     };
@@ -199,7 +204,7 @@ function replyAdd(e){
 /* 대댓글 취소 */
 function replyCancel(e){
 	const li = e.closest("li");
-	const commUpid = document.getElementById("commUpid").value;
+	const commUpid = e.previousElementSibling.previousElementSibling.value;
 	
 	var list = document.querySelectorAll('li');
 	for (let i=0; i< list.length; i++){
