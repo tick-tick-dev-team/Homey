@@ -92,7 +92,7 @@ public class SpringConfig {
 	
 	@Bean
 	public PostService postService() {
-		return new PostServiceImpl(postRepository(), commentRepository(), attachRepository());
+		return new PostServiceImpl(postRepository(), commentRepository(), attachRepository(), userRepository());
 	}
 	
 	@Bean

@@ -52,7 +52,6 @@ layout:decorate="~{layout/default_layout}">
 					th:text="등록">등록</a>
 			</div>
 
-
 			<p th:if="${postList.size==0}" class="no-resultList">등록된 게시물이
 				없습니다.</p>
 			
@@ -99,10 +98,14 @@ layout:decorate="~{layout/default_layout}">
 					<div th:postId="${post.POST_ID}" class="comments">
 						<!-- <ul th:if="${post.COMMENT_LIST!=null}"> -->
 						<ul>
-							<li th:each="comment : ${post.COMMENT_LIST}" th:commId="${comment.commId}" th:commUpid="${comment.commUpid}">
+							<li th:each="comment : ${post.COMMENT_LIST}" th:commId="${comment.commId}" th:commUpid="${comment.commUpid}" th:classappend="${comment.commUpid != comment.commId} ? 'replyContent'">
 								<div class="flex-between">
 									<div class="info flex-start">
-										<span th:text="|작성자id = ${comment.commWriter}|">mk45118</span>
+										<span id="commImg">
+											<img th:if="${comment.ATTF_OBJ != null}" th:src="|/images/${comment.ATTF_OBJ.ATTF_SERNM}|" alt="">
+											<img th:unless="${comment.ATTF_OBJ != null}" src="/img/user_icon.png">
+										</span>
+										<span th:text="|작성자id = ${comment.userNick}|">mk45118</span>
 										<span th:text="|작성일자 =  ${comment.commDate}|">작성일자</span>
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->

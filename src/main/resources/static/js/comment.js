@@ -4,6 +4,42 @@
  * @returns
  */
 
+
+/*
+	window.addEventListener('DOMContentLoaded', ()=>{
+	var spanList = document.querySelectorAll('#commImg');
+	for (let i=0; i< spanList.length; i++){
+		var userId = spanList[i].getAttribute('userId');
+		imgFetch(userId, spanList[i]);
+	}
+});
+
+function imgFetch(userId, span){
+	
+	const spanList = span;
+	var commImg = document.createElement("img");
+	
+	fetch('/users/' + userId + '/img', {
+		method : 'POST'
+	})
+	.then((response) => response.json())
+	.then((attach) => {
+		var result = attach.attf_id;
+		if(result != null){
+			commImg.setAttribute('src', "/images/" + attach.attf_SERNM);
+			spanList.append(commImg);
+		} else {
+			commImg.setAttribute('src', "/img/user_icon.png");
+			spanList.append(commImg);
+		}
+		
+	})
+	.catch((error) => {
+		console.error('==============error: ',  error);
+	});
+}
+*/
+
 /* 댓글 등록 버튼 */
 function CommentAdd(e){
 	var commCont = e.previousElementSibling.value;
@@ -20,9 +56,20 @@ function CommentAdd(e){
 	var li = document.createElement("li");
 	li.setAttribute('commId', result.commId );
 	li.setAttribute('commUpid', result.commUpid );
+	var imgSrc;
+	console.log(result);
+	console.log(result.attf_OBJ);
+	if(result.attf_OBJ != null){
+		imgSrc = '/images/'+ result.attf_OBJ.attf_SERNM;
+	} else {
+		imgSrc = '/img/user_icon.png';
+	}
 	li.innerHTML = '<div class="flex-between">'
 	              + 	'<div class="info flex-start">'
-	              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
+				  +			'<span id="commImg">'
+				  +				'<img src="'+ imgSrc +'" alt="">'
+				  +			'</span>'
+	              + 		'<span>작성자id = '+ result.userNick +'</span>&nbsp;'
 	              + 		'<span>작성일자 = '+ result.commDate +'</span>'
 	              + 	'</div>'
 	              + 	'<div class="btn-wrap flex-end">'
@@ -179,9 +226,19 @@ function replyAdd(e){
 	if(result != null){
 		li.setAttribute('commId', result.commId );
 		li.setAttribute('commUpid', result.commUpid );
+		li.classList.add("replyContent");
+		var imgSrc;
+		if(result.attf_OBJ != null){
+			imgSrc = '/images/'+ result.attf_OBJ.attf_SERNM;
+		} else {
+			imgSrc = '/img/user_icon.png';
+		}
 		li.innerHTML = '<div class="flex-between">'
 		              + 	'<div class="info flex-start">'
-		              + 		'<span>작성자id = '+ result.commWriter +'</span>&nbsp;'
+					  +			'<span id="commImg">'
+				  	  +				'<img src="'+ imgSrc +'" alt="">'
+				  	  +			'</span>'
+		              + 		'<span>작성자id = '+ result.userNick +'</span>&nbsp;'
 		              + 		'<span>작성일자 = '+ result.commDate +'</span>'
 		              + 	'</div>'
 		              + 	'<div class="btn-wrap flex-end">'
@@ -189,7 +246,7 @@ function replyAdd(e){
 		              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
 		              + '	</div>'
 		           	  + '</div>'
-		              + '<p class="content"> └ '+ result.commCont +'</p>';
+		              + '<p class="content">'+ result.commCont +'</p>';
 		
 		// 댓글 노드에 답글 버튼 추가!
         var list = document.querySelectorAll('li');

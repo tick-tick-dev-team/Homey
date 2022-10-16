@@ -117,6 +117,22 @@ public class Comment {
 	*/
 	
 	
+	public CommentImgForm getFormFromComment() {
+		
+		CommentImgForm form = new CommentImgForm();
+		
+		form.setCommCont(this.getCommCont());
+		form.setCommDate(this.getCommDate());
+		form.setCommId(this.getCommId());
+		form.setCommUdate(this.getCommUdate());
+		form.setCommUpid(this.getCommUpid());
+		form.setCommUwriter(this.getCommUwriter());
+		form.setCommWriter(this.getCommWriter());
+		form.setPostId(this.getPostId());
+		
+		return form;
+	}
+	
 	
 
 }

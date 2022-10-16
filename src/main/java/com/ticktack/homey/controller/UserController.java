@@ -1,5 +1,6 @@
 package com.ticktack.homey.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
@@ -161,5 +164,25 @@ public class UserController {
 		model.addAttribute("users", result );
 		return "users/myPagePwUpdate";
 	}
+
+/*
+	// user의 프로필 이미지 가져오기
+	// 프로필 등록
+	@ResponseBody
+	@PostMapping("/users/{userId}/img")
+	public Attach userImg (@PathVariable Long userId, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		System.out.println("************ UserController : userImg");
+		Attach attach = new Attach();
+		// 임시 파일 저장
+		Optional<User> user = userService.findById(userId);
+		System.out.println("첨부파일값 체크"+user.get().getAttf_id());
+		if(user.get().getAttf_id() != null) {
+			attach = attachService.findById(user.get().getAttf_id()).get();
+		}
+		System.out.println(attach.toString());	
+		return attach;
+
+	}
+*/	
 
 }

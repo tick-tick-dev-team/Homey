@@ -1,31 +1,33 @@
 package com.ticktack.homey.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Comment;
+import com.ticktack.homey.domain.CommentImgForm;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
+import com.ticktack.homey.domain.User;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.post.PostRepository;
+import com.ticktack.homey.repository.user.UserRepository;
 
 public class PostServiceImpl implements PostService{
 	
 	private final PostRepository postRepository;
 	private final CommentRepository commentRepository;
 	private final AttachRepository attachRepository;
+	private final UserRepository userRepository;
 
-	public PostServiceImpl(PostRepository postRepository, CommentRepository commentRepository, AttachRepository attachRepository) {
+	public PostServiceImpl(PostRepository postRepository, CommentRepository commentRepository, AttachRepository attachRepository,UserRepository userRepository) {
 		super();
 		this.postRepository = postRepository;
 		this.commentRepository = commentRepository;
 		this.attachRepository = attachRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -46,9 +48,12 @@ public class PostServiceImpl implements PostService{
 		});
 
 		// 댓글
-		Comment comment = new Comment();
-		comment.setPostId(form.getPOST_ID());
-		form.setCOMMENT_LIST(commentRepository.commAllList(comment));		
+		Comment comment1 = new Comment();
+		comment1.setPostId(form.getPOST_ID());
+		List<Comment> comments = commentRepository.commAllList(comment1);
+		List<CommentImgForm> commentImg = comments.stream().map(comment -> comment.getFormFromComment()).collect(Collectors.toList());
+		
+		form.setCOMMENT_LIST(commentImg);		
 		
 		return form;
 	}
@@ -111,11 +116,21 @@ public class PostServiceImpl implements PostService{
 			});
 
 			// 댓글
-			Comment comment = new Comment();
-			comment.setPostId(form.getPOST_ID());
-			List<Comment> comments = commentRepository.commAllList(comment);
+			Comment comment1 = new Comment();
+			comment1.setPostId(form.getPOST_ID());
+			List<Comment> comments = commentRepository.commAllList(comment1);
 			
-			form.setCOMMENT_LIST(comments);		
+			//댓글에 이미지, User 정보 넣기
+			List<CommentImgForm> commentImg = comments.stream().map(comment -> comment.getFormFromComment()).collect(Collectors.toList());
+			for(CommentImgForm c : commentImg) {
+				User u = userRepository.findById(c.getCommWriter()).get();
+				c.setUserNick(u.getUsernick());
+				if(u.getAttf_id()!=null) {
+					c.setATTF_OBJ(attachRepository.findById(u.getAttf_id()).get());
+				}
+			}
+			
+			form.setCOMMENT_LIST(commentImg);
 		});
 		return postForms;
 	}

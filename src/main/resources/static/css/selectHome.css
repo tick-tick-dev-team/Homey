@@ -141,4 +141,11 @@ section#profile {
     padding: 0.3em 0.7em;
 }
 
+#commImg > img {
+	width: 20px;
+    height: 20px;
+}
 
+.replyContent {
+	padding-left: 25px;
+}

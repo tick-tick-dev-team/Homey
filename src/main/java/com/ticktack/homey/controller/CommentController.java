@@ -10,18 +10,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ticktack.homey.domain.Comment;
+import com.ticktack.homey.domain.CommentImgForm;
+import com.ticktack.homey.domain.User;
 import com.ticktack.homey.dummy.DummyData;
+import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.service.CommentService;
+import com.ticktack.homey.service.UserService;
 
 @Controller
 public class CommentController {
 
 	private final CommentService commentService;
 	private final DummyData dummyData;
+	private final UserService userService;
+	private final AttachRepository attachRepository;
 	
-	public CommentController(CommentService commentService, DummyData dummyData) {
+	public CommentController(CommentService commentService, UserService userService, AttachRepository attachRepository, DummyData dummyData) {
 		this.commentService = commentService;
 		this.dummyData = dummyData;
+		this.userService = userService;
+		this.attachRepository = attachRepository;
 	}
 	
 	
@@ -54,13 +62,20 @@ public class CommentController {
 	 * */
 	@PostMapping("/commentAdd")
 	@ResponseBody
-	public Comment commentAdd(@RequestBody Comment comm , Model model) {
+	public CommentImgForm commentAdd(@RequestBody Comment comm , Model model) {
 		Comment result = new Comment();
 		
 		result = commentService.commInsert(comm);
-		System.out.println(result.toString());
+		CommentImgForm form = result.getFormFromComment();
+		User u = userService.findById(form.getCommWriter()).get();
+		form.setUserNick(u.getUsernick());
+		if(u.getAttf_id()!=null) {
+			form.setATTF_OBJ(attachRepository.findById(u.getAttf_id()).get());
+		}
+		System.out.println(form.toString());
 		
-		return result;
+		
+		return form;
 	}
 	
 	/**
