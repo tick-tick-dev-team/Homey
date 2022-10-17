@@ -30,8 +30,12 @@ function btn(){
 				<img th:if="${attach!=null}" class="upload" alt="프로필_img" th:src="|/images/${attach.getATTF_SERNM()}|"/>
 				<img th:unless="${attach!=null}" class="upload" alt="프로필_img" src="/img/user_icon.png"/>
 			</div>
+			<div class="img-btn-box">
+				<button class="img-btn" onclick="imgReset(this)">Reset</button>
+			</div>
 			<form method="post" enctype="multipart/form-data" >
 				<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
+				<input type="hidden" id="attf_id" name="attf_id" th:value="${home.attfid}">
 			</form>
 		</section>
 		<section>
@@ -55,10 +59,6 @@ function btn(){
 					
 					<button type="submit" onclick="javascript:btn()">수정</button>
 				</form>
-				<div class="img-btn-box">
-					<button class="img-btn" onclick="imgInsert()">수정</button>
-					<button class="img-btn" onclick="imgReset()">삭제</button>
-			</div>
 			</div>
 		</section>
 	</div>
