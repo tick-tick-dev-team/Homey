@@ -117,6 +117,12 @@ public class HomeController {
 		Home home = homeService.findById(homeId).get();
 		model.addAttribute("home", home);
 		
+		// 프로필 사진 있으면 반환
+		if(home.getAttfid()!=null) {
+			Optional<Attach> profile = attachService.findById(home.getAttfid());
+			profile.ifPresent(p -> model.addAttribute("attach", p));
+		}
+		
 		return "homes/myHome";
 	}
 	
@@ -130,6 +136,7 @@ public class HomeController {
 		home.setHomethema(form.getHomethema());
 		home.setHomeuse(form.getHomeuse());
 		home.setUserid(form.getUserid());
+		home.setAttfid(form.getAttfid());
 		
 		homeService.updateHome(home);
 		

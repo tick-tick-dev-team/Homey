@@ -32,6 +32,9 @@ public class Home {
 	private String homeuse;
 	@Column(name="home_thema")
 	private String homethema;
+	@Column(name="attf_id")
+	private Long attfid;
+	
 	
 	public Long getHomeid() {
 		return homeid;
@@ -70,6 +73,12 @@ public class Home {
 		this.homethema = homethema;
 	}
 	
+	public Long getAttfid() {
+		return attfid;
+	}
+	public void setAttfid(Long attfid) {
+		this.attfid = attfid;
+	}
 	// popdo 결과값 테스트용 추가
 	@Override
 	public String toString() {

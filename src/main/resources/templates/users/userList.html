@@ -35,25 +35,6 @@ layout:decorate="~{layout/default_layout}">
 	
 	
 	
-	
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>닉네임</th>
-					<th>생년월일</th>
-					<th>가입일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${users}">
-					<td th:text="${user.user_id}"></td>
-					<td th:text="${user.usernick}"></td>
-					<td th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}"></td>
-					<td th:text="${user.userjoin}"></td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
 
 </body>
