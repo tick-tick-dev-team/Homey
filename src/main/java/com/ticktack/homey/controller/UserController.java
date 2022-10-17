@@ -83,9 +83,10 @@ public class UserController {
 		//사용자 가져오기
 		List<User> users = userService.findUsers();
 		model.addAttribute("users", users );
+		
 		//집정보 가져오기
-		//List<Home> homes = homeService.findHomes();
-		//model.addAttribute("homes", homes);
+		//List<User> homes = homeService.findHomes();
+		//model.addAttribute("homes", homes);		
 		
 		return "users/userList";
 	}

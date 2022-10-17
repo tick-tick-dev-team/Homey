@@ -25,7 +25,7 @@ layout:decorate="~{layout/default_layout}">
 			<label>닉네임</label>:
 			<input type="text" class="usernick_input" id="formnick" name="usernick" required="required" maxlength='5'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
-			
+			<span id="check_nick"></span><br>
 			<label>비밀번호</label>:
 			<input type="password" name="userpass" id="pw" onchange="javascript:check_pw();" required><br>
 			<label>비밀번호확인</label>:
@@ -34,6 +34,7 @@ layout:decorate="~{layout/default_layout}">
 			<label>생년월일</label>:
 			<input type="date" name="userbirth">
 			<br>
+			<span id="hey"></span><br>
 			<button type="submit" id='target_btn' disabled>가입하기</button>
 		</form>
 	</div>

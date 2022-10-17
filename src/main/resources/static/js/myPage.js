@@ -226,12 +226,12 @@ async function check_id(){
 		.then(function(text){
 				console.log(text);
 				var result = text;
-				if(result == "사용 가능한 별명입니다."){
+				if(result == "false"){
 					document.getElementById('nickCheck').style.display= 'inline';
 					document.getElementById('nickCheck').style.color= "#2585D9";
 				} else {
 					document.getElementById('nickCheck').style.display= 'none';
-					alert(result);
+					alert("사용불가능한 별명");
 				}
 			}
 		);
