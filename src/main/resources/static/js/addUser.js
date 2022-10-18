@@ -38,7 +38,6 @@ async function check_id(){
 					span.innerHTML = "사용가능✔";
 					span.style.color = "#2585D9";
 					target.disabled = false;
-					userF.disabeld = true;
 					
 				} else {
 					span.innerHTML ="사용불가능";
@@ -74,6 +73,7 @@ function check_pw(){
             target.disabled = false;
             }else{
             	target.disabled = true;
+            	alert="닉네임 중복확인을 해주세요.";
             	hey.innerHTML="고유한 별명을 쓰세요.";
             }
 		}
@@ -85,3 +85,29 @@ function check_pw(){
 	}
 }
 
+/*닉네임 변경시*/
+function retry(){
+	const span = document.getElementById('check_nick');
+	const target = document.getElementById('target_btn');
+	const target2 = document.getElementById('hey');
+
+	span.innerHTML="중복체크를 하세요.";
+	target.disabled = true;
+	hey.innerHTML="";
+
+}
+
+function submit(){
+	const a = document.getElementById('check_nick').value;
+	const b = document.getElementById('check').value;
+	
+	if(a != "사용가능✔"){
+		alert("닉네임 중복 체크를 하세요.");
+		return false;
+	}
+	if(b!="사용가능✔"){
+		alert("비밀번호 일치 여부를 확인하세요.");
+		return false;
+	}
+	
+}
