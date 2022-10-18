@@ -53,10 +53,10 @@ public class User {
 	https://blog.advenoh.pe.kr/database/JPA-%EC%9D%BC%EB%8C%80%EC%9D%BC-One-To-One-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84/
 	*/
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	/*@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="user_id")
 	private Home home;
-
+*/
 	
 	public Long getUser_id() {
 		return user_id;
@@ -115,12 +115,12 @@ public class User {
 	public void setAttf_id(Long attf_id) {
 		this.attf_id = attf_id;
 	}
-	public Home getHome() {
+	/*public Home getHome() {
 		return home;
 	}
 	public void setHome(Home home) {
 		this.home = home;
-	}
+	}*/
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", userpass=" + userpass + ", usernick=" + usernick + ", userjoin="

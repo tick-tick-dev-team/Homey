@@ -144,5 +144,14 @@ public class HomeController {
 		return "redirect:/homes/{homeId}/update";
 	}
 	
+	/*userList fetch로 home조회*/
+	@PostMapping("/homes/{user_id}/select")
+	public Home selectHOME(@PathVariable("user_id") Long user_id) {
+		
+		Home HomeResult = homeService.findByUserId(user_id).get();
+		
+		return HomeResult;
+	}
+	
 
 }

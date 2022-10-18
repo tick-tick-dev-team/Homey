@@ -15,7 +15,8 @@ public class Home {
 	   HOME_NAME            VARCHAR(30) NULL COMMENT '집이름',
 	   HOME_INST            VARCHAR(300) NULL COMMENT '집설명',
 	   HOME_USE             CHAR(1) NOT NULL COMMENT '활성화여부',
-	   HOME_THEMA           VARCHAR(36) NULL COMMENT '테마' */
+	   HOME_THEMA           VARCHAR(36) NULL COMMENT '테마'
+	   ATTF_ID              BIGINT NULL COMMENT '첨부파일ID'*/
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="home_id")

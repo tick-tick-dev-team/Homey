@@ -69,13 +69,14 @@ function check_pw(){
 		if(document.getElementById('pw').value==document.getElementById('pw2').value){
 			document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
             document.getElementById('check').style.color='blue';
-            if(b=="사용가능✔"){
+            target.disabled = false;
+/*            if(b=="사용가능✔"){
             target.disabled = false;
             }else{
             	target.disabled = true;
-            	alert="닉네임 중복확인을 해주세요.";
+            	
             	hey.innerHTML="고유한 별명을 쓰세요.";
-            }
+            }*/
 		}
 		else{
 			document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
@@ -101,11 +102,11 @@ function submit(){
 	const a = document.getElementById('check_nick').value;
 	const b = document.getElementById('check').value;
 	
-	if(a != "사용가능✔"){
+	if(a !== "사용가능✔"){
 		alert("닉네임 중복 체크를 하세요.");
 		return false;
 	}
-	if(b!="사용가능✔"){
+	if(b!=="사용가능✔"){
 		alert("비밀번호 일치 여부를 확인하세요.");
 		return false;
 	}
