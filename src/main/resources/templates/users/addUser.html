@@ -21,9 +21,9 @@ layout:decorate="~{layout/default_layout}">
 		<h4>Homey는 필수적인 정보만으로 회원을 관리합니다.</h4>
 		
 		
-		<form th:action="@{/users/new}" method="post">
+		<form th:action="@{/users/new}" method="post" onsubmit="submit()">
 			<label>닉네임</label>:
-			<input type="text" class="usernick_input" id="formnick" name="usernick" required="required" maxlength='5'><br>
+			<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='5'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
 			<span id="check_nick"></span><br>
 			<label>비밀번호</label>:
@@ -35,7 +35,7 @@ layout:decorate="~{layout/default_layout}">
 			<input type="date" name="userbirth">
 			<br>
 			<span id="hey"></span><br>
-			<button type="submit" id='target_btn' disabled>가입하기</button>
+			<button type="submit" id='target_btn' disable>가입하기</button>
 		</form>
 	</div>
 	
