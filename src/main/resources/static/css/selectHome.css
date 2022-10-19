@@ -141,9 +141,17 @@ section#profile {
     padding: 0.3em 0.7em;
 }
 
-#commImg > img {
+#commImg {
+	display : inline-block;
+	border-radius : 50%;
 	width: 20px;
     height: 20px;
+    overflow: hidden;
+    margin-right : 10px;
+}
+#commImg > img {
+	width : 100%;
+	height : 100%;
 }
 
 .replyContent {

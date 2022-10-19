@@ -6,32 +6,101 @@ layout:decorate="~{layout/default_layout}">
 <head>
 <!-- 고유 CSS 추가 -->
 <th:block layout:fragment="css"></th:block>
+<style>
+.left{
+	 border: 1px solid #cacaca;
+     flex:1;
+     margin : 5px 5px;
+     width:45%;
+     box-sizing: border-box;
+     float: left;
+     
+}
+.right{
+	border : 1px solid #cacaca;
+	flex:1;
+    margin : 5px 5px 5px 0px;
+    width:45%;
+    box-sizing: border-box;
+    float: right;
+	
+}
+</style>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script"></th:block>
+<script>
+async function whohome(user_id'){
+	const data = new data();
+	data.append('user_id');
+	
+	fetch('/homes/'+user_id+'/select',{
+		method :'POST',
+		body : data
+	})
+	.then(res => res.text())
+	.then(function(text){
+		alert(text);
+	}
+	}
+}
+</script>
 <meta charset="UTF-8">
 <title>회원목록</title>
 </head>
 <body layout:fragment="content">
-	<div class = "container">
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>닉네임</th>
-					<th>생년월일</th>
-					<th>가입일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${users}">
-					<td th:text="${user.user_id}"></td>
-					<td th:text="${user.usernick}"></td>
-					<td th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}"></td>
-					<td th:text="${user.userjoin}"></td>
-				</tr>
-			</tbody>
-		</table>
+	<div class = "container" >
+	<div class="left" style="overflow-y: scroll; height:400px;">
+	<h2>--회원목록--</h2>
+	
+	<ul th:each="user:${users}">
+	<li>
+	<a th:href="userList" onclick="javascript:whohome(${user.user_id})" > <!--"@{|/homes/${user.user_id}/select|}"-->
+	Id : <label th:text="${user.user_id}" ></label></a></li>
+	<li>닉네임 : <label th:text="${user.usernick}" ></label>
+	생년월일 : <label th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}"></label>
+	</li>
+	<li>
+	가입일 : <label th:text="${user.userjoin}"></label>	
+	</li>
+	<li>
+	권한 : <label th:text="${user.userpower}"></label>
+	</li>
+	<li>------------------------</li>
+	</ul>
+	
+	
+	</div>
+	
+	<div class="right" style="overflow-y: scroll; height:400px;">
+	<h2>--집목록--</h2>
+	
+	
+	<ul th:each="home:${homes}">
+	<li>
+	Id : <label th:text="${home.homeid}"></label></li>
+	<li>집이름 : <label th:text="${home.homename}"></label>
+	</li>
+	<li>집주인 : <label th:text="${home.userid}"></label>
+	</li>
+	<li>
+	집설명 : <label th:text="${home.homeinst}"></label>	
+	</li>
+	<li>
+	사용여부 : <label th:text="${home.homeuse}"></label>
+	</li>
+	<li>
+	집 테마 : <label th:text="${home.homethema}"></label> 
+	</li>
+	<li>------------------------</li>
+	</ul>
+
+	</div>
+
+	<div class="whohome">
+	
+	</div>
+	
 	</div>
 
 </body>

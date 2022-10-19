@@ -55,12 +55,16 @@ public class UserServiceImpl implements UserService {
 		
 		 System.out.println("hi===="+check1);
 		 
-		 if(check1 == true) {
-				return "사용 불가능한 별명입니다.";
-			}
-		 else {
-				return "사용 가능한 별명입니다.";
-		 }	
+		 String check2 = check1.toString();
+		 
+		 return check2;
+		 
+//		 if(check1 == true) {
+//				return "사용 불가능한 별명입니다.";
+//			}
+//		 else {
+//				return "사용 가능한 별명입니다.";
+//		 }	
 		 
 		 
 	}

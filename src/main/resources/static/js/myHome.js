@@ -1,21 +1,15 @@
 /**
- * 마이페이지 스크립트
+ * 마이홈 업데이트 스크립트
  */
 
 window.onload=function(){
 	const realUpload = document.querySelector('.real-upload');
     const upload = document.querySelector('.upload');
-    const userpass = document.getElementById('userpass');
-    const uChange = document.getElementById('nickChage');
+    //const userpass = document.getElementById('userpass');
 
     upload.addEventListener('click', () => realUpload.click());
-    realUpload.addEventListener('change', getProfileImg);
-    uChange.addEventListener('change', nickChange );
+    realUpload.addEventListener('change', getProfileImg);    
     
-}
-
-function nickChange(){
-	document.getElementById('nickCheck').style.display= 'none';
 }
 
 function getImageFiles(e) {
@@ -141,57 +135,6 @@ function imgValidation(files){
 }
 
 
-function pwdCheck() {
-	const userpass = document.getElementById('userpass');
-	const btn = document.getElementById('pwdCheckBtn');
-	
-	if(userpass.value == ""){
-		alert("비밀번호를 입력하세요.");
-		return;
-	}
-	fetch('/users/pwdCheck/'+ userpass.value ,{
-				method : 'POST'
-			})
-			.then(res => res.text())
-			.then(function(text){
-					console.log(text);
-					var isFalseBoolean = (text==='true');
-					if(isFalseBoolean){
-						userpass.setAttribute('readonly', "readonly");
-						btn.innerHTML = "체크완료✔";
-						btn.style.color = "#2585D9";
-						btn.disabled = true;
-					} else {
-						userpass.value == ""
-						alert("비밀번호가 일치하지 않습니다.");
-					}
-				}
-			);
-	
-}
-
-function check_pw(){
-		if(document.getElementById('userpass').getAttribute('readonly') != "readonly" 
-			&& document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
-			alert("기존 비밀번호를 체크하세요.")
-			document.getElementById('updatePw').value = "";
-			document.getElementById('updatePwConfirm').value = "";
-			document.getElementById('userpass').focus();
-			return;
-		} else {
-			if(document.getElementById('updatePw').value !=" && document.getElementById('updatePwConfirm').value!="){
-				if(document.getElementById('updatePw').value==document.getElementById('updatePwConfirm').value){
-					document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
-	                document.getElementById('check').style.color= '#2585D9';
-				}
-				else{
-					document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
-					document.getElementById('check').style.color='red';
-				}
-			}
-		}
-		
-}
 
 function sumitBtn(){
 	const frm = document.getElementById('myPageUpdateFrm');
@@ -212,8 +155,6 @@ function sumitBtn(){
 			return;
 		}
 	}
-	// 위에 else 조건에도 자꾸 sumit이 넘어감, 조건 처리 추가해야 할 듯 
-	// 변경이 되어버림 ㅠㅠㅠ 왜 리턴이 안되는겨...!
 	frm.sumit();
 }
 
@@ -221,36 +162,28 @@ async function check_id(){
 
 		const userN = document.getElementById('nickChage');
 		const btn = document.getElementById('nickCheckBtn');
-		const u = document.getElementById('usernick');
-		
-		if( userN.value == u.value ){
-			document.getElementById('nickCheck').style.display= 'inline';
-			document.getElementById('nickCheck').style.color= "#2585D9";
-			return;
-		} else {
-			const formData = new FormData();
-			formData.append('usernick', userN.value);
-			formData.get('usernick');
-			 
-			fetch('/checkNick',{
-				method : 'POST',
-				body : formData
-			})
-			.then(res => res.text())
-			.then(function(text){
-					console.log(text);
-					var result = text;
-					if(result == "false"){
-						document.getElementById('nickCheck').style.display= 'inline';
-						document.getElementById('nickCheck').style.color= "#2585D9";
-					} else {
-						document.getElementById('nickCheck').style.display= 'none';
-						alert("사용불가능한 별명");
-					}
+		 
+		const formData = new FormData();
+		formData.append('usernick', userN.value);
+		formData.get('usernick');
+		 
+		fetch('/checkNick',{
+			method : 'POST',
+			body : formData
+		})
+		.then(res => res.text())
+		.then(function(text){
+				console.log(text);
+				var result = text;
+				if(result == "사용 가능한 별명입니다."){
+					document.getElementById('nickCheck').style.display= 'inline';
+					document.getElementById('nickCheck').style.color= "#2585D9";
+				} else {
+					document.getElementById('nickCheck').style.display= 'none';
+					alert(result);
 				}
-			);
-		}
-		
+			}
+		);
 }
 
 function UpdatePwBtn(){
