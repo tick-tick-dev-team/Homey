@@ -117,9 +117,6 @@ public class UserController {
 		// user 수정
 		userService.updateUser(result);
 		
-		// 세션 변경 필요
-		
-
 		// home name 수정
 		Home homeResult = homeService.findByUserId(form.getUser_id()).get();
 		homeResult.setHomename(result.getUsernick()+"의 집");
