@@ -79,13 +79,17 @@ public class UserController {
 	
 	/* 사용자 목록 조회 */
 	@GetMapping("users")
-	public String list(Model model) {
+	public String list(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		//사용자 가져오기
 		List<User> users = userService.findUsers();
 		model.addAttribute("users", users );
 		
 		//집정보 가져오기
 		List<Home> homes = homeService.findHomes();
+		
+		// 로그인한 사용자
+		User writer = userService.findBynick(principal);
+		model.addAttribute("writer", writer);
 		
 		model.addAttribute("homes", homes);		
 		
