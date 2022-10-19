@@ -141,7 +141,8 @@ public class HomeController {
 		homeService.updateHome(home);
 		
 		
-		return "redirect:/homes/{homeId}/update";
+		/*return "redirect:/homes/{homeId}/update";*/
+		return "redirect:/homes/{homeId}";
 	}
 	
 	/*userList fetch로 home조회*/
