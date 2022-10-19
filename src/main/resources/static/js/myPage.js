@@ -14,7 +14,7 @@ window.onload=function(){
     
 }
 
-function nickChange{
+function nickChange(){
 	document.getElementById('nickCheck').style.display= 'none';
 }
 
@@ -212,6 +212,8 @@ function sumitBtn(){
 			return;
 		}
 	}
+	// 위에 else 조건에도 자꾸 sumit이 넘어감, 조건 처리 추가해야 할 듯 
+	// 변경이 되어버림 ㅠㅠㅠ 왜 리턴이 안되는겨...!
 	frm.sumit();
 }
 

@@ -29,15 +29,15 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 					</div>
 					<div>
 						<span>기존 비밀번호</span>
-						<span><input type="text" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요."></span><button id="pwdCheckBtn" type="button" onclick="javascript:pwdCheck()">체크</button>
+						<span><input type="password" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요."></span><button id="pwdCheckBtn" type="button" onclick="javascript:pwdCheck()">체크</button>
 					</div>
 					<div>
 						<span>변경 비밀번호</span>
-						<span><input type="text" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요." onchange="javascript:check_pw();" required></span>
+						<span><input type="password" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요." onchange="javascript:check_pw();" required></span>
 					</div>
 					<div>
 						<span>비밀번호 확인</span>
-						<span><input type="text" id="updatePwConfirm" name="updatePwConfirm" placeholder="변경할 비밀번호를 한번 더 입력하세요." onchange="javascript:check_pw();" required></span><span id="check"></span>
+						<span><input type="password" id="updatePwConfirm" name="updatePwConfirm" placeholder="변경할 비밀번호를 한번 더 입력하세요." onchange="javascript:check_pw();" required></span><span id="check"></span>
 					</div>
 					<div>
 						<a th:href="@{|/users/${users.user_id}|}">이전</a>
