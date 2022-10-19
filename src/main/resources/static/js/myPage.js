@@ -6,10 +6,16 @@ window.onload=function(){
 	const realUpload = document.querySelector('.real-upload');
     const upload = document.querySelector('.upload');
     const userpass = document.getElementById('userpass');
+    const uChange = document.getElementById('nickChage');
 
     upload.addEventListener('click', () => realUpload.click());
-    realUpload.addEventListener('change', getProfileImg);    
+    realUpload.addEventListener('change', getProfileImg);
+    uChange.addEventListener('change', nickChange );
     
+}
+
+function nickChange{
+	document.getElementById('nickCheck').style.display= 'none';
 }
 
 function getImageFiles(e) {
@@ -213,28 +219,36 @@ async function check_id(){
 
 		const userN = document.getElementById('nickChage');
 		const btn = document.getElementById('nickCheckBtn');
-		 
-		const formData = new FormData();
-		formData.append('usernick', userN.value);
-		formData.get('usernick');
-		 
-		fetch('/checkNick',{
-			method : 'POST',
-			body : formData
-		})
-		.then(res => res.text())
-		.then(function(text){
-				console.log(text);
-				var result = text;
-				if(result == "false"){
-					document.getElementById('nickCheck').style.display= 'inline';
-					document.getElementById('nickCheck').style.color= "#2585D9";
-				} else {
-					document.getElementById('nickCheck').style.display= 'none';
-					alert("사용불가능한 별명");
+		const u = document.getElementById('usernick');
+		
+		if( userN.value == u.value ){
+			document.getElementById('nickCheck').style.display= 'inline';
+			document.getElementById('nickCheck').style.color= "#2585D9";
+			return;
+		} else {
+			const formData = new FormData();
+			formData.append('usernick', userN.value);
+			formData.get('usernick');
+			 
+			fetch('/checkNick',{
+				method : 'POST',
+				body : formData
+			})
+			.then(res => res.text())
+			.then(function(text){
+					console.log(text);
+					var result = text;
+					if(result == "false"){
+						document.getElementById('nickCheck').style.display= 'inline';
+						document.getElementById('nickCheck').style.color= "#2585D9";
+					} else {
+						document.getElementById('nickCheck').style.display= 'none';
+						alert("사용불가능한 별명");
+					}
 				}
-			}
-		);
+			);
+		}
+		
 }
 
 function UpdatePwBtn(){

@@ -96,7 +96,6 @@ public class UserController {
 	public String MyPage2(@PathVariable Long userId, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		User result = userService.findById(userId).get();
 		model.addAttribute("users", result );
-		
 		System.out.println(principal.getPassword());
 		//PasswordEncoder.encode();
 		
