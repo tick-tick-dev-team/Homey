@@ -80,8 +80,15 @@ public class UserController {
 	/* 사용자 목록 조회 */
 	@GetMapping("users")
 	public String list(Model model) {
+		//사용자 가져오기
 		List<User> users = userService.findUsers();
 		model.addAttribute("users", users );
+		
+		//집정보 가져오기
+		List<Home> homes = homeService.findHomes();
+		
+		model.addAttribute("homes", homes);		
+		
 		return "users/userList";
 	}
 	

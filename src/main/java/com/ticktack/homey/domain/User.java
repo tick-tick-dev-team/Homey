@@ -2,11 +2,14 @@ package com.ticktack.homey.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,7 +47,16 @@ public class User {
 	
 	@Column(name="attf_id")
 	private Long attf_id;
-
+	
+/*	주 객체인 User 엔티티에 @OneToOne 선언 이후 대상 테이블인 Home 객체를 선언
+	User객체를 통해 Home의 정보 조회를 가능하게 함
+	https://blog.advenoh.pe.kr/database/JPA-%EC%9D%BC%EB%8C%80%EC%9D%BC-One-To-One-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84/
+	*/
+	
+	/*@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="user_id")
+	private Home home;
+*/
 	
 	public Long getUser_id() {
 		return user_id;
@@ -103,6 +115,12 @@ public class User {
 	public void setAttf_id(Long attf_id) {
 		this.attf_id = attf_id;
 	}
+	/*public Home getHome() {
+		return home;
+	}
+	public void setHome(Home home) {
+		this.home = home;
+	}*/
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", userpass=" + userpass + ", usernick=" + usernick + ", userjoin="

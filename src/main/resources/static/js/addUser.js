@@ -12,7 +12,11 @@
 /*별명 중복 확인*/
 async function check_id(){
 
+		const userF = document.getElementById('formnick');
 		const userN = document.getElementById('formnick').value;
+		const span = document.getElementById('check_nick');
+		const target = document.getElementById('target_btn');
+		const target2 = document.getElementById('hey');
 		
 		if (document.getElementById('formnick').value==''){
 			alert('별명을 입력해주세요.')
@@ -29,7 +33,23 @@ async function check_id(){
 			body : formData
 		})
 		.then(res => res.text())
-		.then(text => alert(text));
+		.then(function(text){
+				if(text=='false'){
+					span.innerHTML = "사용가능✔";
+					span.style.color = "#2585D9";
+					target.disabled = false;
+					
+				} else {
+					span.innerHTML ="사용불가능";
+					span.style.color = "red";
+					target.disabled = true;
+				}
+			}
+				
+		);
+		
+		
+		/*text => alert(text)*/
 
 }
 
@@ -38,12 +58,25 @@ async function check_id(){
 function check_pw(){
 	const target = document.getElementById('target_btn');
 	
+	const a = document.getElementById('check_nick').value;
+	const b = document.getElementById('check').value;
+	const target2 = document.getElementById('hey');
 	
-	if(document.getElementById('pw').value !=" && document.getElementById('pw2').value!="){
+	const span = document.getElementById('check_nick');
+	
+	
+	if(document.getElementById('pw').value !=" && document.getElementById('pw2').value"){
 		if(document.getElementById('pw').value==document.getElementById('pw2').value){
-			document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+			document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
             document.getElementById('check').style.color='blue';
-			target.disabled = false;
+            target.disabled = false;
+/*            if(b=="사용가능✔"){
+            target.disabled = false;
+            }else{
+            	target.disabled = true;
+            	
+            	hey.innerHTML="고유한 별명을 쓰세요.";
+            }*/
 		}
 		else{
 			document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
@@ -51,4 +84,31 @@ function check_pw(){
 			target.disabled = true;
 		}
 	}
+}
+
+/*닉네임 변경시*/
+function retry(){
+	const span = document.getElementById('check_nick');
+	const target = document.getElementById('target_btn');
+	const target2 = document.getElementById('hey');
+
+	span.innerHTML="중복체크를 하세요.";
+	target.disabled = true;
+	hey.innerHTML="";
+
+}
+
+function submit(){
+	const a = document.getElementById('check_nick').value;
+	const b = document.getElementById('check').value;
+	
+	if(a !== "사용가능✔"){
+		alert("닉네임 중복 체크를 하세요.");
+		return false;
+	}
+	if(b!=="사용가능✔"){
+		alert("비밀번호 일치 여부를 확인하세요.");
+		return false;
+	}
+	
 }
