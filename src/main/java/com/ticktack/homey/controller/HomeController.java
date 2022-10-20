@@ -102,9 +102,9 @@ public class HomeController {
 		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
 		
-		// 프로필 사진 있으면 반환
-		if(writer.getAttf_id()!=null) {
-			Optional<Attach> profile = attachService.findById(owner.getAttf_id());
+		// 홈 사진 있으면 반환
+		if(home.getAttfid()!=null) {
+			Optional<Attach> profile = attachService.findById(home.getAttfid());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
 		

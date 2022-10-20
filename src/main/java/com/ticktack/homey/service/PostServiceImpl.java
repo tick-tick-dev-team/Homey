@@ -53,7 +53,19 @@ public class PostServiceImpl implements PostService{
 		List<Comment> comments = commentRepository.commAllList(comment1);
 		List<CommentImgForm> commentImg = comments.stream().map(comment -> comment.getFormFromComment()).collect(Collectors.toList());
 		
-		form.setCOMMENT_LIST(commentImg);		
+		form.setCOMMENT_LIST(commentImg);
+		
+		// 작성자 닉네임, 프로필사진 정보
+		Long writer_user_id = (form.getPOST_UWRITER()==null) ? form.getPOST_WRITER() : form.getPOST_UWRITER();
+		User writer = userRepository.findById(writer_user_id).get();
+		
+		System.out.println("==================writer id============" + writer_user_id + "========" + writer.getUsernick());
+		
+		form.setWriterNick(writer.getUsernick());
+		
+		if(writer.getAttf_id()!=null) {
+			form.setWriterProfile(attachRepository.findById(writer.getAttf_id()).get());
+		}
 		
 		return form;
 	}
@@ -131,6 +143,16 @@ public class PostServiceImpl implements PostService{
 			}
 			
 			form.setCOMMENT_LIST(commentImg);
+			
+			// 작성자 닉네임, 프로필사진 정보
+			Long writer_user_id = (form.getPOST_UWRITER()==null) ? form.getPOST_WRITER() : form.getPOST_UWRITER();
+			User writer = userRepository.findById(writer_user_id).get();
+						
+			form.setWriterNick(writer.getUsernick());
+			
+			if(writer.getAttf_id()!=null) {
+				form.setWriterProfile(attachRepository.findById(writer.getAttf_id()).get());
+			}
 		});
 		return postForms;
 	}

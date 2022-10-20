@@ -39,7 +39,7 @@ layout:decorate="~{layout/default_layout}">
 				<h1 th:text="${home.homename}">OOO의 집</h1>
 				<p th:text="${home.homeinst}">OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다.</p>
 				<div th:if="${writer.user_id==home.userid}">
-				<a th:href="@{|/homes/${home.homeid}/update|}">마이홈수정</a>	
+					<a th:href="@{|/homes/${home.homeid}/update|}">마이홈수정</a>	
 				</div>
 			</div>
 		</section>
@@ -60,15 +60,17 @@ layout:decorate="~{layout/default_layout}">
 					<div class="content-wrap">
 						<ul>
 							<li class="flex-between">
-
+							
 								<div class="info flex-start">
-									<span th:text="|작성자 id=${post.POST_WRITER}|">mk45118</span> 
-								
+									<span id="commImg">
+										<img th:if="${post.writerProfile != null}" th:src="|/images/${post.writerProfile.ATTF_SERNM}|" alt="">
+										<img th:unless="${post.writerProfile != null}" src="/img/user_icon.png">
+									</span>
+									<span th:text="|작성자 ${post.writerNick}|"></span> 
+									
 									<span th:if="${post.POST_DATE==post.POST_UPDATE}" th:text="|최초 작성일 : ${#temporals.format(post.POST_DATE, 'yyyy-MM-dd HH:mm')}|">최초 작성일</span> 
 									<span th:unless="${post.POST_DATE==post.POST_UPDATE}" th:text="|수정일 : ${#temporals.format(post.POST_UPDATE, 'yyyy-MM-dd HH:mm')}|">수정일</span>
-									
-
-								</div>
+								</div>							
 
 								<div th:if="${writer.user_id==post.POST_WRITER}" class="btn-wrap flex-end">
 									<a class="btn-border" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
