@@ -109,7 +109,8 @@ public class UserController {
 			Optional<Attach> profile = attachService.findById(result.getAttf_id());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
-		return "users/myPage";
+		// return "users/myPage";
+		return "users/myPage2";
 	}
 	
 	/*

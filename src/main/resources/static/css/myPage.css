@@ -27,3 +27,92 @@ img {
 	font-size: 1.2em;
 	padding: 0.5em 1em;
 }
+
+
+/* 탭 */
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	background-color: inherit;
+	width: 50%;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 2rem;
+	border: 1px solid #ccc;
+	border-top: none;
+	position: relative;
+	overflow: hidden;
+}
+.tabcontent ul li {
+	margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tabcontent ul li label {
+	width: 15%;
+	font-size: 1.2rem;
+}
+.tabcontent ul li input{
+	font-size: 1.2rem;
+}
+.tabcontent ul li input {
+	margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+
+/* 중복체크 버튼 */
+.tabcontent button#nickCheckBtn {
+	font-size: 1.2rem;
+	padding: 0.5rem 1rem;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+.tabcontent button.btn-submit {
+	float: right;
+	font-size: 1.5rem;
+	background-color: #2585D9;
+	color: #fff;
+	padding: 0.5rem 2rem;
+	border: 1px solid #ccc;
+}
