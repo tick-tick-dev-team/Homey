@@ -11,39 +11,59 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class PostForm {
 	// 게시물 ID (auto-increment)
-	Long POST_ID;
+	private Long POST_ID;
 	
 	// 게시물 내용
-	String POST_CONT;
+	private String POST_CONT;
 	
 	// 게시물 최초 작성자ID
-	Long POST_WRITER;
+	private Long POST_WRITER;
 	
 	// 게시물 최초 등록일
-//	String POST_DATE;
-	LocalDateTime POST_DATE;
+	private LocalDateTime POST_DATE;
 	
 	// 게시물 수정자 ID
-	Long POST_UWRITER;
+	private Long POST_UWRITER;
 	
 	// 게시물 수정일
-//	String POST_UPDATE;
-	LocalDateTime POST_UPDATE;
+	private LocalDateTime POST_UPDATE;
 	
 	// Home ID
-	Long POST_HOME;
+	private Long POST_HOME;
 	
 	// 첨부파일 ID
-	Long ATTF_ID;
+	private Long ATTF_ID;
 	
 	// 첨부파일 정보 객체
-	Attach ATTF_OBJ;
+	private Attach ATTF_OBJ;
 	
 	// 첨부파일 삭제 여부
-	boolean deleteAttach = false;
+	private boolean deleteAttach = false;
 	
 	// 댓글 리스트
-	List<CommentImgForm> COMMENT_LIST;
+	private List<CommentImgForm> COMMENT_LIST;
+	
+	// 작성자 닉네임
+	private String writerNick;
+	
+	// 작성자 프로필사진
+	private Attach writerProfile;
+	
+	public String getWriterNick() {
+		return writerNick;
+	}
+
+	public void setWriterNick(String writerNick) {
+		this.writerNick = writerNick;
+	}
+
+	public Attach getWriterProfile() {
+		return writerProfile;
+	}
+
+	public void setWriterProfile(Attach writerProfile) {
+		this.writerProfile = writerProfile;
+	}
 
 	public Long getPOST_ID() {
 		return POST_ID;
