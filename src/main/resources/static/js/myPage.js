@@ -15,7 +15,8 @@ window.onload=function(){
 }
 
 function nickChange(){
-	document.getElementById('nickCheck').style.display= 'none';
+	document.getElementById('nickCheckBtn').style.backgroundColor= "#fff";
+	document.getElementById('nickCheckBtn').style.color= "#000";
 }
 
 function getImageFiles(e) {
@@ -199,22 +200,30 @@ function sumitBtn(){
 	const usernick = document.getElementById('usernick').value;
 	const userbirth = document.getElementById('userbirth').value;
 	const nickChage = document.getElementById('nickChage').value;
-	
+
+	var result = true;
+		
 	if(userbirth == ""){
 		alert("생일을 선택하세요.");
-		return;
+		result = false;
 	}
+	console.log(usernick == nickChage);
 	if(usernick == nickChage){
-		nickChage = "";
+		document.getElementById('nickCheckBtn').style.backgroundColor = "#2585D9";
+		document.getElementById('nickCheckBtn').style.color = "#fff";
 	} else {
-		if(document.getElementById('nickCheck').style.display == 'none'){
-			alert("닉네임 중복검사 후 변경 가능합니다.")
-			return;
+		// 닉네임을 변경하고 중복검사도 완료 했는데, 왜 이 조건을 타는가....?
+		if(document.getElementById('nickCheckBtn').style.backgroundColor != "#2585D9"){
+			alert("닉네임 중복검사 후 변경 가능합니다.");
+			result = false;
 		}
 	}
-	// 위에 else 조건에도 자꾸 sumit이 넘어감, 조건 처리 추가해야 할 듯 
-	// 변경이 되어버림 ㅠㅠㅠ 왜 리턴이 안되는겨...!
-	frm.sumit();
+	// 결과값 체크
+	if(result){
+		frm.submit();
+	} else {
+		return;
+	}
 }
 
 async function check_id(){
@@ -224,8 +233,8 @@ async function check_id(){
 		const u = document.getElementById('usernick');
 		
 		if( userN.value == u.value ){
-			document.getElementById('nickCheck').style.display= 'inline';
-			document.getElementById('nickCheck').style.color= "#2585D9";
+			document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
+			document.getElementById('nickCheckBtn').style.color= "#fff";
 			return;
 		} else {
 			const formData = new FormData();
@@ -241,10 +250,12 @@ async function check_id(){
 					console.log(text);
 					var result = text;
 					if(result == "false"){
-						document.getElementById('nickCheck').style.display= 'inline';
-						document.getElementById('nickCheck').style.color= "#2585D9";
+						document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
+						document.getElementById('nickCheckBtn').style.color= "#fff";
+						
 					} else {
-						document.getElementById('nickCheck').style.display= 'none';
+						document.getElementById('nickCheckBtn').style.backgroundColor= "#fff;";
+						document.getElementById('nickCheckBtn').style.color= "#000";
 						alert("사용불가능한 별명");
 					}
 				}
@@ -254,7 +265,7 @@ async function check_id(){
 }
 
 function UpdatePwBtn(){
-	const frm = document.getElementById('myPageUpdateFrm');
+	const frm = document.getElementById('pwUpdateFrm');
 	const check = document.getElementById('check');
 	
 	console.log(frm);
@@ -262,9 +273,9 @@ function UpdatePwBtn(){
 	
 	if(pwValication(frm)){
 		frm.userpass.value = frm.updatePw.value;
-		frm.sumit();
+		frm.submit();
 	} else {
-		return false;
+		return;
 	}
 
 	

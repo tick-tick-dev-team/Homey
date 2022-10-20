@@ -45,7 +45,6 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 		</section>
 		<section>
 			<div class="content-wrap">
-				<div><h1>내 정보 수정</h1></div>
 
 				<!-- Tab links -->
 				<div class="tab flex-between">
@@ -65,7 +64,6 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 								<label for="nickChage">닉네임</label>
 								<input type="text" id="nickChage" name="nickChage" th:value="${users.usernick}" >
 								<button id="nickCheckBtn" type="button" onclick="javascript:check_id();">중복검사</button>
-								<span id="nickCheck" style="display:none;">✔</span>
 							</li>
 							<li>
 								<label for="userbirth" >생일</label>
@@ -73,16 +71,16 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							</li>
 							<li>
 								<label for="userjoin" >회원가입일</label>
-								<input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}" readonly="readonly">
+								<input type="text" id="userjoin" name="userJoin" th:value="${#dates.format(users.userjoin, 'yyyy-MM-dd mm:ss')}" readonly="readonly">
 							</li>
 						</ul>
-						<button class="btn-submit" onclick="javascript:sumitBtn()">수정</button>
+						<button class="btn-submit" onclick="javascript:sumitBtn();return false;">수정</button>
 					</form>
 				</div>
 				
 				<!-- Tab content -->
 				<div id="myPageUpdatePw" class="tabcontent">
-					<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/pwUpdate">
+					<form id="pwUpdateFrm" name="pwUpdateFrm" method="post" action="/users/pwUpdate">
 						<input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}">
 						<ul>
 							<li>

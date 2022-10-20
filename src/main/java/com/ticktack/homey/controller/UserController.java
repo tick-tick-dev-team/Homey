@@ -121,7 +121,7 @@ public class UserController {
 		System.out.println("************ UserController : myPageUpdate");
 		System.out.println("************ "+ nickChage);
 		User result = userService.findById(form.getUser_id()).get();
-		if(nickChage != null) {
+		if(nickChage != form.getUsernick() ) {
 			result.setUsernick(nickChage);
 		}
 		result.setUserbirth(form.getUserbirth());
@@ -170,7 +170,7 @@ public class UserController {
 		
 		
 		model.addAttribute("users", result );
-		return "users/myPagePwUpdate";
+		return "redirect:/users/"+ form.getUser_id();
 	}
 
 /*
