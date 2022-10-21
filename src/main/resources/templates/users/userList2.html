@@ -74,16 +74,16 @@
 				</li>
 				<!-- 추후 userpower는 fetch로 수정 -->
 				<li th:each="user:${users}">
-					<span id="user_id" th:text="${user.user_id}"></span>
-					<span id="usernick" th:text="${user.user_id}"></span>
-					<span id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}"></span>
-					<span id="userjoin" th:text="${user.userjoin}"></span>
+					<span id="user_id" th:text="${user.user_id}">1</span>
+					<span id="usernick" th:text="${user.user_id}">mango</span>
+					<span id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
+					<span id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>
 					<select name="userpower" id="userpower">
 						<option th:each="role : ${T(com.ticktack.homey.auth.Role).values()}" 
 						th:value="${role.name()}"
 						th:text="${role.getLabel()}">사용자</option>
 					</select>
-					<span id="userpower" th:text="${user.userpower}"></span> 
+					<!-- <span id="userpower" th:text="${user.userpower}"></span>  -->
 					
 				</li>
 			</ul>
@@ -114,7 +114,7 @@
 			</form>
 		</div>
 
-      <div class="right" style="overflow-y: scroll; height: 400px">
+      <!-- <div class="right" style="overflow-y: scroll; height: 400px">
         <h2>--집목록--</h2>
 
         <ul th:each="home:${homes}">
@@ -126,7 +126,7 @@
           <li>집 테마 : <label th:text="${home.homethema}"></label></li>
           <li>------------------------</li>
         </ul>
-      </div>
+      </div> -->
 
       <div class="whohome"></div>
     </div>
