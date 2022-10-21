@@ -49,10 +49,10 @@ section#profile {
 }
 
 /* 바로 아래 자식 li에만 적용 */
-#postList .list-wrap > li {
+#postList .list-wrap li {
     height: auto;
     background-color: #fff;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 #postList .list-wrap > li:last-child {
     margin-bottom: 0;
@@ -97,6 +97,7 @@ section#profile {
 #postList .list-wrap li .btn-wrap button{
     font-size: 1.2em;
     padding: 0.3em 0.7em;
+    margin: 0 0.2rem;
 }
 #postList .list-wrap li .content-wrap .btn-wrap a {
     margin-right: 0.3em;
@@ -121,8 +122,9 @@ section#profile {
     padding: 1em;
 }
 
-#postList .list-wrap li .comments ul > li {
-    margin-bottom:1em;
+#postList .list-wrap li .comments ul li {
+    margin-bottom:1.2em;
+    background-color: #FDDCE5;
 }
 #postList .list-wrap li .comments ul > li:last-child {
     margin-bottom:0;

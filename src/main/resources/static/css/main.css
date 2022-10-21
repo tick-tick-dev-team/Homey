@@ -105,6 +105,10 @@
 .bg-red:hover {
     background-color: rgb(240, 58, 94);
 }
+.bg-white {
+    background-color: #fff;
+    color: #222;
+}
 
 
 section {

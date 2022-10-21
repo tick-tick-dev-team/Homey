@@ -72,10 +72,10 @@ layout:decorate="~{layout/default_layout}">
 								</div>							
 
 								<div th:if="${writer.user_id==post.POST_WRITER}" class="btn-wrap flex-end">
-									<a class="btn-border" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
+									<a class="btn-border bg-white" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
 									<form method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
 										<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
-										<button class="btn-border" type="submit" name="submit">삭제</button>
+										<button class="bg-white btn-border" type="submit" name="submit">삭제</button>
 									</form>
 								</div>
 							</li>
@@ -112,12 +112,11 @@ layout:decorate="~{layout/default_layout}">
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->
 									<div class="btn-wrap flex-end">
-										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
-										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
-										<a th:if="${comment.commUpid == comment.commId}" class="btn-border" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
+										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
+										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
+										<a th:if="${comment.commUpid == comment.commId}" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
 									</div>
 								</div>
-
 								<p class="content" th:text="|${comment.commCont}|">댓글 내용</p>
 							</li>
 						</ul>
