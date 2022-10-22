@@ -9,11 +9,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.repository.user.UserRepository;
 
+@SuppressWarnings("serial")
 public class PrincipalDetails implements UserDetails {
 
 	private User user;
-	private UserRepository userRepository;
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public PrincipalDetails(User user) {
 		this.user = user;
 	}
