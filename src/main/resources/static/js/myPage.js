@@ -15,7 +15,8 @@ window.onload=function(){
 }
 
 function nickChange(){
-	document.getElementById('nickCheck').style.display= 'none';
+	document.getElementById('nickCheckBtn').style.backgroundColor= "#fff";
+	document.getElementById('nickCheckBtn').style.color= "#000";
 }
 
 function getImageFiles(e) {
@@ -149,12 +150,14 @@ function pwdCheck() {
 		alert("비밀번호를 입력하세요.");
 		return;
 	}
-	fetch('/users/pwdCheck/'+ userpass.value ,{
-				method : 'POST'
+	const formData = new FormData();
+	formData.append('userpass', userpass.value);
+	fetch('/users/pwdCheck/' ,{
+				method : 'POST',
+				body : formData
 			})
 			.then(res => res.text())
 			.then(function(text){
-					console.log(text);
 					var isFalseBoolean = (text==='true');
 					if(isFalseBoolean){
 						userpass.setAttribute('readonly', "readonly");
@@ -197,24 +200,24 @@ function sumitBtn(){
 	const frm = document.getElementById('myPageUpdateFrm');
 
 	const usernick = document.getElementById('usernick').value;
-	const userbirth = document.getElementById('userbirth').value;
 	const nickChage = document.getElementById('nickChage').value;
 	
-	if(userbirth == ""){
-		alert("생일을 선택하세요.");
-		return;
+	if(nickChage == "" || nickChage == " "){
+			alert("변경할 닉네임을 입력하세요!");
+		return false;	
 	}
 	if(usernick == nickChage){
-		nickChage = "";
-	} else {
-		if(document.getElementById('nickCheck').style.display == 'none'){
-			alert("닉네임 중복검사 후 변경 가능합니다.")
-			return;
-		}
+		console.log("닉네임이 그대로인 경우");
+		document.getElementById('nickCheckBtn').style.backgroundColor = "#2585D9";
+		document.getElementById('nickCheckBtn').style.color = "#fff";
 	}
-	// 위에 else 조건에도 자꾸 sumit이 넘어감, 조건 처리 추가해야 할 듯 
-	// 변경이 되어버림 ㅠㅠㅠ 왜 리턴이 안되는겨...!
-	frm.sumit();
+	const btncolor = document.getElementById('nickCheckBtn').style.backgroundColor;
+	if(btncolor != "rgb(37, 133, 217)"){
+		alert("닉네임 중복체크를 확인하세요!");
+		return false;
+	} else {
+		return true;	
+	}
 }
 
 async function check_id(){
@@ -223,9 +226,13 @@ async function check_id(){
 		const btn = document.getElementById('nickCheckBtn');
 		const u = document.getElementById('usernick');
 		
+		if(userN.value == "" || userN.value == " "){
+			alert("변경할 닉네임을 입력하세요!");
+			return;	
+		}
 		if( userN.value == u.value ){
-			document.getElementById('nickCheck').style.display= 'inline';
-			document.getElementById('nickCheck').style.color= "#2585D9";
+			document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
+			document.getElementById('nickCheckBtn').style.color= "#fff";
 			return;
 		} else {
 			const formData = new FormData();
@@ -241,11 +248,13 @@ async function check_id(){
 					console.log(text);
 					var result = text;
 					if(result == "false"){
-						document.getElementById('nickCheck').style.display= 'inline';
-						document.getElementById('nickCheck').style.color= "#2585D9";
+						document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
+						document.getElementById('nickCheckBtn').style.color= "#fff";
+						
 					} else {
-						document.getElementById('nickCheck').style.display= 'none';
-						alert("사용불가능한 별명");
+						document.getElementById('nickCheckBtn').style.backgroundColor= "#fff;";
+						document.getElementById('nickCheckBtn').style.color= "#000";
+						alert("사용 불가능한 별명입니다.");
 					}
 				}
 			);
@@ -254,7 +263,7 @@ async function check_id(){
 }
 
 function UpdatePwBtn(){
-	const frm = document.getElementById('myPageUpdateFrm');
+	const frm = document.getElementById('pwUpdateFrm');
 	const check = document.getElementById('check');
 	
 	console.log(frm);
@@ -262,12 +271,11 @@ function UpdatePwBtn(){
 	
 	if(pwValication(frm)){
 		frm.userpass.value = frm.updatePw.value;
-		frm.sumit();
+		frm.submit();
+		return true;
 	} else {
 		return false;
 	}
-
-	
 
 }
 
@@ -293,4 +301,28 @@ function pwValication(frm){
 	}
 	return true;
 }
+
+
+
+// 탭 관련
+function openCity(evt, elementName) {
+	// Declare all variables
+	var i, tabcontent, tablinks;
+
+	// Get all elements with class="tabcontent" and hide them
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+
+	// Get all elements with class="tablinks" and remove the class "active"
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	}
+
+	// Show the current tab, and add an "active" class to the button that opened the tab
+	document.getElementById(elementName).style.display = "block";
+	evt.currentTarget.className += " active";
+}	
 

@@ -159,7 +159,6 @@ public class PostController {
 		// DB에 게시물 저장
 		Post updatedPost = form.getPostFromPostForm();
 		postService.updatePost(updatedPost);
-		
 		redirectAttributes.addAttribute("homeId", form.getPOST_HOME());
 		return "redirect:/homes/{homeId}";
 	}

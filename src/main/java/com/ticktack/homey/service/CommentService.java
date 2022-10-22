@@ -26,6 +26,8 @@ public interface CommentService {
 	
 	List<Comment> replyAllList(Long postId);
 	
+	// 게시글 삭제시 해당되는 댓글, 답글 모두 삭제
+	void commPostDelete(Long postId);
 	
 
 }

@@ -43,6 +43,28 @@ public class PostFormFile {
 	
 	// 댓글 리스트
 	List<Comment> COMMENT_LIST;
+	
+	// 작성자 닉네임
+	private String writerNick;
+	
+	// 작성자 프로필사진
+	private Attach writerProfile;
+	
+	public String getWriterNick() {
+		return writerNick;
+	}
+
+	public void setWriterNick(String writerNick) {
+		this.writerNick = writerNick;
+	}
+
+	public Attach getWriterProfile() {
+		return writerProfile;
+	}
+
+	public void setWriterProfile(Attach writerProfile) {
+		this.writerProfile = writerProfile;
+	}
 
 	public Long getPOST_ID() {
 		return POST_ID;

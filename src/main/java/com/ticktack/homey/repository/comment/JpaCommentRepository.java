@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ticktack.homey.domain.Comment;
 
 public class JpaCommentRepository implements CommentRepository {
@@ -67,6 +70,14 @@ public class JpaCommentRepository implements CommentRepository {
 	public Comment commUpidUpdate(Comment comm) {
 		em.merge(comm);
 		return comm;
+	}
+
+	@Override
+	@Transactional
+	public void commPostDelete(Long postId) {
+		em.createQuery("delete from Comment c where c.postId = :postId")
+		.setParameter("postId", postId)
+		.executeUpdate();
 	}
 
 

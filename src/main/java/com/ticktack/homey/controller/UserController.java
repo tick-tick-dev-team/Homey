@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ticktack.homey.auth.PrincipalDetails;
+import com.ticktack.homey.auth.PrincipalDetailsService;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.User;
+import com.ticktack.homey.repository.user.UserRepository;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
 import com.ticktack.homey.service.UserService;
@@ -36,6 +43,9 @@ public class UserController {
 	
     @Autowired    
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private PrincipalDetailsService principalDetailsService;
 
 	
 	/*회원가입폼조회, /users/new*/
@@ -79,13 +89,17 @@ public class UserController {
 	
 	/* 사용자 목록 조회 */
 	@GetMapping("users")
-	public String list(Model model) {
+	public String list(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		//사용자 가져오기
 		List<User> users = userService.findUsers();
 		model.addAttribute("users", users );
 		
 		//집정보 가져오기
 		List<Home> homes = homeService.findHomes();
+		
+		// 로그인한 사용자
+		User writer = userService.findBynick(principal);
+		model.addAttribute("writer", writer);
 		
 		model.addAttribute("homes", homes);		
 		
@@ -105,7 +119,8 @@ public class UserController {
 			Optional<Attach> profile = attachService.findById(result.getAttf_id());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
-		return "users/myPage";
+		// return "users/myPage";
+		return "users/myPage2";
 	}
 	
 	/*
@@ -116,7 +131,7 @@ public class UserController {
 		System.out.println("************ UserController : myPageUpdate");
 		System.out.println("************ "+ nickChage);
 		User result = userService.findById(form.getUser_id()).get();
-		if(nickChage != null) {
+		if(nickChage != form.getUsernick() ) {
 			result.setUsernick(nickChage);
 		}
 		result.setUserbirth(form.getUserbirth());
@@ -129,15 +144,20 @@ public class UserController {
 		homeService.updateHome(homeResult);
 		System.out.println(homeResult.toString());
 		
+		// 세션변경
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, result.getUsernick()));
+		
 		return "redirect:/users/"+ form.getUser_id();
 	}
-	
+
+
 	/*
 	 * 마이페이지 비밀번호 체크
 	 * */
 	@ResponseBody
-	@PostMapping("users/pwdCheck/{userpass}")
-	public boolean myPagePwdCheck(@PathVariable String userpass, @AuthenticationPrincipal PrincipalDetails principal) {
+	@PostMapping("users/pwdCheck")
+	public boolean myPagePwdCheck(@RequestParam String userpass, @AuthenticationPrincipal PrincipalDetails principal) {
 		System.out.println("************ UserController : myPagePwdCheck");
 		return passwordEncoder.matches(userpass, principal.getPassword());
 	}
@@ -153,6 +173,9 @@ public class UserController {
 		return "users/myPagePwUpdate";
 	}
 	
+	/*
+	 * 마이페이지 비밀번호 변경
+	 * */
 	@PostMapping("/users/pwUpdate")
 	public String pwUpdate(User form, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		System.out.println("************ UserController : pwUpdate");
@@ -161,11 +184,12 @@ public class UserController {
 		result.setUserpass(passwordEncoder.encode(form.getUserpass()));
 		userService.updateUser(result);
 		
-		// 세션 변경 필요
-		
+		// 세션변경
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, result.getUsernick()));
 		
 		model.addAttribute("users", result );
-		return "users/myPagePwUpdate";
+		return "redirect:/users/"+ form.getUser_id();
 	}
 
 /*
@@ -187,5 +211,14 @@ public class UserController {
 
 	}
 */	
-
+	/**
+	 * 새로운 새션 생성
+	 * */
+	protected Authentication createNewAuthentication(Authentication currentAuth, String userNick) {
+	    UserDetails newPrincipal = principalDetailsService.loadUserByUsername(userNick);
+	    UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(newPrincipal, currentAuth.getCredentials(), newPrincipal.getAuthorities());
+	    newAuth.setDetails(currentAuth.getDetails());
+	    return newAuth;
+	}
+	
 }

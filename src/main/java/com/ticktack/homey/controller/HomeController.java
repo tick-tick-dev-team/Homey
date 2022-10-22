@@ -1,6 +1,7 @@
 package com.ticktack.homey.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +75,20 @@ public class HomeController {
 //		User writer = userService.findBynick(principal);
 //		model.addAttribute("writer", writer);
 		
+		//homeattach 출력 시도 실패
+		/*long count = homes.stream().count(); //https://www.techiedelight.com/ko/count-number-of-items-list-java/
+		System.out.println(count);
+		
+		for(int i =0; i <= count; ++i ) {
+		// 프로필 사진 있으면 반환
+		if(homes.get(i).getAttfid()!=null) {
+			Optional<Attach> profile = attachService.findById(homes.get(i).getAttfid());
+			profile.ifPresent(p -> model.addAttribute("attach", p));
+			}
+		}*/
+		
+		
+		
 		return "homes/Homes";
 	}
 	
@@ -83,27 +98,29 @@ public class HomeController {
 	public String selectHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeId, Model model) {
 		
 		System.out.println("HomeController에 들어왔습니다.");
+		System.out.println("!!!!!!!!!!"+principal.getUser().getUserpower());
 		
 		// 모든 post 중 homeId가 같은 것만 골라내어 리스트 형태로 반환
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
 		
 		// 로그인한 사용자
 		User writer = userService.findBynick(principal);
+		model.addAttribute("writer", writer);
 		
 		// 홈 정보(집 이름, 집 설명)
 		Home home = homeService.findById(homeId).get();
-		
-		model.addAttribute("writer", writer);
-		
 		model.addAttribute("home", home);
-
+		
+		// 홈 주인 정보
+		User owner = userService.findById(home.getUserid()).get();
+		model.addAttribute("owner", owner);
 		
 		model.addAttribute("postList", postFormList);
 		model.addAttribute("homeId", homeId);
 		
-		// 프로필 사진 있으면 반환
-		if(writer.getAttf_id()!=null) {
-			Optional<Attach> profile = attachService.findById(writer.getAttf_id());
+		// 홈 사진 있으면 반환
+		if(home.getAttfid()!=null) {
+			Optional<Attach> profile = attachService.findById(home.getAttfid());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
 		
