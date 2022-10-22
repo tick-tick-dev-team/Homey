@@ -78,7 +78,7 @@ public class PostServiceImpl implements PostService{
 		// 첨부파일이 있으면 그것도 삭제
 		Optional<Long>attf_id = findAttfIdById(postId);
 		attf_id.ifPresent(id -> attachRepository.delete(id));
-		
+		commentRepository.commPostDelete(postId);
 		postRepository.delete(postId);
 		return postId;
 	}

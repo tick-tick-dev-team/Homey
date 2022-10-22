@@ -150,12 +150,14 @@ function pwdCheck() {
 		alert("비밀번호를 입력하세요.");
 		return;
 	}
-	fetch('/users/pwdCheck/'+ userpass.value ,{
-				method : 'POST'
+	const formData = new FormData();
+	formData.append('userpass', userpass.value);
+	fetch('/users/pwdCheck/' ,{
+				method : 'POST',
+				body : formData
 			})
 			.then(res => res.text())
 			.then(function(text){
-					console.log(text);
 					var isFalseBoolean = (text==='true');
 					if(isFalseBoolean){
 						userpass.setAttribute('readonly', "readonly");
@@ -198,31 +200,23 @@ function sumitBtn(){
 	const frm = document.getElementById('myPageUpdateFrm');
 
 	const usernick = document.getElementById('usernick').value;
-	const userbirth = document.getElementById('userbirth').value;
 	const nickChage = document.getElementById('nickChage').value;
-
-	var result = true;
-		
-	if(userbirth == ""){
-		alert("생일을 선택하세요.");
-		result = false;
+	
+	if(nickChage == "" || nickChage == " "){
+			alert("변경할 닉네임을 입력하세요!");
+		return false;	
 	}
-	console.log(usernick == nickChage);
 	if(usernick == nickChage){
+		console.log("닉네임이 그대로인 경우");
 		document.getElementById('nickCheckBtn').style.backgroundColor = "#2585D9";
 		document.getElementById('nickCheckBtn').style.color = "#fff";
-	} else {
-		// 닉네임을 변경하고 중복검사도 완료 했는데, 왜 이 조건을 타는가....?
-		if(document.getElementById('nickCheckBtn').style.backgroundColor != "#2585D9"){
-			alert("닉네임 중복검사 후 변경 가능합니다.");
-			result = false;
-		}
 	}
-	// 결과값 체크
-	if(result){
-		frm.submit();
+	const btncolor = document.getElementById('nickCheckBtn').style.backgroundColor;
+	if(btncolor != "rgb(37, 133, 217)"){
+		alert("닉네임 중복체크를 확인하세요!");
+		return false;
 	} else {
-		return;
+		return true;	
 	}
 }
 
@@ -232,6 +226,10 @@ async function check_id(){
 		const btn = document.getElementById('nickCheckBtn');
 		const u = document.getElementById('usernick');
 		
+		if(userN.value == "" || userN.value == " "){
+			alert("변경할 닉네임을 입력하세요!");
+			return;	
+		}
 		if( userN.value == u.value ){
 			document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
 			document.getElementById('nickCheckBtn').style.color= "#fff";
@@ -256,7 +254,7 @@ async function check_id(){
 					} else {
 						document.getElementById('nickCheckBtn').style.backgroundColor= "#fff;";
 						document.getElementById('nickCheckBtn').style.color= "#000";
-						alert("사용불가능한 별명");
+						alert("사용 불가능한 별명입니다.");
 					}
 				}
 			);
@@ -274,11 +272,10 @@ function UpdatePwBtn(){
 	if(pwValication(frm)){
 		frm.userpass.value = frm.updatePw.value;
 		frm.submit();
+		return true;
 	} else {
-		return;
+		return false;
 	}
-
-	
 
 }
 

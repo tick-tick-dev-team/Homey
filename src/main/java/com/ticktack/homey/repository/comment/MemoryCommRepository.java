@@ -178,8 +178,12 @@ public class MemoryCommRepository implements CommentRepository {
 
 	@Override
 	public Comment commUpidUpdate(Comment result) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void commPostDelete(Long postId) {
+		
 	}
 	
 	

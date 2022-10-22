@@ -55,7 +55,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 				<!-- Tab content -->
 				<div id="myPageUpdateInfo" class="tabcontent" style="display: block;">
 					
-					<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/myPage">
+					<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/myPage" onsubmit="return sumitBtn();">
 						<input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}">
 						<input type="hidden" id="usernick" name="usernick" th:value="${users.usernick}">
 
@@ -74,15 +74,15 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 								<input type="text" id="userjoin" name="userJoin" th:value="${#dates.format(users.userjoin, 'yyyy-MM-dd mm:ss')}" readonly="readonly">
 							</li>
 						</ul>
-						<button class="btn-submit" onclick="javascript:sumitBtn();return false;">수정</button>
+						<button type="submit" name="submit" class="btn-submit" >수정</button>
 					</form>
 				</div>
 				
 				<!-- Tab content -->
 				<div id="myPageUpdatePw" class="tabcontent">
-					<form id="pwUpdateFrm" name="pwUpdateFrm" method="post" action="/users/pwUpdate">
-						<input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}">
+					<form id="pwUpdateFrm" name="pwUpdateFrm" method="post" action="/users/pwUpdate" onsubmit="return UpdatePwBtn();">
 						<ul>
+							<input type="hidden" name="user_id" th:value="${users.user_id}">
 							<li>
 								<label for="userpass">기존 비밀번호</label>
 								<input type="password" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요.">
@@ -98,7 +98,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 								<span id="check"></span>
 							</li>
 						</ul>
-						<button class="btn-submit" onclick="javascript:UpdatePwBtn();return false;">수정</button>
+						<button type="submit" name="submit" class="btn-submit">수정</button>
 					</form>
 				</div>
 			</div>
