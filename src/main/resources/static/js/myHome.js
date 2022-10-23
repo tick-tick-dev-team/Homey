@@ -136,6 +136,10 @@ function imgValidation(files){
 }
 
 
+function gowith(){
+		alert("수정완료되었습니다.");
+}
+
 
 
 

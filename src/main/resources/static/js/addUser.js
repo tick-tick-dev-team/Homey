@@ -35,13 +35,13 @@ async function check_id(){
 		.then(res => res.text())
 		.then(function(text){
 				if(text=='false'){
-					span.innerHTML = "사용가능✔";
-					span.style.color = "#2585D9";
+					span.innerHTML = '사용가능✔';
+					span.style.color = '#2585D9';
 					target.disabled = false;
 					
 				} else {
-					span.innerHTML ="사용불가능";
-					span.style.color = "red";
+					span.innerHTML ='사용불가능';
+					span.style.color = 'red';
 					target.disabled = true;
 				}
 			}
@@ -70,12 +70,12 @@ function check_pw(){
 			document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
             document.getElementById('check').style.color='blue';
             target.disabled = false;
-            if(b=="사용가능✔"){
+            if(a=='사용가능✔'){
             target.disabled = false;
             }else{
             	target.disabled = true;
             	
-            	hey.innerHTML="고유한 별명을 쓰세요.";
+            	hey.innerHTML='고유한 별명을 쓰세요.';
             }
 		}
 		else{
@@ -102,7 +102,10 @@ function gowith(){
 	const a = document.getElementById('check_nick').value;
 	const b = document.getElementById('check').value;
 	
-	if(a != "사용가능✔"){
+	
+	alert("회원가입 완료");
+	
+	/*if(a == '고유한 별명을 쓰세요.' || a==''){
 		alert("닉네임 중복 체크를 하세요.");
 		return false;
 	}
@@ -112,6 +115,6 @@ function gowith(){
 	}
 	else {
 		return true;
-	}
+	}*/
 	
 }
