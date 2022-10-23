@@ -73,7 +73,8 @@ public class UserController {
 		home.setHomename(form.getUsernick()+"의 집");
 		homeService.createHome(home);
 		
-		return "redirect:/";
+		/*return "redirect:/";*/
+		return "/loginForm";
 	}
 	
 	/*별명중복체크*/

@@ -5,7 +5,6 @@
 window.onload=function(){
 	const realUpload = document.querySelector('.real-upload');
     const upload = document.querySelector('.upload');
-    //const userpass = document.getElementById('userpass');
 
     upload.addEventListener('click', () => realUpload.click());
     realUpload.addEventListener('change', getProfileImg);    
@@ -50,22 +49,24 @@ function getImageFiles(e) {
     });
 }
 
+
+/*'/home/' + homeId + '/profile' 는 AttachController에 있음*/
 function getProfileImg(e) {
 	const file = e.currentTarget.files;
 	
 	const input_file = document.querySelector('#uploadFile');
-	const userId_input = document.querySelector('#user_id');
+	const homeid_input = document.querySelector('#homeid');
 	
-	const userId = userId_input !=null ? userId_input.value : null;
+	const homeId = homeid_input !=null ? homeid_input.value : null;
 
 	if(imgValidation(file) == false){
 		return;
 	} else {
-		if(userId) {
+		if(homeId) {
 		const formData = new FormData();
 		formData.append('file', input_file.files[0]);
 		
-		fetch('/users/' + userId + '/profile', {
+		fetch('/homes/' + homeId + '/profile', {
 			method : 'POST',
 			body : formData
 		})
@@ -96,9 +97,9 @@ function displayProfile (attach) {
 function imgReset(e){
 	if(confirm("이미지를 리셋하시겠어요?")){
 		const attfId = document.getElementById('attf_id').value;
-		const userId = document.getElementById('user_id').value;
+		const homeId = document.getElementById('homeid').value;
 		
-		fetch('/users/' + userId + '/profileReset/' + attfId, {
+		fetch('/homes/' + homeId + '/profileReset/' + attfId, {
 			method : 'POST'
 		})
 		.then(function(response){
@@ -135,95 +136,12 @@ function imgValidation(files){
 }
 
 
-
-function sumitBtn(){
-	const frm = document.getElementById('myPageUpdateFrm');
-
-	const usernick = document.getElementById('usernick').value;
-	const userbirth = document.getElementById('userbirth').value;
-	const nickChage = document.getElementById('nickChage').value;
-	
-	if(userbirth == ""){
-		alert("생일을 선택하세요.");
-		return;
-	}
-	if(usernick == nickChage){
-		nickChage = "";
-	} else {
-		if(document.getElementById('nickCheck').style.display == 'none'){
-			alert("닉네임 중복검사 후 변경 가능합니다.")
-			return;
-		}
-	}
-	frm.sumit();
+function gowith(){
+		alert("수정완료되었습니다.");
 }
 
-async function check_id(){
 
-		const userN = document.getElementById('nickChage');
-		const btn = document.getElementById('nickCheckBtn');
-		 
-		const formData = new FormData();
-		formData.append('usernick', userN.value);
-		formData.get('usernick');
-		 
-		fetch('/checkNick',{
-			method : 'POST',
-			body : formData
-		})
-		.then(res => res.text())
-		.then(function(text){
-				console.log(text);
-				var result = text;
-				if(result == "사용 가능한 별명입니다."){
-					document.getElementById('nickCheck').style.display= 'inline';
-					document.getElementById('nickCheck').style.color= "#2585D9";
-				} else {
-					document.getElementById('nickCheck').style.display= 'none';
-					alert(result);
-				}
-			}
-		);
-}
 
-function UpdatePwBtn(){
-	const frm = document.getElementById('myPageUpdateFrm');
-	const check = document.getElementById('check');
-	
-	console.log(frm);
-	console.log(check);
-	
-	if(pwValication(frm)){
-		frm.userpass.value = frm.updatePw.value;
-		frm.sumit();
-	} else {
-		return false;
-	}
 
-	
 
-}
-
-function pwValication(frm){
-	const check = document.getElementById('check');
-	var result = true;
-	
-	if(frm.userpass.value == ""){
-		alert("기존 비밀번호를 체크해주세요.");
-		return false;
-	}
-	if(frm.updatePw.value == "" ){
-		alert("변경할 비밀번호를 입력해주세요.");
-		return false;
-	}
-	if(document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
-		alert("기존 비밀번호를 입력 후 체크해주세요.");
-		return false;
-	}
-	if(check.innerHTML == "비밀번호가 일치하지 않습니다."){
-		alert("변경할 비밀번호가 일치하지 않습니다.");
-		return false;
-	}
-	return true;
-}
 

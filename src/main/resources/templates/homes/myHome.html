@@ -11,7 +11,7 @@ layout:decorate="~{layout/default_layout}">
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script type="text/javascript" th:src="@{/js/myPage.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/myHome.js}" ></script>
 </th:block>
 <meta charset="UTF-8">
 
@@ -40,9 +40,9 @@ function btn(){
 		</section>
 		<section>
 			<div class="content-wrap">
-				<form th:action="@{|/homes/${homeId}/update|}" method="post">
+				<form th:action="@{|/homes/${homeId}/update|}" method="post" onsubmit="gowith()">
 					
-						<input type="hidden" name="homeid" th:value="${home.homeid}">
+						<input type="hidden" id="homeid" name="homeid" th:value="${home.homeid}">
 						<input type="hidden" name="userid" th:value="${home.userid}">
 					
 					<ul>

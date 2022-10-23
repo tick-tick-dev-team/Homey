@@ -35,6 +35,7 @@ layout:decorate="~{layout/default_layout}">
 		<li th:each="home : ${homes}">
 			<a th:href="@{/homes/{id}(id=${home.homeid})}" >
 				<div class="img-wrap">
+					<img th:if="${attach!=null}" th:src="|/images/${attach.getATTF_SERNM()}|" alt="">
 			        <img src="https://via.placeholder.com/180" alt="">
 			    </div>
 			    <span class="username" th:text="${home.homename}">user1의 집</span>

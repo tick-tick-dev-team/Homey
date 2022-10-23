@@ -21,7 +21,7 @@ layout:decorate="~{layout/default_layout}">
 		<h4>Homey는 필수적인 정보만으로 회원을 관리합니다.</h4>
 		
 		
-		<form th:action="@{/users/new}" method="post" onsubmit="submit()">
+		<form th:action="@{/users/new}" method="post" onsubmit="gowith()">
 			<label>닉네임</label>:
 			<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='15'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
