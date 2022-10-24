@@ -146,16 +146,16 @@ public class HomeController {
 	/*myHome페이지(update)수정 눌렀을때*/
 	@PostMapping("/homes/{homeId}/update")
 	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {
-		Home home = new Home();
+		/*Home home = new Home();
 		home.setHomeid(form.getHomeid());
 		home.setHomename(form.getHomename());
 		home.setHomeinst(form.getHomeinst());
 		home.setHomethema(form.getHomethema());
 		home.setHomeuse(form.getHomeuse());
 		home.setUserid(form.getUserid());
-		home.setAttfid(form.getAttfid());
+		home.setAttfid(form.getAttfid());*/
 		
-		homeService.updateHome(home);
+		homeService.updateHome(form);
 		
 		
 		/*return "redirect:/homes/{homeId}/update";*/
