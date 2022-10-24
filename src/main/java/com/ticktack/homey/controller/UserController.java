@@ -104,6 +104,7 @@ public class UserController {
 		
 		model.addAttribute("homes", homes);		
 		
+		// return "users/userList2";
 		return "users/userList";
 	}
 	
