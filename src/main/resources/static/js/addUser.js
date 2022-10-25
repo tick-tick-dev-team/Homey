@@ -16,7 +16,7 @@ async function check_id(){
 		const userN = document.getElementById('formnick').value;
 		const span = document.getElementById('check_nick');
 		const target = document.getElementById('target_btn');
-		const target2 = document.getElementById('hey');
+		//const target2 = document.getElementById('hey');
 		
 		if (document.getElementById('formnick').value==''){
 			alert('별명을 입력해주세요.')
@@ -37,12 +37,12 @@ async function check_id(){
 				if(text=='false'){
 					span.innerHTML = '사용가능✔';
 					span.style.color = '#2585D9';
-					target.disabled = false;
+					//target.disabled = false;
 					
 				} else {
 					span.innerHTML ='사용불가능';
 					span.style.color = 'red';
-					target.disabled = true;
+					//target.disabled = true;
 				}
 			}
 				
@@ -69,22 +69,22 @@ function check_pw(){
 		if(document.getElementById('pw').value==document.getElementById('pw2').value){
 			document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
             document.getElementById('check').style.color='blue';
-            target.disabled = false;
+            /*target.disabled = false;
             if(a=='사용가능✔'){
             target.disabled = false;
             }else{
             	target.disabled = true;
             	
             	hey.innerHTML='고유한 별명을 쓰세요.';
-            }
+            }*/
 		}
 		else{
 			document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
 			document.getElementById('check').style.color='red';
-			target.disabled = true;
+			//target.disabled = true;
 		}
 	}
-}s
+}
 
 /*닉네임 변경시*/
 function retry(){
@@ -93,19 +93,18 @@ function retry(){
 	const target2 = document.getElementById('hey');
 
 	span.innerHTML="중복체크를 하세요.";
-	target.disabled = true;
+	//target.disabled = true;
 	hey.innerHTML="";
 
 }
 
 function gowith(){
-	const a = document.getElementById('check_nick').value;
-	const b = document.getElementById('check').value;
+	const a = document.getElementById('check_nick').innerHTML; //value 안 먹힘
+	console.log(a);
+	const b = document.getElementById('check').innerHTML;
 	
-	
-	alert("회원가입 완료");
-	
-	/*if(a == '고유한 별명을 쓰세요.' || a==''){
+
+	if(a != '사용가능✔'){
 		alert("닉네임 중복 체크를 하세요.");
 		return false;
 	}
@@ -114,7 +113,8 @@ function gowith(){
 		return false;
 	}
 	else {
+		alert("회원가입 완료");
 		return true;
-	}*/
+	}
 	
 }
