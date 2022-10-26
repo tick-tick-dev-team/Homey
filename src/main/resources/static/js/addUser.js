@@ -13,15 +13,17 @@
 async function check_id(){
 
 		const userF = document.getElementById('formnick');
-		const userN = document.getElementById('formnick').value;
+		const userNick = document.getElementById('formnick').value;
 		const span = document.getElementById('check_nick');
 		const target = document.getElementById('target_btn');
-		//const target2 = document.getElementById('hey');
 		
 		if (document.getElementById('formnick').value==''){
 			alert('별명을 입력해주세요.')
 			return;
 		}
+
+		//공백제거 코드
+		let userN = userNick.split(' ').join('');
 		 
 		const formData = new FormData();
 		formData.append('usernick', userN);
@@ -35,21 +37,16 @@ async function check_id(){
 		.then(res => res.text())
 		.then(function(text){
 				if(text=='false'){
-					span.innerHTML = '사용가능✔';
+					span.innerHTML = userN + ' 사용가능✔';
 					span.style.color = '#2585D9';
-					//target.disabled = false;
-					
 				} else {
 					span.innerHTML ='사용불가능';
 					span.style.color = 'red';
-					//target.disabled = true;
 				}
 			}
 				
 		);
-		
-		
-		/*text => alert(text)*/
+
 
 }
 
@@ -59,52 +56,44 @@ function check_pw(){
 	const target = document.getElementById('target_btn');
 	
 	const a = document.getElementById('check_nick').value;
-	const b = document.getElementById('check').value;
-	const target2 = document.getElementById('hey');
-	
-	const span = document.getElementById('check_nick');
+	const b = document.getElementById('check_pw').value;
 	
 	
 	if(document.getElementById('pw').value !=" && document.getElementById('pw2').value"){
 		if(document.getElementById('pw').value==document.getElementById('pw2').value){
-			document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
-            document.getElementById('check').style.color='blue';
-            /*target.disabled = false;
-            if(a=='사용가능✔'){
-            target.disabled = false;
-            }else{
-            	target.disabled = true;
-            	
-            	hey.innerHTML='고유한 별명을 쓰세요.';
-            }*/
+			document.getElementById('check_pw').innerHTML='비밀번호가 일치합니다.';
+            document.getElementById('check_pw').style.color='blue';
 		}
 		else{
-			document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
-			document.getElementById('check').style.color='red';
-			//target.disabled = true;
+			document.getElementById('check_pw').innerHTML='비밀번호가 일치하지 않습니다.';
+			document.getElementById('check_pw').style.color='red';
 		}
 	}
 }
 
 /*닉네임 변경시*/
 function retry(){
+	const userNick = document.getElementById('formnick').value;
+	//공백제거 코드
+	let userN = userNick.split(' ').join('');
+	document.getElementById('formnick').value = userN;
+	
 	const span = document.getElementById('check_nick');
-	const target = document.getElementById('target_btn');
-	const target2 = document.getElementById('hey');
-
 	span.innerHTML="중복체크를 하세요.";
-	//target.disabled = true;
-	hey.innerHTML="";
+	span.style.color='red';
 
 }
 
+/*제출시*/
 function gowith(){
 	const a = document.getElementById('check_nick').innerHTML; //value 안 먹힘
-	console.log(a);
-	const b = document.getElementById('check').innerHTML;
+	const b = document.getElementById('check_pw').innerHTML;
+	const userNick = document.getElementById('formnick').value;
+	//공백제거 코드
+	let userN = userNick.split(' ').join('');
 	
 
-	if(a != '사용가능✔'){
+	if(a != userN + ' 사용가능✔'){
 		alert("닉네임 중복 체크를 하세요.");
 		return false;
 	}
