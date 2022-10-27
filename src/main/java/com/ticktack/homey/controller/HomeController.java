@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
@@ -49,9 +50,23 @@ public class HomeController {
 	
 	//login페이지
 	@GetMapping("/loginForm")
-	public String loginForm(){
+	public String loginForm(@RequestParam(value ="error", required = false) String error, @RequestParam(value="exception", required = false) String exception, Model model){
+		/*에러와 예외를 모델에 담는다 https://velog.io/@jyleedev/%ED%9A%8C%EC%9B%90-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%ED%8C%A8*/
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);		
+		System.out.println("error============================" + error);
 		return "loginForm";
 	}
+	
+	@GetMapping("/loginForm?error=true&exception=")
+	public String loginFormE(@RequestParam(value ="error", required = false) String error, @RequestParam(value="exception", required = false) String exception, Model model){
+		/*에러와 예외를 모델에 담는다 https://velog.io/@jyleedev/%ED%9A%8C%EC%9B%90-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%ED%8C%A8*/
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);		
+		System.out.println("error============================" + error);
+		return "loginForm";
+	}
+	
 	
 	//로그인 프로세스는 스프링시큐리티에서 /login method = "post"로 제공된다.
 
@@ -79,18 +94,20 @@ public class HomeController {
 		/*long count = homes.stream().count(); //https://www.techiedelight.com/ko/count-number-of-items-list-java/
 		System.out.println(count);
 		
+		
 		for(int i =0; i <= count; ++i ) {
-		// 프로필 사진 있으면 반환
-		if(homes.get(i).getAttfid()!=null) {
-			Optional<Attach> profile = attachService.findById(homes.get(i).getAttfid());
-			profile.ifPresent(p -> model.addAttribute("attach", p));
-			}
+		// 프로필 사진 반환
+		List<Attach> profile = attachService.findforHomes();
+		System.out.println("야!!!!!!!!!!!!"+profile);
+		model.addAttribute("attach", profile);
 		}*/
 		
 		
 		
 		return "homes/Homes";
 	}
+	
+	
 	
 
 	//selectHome
@@ -146,16 +163,16 @@ public class HomeController {
 	/*myHome페이지(update)수정 눌렀을때*/
 	@PostMapping("/homes/{homeId}/update")
 	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {
-		Home home = new Home();
+		/*Home home = new Home();
 		home.setHomeid(form.getHomeid());
 		home.setHomename(form.getHomename());
 		home.setHomeinst(form.getHomeinst());
 		home.setHomethema(form.getHomethema());
 		home.setHomeuse(form.getHomeuse());
 		home.setUserid(form.getUserid());
-		home.setAttfid(form.getAttfid());
+		home.setAttfid(form.getAttfid());*/
 		
-		homeService.updateHome(home);
+		homeService.updateHome(form);
 		
 		
 		/*return "redirect:/homes/{homeId}/update";*/

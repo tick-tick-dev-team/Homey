@@ -19,9 +19,10 @@ layout:decorate="~{layout/default_layout}">
 <div class = "container">
 		<h3>Homey의 회원가입 화면입니다!<br></h3>
 		<h4>Homey는 필수적인 정보만으로 회원을 관리합니다.</h4>
+		<h4>닉네임에는 공백이 들어갈 수 없습니다.</h4>
 		
 		
-		<form th:action="@{/users/new}" method="post" onsubmit="gowith()">
+		<form th:action="@{/users/new}" method="post" onsubmit="return gowith();">
 			<label>닉네임</label>:
 			<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='15'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
@@ -30,12 +31,11 @@ layout:decorate="~{layout/default_layout}">
 			<input type="password" name="userpass" id="pw" onchange="javascript:check_pw();" required><br>
 			<label>비밀번호확인</label>:
 			<input type="password" name="userpass2" id="pw2" onchange="javascript:check_pw();" required><br>
-			<span id="check"></span><br>
+			<span id="check_pw"></span><br>
 			<label>생년월일</label>:
 			<input type="date" name="userbirth">
 			<br>
-			<span id="hey"></span><br>
-			<button type="submit" id='target_btn' disable>가입하기</button>
+			<button type="submit" id='target_btn'>가입하기</button>
 		</form>
 	</div>
 	
