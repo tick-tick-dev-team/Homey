@@ -15,28 +15,17 @@
 	<th:block layout:fragment="css">
 		<link rel="stylesheet" th:href="@{/css/myPage.css}">
 	</th:block>
-    <style>
-      .left {
-        border: 1px solid #cacaca;
-        flex: 1;
-        margin: 5px 5px;
-        width: 45%;
-        box-sizing: border-box;
-        float: left;
-      }
-      .right {
-        border: 1px solid #cacaca;
-        flex: 1;
-        margin: 5px 5px 5px 0px;
-        width: 45%;
-        box-sizing: border-box;
-        float: right;
-      }
-    </style>
 
     <!-- 고유 스크립트 추가 -->
-    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="script">
+		<script type="text/javascript" th:src="@{/js/tab.js}"></script>		
+	</th:block>
     <script>
+		window.onload=function(){
+			const select_homeuse = document.querySelector('#homeuse');
+			console.log("value_homeuse = ", select_homeuse.value);	
+		}		
+
       async function whohome(user_id) {
         const data = new data();
         data.append("user_id");
@@ -56,63 +45,76 @@
   </head>
   <body layout:fragment="content">
     <div class="container">
-		<!-- Tab links -->
-		<div class="tab flex-between">
-			<button class="tablinks" onclick="openCity(event, 'userList')">회원목록</button>
-			<button class="tablinks" onclick="openCity(event, 'myPageUpdatePw')">홈 목록</button>
-		</div>
+		<section>
+			<div class="section-header">
+				<h1 class="section-title">회원 관리</h1>
+			</div>
 
-		<!-- Tab content -->
-		<div id="userList" class="tabcontent" style="display: block;">
-			<ul>
-				<li>
-					<label for="user_id">ID</label>
-					<label for="usernick">닉네임</label>
-					<label for="userbirth" >생년월일</label>
-					<label for="userjoin" >회원가입일</label>
-					<label for="userpower" >권한</label>
-				</li>
-				<!-- 추후 userpower는 fetch로 수정 -->
-				<li th:each="user:${users}">
-					<span id="user_id" th:text="${user.user_id}">1</span>
-					<span id="usernick" th:text="${user.user_id}">mango</span>
-					<span id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
-					<span id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>
-					<select name="userpower" id="userpower">
-						<option th:each="role : ${T(com.ticktack.homey.auth.Role).values()}" 
-						th:value="${role.name()}"
-						th:text="${role.getLabel()}">사용자</option>
-					</select>
-					<!-- <span id="userpower" th:text="${user.userpower}"></span>  -->
-					
-				</li>
-			</ul>
+			<!-- Tab links -->
+			<div class="tab flex-between">
+				<button class="tablinks active" onclick="openTab(event, 'userList')">회원 목록</button>
+				<button class="tablinks" onclick="openTab(event, 'homeList')">홈 목록</button>
+			</div>
 
-			
-			
-			<form id="myPageUpdateFrm" name="myPageUpdateFrm" method="post" action="/users/myPage">
-				<!-- <input type="hidden" id="user_id" name="user_id" th:value="${users.user_id}">
-				<input type="hidden" id="usernick" name="usernick" th:value="${users.usernick}">
-
+			<!-- Tab content -->
+			<div id="userList" class="tabcontent" style="display: block;">
 				<ul>
-					<li>
-						<label for="nickChage">닉네임</label>
-						<input type="text" id="nickChage" name="nickChage" th:value="${users.usernick}" >
-						<button id="nickCheckBtn" type="button" onclick="javascript:check_id();">중복검사</button>
-						<span id="nickCheck" style="display:none;">✔</span>
+					<li class="flex-between">
+						<label class="list-col list-col-1" for="user_id">ID</label>
+						<label class="list-col list-col-2" for="usernick">닉네임</label>
+						<label class="list-col list-col-2" for="userbirth" >생년월일</label>
+						<label class="list-col list-col-2" for="userjoin" >회원가입일</label>
+						<label class="list-col list-col-2" for="userpower" >권한</label>
 					</li>
-					<li>
-						<label for="userbirth" >생일</label>
-						<input type="date" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}">
-					</li>
-					<li>
-						<label for="userjoin" >회원가입일</label>
-						<input type="text" id="userjoin" name="userJoin" th:value="${users.userjoin}" readonly="readonly">
-					</li>
+					<!-- 추후 userpower는 fetch로 수정 -->
+					<li class="flex-between" th:each="user:${users}">
+						<span class="list-col list-col-1" id="user_id" th:text="${user.user_id}">1</span>
+						<span class="list-col list-col-2" id="usernick" th:text="${user.user_id}">mango</span>
+						<span class="list-col list-col-2" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
+						<span class="list-col list-col-2" id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>
+						<span class="list-col list-col-2">
+							<select name="userpower" id="userpower" style="width: 100%;" th:value="${user.userpower}">
+								<option th:each="role : ${T(com.ticktack.homey.auth.Role).values()}" 
+								th:value="${role.name()}"
+								th:text="${role.getLabel()}">사용자</option>
+							</select>
+						</span>					
+					</li>									
 				</ul>
-				<button class="btn-submit" onclick="javascript:sumitBtn()">수정</button> -->
-			</form>
-		</div>
+			</div>
+
+			<!-- Tab content -->
+			<div id="homeList" class="tabcontent">
+				<ul>
+					<li class="flex-between">
+						<label class="list-col list-col-3" for="homename">홈 이름</label>
+						<label class="list-col list-col-4" for="homeinst">홈 설명</label>
+						<label class="list-col list-col-2" for="homeuse" >활성화여부</label>
+					</li>
+					<!-- 추후 userpower는 fetch로 수정 -->
+					<li class="flex-between" th:each="home:${homes}">
+						<span class="list-col list-col-3" id="homename">
+							<a class="hypertext" th:href="|/home/${home.homeid}|" th:text="${home.homename}">MANGO의 집</a>
+						</span>
+						<span class="list-col list-col-4" id="homeinst" th:text="${home.homeinst}">요즘 사이버펑크가 좋다</span>
+						<span class="list-col list-col-2">
+							<select id="homeuse" name="homeuse" style="width: 100%;">
+								<option th:each="homeuse : ${T(com.ticktack.homey.domain.HomeUse).values()}" 
+								th:value="${homeuse}"
+								th:text="${homeuse.getLabel()}">공개</option>
+							</select>
+						</span>					
+					</li>									
+				</ul>
+			</div>			
+			<button id="btn-save-userpower" type="button" class="btn-submit btn-border bg-green">수정</button>
+
+			
+		</section>
+
+
+
+
 
       <!-- <div class="right" style="overflow-y: scroll; height: 400px">
         <h2>--집목록--</h2>

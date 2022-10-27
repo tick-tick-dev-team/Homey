@@ -102,10 +102,12 @@ public class UserController {
 		User writer = userService.findBynick(principal);
 		model.addAttribute("writer", writer);
 		
-		model.addAttribute("homes", homes);		
+		model.addAttribute("homes", homes);	
+		
+		System.out.println("======homes======" + homes.toString());
 		
 		// return "users/userList2";
-		return "users/userList";
+		return "users/userList2";
 	}
 	
 	@GetMapping("/users/{userId}")

@@ -74,11 +74,11 @@ section#profile {
     background-color: #e4e8eb;
     vertical-align: -0.1em;
 }
-#postList .list-wrap li .content-wrap .info .hypertext {
+a.hypertext {
     color: blue;
     
 }
-#postList .list-wrap li .content-wrap .info .hypertext:hover {
+a.hypertext:hover {
     text-decoration: underline;
 }
 

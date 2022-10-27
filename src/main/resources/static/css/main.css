@@ -55,11 +55,9 @@
     position: relative;
     width: 100%;
     height: 14em;
-    /* transform: translateY(-100%); */
     border-top: 1px solid #ededed;
     background-color: #fff;
     padding: 2em 0;
-    /* z-index: 999; */
 }
 
 #main-footer .developers h3 {
@@ -140,4 +138,115 @@ section .section-title {
 
 i.btn-delete {
     cursor: pointer;
+}
+
+
+/* 탭 */
+/* Style the tab */
+.tab {
+	overflow: hidden;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	background-color: inherit;
+	width: 50%;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: background-color 0.3s;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    color: #000;
+}
+.tab button:last-child {
+    border-left: none;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    opacity: 0.8;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    border-bottom: none;
+	background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    border-bottom: none;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 2rem;
+	border: 1px solid #ccc;
+	border-top: none;
+	position: relative;
+	overflow: hidden;
+}
+.tabcontent ul li {
+	margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tabcontent ul li label {
+	width: 15%;
+	font-size: 1.2rem;
+}
+.tabcontent ul li input{
+	font-size: 1.2rem;
+}
+.tabcontent ul li input {
+	margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+
+/* 중복체크 버튼 */
+.tabcontent button#nickCheckBtn {
+	font-size: 1.2rem;
+	padding: 0.5rem 1rem;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+.tabcontent button.btn-submit {
+	float: right;
+	font-size: 1.5rem;
+	color: #fff;
+	padding: 0.5rem 2rem;
+	border: 1px solid #ccc;
+}
+
+.tabcontent ul li .list-col {
+    font-size: 1.2rem;
+}
+.tabcontent ul li .list-col-1 {
+    width: 10%;
+}
+.tabcontent ul li .list-col-2 {
+    width: 20%;
+}
+.tabcontent ul li .list-col-3 {
+    width: 30%;
+}
+.tabcontent ul li .list-col-4 {
+    width: 40%;
 }
