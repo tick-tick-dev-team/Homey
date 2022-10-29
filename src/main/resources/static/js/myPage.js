@@ -10,7 +10,7 @@ window.onload=function(){
 
     upload.addEventListener('click', () => realUpload.click());
     realUpload.addEventListener('change', getProfileImg);
-    uChange.addEventListener('change', nickChange );
+    uChange.addEventListener('keyup', nickChange );
     
 }
 

@@ -34,6 +34,7 @@ import com.ticktack.homey.service.UserService;
 
 @Controller
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -209,11 +210,10 @@ public class UserController {
 		}
 		System.out.println(attach.toString());	
 		return attach;
-
 	}
 */	
 	/**
-	 * 새로운 새션 생성
+	 * 새로운 세션 생성
 	 * */
 	protected Authentication createNewAuthentication(Authentication currentAuth, String userNick) {
 	    UserDetails newPrincipal = principalDetailsService.loadUserByUsername(userNick);
