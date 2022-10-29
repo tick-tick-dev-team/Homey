@@ -20,6 +20,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/myPage.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/tab.js}"></script>
 </th:block>
 <meta charset="UTF-8">
 <title>마이페이지</title>
@@ -48,8 +49,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 
 				<!-- Tab links -->
 				<div class="tab flex-between">
-					<button class="tablinks" onclick="openCity(event, 'myPageUpdateInfo')">내 정보 수정</button>
-					<button class="tablinks" onclick="openCity(event, 'myPageUpdatePw')">비밀번호 변경</button>
+					<button class="tablinks active" onclick="openTab(event, 'myPageUpdateInfo')">내 정보 수정</button>
+					<button class="tablinks" onclick="openTab(event, 'myPageUpdatePw')">비밀번호 변경</button>
 				</div>
 
 				<!-- Tab content -->
@@ -98,7 +99,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 								<span id="check"></span>
 							</li>
 						</ul>
-						<button type="submit" name="submit" class="btn-submit">수정</button>
+						<button type="submit" name="submit" class="btn-submit bg-green">수정</button>
 					</form>
 				</div>
 			</div>

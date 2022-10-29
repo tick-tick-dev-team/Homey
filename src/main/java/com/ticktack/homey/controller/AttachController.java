@@ -204,17 +204,17 @@ public class AttachController {
 	@ResponseBody
 	@PostMapping("/homes/{homeId}/profile")
 	public Attach createHomeTmp (@PathVariable Long homeId, MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		System.out.println("attachController : createTmp2");
+		System.out.println("attachController : createHomeTmp");
 		
 		// 임시 파일 저장
 		if(Optional.ofNullable(file).isPresent()) {
 			
-			profileCheck(homeId); 
+			profileHomeCheck(homeId); 
 			Attach attach = fileStore.storeFile(file);
 			
 			// attach db에 저장
 			attachService.createAttach(attach);
-			// user의 프로필로 저장
+			// home의 프로필로 저장
 			Optional<Home> home = homeService.findById(homeId);
 			home.ifPresent(h -> {
 				h.setAttfid(attach.getATTF_ID());
@@ -244,5 +244,49 @@ public class AttachController {
 		}
 
 	}
+	
+	
+	
+	public void profileHomeCheck(Long homeId) {
+		System.out.println("----------------attachController : profileCheck");
+		Long deleteAttfId;
 
+		Optional<Home> home = homeService.findById(homeId);
+		if(home.get().getAttfid()!= null) {
+			deleteAttfId = home.get().getAttfid();
+			home.get().setAttfid(null);
+			Optional<Home> test = Optional.ofNullable(homeService.updateHome(home.get()));
+			if(test.get().getAttfid() == null) {
+				Optional<Attach> deleteAttach = attachService.findById(deleteAttfId);
+				if(deleteAttach.isPresent()) {
+					attachService.deleteAttach(deleteAttach.get().getATTF_ID());
+					try {
+						fileStore.deleteStoreFile(deleteAttach);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					System.out.println("--> [Error] deleteAttach.isPresent() : 기존파일이 존재하지 않습니다.");
+				} 
+			} else {
+				System.out.println("--> [Error] test.get().getAttfid() == null : user의 기존 파일 null 처리가 정상적으로 처리되지 않았습니다.");
+			}		
+		}
+	}
+	
+	
+	// home.attfid 있으면 main 이미지 불러오기(22.10.29 사장 추가)
+	// 첨부 이미지 조회
+	@ResponseBody
+	@GetMapping("/images/main/{attfid}")
+	public Resource findMainImage(@PathVariable Long attfid) throws MalformedURLException {
+
+		Optional<Attach> profile = attachService.findById(attfid);
+		String filename = profile.get().getATTF_SERNM();
+
+		return new UrlResource("file:" + fileStore.getFullPath(filename));
+		
+	}
+	
+	
 }

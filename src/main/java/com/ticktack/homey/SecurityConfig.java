@@ -8,12 +8,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled=true)
 public class SecurityConfig {
 	
+	/*로그인 실패 핸들러 의존성 주입
+	private AuthenticationFailureHandler AuthFail;*/
+
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
       return new BCryptPasswordEncoder();
@@ -31,6 +37,8 @@ public class SecurityConfig {
 			.loginPage("/loginForm")
 			.loginProcessingUrl("/login")
 			.defaultSuccessUrl("/homes")
+			//.failureUrl("/loginForm?error=true")
+			.failureHandler(AuthFail())
 			.usernameParameter("usernick") //아이디 파라미터명
 			.passwordParameter("userpass")
 			.and()
@@ -41,4 +49,10 @@ public class SecurityConfig {
 			;
 		return http.build();
 	}
+	
+	//https://velog.io/@jyleedev/%ED%9A%8C%EC%9B%90-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%ED%8C%A8
+	@Bean
+    public AuthenticationFailureHandler AuthFail(){
+        return new AuthFail();
+    }
 }

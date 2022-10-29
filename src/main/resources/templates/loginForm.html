@@ -22,5 +22,8 @@ layout:decorate="~{layout/default_layout}">
 		<label>비밀번호 :</label><input type="password" name="userpass"> <br>
 		<button>로그인</button>
 	</form>
+	<div th:if="error">
+		<p id="valid" style="color: red; font-size:12px;"><a th:text="${exception}"></a></p>
+	</div>
 </body>
 </html>
