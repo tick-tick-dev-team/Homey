@@ -107,14 +107,14 @@ layout:decorate="~{layout/default_layout}">
 											<img th:if="${comment.ATTF_OBJ != null}" th:src="|/images/${comment.ATTF_OBJ.ATTF_SERNM}|" alt="">
 											<img th:unless="${comment.ATTF_OBJ != null}" src="/img/user_icon.png">
 										</span>
-										<span th:text="|작성자id = ${comment.userNick}|">mk45118</span>
-										<span th:text="|작성일자 =  ${comment.commDate}|">작성일자</span>
+										<span th:text="| ${comment.userNick}|">작성자</span>
+										<span th:text="${#dates.format(comment.commUdate, 'yyyy-MM-dd HH:mm')}">작성일자</span>
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->
 									<div class="btn-wrap flex-end">
 										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
 										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
-										<a th:if="${comment.commUpid == comment.commId}" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
+										<a id="replyBtn" th:if="${comment.commUpid == comment.commId}" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
 									</div>
 								</div>
 								<p class="content" th:text="|${comment.commCont}|">댓글 내용</p>

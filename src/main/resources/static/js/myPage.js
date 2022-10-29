@@ -7,11 +7,12 @@ window.onload=function(){
     const upload = document.querySelector('.upload');
     const userpass = document.getElementById('userpass');
     const uChange = document.getElementById('nickChage');
+	const eyeIcon = document.getElementById('eyeIcon');
 
     upload.addEventListener('click', () => realUpload.click());
     realUpload.addEventListener('change', getProfileImg);
     uChange.addEventListener('keyup', nickChange );
-    
+    eyeIcon.addEventListener('click', passwordShowHide);
 }
 
 function nickChange(){
@@ -200,10 +201,13 @@ function sumitBtn(){
 	const frm = document.getElementById('myPageUpdateFrm');
 
 	const usernick = document.getElementById('usernick').value;
-	const nickChage = document.getElementById('nickChage').value;
+	const nickChage = document.getElementById('nickChage').value.split(' ').join('');
+	document.getElementById('nickChage').value = nickChage;
 	
-	if(nickChage == "" || nickChage == " "){
-			alert("변경할 닉네임을 입력하세요!");
+	console.log(nickChage);
+	
+	if(nickChage == ""){
+		alert("변경할 닉네임을 입력하세요!");
 		return false;	
 	}
 	if(usernick == nickChage){
@@ -222,21 +226,23 @@ function sumitBtn(){
 
 async function check_id(){
 
-		const userN = document.getElementById('nickChage');
+		const userN = document.getElementById('nickChage').value.split(' ').join('');
 		const btn = document.getElementById('nickCheckBtn');
-		const u = document.getElementById('usernick');
+		const u = document.getElementById('usernick').value;
 		
-		if(userN.value == "" || userN.value == " "){
+		console.log(userN);
+		if(userN == ""){
 			alert("변경할 닉네임을 입력하세요!");
 			return;	
 		}
-		if( userN.value == u.value ){
+		if( userN == u){
 			document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
 			document.getElementById('nickCheckBtn').style.color= "#fff";
 			return;
 		} else {
+			
 			const formData = new FormData();
-			formData.append('usernick', userN.value);
+			formData.append('usernick', userN);
 			formData.get('usernick');
 			 
 			fetch('/checkNick',{
@@ -250,7 +256,7 @@ async function check_id(){
 					if(result == "false"){
 						document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
 						document.getElementById('nickCheckBtn').style.color= "#fff";
-						
+						alert("사용 가능한 별명입니다.");
 					} else {
 						document.getElementById('nickCheckBtn').style.backgroundColor= "#fff;";
 						document.getElementById('nickCheckBtn').style.color= "#000";
@@ -300,4 +306,19 @@ function pwValication(frm){
 		return false;
 	}
 	return true;
+}
+
+function passwordShowHide(){
+	const updatePw = document.getElementById('updatePw');
+	const updatePwConfirm = document.getElementById('updatePwConfirm');
+	
+	var inputType = updatePw.getAttribute("type");
+	if(inputType == "password"){
+		updatePw.setAttribute("type", "text");
+		updatePwConfirm.setAttribute("type", "text");
+	} else {
+		updatePw.setAttribute("type", "password");
+		updatePwConfirm.setAttribute("type", "password");
+	}
+	
 }

@@ -64,18 +64,21 @@ function CommentAdd(e){
 	} else {
 		imgSrc = '/img/user_icon.png';
 	}
+	resultDate = result.commUdate.split("T")[0];
+	resultTime = convertFromStringToTime(result.commUdate);
+	console.log(resultTime);
 	li.innerHTML = '<div class="flex-between">'
 	              + 	'<div class="info flex-start">'
 				  +			'<span id="commImg">'
 				  +				'<img src="'+ imgSrc +'" alt="">'
 				  +			'</span>'
-	              + 		'<span>작성자id = '+ result.userNick +'</span>&nbsp;'
-	              + 		'<span>작성일자 = '+ result.commDate +'</span>'
+	              + 		'<span>'+ result.userNick +'</span>&nbsp;'
+	              + 		'<span>'+ resultDate +' ' + resultTime +'</span>'
 	              + 	'</div>'
 	              + 	'<div class="btn-wrap flex-end">'
-	              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
-	              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
-	              +			'<a class="btn-border" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>'
+	              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+	              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+	              +			'<a id="replyBtn" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>'
 	              + '	</div>'
 	           	  + '</div>'
 	              + '<p class="content">'+ result.commCont +'</p>';
@@ -87,8 +90,18 @@ function CommentAdd(e){
 
 /* 댓글 삭제 버튼 */
 function CommentDelete(e){
+	var li = e.closest("li");
+	console.log(li);
 	
-	if(confirm("답글까지 모두 삭제됩니다. 삭제하시겠습니까?")){
+	const commupid = li.getAttribute('commupid');
+	const commid = li.getAttribute('commid');
+	if( commid == commupid ){
+		result = confirm("답글까지 모두 삭제됩니다. 삭제하시겠습니까?");
+	}else {
+		result = true;
+	}
+	
+	if(result){
 		var li = e.closest("li");
 		var commId = li.getAttribute( 'commId' );
 		var data = {
@@ -97,7 +110,8 @@ function CommentDelete(e){
 
 		var result = JSON.parse(AjaxFn('POST', '/commentDelete' , data));
 		console.log(result);
-	
+		
+		// 대댓글 삭제
 		if(result) {
 			var list = document.querySelectorAll('li');
 			 for (let i=0; i< list.length; i++){
@@ -123,9 +137,10 @@ function CommUpdateForm(e){
 	
 	
 	var div = document.createElement("div");
+	div.setAttribute('class',"input-wrap");
 	div.innerHTML = '<input autocomplete="off" type="text" id="commCont" name="commCont" value="'+content+'">'
-					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
-					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a>';
+					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
+					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a>';
 	li.appendChild(div);
 	
 	p.setAttribute('style',"display:none;");
@@ -152,7 +167,9 @@ function CommUpdate(e){
 	
 	var result = JSON.parse(AjaxFn('POST', '/commentUpdate' , data));
 	if (result != null){
-		li.querySelectorAll('span')[1].textContent = "작성일자 = "+result.commUdate;
+		resultDate = result.commUdate.split("T")[0];
+		resultTime = convertFromStringToTime(result.commUdate);
+		li.querySelectorAll('span')[2].textContent = resultDate + " " + resultTime;
 		p.textContent = result.commCont;
 		p.setAttribute('style',"display:block;");
 		li.querySelectorAll('a')[0].setAttribute('style',"display:inline;");
@@ -201,10 +218,14 @@ function CommentReplyAdd(e){
 	console.log(nexSibling);
 	console.log(preElement);
  	var addli = document.createElement("li");
- 	addli.innerHTML = '<input autocomplete="off" type="text" id="replyCommCont" name="commCont">'
+	addli.classList.add("replyContent");
+	var div = document.createElement("div");
+	div.classList.add("input-wrap");
+ 	div.innerHTML = '<input autocomplete="off" type="text" id="replyCommCont" name="commCont">'
  					+ '<input type="hidden" id="commUpid" name="commUpid" value="'+ commId +'">'
-					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="replyAdd(this)" th:text="등록">등록</a>'
-					+ '&nbsp;<a class="btn-border" href="javascript:;" onclick="replyCancel(this)" th:text="취소">취소</a>';
+					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyAdd(this)" th:text="등록">등록</a>'
+					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyCancel(this)" th:text="취소">취소</a>';
+	addli.appendChild(div);				
  	preElement.after(addli);
  	e.setAttribute('style',"display:none;");
 }
@@ -233,17 +254,19 @@ function replyAdd(e){
 		} else {
 			imgSrc = '/img/user_icon.png';
 		}
+		resultDate = result.commUdate.split("T")[0];
+		resultTime = convertFromStringToTime(result.commUdate);
 		li.innerHTML = '<div class="flex-between">'
 		              + 	'<div class="info flex-start">'
 					  +			'<span id="commImg">'
 				  	  +				'<img src="'+ imgSrc +'" alt="">'
 				  	  +			'</span>'
-		              + 		'<span>작성자id = '+ result.userNick +'</span>&nbsp;'
-		              + 		'<span>작성일자 = '+ result.commDate +'</span>'
+		              + 		'<span>'+ result.userNick +'</span>&nbsp;'
+		              + 		'<span>'+ resultDate +' ' + resultTime +'</span>'
 		              + 	'</div>'
 		              + 	'<div class="btn-wrap flex-end">'
-		              + 		'<a class="btn-border" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
-		              + 		'<a class="btn-border" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+		              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+		              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
 		              + '	</div>'
 		           	  + '</div>'
 		              + '<p class="content">'+ result.commCont +'</p>';
@@ -262,12 +285,24 @@ function replyAdd(e){
 function replyCancel(e){
 	const li = e.closest("li");
 	const commUpid = e.previousElementSibling.previousElementSibling.value;
-	
+	console.log(li);
 	var list = document.querySelectorAll('li');
 	for (let i=0; i< list.length; i++){
 		if(list[i].getAttribute('commid') == commUpid){
-			list[i].querySelectorAll('a')[2].setAttribute('style',"display:inline;");
+			list[i].querySelector('#replyBtn').setAttribute('style',"display:inline;");
 		}
 	}
 	li.remove();
 }
+
+/* 문자 -> 날짜 객체로 변환 */
+function convertFromStringToTime(responseDate) {
+    var today = new Date(responseDate);   
+	var hours = ('0' + today.getHours()).slice(-2); 
+	var minutes = ('0' + today.getMinutes()).slice(-2);
+	var seconds = ('0' + today.getSeconds()).slice(-2); 
+	var timeString = hours + ':' + minutes ;
+	
+	return timeString
+}
+

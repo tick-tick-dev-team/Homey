@@ -75,7 +75,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 								<input type="text" id="userjoin" name="userJoin" th:value="${#dates.format(users.userjoin, 'yyyy-MM-dd mm:ss')}" readonly="readonly">
 							</li>
 						</ul>
-						<button type="submit" name="submit" class="btn-submit" >수정</button>
+						<button type="submit" name="submit" class="btn-submit bg-green" >수정</button>
 					</form>
 				</div>
 				
@@ -92,6 +92,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							<li>
 								<label for="updatePw">변경 비밀번호</label>
 								<input type="password" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요." onchange="javascript:check_pw();" required>
+								<div id="eyeIcon"><img alt="프로필_img" src="/img/eye_Icon.png"></div>
 							</li>
 							<li>
 								<label for=""></label>
