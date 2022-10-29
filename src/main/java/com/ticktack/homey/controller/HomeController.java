@@ -19,6 +19,7 @@ import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.PostForm;
+import com.ticktack.homey.domain.UHList;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
@@ -86,24 +87,10 @@ public class HomeController {
 			model.addAttribute("writer", null);
 		}
 		
-		// 로그인한 사용자
-//		User writer = userService.findBynick(principal);
-//		model.addAttribute("writer", writer);
 		
-		//homeattach 출력 시도 실패
-		/*long count = homes.stream().count(); //https://www.techiedelight.com/ko/count-number-of-items-list-java/
-		System.out.println(count);
-		
-		
-		for(int i =0; i <= count; ++i ) {
-		// 프로필 사진 반환
-		List<Attach> profile = attachService.findforHomes();
-		System.out.println("야!!!!!!!!!!!!"+profile);
-		model.addAttribute("attach", profile);
-		}*/
-		
-		
-		
+		/*List<UHList> main = homeService.findMain();
+		model.addAttribute("main", main);*/
+			
 		return "homes/Homes";
 	}
 	

@@ -273,5 +273,20 @@ public class AttachController {
 			}		
 		}
 	}
+	
+	
+	// home.attfid 있으면 main 이미지 불러오기(22.10.29 사장 추가)
+	// 첨부 이미지 조회
+	@ResponseBody
+	@GetMapping("/images/main/{attfid}")
+	public Resource findMainImage(@PathVariable Long attfid) throws MalformedURLException {
 
+		Optional<Attach> profile = attachService.findById(attfid);
+		String filename = profile.get().getATTF_SERNM();
+
+		return new UrlResource("file:" + fileStore.getFullPath(filename));
+		
+	}
+	
+	
 }
