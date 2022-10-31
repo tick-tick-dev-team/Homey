@@ -25,8 +25,8 @@ public class UHList {
 	
 	// 첨부파일 ID
 	Long ATTF_ID;
-	// 첨부파일 객체
-	MultipartFile ATTF_OBJ;
+	// 첨부파일 정보 객체
+	private Attach ATTF_OBJ;
 	// 첨부파일 삭제 여부
 	boolean deleteAttach = false;
 	
@@ -115,10 +115,7 @@ public class UHList {
 	public void setATTF_ID(Long aTTF_ID) {
 		ATTF_ID = aTTF_ID;
 	}
-	public MultipartFile getATTF_OBJ() {
-		return ATTF_OBJ;
-	}
-	public void setATTF_OBJ(MultipartFile aTTF_OBJ) {
+	public void setATTF_OBJ(Attach aTTF_OBJ) {
 		ATTF_OBJ = aTTF_OBJ;
 	}
 	public boolean isDeleteAttach() {
@@ -155,4 +152,5 @@ public class UHList {
 		
 		return home;
 	}
+	
 }
