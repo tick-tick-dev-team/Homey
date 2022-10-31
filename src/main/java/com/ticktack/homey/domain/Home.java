@@ -88,4 +88,17 @@ public class Home {
 	}
 	
 	
+	//homes.html(main)을 위해
+	public UHList getFromHome() {
+		UHList mlist = new UHList();
+		
+		mlist.setH_ID(this.getHomeid());
+		mlist.setH_NAME(this.getHomename());
+		mlist.setATTF_ID(this.getAttfid());
+
+		
+		return mlist;
+	}
+	
+	
 }

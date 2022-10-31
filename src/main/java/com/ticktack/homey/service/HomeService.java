@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ticktack.homey.domain.Home;
+import com.ticktack.homey.domain.UHList;
 
 
 public interface HomeService {
@@ -18,4 +19,5 @@ public interface HomeService {
 	
 	//user_id로 home 조회 - 10.15 popdo 추가
 	public Optional<Home> findByUserId(Long userId);
+	
 }

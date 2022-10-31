@@ -2,14 +2,18 @@ package com.ticktack.homey.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.ticktack.homey.domain.Home;
+import com.ticktack.homey.domain.UHList;
 import com.ticktack.homey.domain.User;
+import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.home.HomeRepository;
 
 public class HomeServiceImpl implements HomeService{
 	
 	private final HomeRepository homeRepository;
+	private AttachRepository attachRepository;
 	
 	public HomeServiceImpl(HomeRepository homeRepository) {
 		this.homeRepository = homeRepository;
@@ -46,4 +50,26 @@ public class HomeServiceImpl implements HomeService{
 	public Optional<Home> findByUserId(Long userId) {
 		return homeRepository.findByUserId(userId);
 	}
+
+	//main을 위한 메소드
+/*	@Override
+	public List<UHList> findMain() {
+		//집 전체 조회 + 첨부파일
+		List<Home> homes = homeRepository.findHomes();
+		
+		List<UHList> main = homes.stream().map(home -> home.getFromHome()).collect(Collectors.toList());
+		
+		main.forEach(form -> {
+			//첨부파일 정보 가져오기
+			Optional<Long> attfId = Optional.ofNullable(form.getATTF_ID());
+			attfId.ifPresent(id -> {
+				attachRepository.findById(id).ifPresent(att -> {
+					form.setATTF_OBJ(att);
+				});
+			});
+		}
+		);
+		
+		return main;
+	}*/
 }
