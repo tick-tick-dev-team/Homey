@@ -164,7 +164,7 @@ a.hypertext:hover {
     padding: 1em;
 }
 #postList .list-wrap li .comments .input-wrap input {
-    width: 90%;
+    width: calc(100% - 6rem);
     padding: 0.5em;
 }
 #postList .list-wrap li .comments .input-wrap button{

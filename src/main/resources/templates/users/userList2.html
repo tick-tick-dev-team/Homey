@@ -69,15 +69,15 @@
 					<!-- 추후 userpower는 fetch로 수정 -->
 					<li class="flex-between" th:each="user:${users}">
 						<span class="list-col list-col-1" id="user_id" th:text="${user.user_id}">1</span>
-						<span class="list-col list-col-2" id="usernick" th:text="${user.user_id}">mango</span>
+						<span class="list-col list-col-2" id="usernick" th:text="${user.usernick}">mango</span>
 						<span class="list-col list-col-2" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
 						<span class="list-col list-col-2" id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>
-						<span class="list-col list-col-2">
-							<select name="userpower" id="userpower" style="width: 100%;" th:value="${user.userpower}">
+						<span class="list-col list-col-2" id="userpower" name="userpower" th:text="${user.userpower}">
+							<!-- <select name="userpower" id="userpower" style="width: 100%;" th:value="${user.userpower}">
 								<option th:each="role : ${T(com.ticktack.homey.auth.Role).values()}" 
 								th:value="${role.name()}"
 								th:text="${role.getLabel()}">사용자</option>
-							</select>
+							</select> -->
 						</span>					
 					</li>									
 				</ul>
@@ -97,12 +97,12 @@
 							<a class="hypertext" th:href="|/home/${home.homeid}|" th:text="${home.homename}">MANGO의 집</a>
 						</span>
 						<span class="list-col list-col-4" id="homeinst" th:text="${home.homeinst}">요즘 사이버펑크가 좋다</span>
-						<span class="list-col list-col-2">
-							<select id="homeuse" name="homeuse" style="width: 100%;">
+						<span class="list-col list-col-2" id="homeuse" name="homeuse" th:text="${home.homeuse}">
+							<!-- <select id="homeuse" name="homeuse" style="width: 100%;">
 								<option th:each="homeuse : ${T(com.ticktack.homey.domain.HomeUse).values()}" 
 								th:value="${homeuse}"
 								th:text="${homeuse.getLabel()}">공개</option>
-							</select>
+							</select> -->
 						</span>					
 					</li>									
 				</ul>
