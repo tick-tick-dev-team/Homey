@@ -30,16 +30,18 @@ layout:decorate="~{layout/default_layout}">
 <body id="selectHome" layout:fragment="content">
 	<div class="container">
 		<!-- 집주인 프로필 등 -->
-		<section id="profile" class="flex-start">
-			<div class="img-wrap">
-				<img th:if="${attach!=null}" th:src="|/images/${attach.getATTF_SERNM()}|" alt="">
-				<img src="https://via.placeholder.com/100" alt="">
-			</div>
-			<div class="intro-wrap">
-				<h1 th:text="${home.homename}">OOO의 집</h1>
-				<p th:text="${home.homeinst}">OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다.</p>
-				<div th:if="${writer.user_id==home.userid}">
-					<a th:href="@{|/homes/${home.homeid}/update|}">마이홈수정</a>	
+		<section id="profile" class="flex-between">
+			<div class="flex-start" style="width: 100%;">
+				<div class="img-wrap">
+					<img th:if="${attach!=null}" th:src="|/images/${attach.getATTF_SERNM()}|" alt="">
+					<img src="https://via.placeholder.com/100" alt="">
+				</div>
+				<div class="intro-wrap">
+					<div class="flex-between">
+						<h1 th:text="${home.homename}">OOO의 집</h1>
+						<a th:if="${writer.user_id==home.userid}" class="btn-setting" th:href="@{|/homes/${home.homeid}/update|}"></a>				
+					</div>
+					<p th:text="${home.homeinst}">OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다.</p>
 				</div>
 			</div>
 		</section>
