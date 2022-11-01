@@ -23,11 +23,11 @@
     z-index: 999;
 }
 
-.container {
+/* .container {            media 쿼리로 변경함
     height: 100%;
     margin: 0 auto;
     width: 70em;
-}
+} */
 #main-header .logo {
     height: 100%;
 }
@@ -57,7 +57,8 @@
     height: 14em;
     border-top: 1px solid #ededed;
     background-color: #fff;
-    padding: 2em 0;
+    padding: 2em 0 0 2em;
+    
 }
 
 #main-footer .developers h3 {
@@ -250,3 +251,43 @@ i.btn-delete {
 .tabcontent ul li .list-col-4 {
     width: 40%;
 }
+
+
+@media all and (min-width:280px){
+	.container {
+	    height: 100%;
+	    margin: 0 auto;
+	    width: 100%;
+	}
+}
+
+
+@media all and (min-width:640px){
+	.container {
+	    height: 100%;
+	    margin: 0 auto;
+	    width: 100%;
+	}
+}
+
+@media all and (min-width:768px){
+		.container {
+	    height: 100%;
+	    margin: 0 auto;
+	    width: 100%;
+	}
+}
+
+
+@media all and (min-width:1024px){
+	.container {
+    height: 100%;
+    margin: 0 auto;
+    width: 70em;
+	}
+}
+	
+
+
+
+
