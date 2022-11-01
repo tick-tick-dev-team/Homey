@@ -15,12 +15,6 @@ layout:decorate="~{layout/default_layout}">
 </th:block>
 <meta charset="UTF-8">
 
-<script>
-function btn(){
-	alert("수정이 완료되었습니다!");
-}
-</script>
-
 <title>마이홈수정</title>
 </head>
 <body layout:fragment="content">
@@ -48,7 +42,7 @@ function btn(){
 					<ul>
 						<li>집이름 : <input type="text" name="homename" th:value="${home.homename}" readonly="readonly"></li>
 
-						<li>집설명 : <input type="text" name="homeinst" th:value="${home.homeinst}"></li>
+						<li>집설명 : <input type="text" name="homeinst" th:value="${home.homeinst}" maxlength='300'></li>
 
 						<li> 테마 : <input type="text" name="homethema" th:value="${home.homethema}"></li>
 						

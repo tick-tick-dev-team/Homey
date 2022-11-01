@@ -9,7 +9,18 @@ layout:decorate="~{layout/default_layout}">
 <th:block layout:fragment="css"></th:block>
 
 <!-- 고유 스크립트 추가 -->
-<th:block layout:fragment="script"></th:block>
+<th:block layout:fragment="script">
+
+<script>
+function retry(){
+	const userNick = document.getElementById('formnick').value;
+	//공백제거 코드
+	let userN = userNick.split(' ').join('');
+	document.getElementById('formnick').value = userN;
+}
+</script>
+
+</th:block>
 
 <title>Homey</title>
 
@@ -18,7 +29,7 @@ layout:decorate="~{layout/default_layout}">
 <h2>♣Homey와 함께 소통♣</h2><br>
 
 	<form th:action="@{/login}" method="post" >
-		<label>닉네임 :</label><input type="text" name="usernick"> <br>
+		<label>닉네임 :</label><input type="text" name="usernick" id="formnick" onchange="retry()" maxlength='16'> <br>
 		<label>비밀번호 :</label><input type="password" name="userpass"> <br>
 		<button>로그인</button>
 	</form>
