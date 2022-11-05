@@ -1,7 +1,7 @@
 /**
  * 
- * @param e
- * @returns
+ * 댓글, 대댓글
+ * 
  */
 
 
@@ -341,5 +341,5 @@ function byteCal(e){
 	var content = e.value; 
 	stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
 	var span = e.nextElementSibling.nextElementSibling;
-	span.innerHTML = stringByteLength + " /450 Byte";
+	span.innerHTML = "<b>"+stringByteLength + "</b> /450 Byte";
 }

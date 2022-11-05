@@ -14,7 +14,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @Entity
+@JsonIgnoreType
 @Table(name = "user")
 public class User {
 
