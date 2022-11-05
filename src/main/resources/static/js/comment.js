@@ -40,9 +40,17 @@ function imgFetch(userId, span){
 }
 */
 
+document.addEventListener('keyup', (e) => {
+	byteCal(e.target);
+});
+
 /* 댓글 등록 버튼 */
 function CommentAdd(e){
 	var commCont = e.previousElementSibling.value;
+	
+	if(!commContValidation(commCont)){
+		return false;
+	}
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );	
 	var data = {
 	    		commCont   : commCont,
@@ -138,7 +146,7 @@ function CommUpdateForm(e){
 	
 	var div = document.createElement("div");
 	div.setAttribute('class',"input-wrap");
-	div.innerHTML = '<input autocomplete="off" type="text" id="commCont" name="commCont" value="'+content+'">'
+	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="commCont" name="commCont" value="'+content+'">'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a>';
 	li.appendChild(div);
@@ -158,6 +166,10 @@ function CommUpdate(e){
 	var commId = li.getAttribute( 'commId' );
 	var postId = li.parentNode.parentNode.getAttribute( 'postid' );
 	var content = div.querySelector('[id=commCont]').value;
+	
+	if(!commContValidation(content)){
+		return false;
+	}
 	
     var data = {
     		commId : commId,
@@ -221,7 +233,7 @@ function CommentReplyAdd(e){
 	addli.classList.add("replyContent");
 	var div = document.createElement("div");
 	div.classList.add("input-wrap");
- 	div.innerHTML = '<input autocomplete="off" type="text" id="replyCommCont" name="commCont">'
+ 	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="replyCommCont" name="commCont">'
  					+ '<input type="hidden" id="commUpid" name="commUpid" value="'+ commId +'">'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyAdd(this)" th:text="등록">등록</a>'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyCancel(this)" th:text="취소">취소</a>';
@@ -236,6 +248,10 @@ function replyAdd(e){
 	const commUpid = e.previousElementSibling.value;
 	const commCont = e.previousElementSibling.previousElementSibling.value;
 	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
+	
+	if(!commContValidation(commCont)){
+		return false;
+	}
 	
     var data = {
     		commCont   : commCont,
@@ -306,3 +322,24 @@ function convertFromStringToTime(responseDate) {
 	return timeString
 }
 
+function commContValidation(content){
+	
+	stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+	console.log(stringByteLength + " Bytes");
+	
+	lenMaxSize = 450;
+	
+	if(stringByteLength > 450){
+		alert("최대 글자 수는 150자 미만입니다.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function byteCal(e){
+	var content = e.value; 
+	stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+	var span = e.nextElementSibling.nextElementSibling;
+	span.innerHTML = stringByteLength + " /450 Byte";
+}
