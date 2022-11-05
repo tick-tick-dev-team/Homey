@@ -84,6 +84,30 @@ function retry(){
 
 }
 
+
+/*비밀번호 공개 및 비공개*/
+function passwordShowHide(){
+	const Pw = document.getElementById('pw');
+	const PwConfirm = document.getElementById('pw2');
+	const eyeIconImg = document.getElementById('eyeIcon').childNodes[0];
+	
+	console.log(eyeIconImg);
+	
+	var inputType = Pw.getAttribute("type");
+	if(inputType == "password"){
+		Pw.setAttribute("type", "text");
+		PwConfirm.setAttribute("type", "text");
+		eyeIconImg.setAttribute("src", "/img/eye_Icon02.jpg");
+		
+	} else {
+		Pw.setAttribute("type", "password");
+		PwConfirm.setAttribute("type", "password");
+		eyeIconImg.setAttribute("src", "/img/eye_Icon01.jpg");
+	}
+	
+}
+
+
 /*제출시*/
 function gowith(){
 	const a = document.getElementById('check_nick').innerHTML; //value 안 먹힘
