@@ -12,37 +12,48 @@ window.onload=function(){
 }
 
 
-
 /*'/home/' + homeId + '/profile' 는 AttachController에 있음*/
+/*검증 및 이미지 등록*/
 function getProfileImg(e) {
 	const file = e.currentTarget.files;
 	
 	const input_file = document.querySelector('#uploadFile');
 	const homeid_input = document.querySelector('#homeid');
-	
 	const homeId = homeid_input !=null ? homeid_input.value : null;
 
-	if(imgValidation(file) == false){
-		return;
-	} else {
-		if(homeId) {
-		const formData = new FormData();
-		formData.append('file', input_file.files[0]);
-		
-		fetch('/homes/' + homeId + '/profile', {
-			method : 'POST',
-			body : formData
-		})
-		.then((response) => response.json())
-		.then((attach) => {
-			alert("프로필 변경 성공" + attach.attf_REALNM);
-			displayProfile(attach);
-		})
-		.catch((error) => {
-			console.error('==============error: ',  error);
-		});
-	}
-	}
+	var maxSize  = 1048576;
+	
+    [...file].forEach(file => {
+	    if (!file.type.match("image/.*")) {
+
+	    	alert('이미지 파일만 업로드가 가능합니다.');
+	    	return false;
+	    }
+		if(file.size > maxSize){
+			alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+	   		return false;
+		}
+		else{
+			
+				const formData = new FormData();
+				formData.append('file', input_file.files[0]);
+			
+				fetch('/homes/' + homeId + '/profile', {
+					method : 'POST',
+					body : formData
+				})
+				.then((response) => response.json())
+				.then((attach) => {
+					alert("프로필 변경 성공" + attach.attf_REALNM);
+					displayProfile(attach);
+				})
+				.catch((error) => {
+					console.error('==============error: ',  error);
+				});
+			
+			
+		}
+	});
 	
 } 
 
@@ -83,28 +94,7 @@ function imgReset(e){
 	}
 }
 
-function imgValidation(files){
-	var maxSize  = 1048576;
-	
-    [...files].forEach(file => {
-	    if (!file.type.match("image/.*")) {
-	    	alert('이미지 파일만 업로드가 가능합니다.');
-			return false;
-	    }
-		if(file.size > maxSize){
-			alert('파일 사이즈는 1MB까지 등록 가능합니다.');
-	   		return false;
-		}
-	});
-}
-
 
 function gowith(){
 		alert("수정완료되었습니다.");
 }
-
-
-
-
-
-

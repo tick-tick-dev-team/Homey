@@ -23,11 +23,11 @@
     z-index: 999;
 }
 
-/* .container {            media 쿼리로 변경함
+.container {            /* media 쿼리로 변경함 */
     height: 100%;
     margin: 0 auto;
     width: 70em;
-} */
+}
 #main-header .logo {
     height: 100%;
 }
