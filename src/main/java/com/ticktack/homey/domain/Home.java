@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @Entity
+@JsonIgnoreType
 @Table(name = "home")
 public class Home {
 	/*HOME_ID              BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '집ID',

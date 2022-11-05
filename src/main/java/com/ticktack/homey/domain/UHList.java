@@ -153,4 +153,18 @@ public class UHList {
 		return home;
 	}
 	
+	/**
+	 * Popdo - 테스트값 출력용
+	 */
+	@Override
+	public String toString() {
+		return "UHList [U_ID=" + U_ID + ", U_NAME=" + U_NAME + ", U_NICK=" + U_NICK + ", U_JOIN=" + U_JOIN
+				+ ", U_POWER=" + U_POWER + ", U_BIRTH=" + U_BIRTH + ", U_ATTF_ID=" + U_ATTF_ID + ", H_ID=" + H_ID
+				+ ", H_NAME=" + H_NAME + ", H_INST=" + H_INST + ", H_USE=" + H_USE + ", H_THEMA=" + H_THEMA
+				+ ", H_ATTF_ID=" + H_ATTF_ID + "]";
+	}
+	
+
+	
+	
 }

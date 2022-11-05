@@ -4,9 +4,16 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 layout:decorate="~{layout/default_layout}">	
+<head>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<script src="https://kit.fontawesome.com/b638b1d7ed.js" crossorigin="anonymous"></script>
+</head>
 
 <!-- 고유 CSS 추가 -->
-<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+</th:block>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -26,15 +33,22 @@ function retry(){
 
 <!-- Content -->
 <body layout:fragment="content">
-<h2>♣Homey와 함께 소통♣</h2><br>
-
-	<form th:action="@{/login}" method="post" >
-		<label>닉네임 :</label><input type="text" name="usernick" id="formnick" onchange="retry()" maxlength='16'> <br>
-		<label>비밀번호 :</label><input type="password" name="userpass"> <br>
-		<button>로그인</button>
-	</form>
-	<div th:if="error">
-		<p id="valid" style="color: red; font-size:12px;"><a th:text="${exception}"></a></p>
+<div class = "container">
+	<div class="login">
+		<h1>Login</h1>
 	</div>
+	<div class="loginForm">
+		<form th:action="@{/login}" method="post" >
+			<ul>
+				<li><label>닉네임</label><input type="text" name="usernick" id="formnick" onchange="retry()" maxlength='16'></li>
+				<li><label>비밀번호</label><input type="password" name="userpass"></li>
+				<li><button>로그인</button></li>
+			</ul>
+		</form>
+		<div th:if="error">
+			<p id="valid" style="color: red; font-size:12px;"><a th:text="${exception}"></a></p>
+		</div>
+	</div>
+</div>	
 </body>
 </html>

@@ -1,8 +1,5 @@
 package com.ticktack.homey.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
@@ -166,13 +165,41 @@ public class HomeController {
 		return "redirect:/homes/{homeId}";
 	}
 	
-	/*userList fetch로 home조회*/
+	/*
+	 * 회원목록 fetch로 권한 변경
+	 * */
+	@ResponseBody
 	@PostMapping("/homes/{user_id}/select")
-	public Home selectHOME(@PathVariable("user_id") Long user_id) {
+	public User selectRole(@PathVariable Long user_id, @RequestBody User user ) {
+		System.out.println("************HomeController : selectRoles************");
+		User result = userService.findById(user_id).get();
+		result.setUserpower(user.getUserpower());
+		userService.updateUser(result);
+		result = userService.findById(user_id).get();
+		if(!result.getUserpower().equals(user.getUserpower())){
+			result.setUserpower(null);
+		}
+		return result;
+	}
+	
+	/* 
+	 * 회원목록 fetch로 홈 사용여부 변경
+	 * */
+	@ResponseBody
+	@PostMapping("/homes/{homeId}/homeUse")
+	public Home selectHOME(@PathVariable Long homeId, @RequestBody Home home ) {
+		System.out.println("************HomeController : selectHOME************");
+		System.out.println(home.toString());
+
+		Home result = homeService.findById(homeId).get();
+		result.setHomeuse(home.getHomeuse());
+		homeService.updateHome(result);
+		result = homeService.findById(homeId).get();
 		
-		Home HomeResult = homeService.findByUserId(user_id).get();
-		
-		return HomeResult;
+		if(!result.getHomeuse().equals(home.getHomeuse())){
+			result.setHomeuse(null);
+		}
+		return result;
 	}
 	
 
