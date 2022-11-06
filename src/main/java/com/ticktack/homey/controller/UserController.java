@@ -225,4 +225,27 @@ public class UserController {
 	    return newAuth;
 	}
 	
+	
+	
+	/*
+	 * 생일 찾아오기
+	 * */
+	@ResponseBody
+	@PostMapping("/users/{userId}/birth")
+	public String findBirth(@PathVariable Long userId) {
+		System.out.println("************ UserController : findBirth");
+		User result = userService.findById(userId).get();
+		String findBirth = result.getUserbirth().toString();
+		
+		System.out.println(findBirth);
+		
+		String Birth = findBirth.substring(0, 10);
+		
+		System.out.println(Birth);
+		System.out.println("========="+Birth.getClass().getName());
+		
+		
+		return Birth;
+	}
+	
 }
