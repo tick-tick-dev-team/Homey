@@ -409,7 +409,7 @@ i.btn-delete {
 	}
 	
 	#toggle {
-		display:inline;
+		display:none;
 	}
 	
 	.header_toggle{
@@ -517,11 +517,4 @@ i.btn-delete {
 	#toggle:checked + nav{display: inline;}
 	
 }
-
-
-
-	
-
-
-
 
