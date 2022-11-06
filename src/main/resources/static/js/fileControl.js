@@ -22,7 +22,6 @@ function setThumbnail(event) {
 
     // fileSize 체크
     const files = event.currentTarget.files;
-    console.log("fileSizeValidation : " + fileSizeValidation(files));
 
     if(!fileSizeValidation(files)) {
         console.log("fileSize fail");
