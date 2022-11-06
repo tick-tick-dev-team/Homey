@@ -50,166 +50,226 @@ function changeCursor() {
 
 function fireworks(){
 
-	var bits=80; // how many bits
-	var speed=33; // how fast - smaller is faster
-	var bangs=5; // how many can be launched simultaneously (note that using too many can slow the script down)
-	var colours=new Array("#03f", "#f03", "#0e0", "#93f", "#0cf", "#f93", "#f0c"); 
-//	                     blue    red     green   purple  cyan    orange  pink
 
-	/****************************
-	*      Fireworks Effect     *
-	*(c)2004-14 mf2fm web-design*
-	*  http://www.mf2fm.com/rv  *
-	* DON'T EDIT BELOW THIS BOX *
-	****************************/
-	var bangheight=new Array();
-	var intensity=new Array();
-	var colour=new Array();
-	var Xpos=new Array();
-	var Ypos=new Array();
-	var dX=new Array();
-	var dY=new Array();
-	var stars=new Array();
-	var decay=new Array();
-	var swide=800;
-	var shigh=600;
-	var boddie;
+	    // globals
+	    var canvas;
+	    var ctx;
+	    var W;
+	    var H;
+	    var mp = 150; //max particles
+	    var particles = [];
+	    var angle = 0;
+	    var tiltAngle = 0;
+	    var confettiActive = true;
+	    var animationComplete = true;
+	    var deactivationTimerHandler;
+	    var reactivationTimerHandler;
+	    var animationHandler;
 
-	if (typeof('addRVLoadEvent')!='function') function addRVLoadEvent(funky) {
-	  var oldonload=window.onload;
-	  if (typeof(oldonload)!='function') window.onload=funky;
-	  else window.onload=function() {
-	    if (oldonload) oldonload();
-	    funky();
-	  }
-	}
+	    // objects
 
-	addRVLoadEvent(light_blue_touchpaper);
-
-	function light_blue_touchpaper() { if (document.getElementById) {
-	  var i;
-	  boddie=document.createElement("div");
-	  boddie.style.position="fixed";
-	  boddie.style.top="0px";
-	  boddie.style.left="0px";
-	  boddie.style.overflow="visible";
-	  boddie.style.width="1px";
-	  boddie.style.height="1px";
-	  boddie.style.backgroundColor="transparent";
-	  document.body.appendChild(boddie);
-	  set_width();
-	  for (i=0; i<bangs; i++) {
-	    write_fire(i);
-	    launch(i);
-	    setInterval('stepthrough('+i+')', speed);
-	  }
-	}}
-
-	function write_fire(N) {
-	  var i, rlef, rdow;
-	  stars[N+'r']=createDiv('|', 12);
-	  boddie.appendChild(stars[N+'r']);
-	  for (i=bits*N; i<bits+bits*N; i++) {
-	    stars[i]=createDiv('*', 13);
-	    boddie.appendChild(stars[i]);
-	  }
-	}
-
-	function createDiv(char, size) {
-	  var div=document.createElement("div");
-	  div.style.font=size+"px monospace";
-	  div.style.position="absolute";
-	  div.style.backgroundColor="transparent";
-	  div.appendChild(document.createTextNode(char));
-	  return (div);
-	}
-
-	function launch(N) {
-	  colour[N]=Math.floor(Math.random()*colours.length);
-	  Xpos[N+"r"]=swide*0.5;
-	  Ypos[N+"r"]=shigh-5;
-	  bangheight[N]=Math.round((0.5+Math.random())*shigh*0.4);
-	  dX[N+"r"]=(Math.random()-0.5)*swide/bangheight[N];
-	  if (dX[N+"r"]>1.25) stars[N+"r"].firstChild.nodeValue="/";
-	  else if (dX[N+"r"]<-1.25) stars[N+"r"].firstChild.nodeValue="\\";
-	  else stars[N+"r"].firstChild.nodeValue="|";
-	  stars[N+"r"].style.color=colours[colour[N]];
-	}
-
-	function bang(N) {
-	  var i, Z, A=0;
-	  for (i=bits*N; i<bits+bits*N; i++) { 
-	    Z=stars[i].style;
-	    Z.left=Xpos[i]+"px";
-	    Z.top=Ypos[i]+"px";
-	    if (decay[i]) decay[i]--;
-	    else A++;
-	    if (decay[i]==15) Z.fontSize="7px";
-	    else if (decay[i]==7) Z.fontSize="2px";
-	    else if (decay[i]==1) Z.visibility="hidden";
-		if (decay[i]>1 && Math.random()<.1) {
-		   Z.visibility="hidden";
-		   setTimeout('stars['+i+'].style.visibility="visible"', speed-1);
-		}
-	    Xpos[i]+=dX[i];
-	    Ypos[i]+=(dY[i]+=1.25/intensity[N]);
-
-	  }
-	  if (A!=bits) setTimeout("bang("+N+")", speed);
-	}
-
-	function stepthrough(N) { 
-	  var i, M, Z;
-	  var oldx=Xpos[N+"r"];
-	  var oldy=Ypos[N+"r"];
-	  Xpos[N+"r"]+=dX[N+"r"];
-	  Ypos[N+"r"]-=4;
-	  if (Ypos[N+"r"]<bangheight[N]) {
-	    M=Math.floor(Math.random()*3*colours.length);
-	    intensity[N]=5+Math.random()*4;
-	    for (i=N*bits; i<bits+bits*N; i++) {
-	      Xpos[i]=Xpos[N+"r"];
-	      Ypos[i]=Ypos[N+"r"];
-	      dY[i]=(Math.random()-0.5)*intensity[N];
-	      dX[i]=(Math.random()-0.5)*(intensity[N]-Math.abs(dY[i]))*1.25;
-	      decay[i]=16+Math.floor(Math.random()*16);
-	      Z=stars[i];
-	      if (M<colours.length) Z.style.color=colours[i%2?colour[N]:M];
-	      else if (M<2*colours.length) Z.style.color=colours[colour[N]];
-	      else Z.style.color=colours[i%colours.length];
-	      Z.style.fontSize="13px";
-	      Z.style.visibility="visible";
+	    var particleColors = {
+	        colorOptions: ["DodgerBlue", "OliveDrab", "Gold", "pink", "SlateBlue", "lightblue", "Violet", "PaleGreen", "SteelBlue", "SandyBrown", "Chocolate", "Crimson"],
+	        colorIndex: 0,
+	        colorIncrementer: 0,
+	        colorThreshold: 10,
+	        getColor: function () {
+	            if (this.colorIncrementer >= 10) {
+	                this.colorIncrementer = 0;
+	                this.colorIndex++;
+	                if (this.colorIndex >= this.colorOptions.length) {
+	                    this.colorIndex = 0;
+	                }
+	            }
+	            this.colorIncrementer++;
+	            return this.colorOptions[this.colorIndex];
+	        }
 	    }
-	    bang(N);
-	    launch(N);
-	  }
-	  stars[N+"r"].style.left=oldx+"px";
-	  stars[N+"r"].style.top=oldy+"px";
-	} 
 
-	window.onresize=set_width;
-	function set_width() {
-	  var sw_min=999999;
-	  var sh_min=999999;
-	  if (document.documentElement && document.documentElement.clientWidth) {
-	    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
-	    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
-	  }
-	  if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
-	    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
-	    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
-	  }
-	  if (document.body.clientWidth) {
-	    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
-	    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
-	  }
-	  if (sw_min==999999 || sh_min==999999) {
-	    sw_min=800;
-	    sh_min=600;
-	  }
-	  swide=sw_min;
-	  shigh=sh_min;
-	}
+	    function confettiParticle(color) {
+	        this.x = Math.random() * W; // x-coordinate
+	        this.y = (Math.random() * H) - H; //y-coordinate
+	        this.r = RandomFromTo(10, 15); //radius;
+	        this.d = (Math.random() * mp) + 10; //density;
+	        this.color = color;
+	        this.tilt = Math.floor(Math.random() * 10) - 10;
+	        this.tiltAngleIncremental = (Math.random() * 0.07) + .05;
+	        this.tiltAngle = 0;
+
+	        this.draw = function fireworks() {
+	            ctx.beginPath();
+	            ctx.lineWidth = this.r / 2;
+	            ctx.strokeStyle = this.color;
+	            ctx.moveTo(this.x + this.tilt + (this.r / 4), this.y);
+	            ctx.lineTo(this.x + this.tilt, this.y + this.tilt + (this.r / 4));
+	            return ctx.stroke();
+	        }
+	    }
+
+	    $(document).ready(function fireworks() {
+	        SetGlobals();
+	        InitializeButton();
+	        //InitializeConfetti();
+
+	        $(window).resize(function fireworks() {
+	            W = window.innerWidth;
+	            H = window.innerHeight;
+	            canvas.width = W;
+	            canvas.height = H;
+	        });
+
+	    });
+
+	    function InitializeButton() {
+	        $('#stopButton').click(DeactivateConfetti);
+	        $('#startButton').click(RestartConfetti);
+	    }
+
+	    function SetGlobals() {
+	        canvas = document.getElementById("canvas");
+	        ctx = canvas.getContext("2d");
+	        W = window.innerWidth;
+	        H = window.innerHeight;
+	        canvas.width = W;
+	        canvas.height = H;
+	    }
+
+	    function InitializeConfetti() {
+	        particles = [];
+	        animationComplete = false;
+	        for (var i = 0; i < mp; i++) {
+	            var particleColor = particleColors.getColor();
+	            particles.push(new confettiParticle(particleColor));
+	        }
+	        StartConfetti();
+	    }
+
+	    function Draw() {
+	        ctx.clearRect(0, 0, W, H);
+	        var results = [];
+	        for (var i = 0; i < mp; i++) {
+	            (function (j) {
+	                results.push(particles[j].draw());
+	            })(i);
+	        }
+	        Update();
+
+	        return results;
+	    }
+
+	    function RandomFromTo(from, to) {
+	        return Math.floor(Math.random() * (to - from + 1) + from);
+	    }
+
+
+	    function Update() {
+	        var remainingFlakes = 0;
+	        var particle;
+	        angle += 0.01;
+	        tiltAngle += 0.1;
+
+	        for (var i = 0; i < mp; i++) {
+	            particle = particles[i];
+	            if (animationComplete) return;
+
+	            if (!confettiActive && particle.y < -15) {
+	                particle.y = H + 100;
+	                continue;
+	            }
+
+	            stepParticle(particle, i);
+
+	            if (particle.y <= H) {
+	                remainingFlakes++;
+	            }
+	            CheckForReposition(particle, i);
+	        }
+
+	        if (remainingFlakes === 0) {
+	            StopConfetti();
+	        }
+	    }
+
+	    function CheckForReposition(particle, index) {
+	        if ((particle.x > W + 20 || particle.x < -20 || particle.y > H) && confettiActive) {
+	            if (index % 5 > 0 || index % 2 == 0) //66.67% of the flakes
+	            {
+	                repositionParticle(particle, Math.random() * W, -10, Math.floor(Math.random() * 10) - 20);
+	            } else {
+	                if (Math.sin(angle) > 0) {
+	                    //Enter from the left
+	                    repositionParticle(particle, -20, Math.random() * H, Math.floor(Math.random() * 10) - 20);
+	                } else {
+	                    //Enter from the right
+	                    repositionParticle(particle, W + 20, Math.random() * H, Math.floor(Math.random() * 10) - 20);
+	                }
+	            }
+	        }
+	    }
+	    function stepParticle(particle, particleIndex) {
+	        particle.tiltAngle += particle.tiltAngleIncremental;
+	        particle.y += (Math.cos(angle + particle.d) + 3 + particle.r / 2) / 3;
+	        particle.x += Math.sin(angle);
+	        particle.tilt = (Math.sin(particle.tiltAngle - (particleIndex / 3))) * 15;
+	    }
+
+	    function repositionParticle(particle, xCoordinate, yCoordinate, tilt) {
+	        particle.x = xCoordinate;
+	        particle.y = yCoordinate;
+	        particle.tilt = tilt;
+	    }
+
+	    function StartConfetti() {
+	        W = window.innerWidth;
+	        H = window.innerHeight;
+	        canvas.width = W;
+	        canvas.height = H;
+	        (function animloop() {
+	            if (animationComplete) return null;
+	            animationHandler = requestAnimFrame(animloop);
+	            return Draw();
+	        })();
+	    }
+
+	    function ClearTimers() {
+	        clearTimeout(reactivationTimerHandler);
+	        clearTimeout(animationHandler);
+	    }
+
+	    function DeactivateConfetti() {
+	        confettiActive = false;
+	        ClearTimers();
+	    }
+
+	    function StopConfetti() {
+	        animationComplete = true;
+	        if (ctx == undefined) return;
+	        ctx.clearRect(0, 0, W, H);
+	    }
+
+	    function RestartConfetti() {
+	        ClearTimers();
+	        StopConfetti();
+	        reactivationTimerHandler = setTimeout(function () {
+	            confettiActive = true;
+	            animationComplete = false;
+	            InitializeConfetti();
+	        }, 100);
+
+	    }
+
+	    window.requestAnimFrame = (function () {
+	        return window.requestAnimationFrame || 
+	        window.webkitRequestAnimationFrame || 
+	        window.mozRequestAnimationFrame || 
+	        window.oRequestAnimationFrame || 
+	        window.msRequestAnimationFrame || 
+	        function (callback) {
+	            return window.setTimeout(callback, 1000 / 60);
+	        };
+	    })();
+
+
 
 
 }
