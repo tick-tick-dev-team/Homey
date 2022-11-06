@@ -108,24 +108,21 @@ public class UserController {
 		System.out.println("======homes======" + homes.toString());
 		
 		// return "users/userList2";
-		return "users/userList2";
+		return "users/userList";
 	}
 	
 	@GetMapping("/users/{userId}")
-	public String MyPage2(@PathVariable Long userId, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
+	public String MyPage(@PathVariable Long userId, Model model, @AuthenticationPrincipal PrincipalDetails principal) {
 		User result = userService.findById(userId).get();
 		model.addAttribute("users", result );
 		System.out.println(principal.getPassword());
-		//PasswordEncoder.encode();
-		
 		
 		// 프로필 사진 있으면 반환
 		if(result.getAttf_id()!=null) {
 			Optional<Attach> profile = attachService.findById(result.getAttf_id());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
-		// return "users/myPage";
-		return "users/myPage2";
+		return "users/myPage";
 	}
 	
 	/*
