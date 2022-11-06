@@ -5,7 +5,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layout/default_layout}">	
 <head>
 <!-- 고유 CSS 추가 -->
-<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="css">
+<style>
+#eye {
+	height: 1em;
+}
+</style>
+</th:block>
 
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -24,13 +30,14 @@ layout:decorate="~{layout/default_layout}">
 		
 		<form th:action="@{/users/new}" method="post" onsubmit="return gowith();">
 			<label>닉네임</label>:
-			<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='15'><br>
+			<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='16'><br>
 			<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button><br>
 			<span id="check_nick"></span><br>
 			<label>비밀번호</label>:
 			<input type="password" name="userpass" id="pw" onchange="javascript:check_pw();" required><br>
 			<label>비밀번호확인</label>:
-			<input type="password" name="userpass2" id="pw2" onchange="javascript:check_pw();" required><br>
+			<input type="password" name="userpass2" id="pw2" onchange="javascript:check_pw();" required>
+			<div id="eyeIcon"><img alt="프로필_img" id="eye" src="/img/eye_Icon01.jpg" onclick="javascript:passwordShowHide()"></div><br>
 			<span id="check_pw"></span><br>
 			<label>생년월일</label>:
 			<input type="date" name="userbirth">

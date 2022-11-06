@@ -29,6 +29,9 @@ img {
 }
 
 #eyeIcon {
-	width: 2em;
-	height: 2em;
+	height: 1.5em;
+}
+.input_des {
+	margin-top : 1em;
+	color : #2585D9;
 }

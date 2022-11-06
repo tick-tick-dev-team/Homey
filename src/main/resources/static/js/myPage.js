@@ -66,7 +66,7 @@ function getProfileImg(e) {
 	
 	const userId = userId_input !=null ? userId_input.value : null;
 
-	if(imgValidation(file) == false){
+	if(!imgValidation(file)){
 		return;
 	} else {
 		if(userId) {
@@ -139,7 +139,9 @@ function imgValidation(files){
 			alert('파일 사이즈는 1MB까지 등록 가능합니다.');
 	   		return false;
 		}
+		
 	});
+	return true;
 }
 
 
@@ -311,14 +313,20 @@ function pwValication(frm){
 function passwordShowHide(){
 	const updatePw = document.getElementById('updatePw');
 	const updatePwConfirm = document.getElementById('updatePwConfirm');
+	const eyeIconImg = document.getElementById('eyeIcon').childNodes[0];
+	
+	console.log(eyeIconImg);
 	
 	var inputType = updatePw.getAttribute("type");
 	if(inputType == "password"){
 		updatePw.setAttribute("type", "text");
 		updatePwConfirm.setAttribute("type", "text");
+		eyeIconImg.setAttribute("src", "/img/eye_Icon02.jpg");
+		
 	} else {
 		updatePw.setAttribute("type", "password");
 		updatePwConfirm.setAttribute("type", "password");
+		eyeIconImg.setAttribute("src", "/img/eye_Icon01.jpg");
 	}
 	
 }
