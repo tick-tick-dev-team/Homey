@@ -38,7 +38,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
                 <div sec:authorize="isAnonymous()">
                 <!-- 햄버거 버튼 추가 및 nav 추가 -->
                 <label for="toggle" class="header_toggle">≡</label>
-                <input type="checkbox" id="toggle" style="visibility=none">
+                <input type="checkbox" id="toggle" style="visibility:none;">
                 <nav>
                 <ul class="flex-end" >
 	                <li><a href="/loginForm" th:value="로그인">로그인</a></li>

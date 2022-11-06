@@ -13,19 +13,25 @@ function deleteAttach() {
     // 파일 객체 있으면 삭제
     const input_attachObj = document.querySelector("input#ATTF_OBJ");
     if(input_attachObj) {
-    	input_attachObj.value == "";
-//    	input_attachObj.files == [];        
+    	input_attachObj.value == "";   
     }
     parent.innerHTML = "";
 }
 
 function setThumbnail(event) {
-	
-//	const file = event.target.files.item(0);
-//	console.log("===========file.type : " + file.type);
+
+    // fileSize 체크
+    const files = event.currentTarget.files;
+    console.log("fileSizeValidation : " + fileSizeValidation(files));
+
+    if(!fileSizeValidation(files)) {
+        console.log("fileSize fail");
+        event.target.value = "";
+        return;
+    }
+    console.log("fileSize pass");
 	
     const reader = new FileReader();
-
     reader.onload = function(event) {
     	
     	// img를 넣을 부모 태그
@@ -38,31 +44,30 @@ function setThumbnail(event) {
         
         // 자식태그 감싸는 li태그 생성
         const img_wrap = document.createElement('li');
-                
-        // 이미지 태그 생성 및 src 삽입
-//        if(file.type.includes("images")) {
-//        	alert("====================includes");
-//        }
         const img = document.createElement("img");
         img.setAttribute("src", event.target.result);
-        
         img_wrap.appendChild(img);
-
-
 
         // 삭제 아이콘 생성 및 클래스, onclick 삽입
         const icon = document.createElement('i');
         icon.setAttribute('class', 'fa-solid fa-trash-can btn-delete');
         icon.addEventListener('click', deleteAttach);
-       
-        img_wrap.appendChild(icon);
-        
+
         // 부모 안에 li 태그 삽입
+        img_wrap.appendChild(icon);
         parent.appendChild(img_wrap);
     };
     reader.readAsDataURL(event.target.files[0]);
 }
 
+function fileSizeValidation(files) {
+	var maxSize  = 1048576;
+    if([...files][0].size > maxSize) {
+        alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+        return false;
+    }
+	return true;
+}
 
 
 

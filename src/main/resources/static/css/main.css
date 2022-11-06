@@ -190,18 +190,21 @@ i.btn-delete {
 	overflow: hidden;
 }
 .tabcontent ul li {
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
 }
+.tabcontent ul li.list-header {
+	font-weight : bold;
+}
 
 .tabcontent ul li label {
 	width: 15%;
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 }
 .tabcontent ul li input{
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 }
 .tabcontent ul li input {
 	margin-right: 2rem;
@@ -253,6 +256,9 @@ i.btn-delete {
 .tabcontent ul li .list-col-4 {
     width: 40%;
 }
+.tabcontent .mobile {
+	display: none;
+}
 
 
 
@@ -274,6 +280,7 @@ i.btn-delete {
     margin: 0 auto;
     width: 70em;
 	}
+
 	
 	#main-header .logo {
 	    height: 100%;
@@ -291,6 +298,7 @@ i.btn-delete {
 	.header_toggle{
 		display: none;
 	}
+
 	
 	#toggle {
 		display:none;
@@ -319,8 +327,6 @@ i.btn-delete {
 	    color: aqua;
 	}
 	
-
-
 }
 
 
@@ -480,12 +486,14 @@ i.btn-delete {
     color: #fff;
 	}
 
+
 	/*여기서부터 toggle 관련, 위에는 원래 있던 것들 */	
 	.header_toggle{
     position:absolute; right:15px; top:0.8em;
     color:#fff; font-size:3em;
     cursor:pointer; /*손가락 모양 생기도록 한다.*/
 	}
+
 	
 
 
