@@ -20,7 +20,7 @@ async function checkbirth() {
 	
 
 	const userId = document.getElementById('for_birth').value;
-	const homename = document.getElementById('homename').value;
+
 	console.log(userId);
 	
 	fetch('/users/' + userId + '/birth', {
@@ -33,7 +33,7 @@ async function checkbirth() {
 		    alert("이 집 주인의 생일은 " + text + "로 오늘입니다.\n생일을 진심으로 축하합니다!");
 		    changeCursor();
 			fireworks();
-	
+			
 		}
 	}
 
@@ -48,9 +48,17 @@ function changeCursor() {
 
 
 
+
 function fireworks(){
+	
+	let canvas = document.getElementById('canvas');
 
+	//console.log("얍"+canvas);
+	//document.write("<script type='text/javascript' src='/js/confetti_v2.js'><"+"/script>");
+	
 
+	
+	(function () {
 	    // globals
 	    var canvas;
 	    var ctx;
@@ -96,7 +104,7 @@ function fireworks(){
 	        this.tiltAngleIncremental = (Math.random() * 0.07) + .05;
 	        this.tiltAngle = 0;
 
-	        this.draw = function fireworks() {
+	        this.draw = function () {
 	            ctx.beginPath();
 	            ctx.lineWidth = this.r / 2;
 	            ctx.strokeStyle = this.color;
@@ -106,12 +114,21 @@ function fireworks(){
 	        }
 	    }
 
-	    $(document).ready(function fireworks() {
+	    $(document).ready(function () {
 	        SetGlobals();
-	        InitializeButton();
+	        //InitializeButton();
 	        //InitializeConfetti();
 
-	        $(window).resize(function fireworks() {
+	        RestartConfetti();
+	        setTimeout(function DeactivateConfetti(){
+		        confettiActive = false;
+		        ClearTimers();
+		    },6000);
+	        
+	        
+	       
+	        
+	        $(window).resize(function () {
 	            W = window.innerWidth;
 	            H = window.innerHeight;
 	            canvas.width = W;
@@ -247,14 +264,14 @@ function fireworks(){
 	        ctx.clearRect(0, 0, W, H);
 	    }
 
-	    function RestartConfetti() {
+	    function RestartConfetti() { //InitializeConfetti
 	        ClearTimers();
 	        StopConfetti();
 	        reactivationTimerHandler = setTimeout(function () {
 	            confettiActive = true;
 	            animationComplete = false;
 	            InitializeConfetti();
-	        }, 100);
+	        }, 10);
 
 	    }
 
@@ -268,8 +285,8 @@ function fireworks(){
 	            return window.setTimeout(callback, 1000 / 60);
 	        };
 	    })();
+	})();
 
-
-
-
+	
+	
 }

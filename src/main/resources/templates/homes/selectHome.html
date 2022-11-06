@@ -25,10 +25,13 @@ layout:decorate="~{layout/default_layout}">
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/comment.js}" ></script>
 	<script type="text/javascript" th:src="@{/js/ajax.js}" ></script>
+	<script src ="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script type="text/javascript" th:src="@{/js/onload.js}" ></script>
 </th:block>	
 	
 <body id="selectHome" layout:fragment="content">
+
+	<canvas id="canvas" class="canvas"></canvas>
 	<div class="container">
 		<!-- 집주인 프로필 등 -->
 		<section id="profile" class="flex-between">
