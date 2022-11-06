@@ -32,7 +32,7 @@ function getImageFiles(e) {
 
     const uploadFiles = [];
 
-	if(fileSizeValidation(files)) return;
+	if(!fileSizeValidation(files)) return;
 	if(!imgValidation) return;
 
     [...files].forEach(file => {       
@@ -63,7 +63,7 @@ function getProfileImg(e) {
 	
 	const userId = userId_input !=null ? userId_input.value : null;
 
-	if(fileSizeValidation(files)) return;
+	if(!fileSizeValidation(files)) return;
 
 	if(!imgValidation(files)){
 		return;
@@ -137,12 +137,10 @@ function imgValidation(files){
 }
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
-	[...files].forEach(file => {
-		if(file.size > maxSize){
-			alert('파일 사이즈는 1MB까지 등록 가능합니다.');
-	   		return false;
-		}
-	});
+    if([...files][0].size > maxSize) {
+        alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+        return false;
+    }
 	return true;
 }
 

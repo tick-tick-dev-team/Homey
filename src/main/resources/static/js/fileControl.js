@@ -22,10 +22,14 @@ function setThumbnail(event) {
 
     // fileSize 체크
     const files = event.currentTarget.files;
-    if(fileSizeValidation(files)) {
+    console.log("fileSizeValidation : " + fileSizeValidation(files));
+
+    if(!fileSizeValidation(files)) {
+        console.log("fileSize fail");
         event.target.value = "";
         return;
     }
+    console.log("fileSize pass");
 	
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -58,12 +62,10 @@ function setThumbnail(event) {
 
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
-	[...files].forEach(file => {
-		if(file.size > maxSize){
-			alert('파일 사이즈는 1MB까지 등록 가능합니다.');
-	   		return false;
-		}
-	});
+    if([...files][0].size > maxSize) {
+        alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+        return false;
+    }
 	return true;
 }
 
