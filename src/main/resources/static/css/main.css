@@ -190,18 +190,21 @@ i.btn-delete {
 	overflow: hidden;
 }
 .tabcontent ul li {
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
 }
+.tabcontent ul li.list-header {
+	font-weight : bold;
+}
 
 .tabcontent ul li label {
 	width: 15%;
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 }
 .tabcontent ul li input{
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 }
 .tabcontent ul li input {
 	margin-right: 2rem;
@@ -253,6 +256,9 @@ i.btn-delete {
 .tabcontent ul li .list-col-4 {
     width: 40%;
 }
+.tabcontent .mobile {
+	display: none;
+}
 
 
 
@@ -274,6 +280,7 @@ i.btn-delete {
 	    margin: 0 auto;
 	    width: 100%;
 	}
+
 	
 	#main-header .logo {
 	    height: 100%;
@@ -301,10 +308,8 @@ i.btn-delete {
     color:#fff; font-size:3em;
     cursor:pointer; /*손가락 모양 생기도록 한다.*/
 	}
-	
 
 
-	
 	/*header에 nav처리*/
 	nav{
 		position: absolute; left:0; right: 0; top:7.3em;
@@ -330,7 +335,7 @@ i.btn-delete {
 	
 	/*열고 닫기*/
 	#toggle:checked + nav{display: inline;}
-	
+
 }
 
 
@@ -485,6 +490,19 @@ i.btn-delete {
 	}
 
 }
+
+	
+@media (max-width: 767px) { 
+
+	.tabcontent .pc {
+		display: none;
+	}
+	.tabcontent .mobile {
+		display: block;
+	}
+} 
+
+
 	
 
 
