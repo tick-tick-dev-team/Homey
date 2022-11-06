@@ -64,7 +64,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							<li>
 								<label for="nickChage">닉네임</label>
 								<input type="text" id="nickChage" name="nickChage" th:value="${users.usernick}" >
-								<button id="nickCheckBtn" type="button" onclick="javascript:check_id();">중복검사</button>
+								<button class="mypageCheck" id="nickCheckBtn" type="button" onclick="javascript:check_id();">중복검사</button>
 							</li>
 							<li>
 								<label for="userbirth" >생일</label>
@@ -87,12 +87,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							<li>
 								<label for="userpass">기존 비밀번호</label>
 								<input type="password" id="userpass" name="userpass" placeholder="비밀번호를 입력하세요.">
-								<button id="pwdCheckBtn" type="button" onclick="javascript:pwdCheck()">체크</button>
+								<button class="mypageCheck" id="pwdCheckBtn" type="button" onclick="javascript:pwdCheck()">체크</button>
 							</li>
 							<li>
 								<label for="updatePw">변경 비밀번호</label>
 								<input type="password" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요." onchange="javascript:check_pw();" required>
-								<div id="eyeIcon"><img alt="프로필_img" src="/img/eye_Icon.png"></div>
+								<div id="eyeIcon"><img alt="프로필_img" src="/img/eye_Icon01.jpg"></div>
 							</li>
 							<li>
 								<label for=""></label>
