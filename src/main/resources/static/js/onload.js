@@ -30,22 +30,25 @@ async function checkbirth() {
 	.then(response => response.text())
 	.then(function(text){
 		if(text == dateString){
-		//alert("이 집 주인의 생일은 " + text + "로 오늘입니다.\n생일을 진심으로 축하합니다!");
-		
+		    alert("이 집 주인의 생일은 " + text + "로 오늘입니다.\n생일을 진심으로 축하합니다!");
+		    changeCursor();
 			fireworks();
 	
 		}
 	}
 
-	)
-	.catch((error) => {
-		console.error('==============error: ',  error);
-	});
+	);
 
 }
 
+function changeCursor() {
+	const body = document.getElementById('selectHome');
+	body.style.cssText='cursor:url(/img/cursor.cur), auto;';
+}
 
-fireworks(){
+
+
+function fireworks(){
 
 	var bits=80; // how many bits
 	var speed=33; // how fast - smaller is faster
