@@ -259,7 +259,192 @@ i.btn-delete {
 
 
 /*반응형을 위한 미디어 쿼리*/
-@media all and (min-width:280px){
+@media all and (max-width:1240px){
+	#main-header {
+    position: fixed;
+    top:0;
+    width: 100%;
+    background-color: #2585D9;
+    height: 8.5em;
+    z-index: 999;
+	}
+	
+	.container {
+    height: 100%;
+    margin: 0 auto;
+    width: 70em;
+	}
+	
+	#main-header .logo {
+	    height: 100%;
+	}
+	#main-header .logo a {
+		
+	    font-size: 2.6em;
+	    height: 100%;
+	    line-height: 1.7em;
+	    font-family: 'Lobster', cursive;
+	    color: #fff;
+	}
+	
+
+	.header_toggle{
+		display: none;
+	}
+	
+	#toggle {
+		display:none;
+	}
+	
+		/*header에 nav처리*/
+	nav{
+		position:relative;
+		background: none; 
+        width: auto;
+        right: auto;
+        left:auto; top:auto;
+        display: block;
+	}
+	
+	#main-header li {
+		text-align:center;
+	    width:auto;
+	    margin-right: 1em;
+	}
+	#main-header li a, #main-header li span {
+	    font-size: 1.2rem;
+	    color: #fff;
+	}
+	#main-header li:hover a {
+	    color: aqua;
+	}
+	
+
+
+}
+
+
+@media all and (max-width:768px){
+	#main-header {
+    position: fixed;
+    top:0;
+    width: 100%;
+    background-color: #2585D9;
+    height: 8.5em;
+    z-index: 999;
+	}
+	#main-header .logo {
+	    height: 100%;
+	}
+	#main-header .logo a {
+		
+	    font-size: 2.6em;
+	    height: 100%;
+	    line-height: 1.7em;
+	    font-family: 'Lobster', cursive;
+	    color: #fff;
+	}
+	
+	.container {
+    height: 100%;
+    margin: 0 auto;
+    width: 70em;
+	}
+	.header_toggle{
+	display: none;
+	}
+	
+	#toggle {
+		display:none;
+	}
+	
+		/*header에 nav처리*/
+	nav{
+		position:relative;
+		background: none; 
+        width: auto;
+        right: auto;
+        left:auto; top:auto;
+        display: block;
+	}
+	
+	#main-header li {
+		text-align:center;
+	    width:auto;
+	    margin-right: 1em;
+	}
+	#main-header li a, #main-header li span {
+	    font-size: 1.2rem;
+	    color: #fff;
+	}
+	#main-header li:hover a {
+	    color: aqua;
+	}
+
+}
+
+
+
+@media all and (max-width:640px){
+	#main-header .logo {
+	    height: 100%;
+	}
+	#main-header .logo a {
+		padding-left:0.5em;
+	    font-size: 2.3em;
+	    height: 100%;
+	    line-height: 1.7em;
+	    font-family: 'Lobster', cursive;
+	    color: #fff;
+	}
+	
+	.container {
+	    height: 100%;
+	    margin: 0 auto;
+	    width: 100%;
+	}
+	
+	.header_toggle{
+		display:inline
+	}
+	
+	#toggle {
+		display:inline;
+	}
+	
+	.header_toggle{
+    position:absolute; right:1.5em; top:0em;
+    color:#fff; font-size:3em;
+    cursor:pointer; /*손가락 모양 생기도록 한다.*/
+	}
+	
+	
+	
+	/*header에 nav처리*/
+	nav{
+		position: absolute; left:0; right: 0; top:7em;;
+	    background-color: rgba(0,0,0,0.7);
+	    display: none;
+	}
+	
+	nav a{
+	    width:5.7em;
+	    display:flex; justify-content:space-between; /*space around 쓰면 왼쪽이 너비가 달라서 정렬이 엉망이 된다. 그래서 between으로 끝으로 붙이고 padding으로 좌우 여백 준다. space around보다 between을 더 자주 쓴다.*/
+	    align-items:center; /*이거 없으면 위쪽으로 쏠린다.*/
+	    color:#fff;
+	    padding:-2px;
+	}
+	
+	/*열고 닫기*/
+	#toggle:checked + nav{display: inline;}
+	
+	
+	
+}
+
+
+
+@media all and (max-width:280px){
 	#main-header {
     position: fixed;
     top:0;
@@ -334,157 +519,7 @@ i.btn-delete {
 }
 
 
-@media all and (min-width:640px){
-	#main-header .logo {
-	    height: 100%;
-	}
-	#main-header .logo a {
-		padding-left:0.5em;
-	    font-size: 2.3em;
-	    height: 100%;
-	    line-height: 1.7em;
-	    font-family: 'Lobster', cursive;
-	    color: #fff;
-	}
-	
-	.container {
-	    height: 100%;
-	    margin: 0 auto;
-	    width: 100%;
-	}
-	
-	.header_toggle{
-    position:absolute; right:1.5em; top:0em;
-    color:#fff; font-size:3em;
-    cursor:pointer; /*손가락 모양 생기도록 한다.*/
-	}
-	
-	/*header에 nav처리*/
-	nav{
-		position: absolute; left:0; right: 0; top:7em;;
-	    background-color: rgba(0,0,0,0.7);
-	    display: none;
-	}
-	
-	nav a{
-	    width:5.7em;
-	    display:flex; justify-content:space-between; /*space around 쓰면 왼쪽이 너비가 달라서 정렬이 엉망이 된다. 그래서 between으로 끝으로 붙이고 padding으로 좌우 여백 준다. space around보다 between을 더 자주 쓴다.*/
-	    align-items:center; /*이거 없으면 위쪽으로 쏠린다.*/
-	    color:#fff;
-	    padding:-2px;
-	}
-}
 
-@media all and (min-width:768px){
-	#main-header {
-    position: fixed;
-    top:0;
-    width: 100%;
-    background-color: #2585D9;
-    height: 8.5em;
-    z-index: 999;
-	}
-	#main-header .logo {
-	    height: 100%;
-	}
-	#main-header .logo a {
-		
-	    font-size: 2.6em;
-	    height: 100%;
-	    line-height: 1.7em;
-	    font-family: 'Lobster', cursive;
-	    color: #fff;
-	}
-	
-	.container {
-    height: 100%;
-    margin: 0 auto;
-    width: 70em;
-	}
-	.header_toggle{
-	display: none;
-	visibility: hidden;
-	}
-	
-		/*header에 nav처리*/
-	nav{
-		position:relative;
-		background: none; 
-        width: auto;
-        right: auto;
-        left:auto; top:auto;
-        display: block!important;
-	}
-	
-	#main-header li {
-		text-align:center;
-	    width:auto;
-	    margin-right: 1em;
-	}
-	#main-header li a, #main-header li span {
-	    font-size: 1.2rem;
-	    color: #fff;
-	}
-	#main-header li:hover a {
-	    color: aqua;
-	}
-	#toggle {
-		display:none;
-	}
-}
-
-
-@media all and (min-width:1240px){
-	#main-header .logo {
-	    height: 100%;
-	}
-	#main-header .logo a {
-		
-	    font-size: 2.6em;
-	    height: 100%;
-	    line-height: 1.7em;
-	    font-family: 'Lobster', cursive;
-	    color: #fff;
-	}
-	
-	.container {
-    height: 100%;
-    margin: 0 auto;
-    width: 70em;
-	}
-	.header_toggle{
-	display: none;
-	visibility: hidden;
-	}
-	
-		/*header에 nav처리*/
-	nav{
-		position:relative;
-		background: none; 
-        width: auto;
-        right: auto;
-        left:auto; top:auto;
-        display: block!important;
-	}
-	
-	#main-header li {
-		text-align:center;
-	    width:auto;
-	    margin-right: 1em;
-	}
-	#main-header li a, #main-header li span {
-	    font-size: 1.2rem;
-	    color: #fff;
-	}
-	#main-header li:hover a {
-	    color: aqua;
-	}
-	
-	#toggle {
-		display:none;
-	}
-
-}
 	
 
 
