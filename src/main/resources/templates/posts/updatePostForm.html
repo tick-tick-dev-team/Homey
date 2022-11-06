@@ -24,7 +24,9 @@
 </th:block>
 
 <!-- 고유 스크립트 추가 -->
-<th:block layout:fragment="script"></th:block>	
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/fileControl.js}" ></script>
+</th:block>	
 
 <body id="PostForm" layout:fragment="content">
 	<div class="container">
@@ -57,7 +59,7 @@
 						</li>
 					</ul>					
 
-					<button class="btn-border bg-green" type="submit">수정</button>
+					<button class="btn-border bg-green" type="submit">등록</button>
 				</div>
 				
 			</form>

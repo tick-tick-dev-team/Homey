@@ -31,13 +31,11 @@ function getImageFiles(e) {
 	console.log(fileData);
 
     const uploadFiles = [];
-    
-    [...files].forEach(file => {
-        if (!file.type.match("image/.*")) {
-          alert('이미지 파일만 업로드가 가능합니다.');
-          return;
-        }
-        
+
+	if(fileSizeValidation(files)) return;
+	if(!imgValidation) return;
+
+    [...files].forEach(file => {       
         if ([...files].length < 2) {
         	
         	FetchFn('POST', '/profile' , fileData);
@@ -53,25 +51,26 @@ function getImageFiles(e) {
             	img.setAttribute('data-file', file.name);
             };
             reader.readAsDataURL(file);
-            
         }
     });
 }
 
 function getProfileImg(e) {
-	const file = e.currentTarget.files;
+	const files = e.currentTarget.files;
 	
 	const input_file = document.querySelector('#uploadFile');
 	const userId_input = document.querySelector('#user_id');
 	
 	const userId = userId_input !=null ? userId_input.value : null;
 
-	if(!imgValidation(file)){
+	if(fileSizeValidation(files)) return;
+
+	if(!imgValidation(files)){
 		return;
 	} else {
 		if(userId) {
 		const formData = new FormData();
-		formData.append('file', input_file.files[0]);
+		formData.append('file', files[0]);
 		
 		fetch('/users/' + userId + '/profile', {
 			method : 'POST',
@@ -127,19 +126,22 @@ function imgReset(e){
 	}
 }
 
-function imgValidation(files){
-	var maxSize  = 1048576;
-	
+function imgValidation(files){	
     [...files].forEach(file => {
 	    if (!file.type.match("image/.*")) {
 	    	alert('이미지 파일만 업로드가 가능합니다.');
 			return false;
 	    }
+	});
+	return true;
+}
+function fileSizeValidation(files) {
+	var maxSize  = 1048576;
+	[...files].forEach(file => {
 		if(file.size > maxSize){
 			alert('파일 사이즈는 1MB까지 등록 가능합니다.');
 	   		return false;
 		}
-		
 	});
 	return true;
 }
