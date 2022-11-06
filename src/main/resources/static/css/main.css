@@ -8,13 +8,13 @@
     position: relative;
     height: auto;
     min-height: calc(100% - 14em);
-    /* height: 100%; */
-    /* height: auto;
+    height: 100%;
+    height: auto;
     min-height: 100%;
-    padding-bottom: 10em; */
+    padding-bottom: 10em;
 }
 
-/* #main-header {
+#main-header {
     position: fixed;
     top:0;
     width: 100%;
@@ -23,7 +23,7 @@
     z-index: 999;
 }
 
-.container {            media 쿼리로 변경함
+.container {            
     height: 100%;
     margin: 0 auto;
     width: 70em;
@@ -50,7 +50,14 @@
 }
 #main-header li:hover a {
     color: aqua;
-} */
+}
+.header_toggle{
+	display: none;
+}
+#toggle {
+	display:none;
+}
+/*header에 nav처리*/
 
 
 #main-footer {
@@ -130,13 +137,16 @@ section .section-title {
 
 
 #image-container {
-    width: 100%;
-    /* height: 30rem; */
+    max-width: 100%;
+	max-height: 66rem;
+    width: auto;
+    height: auto;
     overflow: hidden;
 }
 #image-container img {
-    width: 100%;
-    height: 100%;
+	max-width: 100%;
+	width: auto;
+    height: auto;
 }
 
 i.btn-delete {
@@ -200,7 +210,7 @@ i.btn-delete {
 }
 
 .tabcontent ul li label {
-	width: 15%;
+	width: 9rem;
 	font-size: 1.3rem;
 }
 .tabcontent ul li input{
@@ -222,7 +232,7 @@ i.btn-delete {
 }
 
 /* 중복체크 버튼 */
-.tabcontent button#nickCheckBtn {
+.tabcontent button.mypageCheck {
 	font-size: 1.2rem;
 	padding: 0.5rem 1rem;
     box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
@@ -256,8 +266,35 @@ i.btn-delete {
 .tabcontent ul li .list-col-4 {
     width: 40%;
 }
-.tabcontent .mobile {
+.mobile {
 	display: none;
+	width: 100%;
+	font-size: 1.1rem;
+	border-radius: 1rem;
+	border: 1px solid #ccc;
+	padding: 1rem;
+}
+.mobile .mobile-left {
+	width: 48%;
+}
+.mobile .mobile-left #usernick {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.mobile .mobile-right {
+	width: 48%;
+	text-align: right;
+}
+.mark-role {
+	color: #fff;
+	border-radius: 0.5rem;
+	padding: 0.3rem 0.5rem;
+}
+.bg-admin {
+	background-color: darkviolet;
+}
+.bg-manager {
+	background-color: deeppink;
 }
 
 
@@ -265,70 +302,6 @@ i.btn-delete {
 
 
 /*반응형을 위한 미디어 쿼리*/
-@media all and (max-width:1240px){
-	#main-header {
-    position: fixed;
-    top:0;
-    width: 100%;
-    background-color: #2585D9;
-    height: 8.5em;
-    z-index: 999;
-	}
-	
-	.container {
-    height: 100%;
-    margin: 0 auto;
-    width: 70em;
-	}
-
-	
-	#main-header .logo {
-	    height: 100%;
-	}
-	#main-header .logo a {
-		
-	    font-size: 2.6em;
-	    height: 100%;
-	    line-height: 1.7em;
-	    font-family: 'Lobster', cursive;
-	    color: #fff;
-	}
-	
-
-	.header_toggle{
-		display: none;
-	}
-
-	
-	#toggle {
-		display:none;
-	}
-	
-		/*header에 nav처리*/
-	nav{
-		position:relative;
-		background: none; 
-        width: auto;
-        right: auto;
-        left:auto; top:auto;
-        display: block;
-	}
-	
-	#main-header li {
-		text-align:center;
-	    width:auto;
-	    margin-right: 1em;
-	}
-	#main-header li a, #main-header li span {
-	    font-size: 1.2rem;
-	    color: #fff;
-	}
-	#main-header li:hover a {
-	    color: aqua;
-	}
-	
-}
-
 
 @media all and (max-width:768px){
 	#main-header {
@@ -386,7 +359,6 @@ i.btn-delete {
 	#main-header li:hover a {
 	    color: aqua;
 	}
-
 }
 
 
@@ -441,11 +413,37 @@ i.btn-delete {
 	
 	/*열고 닫기*/
 	#toggle:checked + nav{display: inline;}
-	
-	.flex-end{
-		height:6em;
+
+	.tabcontent {
+		padding: 1rem;
 	}
-	
+	.tabcontent .pc {
+		display: none;
+	}
+	.tabcontent .mobile {
+		display: flex;
+	}
+
+	/* 마이페이지 */
+	.tabcontent#myPageUpdateInfo ul li label {
+		width: 7rem;
+	}
+	.tabcontent ul li input {
+		width: calc(100% - 15rem);
+		margin-right: 1rem;
+	}
+	.tabcontent#myPageUpdatePw ul li {
+		display: block;
+	}
+	.tabcontent#myPageUpdatePw ul li label {
+		display: block;
+		width: 100%;
+		margin-bottom: 1rem;
+	}
+	.tabcontent#myPageUpdatePw ul li input {
+		width: calc(100% - 6rem);
+	}
+
 	
 	
 }

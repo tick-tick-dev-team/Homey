@@ -23,7 +23,9 @@
     <script>
 		window.onload=function(){
 			const select_homeuse = document.querySelector('#homeuse');
-			console.log("value_homeuse = ", select_homeuse.value);	
+			console.log("value_homeuse = ", select_homeuse.value);
+			
+			document.getElementById('userList').style.display = "block";
 		}		
     </script>
     <meta charset="UTF-8" />
@@ -43,7 +45,7 @@
 			</div>
 
 			<!-- Tab content -->
-			<div id="userList" class="tabcontent" style="display: block;">
+			<div id="userList" class="tabcontent active">
 				<ul>
 					<li class="flex-between list-header pc">
 						<label class="list-col list-col-1" for="user_id">ID</label>
@@ -67,18 +69,19 @@
 							</select>	 -->
 
 
-						<div class="mobile">
+						<div class="mobile flex-between">
 							<div class="mobile-left">
-								<span id="usernick" name="usernick" th:text="${user.usernick}"></span>
-								(<span id="user_id" name="user_id" th:text="${user.user_id}"></span>)			
-								<span id="userpower" name="userpower" th:text="${user.userpower}"></span>
+								<span id="usernick" name="usernick" th:text="${user.usernick}">mango</span>	
+								<span class="mark-role bg-admin" th:if="${user.userpower=='ROLE_ADMIN'}" id="userpower" name="userpower" th:text="관리자">관리자</span>
+								<span class="mark-role bg-manager" th:if="${user.userpower=='ROLE_MANAGER'}" id="userpower" name="userpower" th:text="매니저">매니저</span>
+								<!-- <span id="userpower" name="userpower" th:text="${user.userpower}">ROLE_ADMIN</span> -->
 							</div>
 							<div class="mobile-right">
-								<p>
-									<span>생일</span> <span><span class="list-col list-col-2" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span></span>
+								<p th:if="${user.userbirth!=null && user.userbirth!=''}">
+									<span>생일</span> <span><span id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span></span>
 								</p>
 								<p>
-									<span>가입일</span> <span class="list-col list-col-2" id="userjoin" th:text="${#dates.format(user.userjoin, 'yyyy-MM-dd')}">2022-10-21</span>						
+									<span>가입일</span> <span id="userjoin" th:text="${#dates.format(user.userjoin, 'yyyy-MM-dd')}">2022-10-21</span>						
 								</p>
 							</div>
 						</div>
@@ -103,13 +106,13 @@
 							<a class="hypertext" th:href="|/home/${home.homeid}|" th:text="${home.homename}">MANGO의 집</a>
 						</span>
 						<span class="list-col list-col-4" id="homeinst" th:text="${home.homeinst}">요즘 사이버펑크가 좋다</span>
-						<!-- 
+						
 						<span class="list-col list-col-2" id="homeuse" name="homeuse" th:text="${home.homeuse}">
-						 -->
-						<select id="homeuse" name="homeuse" class="list-col list-col-2">
+						
+						<!-- <select id="homeuse" name="homeuse" class="list-col list-col-2">
 						    <option th:each="homeuse : ${T(com.ticktack.homey.domain.HomeUse).values()}" 
 						        th:value="homeuse" th:text="${homeuse.label}"></option>
-						</select>												
+						</select>												 -->
 						</span>					
 					</li>									
 				</ul>
