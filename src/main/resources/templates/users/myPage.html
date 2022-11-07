@@ -68,7 +68,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							</li>
 							<li>
 								<label for="userbirth" >생일</label>
-								<input type="date" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}">
+								<input type="date" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"><span class="input_des">* 생일 미입력시 생일 이벤트를 놓칠 수 있습니다.</span>
 							</li>
 							<li>
 								<label for="userjoin" >회원가입일</label>
