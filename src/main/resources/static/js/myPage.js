@@ -313,20 +313,19 @@ function pwValication(frm){
 function passwordShowHide(){
 	const updatePw = document.getElementById('updatePw');
 	const updatePwConfirm = document.getElementById('updatePwConfirm');
-	const eyeIconImg = document.getElementById('eyeIcon').childNodes[0];
-	
-	console.log(eyeIconImg);
+	const eyeIcon = document.getElementById('eyeIcon').childNodes[0];
 	
 	var inputType = updatePw.getAttribute("type");
+	
 	if(inputType == "password"){
 		updatePw.setAttribute("type", "text");
 		updatePwConfirm.setAttribute("type", "text");
-		eyeIconImg.setAttribute("src", "/img/eye_Icon02.jpg");
+		eyeIcon.className ="fa-solid fa-eye-slash fa-2x";
 		
 	} else {
 		updatePw.setAttribute("type", "password");
 		updatePwConfirm.setAttribute("type", "password");
-		eyeIconImg.setAttribute("src", "/img/eye_Icon01.jpg");
+		eyeIcon.className = "fa-solid fa-eye fa-2x";
 	}
 	
 }
