@@ -19,6 +19,7 @@
     <!-- 고유 스크립트 추가 -->
     <th:block layout:fragment="script">
 		<script type="text/javascript" th:src="@{/js/tab.js}"></script>		
+		<script type="text/javascript" th:src="@{/js/userList.js}"></script>	
 	</th:block>
     <script>
 		window.onload=function(){
@@ -61,7 +62,12 @@
 							<span class="list-col list-col-2 pc" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
 							<span class="list-col list-col-2 pc" id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>						
 							
-							<span class="list-col list-col-2 pc" id="userpower" name="userpower" th:text="${user.userpower}"></span>
+							<!-- <span class="list-col list-col-2 pc" id="userpower" name="userpower" th:text="${user.userpower}"></span> -->
+							<select name="userpower" id="userpower" th:value="${user.userpower}" onchange="roleChange(this)">
+								<th:block th:each="role : ${T(com.ticktack.homey.auth.Role).values()}">
+									<option th:value="${role.name()}" th:text="${role.getLabel()}" th:selected="${role.name()} == ${user.userpower}">옵션</option>
+								</th:block>	
+							</select>
 
 							<!-- <select id="userpower" name="userpower" class="list-col list-col-2">
 								<option th:each="role : ${T(com.ticktack.homey.auth.Role).values()}" 
@@ -107,7 +113,14 @@
 						</span>
 						<span class="list-col list-col-4" id="homeinst" th:text="${home.homeinst}">요즘 사이버펑크가 좋다</span>
 						
-						<span class="list-col list-col-2" id="homeuse" name="homeuse" th:text="${home.homeuse}">
+						<!-- <span class="list-col list-col-2" id="homeuse" name="homeuse" th:text="${home.homeuse}">-->
+						
+						<select name="homeuse" id="homeuse" th:value="${home.homeuse}" onchange="useChange(this)">
+							<th:block th:each="homeuse : ${T(com.ticktack.homey.domain.HomeUse).values()}">
+								<option th:value="${homeuse.name()}" th:text="${homeuse.getLabel()}" th:selected="${homeuse.name()} == ${home.homeuse}">옵션</option>
+							</th:block>	
+						</select>						
+						
 						
 						<!-- <select id="homeuse" name="homeuse" class="list-col list-col-2">
 						    <option th:each="homeuse : ${T(com.ticktack.homey.domain.HomeUse).values()}" 
