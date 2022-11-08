@@ -1,113 +1,41 @@
-@media all and (min-width:280px){
-	h2 {
-		padding-top: 0.5em;
-		padding-bottom: 0.5em;
-		font-size: 1.5em;
-		font-family: 'Gamja Flower', cursive;
-		text-align: center;
-	}
-	
-	#main-homelist {
-		text-align: center;
-	}
-	
-	#main-homelist li {
-		display : inline-block;
-	    width: 100%;
-	    margin: 0 1rem 2rem;
-	}
-	#main-homelist li a {
-	    width: 100%;
-	    font-size: 2.7em;
-	    font-family: 'Gamja Flower', cursive;
-	    text-align: center;
-	}
-	#main-homelist li a .img-wrap {
-		padding-left: 0.4em;
-	    width: 98%;
-	    height: 8em;
-	    overflow: hidden;
-	}
-	#main-homelist li a .img-wrap img {
-	    width: 98%;
-	    height: 100%;
-	}
+/* default */
 
+h2 {
+	padding: 1em 0 1em 0;
+	font-size: 2em;
+	font-family: 'Gamja Flower', cursive;
+	text-align: center;
+}
+#main-homelist {
+	text-align: center;
 }
 
-@media all and (min-width:480px){
-	h2 {
-		font-size: 4em;
-		font-family: 'Gamja Flower', cursive;
-		text-align: center;
-	}
-	
-	#main-homelist {
-		text-align: center;
-	}
-	
-	#main-homelist li {
-		display : inline-block;
-	    width: 98%;
-	    margin: 0 1rem 2rem;
-	}
-	#main-homelist li a {
-	    width: 98%;
-	    font-size: 4em;
-	    font-family: 'Gamja Flower', cursive;
-	    text-align: center;
-	}
-	#main-homelist li a .img-wrap {
-	    width: 100%;
-	    height: 8em;
-	    overflow: hidden;
-	}
-	#main-homelist li a .img-wrap img {
-	    width: 100%;
-	    height: 8em;
-	    height: 100%;
-	}
-
+#main-homelist li {
+	display : inline-block;
+    width: 30%;
+    margin: 0 1rem 2rem;
+}
+#main-homelist li a {
+    width: 100%;
+    font-size: 1.5em;
+    font-family: 'Gamja Flower', cursive;
+    text-align: center;
+}
+#main-homelist li a .img-wrap {
+    width: 100%;
+    height: 15em;
+    overflow: hidden;
+}
+#main-homelist li a .img-wrap img {
+    width: 100%;
+    height: 15em;
+    height: 100%;
 }
 
 
 
-@media all and (min-width:640px){
-	h2 {
-		font-size: 4em;
-		font-family: 'Gamja Flower', cursive;
-		text-align: center;
-	}
-	
-	#main-homelist {
-		text-align: center;
-	}
-	
-	#main-homelist li {
-		display : inline-block;
-	    width: 100%;
-	    margin: 0 1rem 2rem;
-	}
-	#main-homelist li a {
-	    width: 100%;
-	    font-size: 5em;
-	    font-family: 'Gamja Flower', cursive;
-	    text-align: center;
-	}
-	#main-homelist li a .img-wrap {
-	    width: 100%;
-	    height: 15em;
-	    overflow: hidden;
-	}
-	#main-homelist li a .img-wrap img {
-	    width: 100%;
-	    height: 15em;
-	    height: 100%;
-	}
 
-}
-
-@media all and (min-width:768px){
+@media all and (max-width:768px){
 	h2 {
 		font-size: 3em;
 		font-family: 'Gamja Flower', cursive;
@@ -144,24 +72,30 @@
 
 
 
-@media all and (min-width:1024px){
+
+
+
+
+
+@media all and (max-width:640px){
 	h2 {
-		font-size: 2em;
+		font-size: 3em;
 		font-family: 'Gamja Flower', cursive;
 		text-align: center;
 	}
+	
 	#main-homelist {
 		text-align: center;
 	}
 	
 	#main-homelist li {
 		display : inline-block;
-	    width: 30%;
+	    width: 100%;
 	    margin: 0 1rem 2rem;
 	}
 	#main-homelist li a {
 	    width: 100%;
-	    font-size: 1.5em;
+	    font-size: 5em;
 	    font-family: 'Gamja Flower', cursive;
 	    text-align: center;
 	}
@@ -173,6 +107,48 @@
 	#main-homelist li a .img-wrap img {
 	    width: 100%;
 	    height: 15em;
+	    height: 100%;
+	}
+
+}
+
+
+
+
+
+
+@media all and (max-width:280px){
+	h2 {
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		font-size: 1.5em;
+		font-family: 'Gamja Flower', cursive;
+		text-align: center;
+	}
+	
+	#main-homelist {
+		text-align: center;
+	}
+	
+	#main-homelist li {
+		display : inline-block;
+	    width: 100%;
+	    margin: 0 1rem 2rem;
+	}
+	#main-homelist li a {
+	    width: 100%;
+	    font-size: 2.7em;
+	    font-family: 'Gamja Flower', cursive;
+	    text-align: center;
+	}
+	#main-homelist li a .img-wrap {
+		padding-left: 0.4em;
+	    width: 98%;
+	    height: 8em;
+	    overflow: hidden;
+	}
+	#main-homelist li a .img-wrap img {
+	    width: 98%;
 	    height: 100%;
 	}
 
