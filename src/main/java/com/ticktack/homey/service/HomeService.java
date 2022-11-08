@@ -12,6 +12,8 @@ public interface HomeService {
 	public Home createHome(Home home);
 	//home 전체조회
 	public List<Home> findHomes();
+	//Y인 home 조회
+	public List<Home> findByHomes();
 	//home 상세조회
 	public Optional<Home> findById(Long homeId);
 	//home 수정

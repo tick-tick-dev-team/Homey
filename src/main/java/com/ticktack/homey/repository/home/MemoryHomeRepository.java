@@ -26,6 +26,11 @@ public class MemoryHomeRepository implements HomeRepository {
 	public List<Home> findHomes() {
 		return new ArrayList<>(store.values());
 	}
+	
+	@Override
+	public List<Home> findByHomes() {
+		return new ArrayList<>(store.values());
+	}
 
 	@Override
 	public Optional<Home> findById(Long homeid) {

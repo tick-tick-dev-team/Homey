@@ -13,6 +13,9 @@ public interface HomeRepository {
 	//home 전체조회
 	List<Home> findHomes();
 	
+	//Y인것만 조회
+	List<Home> findByHomes();
+	
 	//home 상세조회
 	Optional<Home> findById(Long homeid);
 	
