@@ -49,7 +49,7 @@ layout:decorate="~{layout/default_layout}">
 					</div>
 					<p th:if="${home.homeuse=='Y'}"  th:text="${home.homeinst}" id="birth_effect">OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다.</p>
 				
-					<p th:if="${home.homeuse=='N'}" ><B><I><font color="red">이 집은 사용하지 않는 집입니다.</font></I></B></p>
+					<p th:if="${home.homeuse!='Y'}" ><B><I><font color="red">이 집은 사용하지 않는 집입니다.</font></I></B></p>
 				
 				</div>
 			</div>
