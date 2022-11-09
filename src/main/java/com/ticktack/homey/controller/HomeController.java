@@ -142,6 +142,7 @@ public class HomeController {
 		return "homes/myHome";
 	}
 	
+	
 	/*myHome페이지(update)수정 눌렀을때*/
 	@PostMapping("/homes/{homeId}/update")
 	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {

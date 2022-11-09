@@ -81,7 +81,7 @@ function imgReset(e){
 				if(Boolean(result)){
 					alert("리셋 성공!");
 					const img = document.querySelector('.upload');
-					img.setAttribute('src', "/img/user_icon.png");
+					img.setAttribute('src', "/img/defaultHome4.png");
 					document.getElementById('attf_id').value = "";
 				}
 			})
