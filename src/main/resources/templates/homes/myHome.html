@@ -22,7 +22,7 @@ layout:decorate="~{layout/default_layout}">
 		<section>
 			<div class="imgbox">
 				<img th:if="${attach!=null}" class="upload" alt="프로필_img" th:src="|/images/${attach.getATTF_SERNM()}|"/>
-				<img th:unless="${attach!=null}" class="upload" alt="프로필_img" src="/img/user_icon.png"/>
+				<img th:unless="${attach!=null}" class="upload" alt="프로필_img" src="/img/defaultHome.png"/>
 			</div>
 			<div class="img-btn-box">
 				<button class="img-btn" onclick="imgReset(this)">Reset</button>
