@@ -38,7 +38,7 @@ layout:decorate="~{layout/default_layout}">
 			<div class="flex-start" style="width: 100%;">
 				<div class="img-wrap">
 					<img th:if="${attach!=null}" th:src="|/images/${attach.getATTF_SERNM()}|" alt="">
-					<img src="https://via.placeholder.com/100" alt="">
+					<img src="/img/defaultHome.png" alt="">
 				</div>
 				<div class="intro-wrap">
 					<div class="flex-between">
@@ -49,13 +49,13 @@ layout:decorate="~{layout/default_layout}">
 					</div>
 					<p th:if="${home.homeuse=='Y'}"  th:text="${home.homeinst}" id="birth_effect">OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다. OOO의 집에 오신 것을 환영합니다.</p>
 				
-					<p th:if="${home.homeuse=='N'}" >이 집은 사용하지 않는 집입니다.</p>
+					<p th:if="${home.homeuse!='Y'}" ><B><I><font color="red">이 집은 사용하지 않는 집입니다.</font></I></B></p>
 				
 				</div>
 			</div>
 		</section>
 
-		<section id="postList" th:if="${home.homeuse=='Y'}">
+		<section id="postList" th:if="${home.homeuse=='Y'} or ${writer.user_id==home.userid}">
 			<div class="section-header">
 				<h1 class="section-title">흔적 남기기</h1>
 

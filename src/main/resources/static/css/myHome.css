@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+.forstyle {
+	margin-top: 2em;
+	border: 1px solid #2585D9;
+	border-radius: 6em;
+}
+
+/* 이미지 */
+.imgbox {
+	border-radius:50%;
+	overflow: hidden;
+	isolation: isolate;
+	margin: 0 auto;
+	width: 20em;
+	height: 20em;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.upload {
+	width: 20em;
+	height: 20em;
+}
+
+.img-btn-box {
+	text-align: center;
+}
+
+.img-btn {
+	font-size: 1.2em;
+	padding: 0.5em 1em;
+}
+
+
+
+/* 텍스트박스 */
+.content-wrap ul li {
+	margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.content-wrap ul li label {
+	width: 9rem;
+	font-size: 1.3rem;
+}
+.content-wrap ul li .input{
+	font-size: 1.3rem;
+}
+.content-wrap ul li .input {
+	margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+
+.radio {
+	    width: 3%;
+
+}
+
+
+/*수정버튼*/
+.bg-green{
+	float: right;
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 0.5rem 2rem;
+    border: 1px solid #ccc;
+    margin-right: 1em;
+    border-radius: 4em;
+}

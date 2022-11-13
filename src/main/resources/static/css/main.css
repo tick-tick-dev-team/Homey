@@ -403,8 +403,26 @@ i.btn-delete {
 	    display: none;
 	}
 	
+	#main-header ul{
+		display:block;
+		align-items: center;
+	}
+	
+	#main-header li {
+		margin-right: auto;
+		margin-left: auto;
+		text-align: right;
+		width:5em;
+	
+	}
+	
+	#main-header li a, #main-header li span {
+		font-size:1.8em;
+		text-align: center;
+	}
+	
 	nav a{
-	    width:5.7em;
+	    width:5em;
 	    display:flex; justify-content:space-between; /*space around 쓰면 왼쪽이 너비가 달라서 정렬이 엉망이 된다. 그래서 between으로 끝으로 붙이고 padding으로 좌우 여백 준다. space around보다 between을 더 자주 쓴다.*/
 	    align-items:center; /*이거 없으면 위쪽으로 쏠린다.*/
 	    color:#fff;
@@ -479,50 +497,29 @@ i.btn-delete {
 	}
 	
 	
-	#main-header li {
-    width:auto;
-    margin-right: 1em;
-    font-size: 1.2rem;
-    color: #fff;
-	}
-
-
-	/*여기서부터 toggle 관련, 위에는 원래 있던 것들 */	
-	.header_toggle{
-    position:absolute; right:15px; top:0.8em;
-    color:#fff; font-size:3em;
-    cursor:pointer; /*손가락 모양 생기도록 한다.*/
-	}
-
-	
-
-
-	
-	/*header에 nav처리*/
 	nav{
-		position: absolute; left:0; right: 0; top:7.3em;
+		position: absolute; left:0; right: 0; top:7.5em;
 	    background-color: rgba(0,0,0,0.7);
-	    height:3em;
 	    display: none;
 	}
 	
-	nav li {display:inline;}
 	
+	#main-header li {
+		margin-right: auto;
+		margin-left: auto;
+		font-size:1em;
+		text-align: right;
+		width:5em;
+	
+	}
 	#main-header li a, #main-header li span {
-    	font-size: 1.2em;
-    	color: #fff;
+		font-size:1.8em;
+		text-align: center;
 	}
 	
-	nav a{
-	    display:flex; justify-content:space-between; /*space around 쓰면 왼쪽이 너비가 달라서 정렬이 엉망이 된다. 그래서 between으로 끝으로 붙이고 padding으로 좌우 여백 준다. space around보다 between을 더 자주 쓴다.*/
-	    align-items:center; /*이거 없으면 위쪽으로 쏠린다.*/
-	    color:#fff;
-	    padding:-1px 2%;
-	}
+	
 
-	
-	/*열고 닫기*/
-	#toggle:checked + nav{display: inline;}
-	
+
+
 }
 

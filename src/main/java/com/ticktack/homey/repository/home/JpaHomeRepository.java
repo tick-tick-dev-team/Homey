@@ -30,6 +30,14 @@ public class JpaHomeRepository implements HomeRepository  {
 		return em.createQuery("select h from Home h", Home.class)
 				.getResultList();
 	}
+	
+	
+	@Override
+	public List<Home> findByHomes() {
+		return em.createQuery("select h from Home h where h.homeuse=:homeuse", Home.class)
+				.setParameter("homeuse", "Y")
+				.getResultList();
+	}
 
 	@Override
 	public Optional<Home> findById(Long homeid) {

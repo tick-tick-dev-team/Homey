@@ -18,7 +18,6 @@ import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.PostForm;
-import com.ticktack.homey.domain.UHList;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
@@ -43,7 +42,7 @@ public class HomeController {
 	//첫화면, index페이지, logout시 반환
 	@GetMapping("/")
 	public String list(Model model) {
-		List<Home> homes = homeService.findHomes();
+		List<Home> homes = homeService.findByHomes();
 		model.addAttribute("homes", homes);
 		return "redirect:/homes";
 	}
@@ -54,7 +53,7 @@ public class HomeController {
 		/*에러와 예외를 모델에 담는다 https://velog.io/@jyleedev/%ED%9A%8C%EC%9B%90-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%ED%8C%A8*/
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);		
-		System.out.println("error============================" + error);
+
 		return "loginForm";
 	}
 	
@@ -63,7 +62,7 @@ public class HomeController {
 		/*에러와 예외를 모델에 담는다 https://velog.io/@jyleedev/%ED%9A%8C%EC%9B%90-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%ED%8C%A8*/
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);		
-		System.out.println("error============================" + error);
+
 		return "loginForm";
 	}
 	
@@ -74,7 +73,7 @@ public class HomeController {
 	@GetMapping("/homes")
 	public String hometown(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
 		//Authentication 객체를 통해 유저 정보를 가져올 수 있다.
-		List<Home> homes = homeService.findHomes();
+		List<Home> homes = homeService.findByHomes();
 		model.addAttribute("homes", homes);
 		//model.addAttribute("info", principal.getUsername()+"님");
 		
@@ -87,9 +86,6 @@ public class HomeController {
 		}
 		
 		
-		/*List<UHList> main = homeService.findMain();
-		model.addAttribute("main", main);*/
-			
 		return "homes/Homes";
 	}
 	
@@ -146,22 +142,13 @@ public class HomeController {
 		return "homes/myHome";
 	}
 	
+	
 	/*myHome페이지(update)수정 눌렀을때*/
 	@PostMapping("/homes/{homeId}/update")
 	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {
-		/*Home home = new Home();
-		home.setHomeid(form.getHomeid());
-		home.setHomename(form.getHomename());
-		home.setHomeinst(form.getHomeinst());
-		home.setHomethema(form.getHomethema());
-		home.setHomeuse(form.getHomeuse());
-		home.setUserid(form.getUserid());
-		home.setAttfid(form.getAttfid());*/
-		
+		//수정
 		homeService.updateHome(form);
-		
-		
-		/*return "redirect:/homes/{homeId}/update";*/
+		//selecthome으로 반환
 		return "redirect:/homes/{homeId}";
 	}
 	
@@ -201,6 +188,7 @@ public class HomeController {
 		}
 		return result;
 	}
-	
+		
 
 }
+	
