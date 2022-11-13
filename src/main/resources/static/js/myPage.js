@@ -121,7 +121,6 @@ function imgReset(e){
 		// https://csdrive.tistory.com/22
 		
 	}else {
-		alert("이미지 리셋 실패");
 		return;
 	}
 }
@@ -165,7 +164,8 @@ function pwdCheck() {
 					if(isFalseBoolean){
 						userpass.setAttribute('readonly', "readonly");
 						btn.innerHTML = "체크완료✔";
-						btn.style.color = "#2585D9";
+						btn.style.background = "#2585D9";
+						btn.style.color = "#ffffff";
 						btn.disabled = true;
 					} else {
 						userpass.value == ""
@@ -320,12 +320,12 @@ function passwordShowHide(){
 	if(inputType == "password"){
 		updatePw.setAttribute("type", "text");
 		updatePwConfirm.setAttribute("type", "text");
-		eyeIcon.className ="fa-solid fa-eye-slash fa-2x";
+		eyeIcon.className ="fa-solid fa-eye-slash fa-lg";
 		
 	} else {
 		updatePw.setAttribute("type", "password");
 		updatePwConfirm.setAttribute("type", "password");
-		eyeIcon.className = "fa-solid fa-eye fa-2x";
+		eyeIcon.className = "fa-solid fa-eye fa-lg";
 	}
 	
 }

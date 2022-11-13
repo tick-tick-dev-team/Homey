@@ -62,18 +62,18 @@
 							<span class="list-col list-col-2 pc" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
 							<span class="list-col list-col-2 pc" id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>						
 							
-							<!-- <span class="list-col list-col-2 pc" id="userpower" name="userpower" th:text="${user.userpower}"></span> -->
-							<select name="userpower" id="userpower" th:value="${user.userpower}" onchange="roleChange(this)">
-								<th:block th:each="role : ${T(com.ticktack.homey.auth.Role).values()}">
-									<option th:value="${role.name()}" th:text="${role.getLabel()}" th:selected="${role.name()} == ${user.userpower}">옵션</option>
-								</th:block>	
+							<select name="userpower" id="userpower" onchange="roleChange(this)">
+								<th:block th:if="${writer.userpower == 'ROLE_ADMIN'}">
+									<th:block th:each="role : ${T(com.ticktack.homey.auth.Role).values()}">
+										<option th:value="${role.name()}" th:text="${role.getLabel()}" th:selected="${role.name()} == ${user.userpower}">옵션</option>
+									</th:block>
+								</th:block>
+								<th:block th:unless="${writer.userpower == 'ROLE_ADMIN'}">
+									<option th:if="${user.userpower == 'ROLE_ADMIN'}" th:value="${user.userpower}" th:text="관리자" selected >옵션</option>
+									<option th:if="${user.userpower == 'ROLE_MANAGER'}" th:value="${user.userpower}" th:text="매니저" selected >옵션</option>
+									<option th:if="${user.userpower == 'ROLE_USER'}" th:value="${user.userpower}" th:text="사용자" selected >옵션</option>
+								</th:block>
 							</select>
-
-							<!-- <select id="userpower" name="userpower" class="list-col list-col-2">
-								<option th:each="role : ${T(com.ticktack.homey.auth.Role).values()}" 
-									th:value="role" th:text="${role.label}"></option>
-							</select>	 -->
-
 
 						<div class="mobile flex-between">
 							<div class="mobile-left">
@@ -108,7 +108,7 @@
 					</li>
 					<!-- 추후 userpower는 fetch로 수정 -->
 					<li class="flex-between" th:each="home:${homes}">
-						<span class="list-col list-col-3" id="homename">
+						<span class="list-col list-col-3" id="homename" th:homeId="${home.homeid}">
 							<a class="hypertext" th:href="|/home/${home.homeid}|" th:text="${home.homename}">MANGO의 집</a>
 						</span>
 						<span class="list-col list-col-4" id="homeinst" th:text="${home.homeinst}">요즘 사이버펑크가 좋다</span>
