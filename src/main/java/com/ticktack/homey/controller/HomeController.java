@@ -81,6 +81,9 @@ public class HomeController {
 		if(principal != null) {
 			User userinfo = userService.findBynick(principal);
 			model.addAttribute("writer", userinfo);
+
+			Home homeInfo = homeService.findByUserId(principal.getUser().getUser_id()).get();
+			model.addAttribute("home", homeInfo);
 		} else {
 			model.addAttribute("writer", null);
 		}
