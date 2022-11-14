@@ -146,7 +146,7 @@ function CommUpdateForm(e){
 	
 	var div = document.createElement("div");
 	div.setAttribute('class',"input-wrap");
-	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="commCont" name="commCont" value="'+content+'" maxlength="450"'>'
+	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="commCont" name="commCont" value="'+content+ ' maxlength="450">'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a><span id="commLength">0 /450 Byte</span>';
 	li.appendChild(div);
