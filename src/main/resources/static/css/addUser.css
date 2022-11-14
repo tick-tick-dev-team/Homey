@@ -1,0 +1,53 @@
+.container > .content-wrap {
+    text-align: -webkit-center;
+}
+
+/* 텍스트박스 */
+.content-wrap p {
+	margin : 1em;
+	font-size : 5pt;
+	color : #ccc;
+}
+
+.content-wrap .mainText {
+    font-size: 14pt;
+    padding-top: 0.5em;
+    color: #a0a0a0;
+    font-weight: bold;
+}
+.content-wrap ul {
+	width : 64%;
+}
+
+.content-wrap ul li {
+	margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.content-wrap ul li label {
+	width: 9rem;
+	font-size: 1.3rem;
+}
+
+.content-wrap ul li label span {
+	color : #FFAAAA;
+	margin-right: 0.5em;
+}
+.content-wrap ul li input {
+	margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+

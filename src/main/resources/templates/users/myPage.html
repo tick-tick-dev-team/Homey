@@ -63,12 +63,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 						<ul>
 							<li>
 								<label for="nickChage">닉네임</label>
-								<input type="text" id="nickChage" name="nickChage" th:value="${users.usernick}" >
+								<input type="text" id="nickChage" name="nickChage" th:value="${users.usernick}" maxlength='16'>
 								<button class="mypageCheck" id="nickCheckBtn" type="button" onclick="javascript:check_id();">중복검사</button>
 							</li>
 							<li>
 								<label for="userbirth" >생일</label>
-								<input type="date" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}">
+								<input type="date" id="userbirth" name="userbirth" th:value="${#dates.format(users.userbirth, 'yyyy-MM-dd')}"><span class="input_des"> 생일 미입력시 생일 이벤트를 놓칠 수 있습니다.</span>
 							</li>
 							<li>
 								<label for="userjoin" >회원가입일</label>
@@ -92,7 +92,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							<li>
 								<label for="updatePw">변경 비밀번호</label>
 								<input type="password" id="updatePw" name="updatePw" placeholder="변경할 비밀번호를 입력하세요." onchange="javascript:check_pw();" required>
-								<div id="eyeIcon"><img alt="프로필_img" src="/img/eye_Icon01.jpg"></div>
+								<div id="eyeIcon"><i class="fa-solid fa-eye fa-lg"></i></div>
 							</li>
 							<li>
 								<label for=""></label>

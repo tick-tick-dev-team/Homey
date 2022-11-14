@@ -121,7 +121,6 @@ function imgReset(e){
 		// https://csdrive.tistory.com/22
 		
 	}else {
-		alert("이미지 리셋 실패");
 		return;
 	}
 }
@@ -165,7 +164,8 @@ function pwdCheck() {
 					if(isFalseBoolean){
 						userpass.setAttribute('readonly', "readonly");
 						btn.innerHTML = "체크완료✔";
-						btn.style.color = "#2585D9";
+						btn.style.background = "#2585D9";
+						btn.style.color = "#ffffff";
 						btn.disabled = true;
 					} else {
 						userpass.value == ""
@@ -313,20 +313,19 @@ function pwValication(frm){
 function passwordShowHide(){
 	const updatePw = document.getElementById('updatePw');
 	const updatePwConfirm = document.getElementById('updatePwConfirm');
-	const eyeIconImg = document.getElementById('eyeIcon').childNodes[0];
-	
-	console.log(eyeIconImg);
+	const eyeIcon = document.getElementById('eyeIcon').childNodes[0];
 	
 	var inputType = updatePw.getAttribute("type");
+	
 	if(inputType == "password"){
 		updatePw.setAttribute("type", "text");
 		updatePwConfirm.setAttribute("type", "text");
-		eyeIconImg.setAttribute("src", "/img/eye_Icon02.jpg");
+		eyeIcon.className ="fa-solid fa-eye-slash fa-lg";
 		
 	} else {
 		updatePw.setAttribute("type", "password");
 		updatePwConfirm.setAttribute("type", "password");
-		eyeIconImg.setAttribute("src", "/img/eye_Icon01.jpg");
+		eyeIcon.className = "fa-solid fa-eye fa-lg";
 	}
 	
 }

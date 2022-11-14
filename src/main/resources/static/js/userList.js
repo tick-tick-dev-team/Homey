@@ -38,7 +38,7 @@ function useChange(e){
 	var use = e.value;
 	console.log(use);
 	var li = e.parentNode;
-	var homeId = li.querySelector("#homeId").value;
+	var homeId = li.querySelector("#homename").getAttribute("homeId");
 	console.log(homeId);
 	homeId = parseInt(homeId);
 	
