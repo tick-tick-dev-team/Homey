@@ -17,9 +17,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled=true)
 public class SecurityConfig {
 	
-	/*로그인 실패 핸들러 의존성 주입
-	private AuthenticationFailureHandler AuthFail;*/
-
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
       return new BCryptPasswordEncoder();
@@ -37,7 +34,6 @@ public class SecurityConfig {
 			.loginPage("/loginForm")
 			.loginProcessingUrl("/login")
 			.defaultSuccessUrl("/homes")
-			//.failureUrl("/loginForm?error=true")
 			.failureHandler(AuthFail())
 			.usernameParameter("usernick") //아이디 파라미터명
 			.passwordParameter("userpass")
