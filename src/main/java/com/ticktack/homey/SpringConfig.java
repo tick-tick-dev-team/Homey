@@ -70,7 +70,7 @@ public class SpringConfig {
 	
 	@Bean
 	public HomeService homeService() {
-		return new HomeServiceImpl(homeRepository());
+		return new HomeServiceImpl(homeRepository(), attachRepository());
 	}
 	
 	@Bean

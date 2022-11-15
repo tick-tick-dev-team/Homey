@@ -13,12 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.io.IOException;
+
+
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
+import com.ticktack.homey.domain.HomeForm;
+import com.ticktack.homey.domain.HomeFormFile;
+import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.domain.User;
+import com.ticktack.homey.file.FileStore;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
 import com.ticktack.homey.service.PostService;
@@ -38,6 +47,10 @@ public class HomeController {
 	
 	@Autowired
 	private AttachService attachService;
+	
+	// 파일 업로드
+	@Autowired
+	private FileStore fileStore;
 	
 	//첫화면, index페이지, logout시 반환
 	@GetMapping("/")
@@ -130,6 +143,51 @@ public class HomeController {
 	/*myHome페이지(update)*/
 	@GetMapping("/homes/{homeId}/update")
 	public String updateHomeForm(@PathVariable("homeId") Long homeId, Model model) {
+		
+		HomeForm home = homeService.findByHFId(homeId);
+		model.addAttribute("home", home);
+		
+		return "homes/myHome";
+	}
+	
+	
+	/*myHome페이지(update)수정 눌렀을때*/
+	@PostMapping("/homes/{homeId}/update")
+	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, HomeFormFile form, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		
+		Attach attach = fileStore.storeFile(form.getAttf_obj());
+		
+		//새로운 파일 있는 경우
+		if(attach!=null) {
+			// 기존 파일 삭제
+			fileStore.deleteStoreFile(Optional.ofNullable(homeService.findByHFId(homeid).getAttf_obj()));
+			form.setAttfid(homeService.createAttach(attach).getATTF_ID());
+		}
+		// 새로운 파일 없음 & 기존 파일 삭제하는 경우
+		if(form.isDeleteAttach() && form.getAttfid()!=null) { // 기존파일 삭제
+			System.out.println("form.isDeleteAttach() = " + form.isDeleteAttach() + " / form.getAttfid() = " + form.getAttfid());
+			fileStore.deleteStoreFile(attachService.findById(form.getAttfid()));
+			form.setAttfid(null);
+		}
+
+		form.setHomeid(homeid);
+
+		// DB에 게시물 저장
+		Home updatedHome = form.getHomeFromMFHome();
+		homeService.updateHome(updatedHome);
+		redirectAttributes.addAttribute("homeid", form.getHomeid());
+
+		//selecthome으로 반환
+		return "redirect:/homes/{homeId}";
+	}
+	
+	
+	
+	
+	
+	/*myHome페이지(update)*/
+	@GetMapping("/homes/{homeId}/updateASIS")
+	public String updateHomeFormASIS(@PathVariable("homeId") Long homeId, Model model) {
 		Home home = homeService.findById(homeId).get();
 		model.addAttribute("home", home);
 		
@@ -144,8 +202,8 @@ public class HomeController {
 	
 	
 	/*myHome페이지(update)수정 눌렀을때*/
-	@PostMapping("/homes/{homeId}/update")
-	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {
+	@PostMapping("/homes/{homeId}/updateASIS")
+	public String updateHomeASIS(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, Home form) {
 		//수정
 		homeService.updateHome(form);
 		//selecthome으로 반환
