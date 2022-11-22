@@ -14,14 +14,8 @@ async function checkbirth() {
 	var day = ('0' + today.getDate()).slice(-2);
 
 	var dateString = year + '-' + month  + '-' + day;
-
-	console.log(dateString);
-	console.log(typeof(dateString));
 	
-
 	const userId = document.getElementById('for_birth').value;
-
-	console.log(userId);
 	
 	fetch('/users/' + userId + '/birth', {
 		method : 'POST',
@@ -33,12 +27,9 @@ async function checkbirth() {
 		    alert("이 집 주인의 생일은 " + text + "로 오늘입니다.\n생일을 진심으로 축하합니다!");
 		    changeCursor();
 			fireworks();
-			
+			}
 		}
-	}
-
 	);
-
 }
 
 function changeCursor() {
@@ -53,11 +44,6 @@ function fireworks(){
 	
 	let canvas = document.getElementById('canvas');
 
-	//console.log("얍"+canvas);
-	//document.write("<script type='text/javascript' src='/js/confetti_v2.js'><"+"/script>");
-	
-
-	
 	(function () {
 	    // globals
 	    var canvas;
@@ -116,8 +102,6 @@ function fireworks(){
 
 	    $(document).ready(function () {
 	        SetGlobals();
-	        //InitializeButton();
-	        //InitializeConfetti();
 
 	        RestartConfetti();
 	        setTimeout(function DeactivateConfetti(){
@@ -136,11 +120,7 @@ function fireworks(){
 	        });
 
 	    });
-
-	    function InitializeButton() {
-	        $('#stopButton').click(DeactivateConfetti);
-	        $('#startButton').click(RestartConfetti);
-	    }
+	    
 
 	    function SetGlobals() {
 	        canvas = document.getElementById("canvas");
