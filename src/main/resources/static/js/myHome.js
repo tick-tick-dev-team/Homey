@@ -1,13 +1,14 @@
-/**
- * 마이홈 업데이트 스크립트
- */
+/* 마이홈 업데이트 스크립트 */
 
 window.onload=function(){
 	const realUpload = document.querySelector('.real-upload');
-    const upload = document.querySelector('.upload');
+    const upload = document.querySelector('.imgbox');
 
     upload.addEventListener('click', () => realUpload.click());
-    realUpload.addEventListener('change', setThumbnail);    
+    realUpload.addEventListener('change', setThumbnail);  
+    
+    //readOnly 회색처리
+    document.getElementById("readOnly").style.background = "#e5e5e5";
     
 }
 
@@ -19,19 +20,15 @@ function setThumbnail(event) {
     const files = event.currentTarget.files;
 
     if(!fileSizeValidation(files)) {
-        console.log("fileSize fail");
         event.target.value = "";
         return;
     }
-    console.log("fileSize pass");
-    
+
     //img인지 체크
     if(!imgValidation(files)){
-    	console.log("not img");
     	event.target.value ="";
     	return;
     }
-    console.log("img pass");
 	
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -83,9 +80,6 @@ function imgValidation(files){
 function imgReset(e){
 	if(confirm("이미지를 리셋하시겠어요?")){
 		const attfId = document.getElementById('attf_id').value;
-		//const homeId = document.getElementById('homeid').value;
-		
-		alert("리셋 성공!");
 		
 		// img를 넣을 부모 태그
         const parent = document.querySelector(".imgbox"); 
@@ -94,10 +88,18 @@ function imgReset(e){
         while (parent.innerHTML!='') {
             parent.innerHTML="";
         }
+        
+        //deleteAttach 속성 true로 변경
+        if(attfId) { 
+        	// id값 이미 있으면 deleteAttach 속성 true로 변경
+            const deleteAttach = document.querySelector('#deleteAttach');
+            deleteAttach.value = true;
+        }
 
+        //기본 이미지로 만들어준다.
 		const img = document.createElement("img");
 		img.setAttribute('src', "/img/defaultHome.png");
-		document.getElementById('attf_id').value = "";
+		//document.getElementById('attf_id').value = "";
 		parent.appendChild(img);
 
 		reader.readAsDataURL(event.target.files[0]); //바이너리 파일을 읽어들일때 사용
@@ -108,7 +110,7 @@ function imgReset(e){
 }
 
 
-
+//수정버튼 눌렀을시
 function gowith(){
 		alert("수정완료되었습니다.");
 }

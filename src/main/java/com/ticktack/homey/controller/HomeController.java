@@ -1,5 +1,6 @@
 package com.ticktack.homey.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,18 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.io.IOException;
-
-
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.HomeForm;
 import com.ticktack.homey.domain.HomeFormFile;
-import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.file.FileStore;
@@ -88,9 +84,8 @@ public class HomeController {
 		//Authentication 객체를 통해 유저 정보를 가져올 수 있다.
 		List<Home> homes = homeService.findByHomes();
 		model.addAttribute("homes", homes);
-		//model.addAttribute("info", principal.getUsername()+"님");
 		
-		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용하세요!
+		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용
 		if(principal != null) {
 			User userinfo = userService.findBynick(principal);
 			model.addAttribute("writer", userinfo);
@@ -108,9 +103,6 @@ public class HomeController {
 	//selectHome
 	@GetMapping("/homes/{homeId}")
 	public String selectHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeId, Model model) {
-		
-		System.out.println("HomeController에 들어왔습니다.");
-		System.out.println("!!!!!!!!!!"+principal.getUser().getUserpower());
 		
 		// 모든 post 중 homeId가 같은 것만 골라내어 리스트 형태로 반환
 		List<PostForm> postFormList = postService.findAllByHomeId(homeId);
@@ -156,7 +148,7 @@ public class HomeController {
 	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, HomeFormFile form, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		
 		Attach attach = fileStore.storeFile(form.getAttf_obj());
-		
+
 		//새로운 파일 있는 경우
 		if(attach!=null) {
 			// 기존 파일 삭제
@@ -164,8 +156,8 @@ public class HomeController {
 			form.setAttfid(homeService.createAttach(attach).getATTF_ID());
 		}
 		// 새로운 파일 없음 & 기존 파일 삭제하는 경우
-		if(form.isDeleteAttach() && form.getAttfid()!=null) { // 기존파일 삭제
-			System.out.println("form.isDeleteAttach() = " + form.isDeleteAttach() + " / form.getAttfid() = " + form.getAttfid());
+		if(form.isDeleteAttach() && form.getAttfid()!=null) { 
+			// 기존파일 삭제
 			fileStore.deleteStoreFile(attachService.findById(form.getAttfid()));
 			form.setAttfid(null);
 		}
@@ -216,7 +208,6 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/homes/{user_id}/select")
 	public User selectRole(@PathVariable Long user_id, @RequestBody User user ) {
-		System.out.println("************HomeController : selectRoles************");
 		User result = userService.findById(user_id).get();
 		result.setUserpower(user.getUserpower());
 		userService.updateUser(result);
@@ -233,8 +224,6 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/homes/{homeId}/homeUse")
 	public Home selectHOME(@PathVariable Long homeId, @RequestBody Home home ) {
-		System.out.println("************HomeController : selectHOME************");
-		System.out.println(home.toString());
 
 		Home result = homeService.findById(homeId).get();
 		result.setHomeuse(home.getHomeuse());

@@ -24,19 +24,6 @@ layout:decorate="~{layout/default_layout}">
 <body layout:fragment="content">
 	<div class = "container">
 		<div class = "forstyle">
-			<!-- <section>
-				<div class="imgbox">
-					<img th:if="${attach!=null}" class="upload2" alt="프로필_img" th:src="|/images/${attach.getATTF_SERNM()}|"/>
-					<img th:unless="${attach!=null}" class="upload2" alt="프로필_img" src="/img/defaultHome.png"/>
-				</div>
-				<div class="img-btn-box">
-					<button class="img-btn" onclick="imgReset(this)">Reset</button>
-				</div>
-				<form method="post" enctype="multipart/form-data" >
-					<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
-					
-				</form>
-			</section> -->
 			<section>
 				<div class="content-wrap">
 					<form th:action="@{|/homes/${homeId}/update|}" method="post" onsubmit="gowith()" enctype="multipart/form-data">
@@ -57,7 +44,7 @@ layout:decorate="~{layout/default_layout}">
 						</li>
 						
 						
-							<li><label>집이름 :</label> <input type="text" class="input" name="homename" th:value="${home.homename}" readonly="readonly"></li>
+							<li><label>집이름 :</label> <input type="text" id="readOnly" class="input" name="homename" th:value="${home.homename}" readonly="readonly"></li>
 	
 							<li><label>집설명 :</label> <input type="text" class="input" name="homeinst" th:value="${home.homeinst}" maxlength='300'></li>
 	
