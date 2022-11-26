@@ -14,20 +14,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
 import com.ticktack.homey.domain.Attach;
-import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.file.FileStore;
 import com.ticktack.homey.service.AttachService;
-import com.ticktack.homey.service.HomeService;
 import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.UserService;
 
@@ -35,7 +30,6 @@ import com.ticktack.homey.service.UserService;
 public class AttachController {
 	
 	private final UserService userService;
-	private final HomeService homeService;
 	private final PostService postService;
 	private final AttachService attachService;
 	
@@ -43,11 +37,10 @@ public class AttachController {
 	// 파일 처리 관련 클래스
 	private final FileStore fileStore;
 	
-	public AttachController(UserService userService, HomeService homeService, PostService postService, AttachService attachService, 
+	public AttachController(UserService userService, PostService postService, AttachService attachService, 
 			FileStore fileStore) {
 		super();
 		this.userService = userService;
-		this.homeService = homeService;
 		this.postService = postService;
 		this.attachService = attachService;
 		this.fileStore = fileStore;
@@ -197,47 +190,6 @@ public class AttachController {
 			}		
 		}
 	}
-	
-	
-	// 임시파일 업로드 MyHome(update)에서 사용 - 10.22 사장추가
-	// 프로필 등록
-	@ResponseBody
-	@PostMapping("/homes/{homeId}/profile")
-	public Attach createHomeTmp (@PathVariable Long homeId, MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		System.out.println("attachController : createHomeTmp");
-		
-		// 임시 파일 저장
-		if(Optional.ofNullable(file).isPresent()) {
-			Attach attach = fileStore.storeFile(file);
-			
-			// attach db에 저장
-			attachService.createAttach(attach);
-			
-			return attach;
-		}
-		return null;
-	}
-	
-	
-	/*
-	 * 프로필 파일 리셋 및 리셋 결과값 - 10.22 사장추가
-	 * */ 
-	@ResponseBody
-	@PostMapping("/homes/{homeId}/profileReset/{attfId}")
-	public boolean homeprofileReset (@PathVariable Long homeId, @PathVariable Long attfId, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {		
-		System.out.println("----------------attachController : profileReset");
-		profileCheck(homeId);
-		
-		// 파일 존재여부 확인
-		Optional<Attach> deleteAttach = attachService.findById(attfId);
-		if(deleteAttach.isPresent()) {
-			return false;
-		} else {
-			return true;
-		}
-
-	}
-	
 	
 	
 	// home.attfid 있으면 main 이미지 불러오기(22.10.29 사장 추가)

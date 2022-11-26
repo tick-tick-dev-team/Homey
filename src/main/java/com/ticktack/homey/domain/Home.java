@@ -90,6 +90,20 @@ public class Home {
 				+ ", homeuse=" + homeuse + ", homethema=" + homethema + "]";
 	}
 	
+	//Home을 HomeForm 객체로 변환해서 반환, myHome 조회를 위해..
+	public HomeForm getFormFromHome() {
+		HomeForm form = new HomeForm();
+		
+		form.setHomeid(this.getHomeid());
+		form.setUserid(this.getUserid());
+		form.setHomename(this.getHomename());
+		form.setHomeinst(this.getHomeinst());
+		form.setHomeuse(this.getHomeuse());
+		form.setHomethema(this.getHomethema());
+		form.setAttfid(this.getAttfid());
+		
+		return form;
+	}
 	
 	
 }

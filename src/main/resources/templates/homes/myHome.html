@@ -15,6 +15,7 @@ layout:decorate="~{layout/default_layout}">
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/myHome.js}" ></script>
+
 </th:block>
 <meta charset="UTF-8">
 
@@ -24,27 +25,26 @@ layout:decorate="~{layout/default_layout}">
 	<div class = "container">
 		<div class = "forstyle">
 			<section>
-				<div class="imgbox">
-					<img th:if="${attach!=null}" class="upload" alt="프로필_img" th:src="|/images/${attach.getATTF_SERNM()}|"/>
-					<img th:unless="${attach!=null}" class="upload" alt="프로필_img" src="/img/defaultHome.png"/>
-				</div>
-				<div class="img-btn-box">
-					<button class="img-btn" onclick="imgReset(this)">Reset</button>
-				</div>
-				<form method="post" enctype="multipart/form-data" >
-					<input id="uploadFile" type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
-					
-				</form>
-			</section>
-			<section>
 				<div class="content-wrap">
-					<form th:action="@{|/homes/${homeId}/update|}" method="post" onsubmit="gowith()">
+					<form th:action="@{|/homes/${homeId}/update|}" method="post" onsubmit="gowith()" enctype="multipart/form-data">
 							<input type="hidden" id="attf_id" name="attfid" th:value="${home.attfid}">
 							<input type="hidden" id="homeid" name="homeid" th:value="${home.homeid}">
 							<input type="hidden" name="userid" th:value="${home.userid}">
-						
+							<input type="hidden" id="deleteAttach" name="deleteAttach" th:value="${home.deleteAttach}">
 						<ul>
-							<li><label>집이름 :</label> <input type="text" class="input" name="homename" th:value="${home.homename}" readonly="readonly"></li>
+						<li>	
+							<div class="imgbox">
+								<img th:if="${home.attfid!=null}" th:src="|/images/${home.getAttf_obj().getATTF_SERNM()}|" alt="" class="upload">
+								<img th:unless="${home.attfid!=null}" class="upload" alt="프로필_img" src="/img/defaultHome.png"/>
+							</div>
+							<div class="img-btn-box">
+								<input type="file" name="attf_obj" id="uploadFile" class="real-upload" accept="image/*" multiple onchange="setThumbnail(event);" style="display: none;">
+								<input type=button class="img-btn" onclick="imgReset(this)" value="Reset">
+							</div>
+						</li>
+						
+						
+							<li><label>집이름 :</label> <input type="text" id="readOnly" class="input" name="homename" th:value="${home.homename}" readonly="readonly"></li>
 	
 							<li><label>집설명 :</label> <input type="text" class="input" name="homeinst" th:value="${home.homeinst}" maxlength='300'></li>
 	
