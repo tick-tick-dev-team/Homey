@@ -97,12 +97,12 @@ function passwordShowHide(){
 	if(inputType == "password"){
 		Pw.setAttribute("type", "text");
 		PwConfirm.setAttribute("type", "text");
-		eyeIconImg.setAttribute("src", "/img/eye_Icon02.jpg");
+		eyeIconImg.className ="fa-solid fa-eye-slash fa-lg";
 		
 	} else {
 		Pw.setAttribute("type", "password");
 		PwConfirm.setAttribute("type", "password");
-		eyeIconImg.setAttribute("src", "/img/eye_Icon01.jpg");
+		eyeIconImg.className = "fa-solid fa-eye fa-lg";
 	}
 	
 }

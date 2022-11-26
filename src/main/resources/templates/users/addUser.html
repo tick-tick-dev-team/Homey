@@ -27,6 +27,7 @@ layout:decorate="~{layout/default_layout}">
 	<div class="content-wrap">
 		<p class="mainText">Homey 회원가입</p>
 		<p>Homey는 필수적인 정보만으로 회원을 관리합니다.</p>
+		<!-- <div><img src="/img/welcome.gif"></div> -->
 		<!-- <p>닉네임에는 공백이 들어갈 수 없습니다.</p> -->
 		<form th:action="@{/users/new}" method="post" onsubmit="return gowith();">
 			<ul>
@@ -34,26 +35,25 @@ layout:decorate="~{layout/default_layout}">
 					<label for="usernick"><span>*</span>닉네임</label>
 					<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='16'>
 					<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button>
-					<span id="check_nick"></span>
+					<span class="text" id="check_nick"></span>
 				</li>
 				<li>
 					<label for="userpass"><span>*</span>비밀번호</label>
 					<input type="password" name="userpass" id="pw" onchange="javascript:check_pw();" required>
-					<div id="eyeIcon"><img alt="프로필_img" id="eye" src="/img/eye_Icon01.jpg" onclick="javascript:passwordShowHide()"></div>			
+					<!-- <div id="eyeIcon"><img alt="프로필_img" id="eye" src="/img/eye_Icon01.jpg" onclick="javascript:passwordShowHide()"></div> -->
+					<div id="eyeIcon"><i class="fa-solid fa-eye fa-lg" onclick="javascript:passwordShowHide()"></i></div>			
 				</li>
 				<li>
 					<label for="userpass2"><span>*</span>비밀번호확인</label>
 					<input type="password" name="userpass2" id="pw2" onchange="javascript:check_pw();" required>
-					<span id="check_pw"></span>	
+					<span class="text" id="check_pw"></span>	
 				</li>
 				<li>
-					<label for="userbirth">생년월일</label>
+					<label class="birth" for="userbirth">생년월일</label>
 					<input type="date" name="userbirth">			
 				</li>
-				<li>
-					<button type="submit" id='target_btn'>가입하기</button>	
-				</li>
 			</ul>
+			<button type="submit" id='target_btn' class="btn-submit">가입하기</button>
 		</form>
 	</div>	
 </div>

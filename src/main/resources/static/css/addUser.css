@@ -12,7 +12,7 @@
 .content-wrap .mainText {
     font-size: 14pt;
     padding-top: 0.5em;
-    color: #a0a0a0;
+    color: #000;
     font-weight: bold;
 }
 .content-wrap ul {
@@ -30,14 +30,15 @@
 .content-wrap ul li label {
 	width: 9rem;
 	font-size: 1.3rem;
+	text-align: left;
 }
 
 .content-wrap ul li label span {
 	color : #FFAAAA;
-	margin-right: 0.5em;
+	margin-right: 0.3em;
 }
 .content-wrap ul li input {
-	margin-right: 2rem;
+	margin-right: 1rem;
     padding: 0.5rem 1rem;
     width: 60%;
     border-radius: 4px;
@@ -49,5 +50,41 @@
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+
+.content-wrap ul li span.text {
+	color : #2585D9;
+	margin-top: 1em;
+	margin-left: 9.5em;
+}
+
+.birth {
+	padding-left: 0.8em;
+}
+.buttonLI {
+	text-align: -webkit-center;
+}
+
+button.btn-submit {
+	font-size: 1.5rem;
+	color: #a0a0a0;
+	padding: 0.5rem 2rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 18em;
+    margin-top: 1.5em;
+}
+button.btn-submit:hover {
+	color: #fff;
+	background:#2585D9;
+}
+
+#idchk_button {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+}
+#idchk_button:hover {
+	background: #F3F3F2;
 }
 
