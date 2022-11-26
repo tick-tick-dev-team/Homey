@@ -72,7 +72,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 							</li>
 							<li>
 								<label for="userjoin" >회원가입일</label>
-								<input type="text" id="userjoin" name="userJoin" th:value="${#dates.format(users.userjoin, 'yyyy-MM-dd mm:ss')}" readonly="readonly">
+								<input type="text" id="userjoin" name="userJoin" th:value="${#dates.format(users.userjoin, 'yyyy-MM-dd hh:mm')}" readonly="readonly">
 							</li>
 						</ul>
 						<button type="submit" name="submit" class="btn-submit bg-green" >수정</button>
