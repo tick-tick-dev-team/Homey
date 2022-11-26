@@ -47,6 +47,7 @@
 
 			<!-- Tab content -->
 			<div id="userList" class="tabcontent active">
+			<input type="hidden" id="userRole" th:value="${writer.userpower}">
 				<ul>
 					<li class="flex-between list-header pc">
 						<label class="list-col list-col-1" for="user_id">ID</label>
@@ -61,8 +62,7 @@
 							<span class="list-col list-col-2 pc" id="usernick" th:text="${user.usernick}">mango</span>
 							<span class="list-col list-col-2 pc" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
 							<span class="list-col list-col-2 pc" id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>						
-							
-							<select name="userpower" id="userpower" onchange="roleChange(this)">
+							<select name="userpower" id="userpower" onchange="roleChange(this)" th:role="${user.userpower}">
 								<th:block th:if="${writer.userpower == 'ROLE_ADMIN'}">
 									<th:block th:each="role : ${T(com.ticktack.homey.auth.Role).values()}">
 										<option th:value="${role.name()}" th:text="${role.getLabel()}" th:selected="${role.name()} == ${user.userpower}">옵션</option>
