@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .forstyle {
-	margin-top: 2em;
+	margin: 2em 2em 2em 2em;
 	border: 1px solid #2585D9;
 	border-radius: 6em;
 }
@@ -28,6 +28,7 @@ img {
 
 .img-btn-box {
 	text-align: center;
+	margin-right: 2em;
 }
 
 .img-btn {
