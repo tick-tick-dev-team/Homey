@@ -102,12 +102,11 @@ h2 {
 	}
 	#main-homelist li a .img-wrap {
 	    width: 100%;
-	    height: 15em;
+	    height: 8em;
 	    overflow: hidden;
 	}
 	#main-homelist li a .img-wrap img {
 	    width: 100%;
-	    height: 15em;
 	    height: 100%;
 	}
 
