@@ -27,6 +27,8 @@
 			console.log("value_homeuse = ", select_homeuse.value);
 			
 			document.getElementById('userList').style.display = "block";
+
+			
 		}		
     </script>
     <meta charset="UTF-8" />
@@ -62,7 +64,7 @@
 							<span class="list-col list-col-2 pc" id="usernick" th:text="${user.usernick}">mango</span>
 							<span class="list-col list-col-2 pc" id="userbirth" th:text="${#dates.format(user.userbirth, 'yyyy-MM-dd')}">1994-04-21</span>
 							<span class="list-col list-col-2 pc" id="userjoin" th:text="${user.userjoin}">2022.10.21 13:13:13</span>						
-							<select name="userpower" id="userpower" onchange="roleChange(this)" th:role="${user.userpower}">
+							<select class="pc" name="userpower" id="userpower" onchange="roleChange(this)" th:role="${user.userpower}" style="width: 20%;">
 								<th:block th:if="${writer.userpower == 'ROLE_ADMIN'}">
 									<th:block th:each="role : ${T(com.ticktack.homey.auth.Role).values()}">
 										<option th:value="${role.name()}" th:text="${role.getLabel()}" th:selected="${role.name()} == ${user.userpower}">옵션</option>
@@ -78,8 +80,11 @@
 						<div class="mobile flex-between">
 							<div class="mobile-left">
 								<span id="usernick" name="usernick" th:text="${user.usernick}">mango</span>	
-								<span class="mark-role bg-admin" th:if="${user.userpower=='ROLE_ADMIN'}" id="userpower" name="userpower" th:text="관리자">관리자</span>
-								<span class="mark-role bg-manager" th:if="${user.userpower=='ROLE_MANAGER'}" id="userpower" name="userpower" th:text="매니저">매니저</span>
+								<!-- <span id="userpower" name="userpower" th:value="${user.userpower}" class="mark-role"></span> -->
+
+								<span id="userpower" name="userpower" th:value="${user.userpower}" class="mark-role bg-admin" th:if="${user.userpower == 'ROLE_ADMIN'}" th:text="관리자" ></span>
+								<span id="userpower" name="userpower" th:value="${user.userpower}" class="mark-role bg-manager" th:if="${user.userpower == 'ROLE_MANAGER'}" th:text="매니저"></span>
+								<span id="userpower" name="userpower" th:value="${user.userpower}" class="mark-role bg-user" th:if="${user.userpower == 'ROLE_USER'}" th:text="사용자"></span>
 								<!-- <span id="userpower" name="userpower" th:text="${user.userpower}">ROLE_ADMIN</span> -->
 							</div>
 							<div class="mobile-right">
@@ -115,10 +120,10 @@
 						
 						<!-- <span class="list-col list-col-2" id="homeuse" name="homeuse" th:text="${home.homeuse}">-->
 						
-						<select name="homeuse" id="homeuse" th:value="${home.homeuse}" onchange="useChange(this)">
+						<select name="homeuse" id="homeuse" th:value="${home.homeuse}" onchange="useChange(this)" style="width: 20%;">
 							<th:block th:each="homeuse : ${T(com.ticktack.homey.domain.HomeUse).values()}">
 								<option th:value="${homeuse.name()}" th:text="${homeuse.getLabel()}" th:selected="${homeuse.name()} == ${home.homeuse}">옵션</option>
-							</th:block>	
+							</th:block>						
 						</select>						
 						
 						
