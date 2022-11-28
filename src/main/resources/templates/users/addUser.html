@@ -35,7 +35,7 @@ layout:decorate="~{layout/default_layout}">
 					<label for="usernick"><span>*</span>닉네임</label>
 					<input type="text" class="usernick_input" id="formnick" name="usernick" onchange="retry()" required="required" maxlength='16'>
 					<button type="button" id="idchk_button" onclick="javascript:check_id();" >중복검사</button>
-					<span class="text" id="check_nick"></span>
+					<span class="text" id="check_nick">닉네임은 로그인시 ID가 됩니다. (한글 사용 가능)</span>
 				</li>
 				<li>
 					<label for="userpass"><span>*</span>비밀번호</label>
@@ -50,7 +50,8 @@ layout:decorate="~{layout/default_layout}">
 				</li>
 				<li>
 					<label class="birth" for="userbirth">생년월일</label>
-					<input type="date" name="userbirth">			
+					<input type="date" name="userbirth">
+					<span class="text">생일 미입력시 생일 이벤트를 놓칠 수 있습니다.</span>			
 				</li>
 			</ul>
 			<button type="submit" id='target_btn' class="btn-submit">가입하기</button>
