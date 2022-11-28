@@ -28,7 +28,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 	                    <!-- 추후 이름 클릭 시 마이페이지 이동 어떤지? -->
 	                	<li><span sec:authentication="name"></span><span>님</span></li>
 	                    <li><a th:if="${writer!=null}" th:href="@{|/users/${writer.user_id}|}">마이페이지</a></li>
-	                    <li><a th:if="${home!=null}" th:href="@{/homes/{id}(id=${home.homeid})}">마이홈</a></li>
+	                    <li><a th:if="${userhome!=null}" th:href="@{/homes/{id}(id=${userhome.homeid})}">마이홈</a></li>
 	                    <li sec:authorize="hasRole('ROLE_ADMIN')or hasRole('ROLE_MANAGER')"><a th:href="@{/users}">회원목록</a></li>
 	                    <li><a href="/logout" th:value="로그아웃">로그아웃</a></li>
 	                </ul>
