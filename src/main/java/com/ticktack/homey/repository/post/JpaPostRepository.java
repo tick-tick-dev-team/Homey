@@ -32,7 +32,7 @@ public class JpaPostRepository implements PostRepository {
 	@Override
 	public List<Post> findByHomeId(Long homeId) {
 		// 모든 post 중 homeId가 같은 것만 골라내어 리스트 형태로 반환
-		List<Post> result = em.createQuery("select p from Post p where p.POST_HOME=:homeId order by POST_UPDATE desc", Post.class)
+		List<Post> result = em.createQuery("select p from Post p where p.POST_HOME=:homeId order by POST_DATE desc", Post.class)
 				.setParameter("homeId", homeId)
 				.getResultList();
 		return result;
