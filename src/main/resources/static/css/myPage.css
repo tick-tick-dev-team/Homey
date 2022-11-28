@@ -53,4 +53,11 @@ img {
 
 #eyeIcon {
 	opacity: 0.7;
+	display: inline-block;
+}
+
+@media all and (max-width:640px){
+	.input_des {
+		margin-left : 7em;
+	}
 }

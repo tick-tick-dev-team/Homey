@@ -13,7 +13,8 @@ h2 {
 #main-homelist li {
 	display : inline-block;
     width: 30%;
-    margin: 0 1rem 2rem;
+    margin: 0 1rem 0rem;
+	min-height: 26.5rem;
 }
 #main-homelist li a {
     width: 100%;

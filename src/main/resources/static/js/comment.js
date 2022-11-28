@@ -341,7 +341,8 @@ function commContValidation(content){
 
 function byteCal(e){
 	var content = e.value; 
-	var stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+	var regex = /[\0-\x7f]|([0-\u07ff]|(.))/g;
+	var stringByteLength = content.replace(regex,"$&$1$2").length;
 	var span = e.parentNode.querySelector("#commLength");
 	span.innerHTML = "<b>"+stringByteLength + "</b> /450 Byte";
 }
