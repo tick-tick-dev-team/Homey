@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ticktack.homey.domain.Attach;
+import com.ticktack.homey.service.AttachService;
 
-import groovyjarjarantlr4.v4.codegen.SourceGenTriggers.alt_return;
 
 @Component
 public class FileStore {
@@ -23,6 +23,13 @@ public class FileStore {
 	private String fileDir;
     
     private String tmpFileDir = System.getProperty("java.io.tmpdir");
+
+	private final AttachService attachService;
+
+	public FileStore(AttachService attachService) {
+		super();
+		this.attachService = attachService;
+	}
 
     // 파일 이름 입력받아 전체 경로 반환
     public String getFullPath(String filename) {
@@ -75,7 +82,8 @@ public class FileStore {
 			System.out.println("deleteStoreFile : " + a.getATTF_ROUTE() + " 삭제 시작");
 			Path path = Paths.get(a.getATTF_ROUTE());
 			try {
-				Files.deleteIfExists(path);
+				Files.deleteIfExists(path); // 로컬 폴더의 파일 삭제
+				attachService.deleteAttach(a.getATTF_ID()); // DB의 attach 정보 삭제
 				System.out.println("deleteStoreFile : " + a.getATTF_ROUTE() + " 삭제 완료");
 			} catch (IOException e) {
 				e.printStackTrace();
