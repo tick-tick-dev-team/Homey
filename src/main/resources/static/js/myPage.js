@@ -78,7 +78,7 @@ function getProfileImg(e) {
 		})
 		.then((response) => response.json())
 		.then((attach) => {
-			alert("프로필 변경 성공" + attach.attf_REALNM);
+			swal("프로필 변경 성공" + attach.attf_REALNM);
 			displayProfile(attach);
 		})
 		.catch((error) => {
@@ -101,34 +101,43 @@ function displayProfile (attach) {
 
 // 이미지 리셋하기
 function imgReset(e){
-	if(confirm("이미지를 리셋하시겠어요?")){
+	swal({
+	  text: "이미지를 기본 이미지로 변경하시겠습니까?",
+	  buttons: true,
+	})
+	.then((willDelete) => {
+	  if (willDelete) {
 		const attfId = document.getElementById('attf_id').value;
 		const userId = document.getElementById('user_id').value;
-		
-		fetch('/users/' + userId + '/profileReset/' + attfId, {
-			method : 'POST'
-		})
-		.then(function(response){
-			response.text().then(function(result){
-				if(Boolean(result)){
-					alert("리셋 성공!");
-					const img = document.querySelector('.upload');
-					img.setAttribute('src', "/img/user_icon.png");
-					document.getElementById('attf_id').value = "";
-				}
+			
+			fetch('/users/' + userId + '/profileReset/' + attfId, {
+				method : 'POST'
 			})
-		})
-		// https://csdrive.tistory.com/22
+			.then(function(response){
+				response.text().then(function(result){
+					if(Boolean(result)){
+						swal("리셋 성공!");
+						const img = document.querySelector('.upload');
+						img.setAttribute('src', "/img/user_icon.png");
+						document.getElementById('attf_id').value = "";
+					}
+				})
+			})
+	    swal("변경이 완료되었습니다.", {
+	      icon: "success",
+	    });
 		
-	}else {
+	  } else {
 		return;
-	}
+	  }
+	});
+	
 }
 
 function imgValidation(files){	
     [...files].forEach(file => {
 	    if (!file.type.match("image/.*")) {
-	    	alert('이미지 파일만 업로드가 가능합니다.');
+	    	swal('이미지 파일만 업로드가 가능합니다.');
 			return false;
 	    }
 	});
@@ -137,7 +146,7 @@ function imgValidation(files){
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
-        alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+        swal('파일 사이즈는 1MB까지 등록 가능합니다.');
         return false;
     }
 	return true;
@@ -149,7 +158,7 @@ function pwdCheck() {
 	const btn = document.getElementById('pwdCheckBtn');
 	
 	if(userpass.value == ""){
-		alert("비밀번호를 입력하세요.");
+		swal("비밀번호를 입력하세요.");
 		return;
 	}
 	const formData = new FormData();
@@ -169,7 +178,7 @@ function pwdCheck() {
 						btn.disabled = true;
 					} else {
 						userpass.value == ""
-						alert("비밀번호가 일치하지 않습니다.");
+						swal("비밀번호가 일치하지 않습니다.");
 					}
 				}
 			);
@@ -179,7 +188,7 @@ function pwdCheck() {
 function check_pw(){
 		if(document.getElementById('userpass').getAttribute('readonly') != "readonly" 
 			&& document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
-			alert("기존 비밀번호를 체크하세요.")
+			swal("기존 비밀번호를 체크하세요.")
 			document.getElementById('updatePw').value = "";
 			document.getElementById('updatePwConfirm').value = "";
 			document.getElementById('userpass').focus();
@@ -209,7 +218,7 @@ function sumitBtn(){
 	console.log(nickChage);
 	
 	if(nickChage == ""){
-		alert("변경할 닉네임을 입력하세요!");
+		swal("변경할 닉네임을 입력하세요!");
 		return false;	
 	}
 	if(usernick == nickChage){
@@ -219,7 +228,7 @@ function sumitBtn(){
 	}
 	const btncolor = document.getElementById('nickCheckBtn').style.backgroundColor;
 	if(btncolor != "rgb(37, 133, 217)"){
-		alert("닉네임 중복체크를 확인하세요!");
+		swal("닉네임 중복체크를 확인하세요!");
 		return false;
 	} else {
 		return true;	
@@ -234,7 +243,7 @@ async function check_id(){
 		
 		console.log(userN);
 		if(userN == ""){
-			alert("변경할 닉네임을 입력하세요!");
+			swal("변경할 닉네임을 입력하세요!");
 			return;	
 		}
 		if( userN == u){
@@ -258,11 +267,11 @@ async function check_id(){
 					if(result == "false"){
 						document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
 						document.getElementById('nickCheckBtn').style.color= "#fff";
-						alert("사용 가능한 별명입니다.");
+						swal("사용 가능한 별명입니다.");
 					} else {
 						document.getElementById('nickCheckBtn').style.backgroundColor= "#fff;";
 						document.getElementById('nickCheckBtn').style.color= "#000";
-						alert("사용 불가능한 별명입니다.");
+						swal("사용 불가능한 별명입니다.");
 					}
 				}
 			);
@@ -292,19 +301,19 @@ function pwValication(frm){
 	var result = true;
 	
 	if(frm.userpass.value == ""){
-		alert("기존 비밀번호를 체크해주세요.");
+		swal("기존 비밀번호를 체크해주세요.");
 		return false;
 	}
 	if(frm.updatePw.value == "" ){
-		alert("변경할 비밀번호를 입력해주세요.");
+		swal("변경할 비밀번호를 입력해주세요.");
 		return false;
 	}
 	if(document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
-		alert("기존 비밀번호를 입력 후 체크해주세요.");
+		swal("기존 비밀번호를 입력 후 체크해주세요.");
 		return false;
 	}
 	if(check.innerHTML == "비밀번호가 일치하지 않습니다."){
-		alert("변경할 비밀번호가 일치하지 않습니다.");
+		swal("변경할 비밀번호가 일치하지 않습니다.");
 		return false;
 	}
 	return true;
