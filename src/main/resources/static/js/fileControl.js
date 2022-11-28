@@ -13,7 +13,7 @@ function deleteAttach() {
     // 파일 객체 있으면 삭제
     const input_attachObj = document.querySelector("input#ATTF_OBJ");
     if(input_attachObj) {
-    	input_attachObj.value == "";   
+    	input_attachObj.value = "";   
     }
     parent.innerHTML = "";
 }
@@ -29,6 +29,9 @@ function setThumbnail(event) {
         return;
     }
     console.log("fileSize pass");
+    
+
+    console.log("file is an image.");
 	
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -43,13 +46,19 @@ function setThumbnail(event) {
         
         // 자식태그 감싸는 li태그 생성
         const img_wrap = document.createElement('li');
-        const img = document.createElement("img");
-        img.setAttribute("src", event.target.result);
-        img_wrap.appendChild(img);
+        img_wrap.style.setProperty("min-height", "2rem");
+
+        // isFileImage 체크해서  image이면 img태그 생성
+        if(isFileImage(files[0])) {
+            console.log("file is an image.");
+            const img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            img_wrap.appendChild(img);
+        }        
 
         // 삭제 아이콘 생성 및 클래스, onclick 삽입
         const icon = document.createElement('i');
-        icon.setAttribute('class', 'fa-solid fa-trash-can btn-delete');
+        icon.setAttribute('class', 'fa-solid fa-trash-can btn-delete fa-xl');
         icon.addEventListener('click', deleteAttach);
 
         // 부모 안에 li 태그 삽입
@@ -57,6 +66,11 @@ function setThumbnail(event) {
         parent.appendChild(img_wrap);
     };
     reader.readAsDataURL(event.target.files[0]);
+}
+
+// 이미지인지 검사
+function isFileImage(file) {
+    return file && file['type'].split('/')[0] === 'image';
 }
 
 function fileSizeValidation(files) {
