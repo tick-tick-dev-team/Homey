@@ -91,7 +91,7 @@ public class HomeController {
 			model.addAttribute("writer", userinfo);
 
 			Home homeInfo = homeService.findByUserId(principal.getUser().getUser_id()).get();
-			model.addAttribute("home", homeInfo);
+			model.addAttribute("userhome", homeInfo);
 		} else {
 			model.addAttribute("writer", null);
 		}
@@ -131,6 +131,9 @@ public class HomeController {
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
 		
+		Home homeInfo = homeService.findByUserId(principal.getUser().getUser_id()).get();
+		model.addAttribute("userhome", homeInfo);
+		
 		return "homes/selectHome";
 	}
 	
@@ -148,7 +151,7 @@ public class HomeController {
 	
 	/*myHome페이지(update)수정 눌렀을때*/
 	@PostMapping("/homes/{homeId}/update")
-	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, HomeFormFile form, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+	public String updateHome(@AuthenticationPrincipal PrincipalDetails principal, @PathVariable("homeId") Long homeid, HomeFormFile form, RedirectAttributes redirectAttributes, Model model) throws IllegalStateException, IOException {
 		
 		Attach attach = fileStore.storeFile(form.getAttf_obj());
 

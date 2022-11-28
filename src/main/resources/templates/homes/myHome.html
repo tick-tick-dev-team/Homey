@@ -37,9 +37,11 @@ layout:decorate="~{layout/default_layout}">
 								<img th:if="${home.attfid!=null}" th:src="|/images/${home.getAttf_obj().getATTF_SERNM()}|" alt="" class="upload">
 								<img th:unless="${home.attfid!=null}" class="upload" alt="프로필_img" src="/img/defaultHome.png"/>
 							</div>
+						</li>
+						<li>
 							<div class="img-btn-box">
 								<input type="file" name="attf_obj" id="uploadFile" class="real-upload" accept="image/*" multiple onchange="setThumbnail(event);" style="display: none;">
-								<input type=button class="img-btn" onclick="imgReset(this)" value="Reset">
+								<input type=button style="align:center;" class="img-btn" onclick="imgReset(this)" value="기본이미지로 변경">
 							</div>
 						</li>
 						

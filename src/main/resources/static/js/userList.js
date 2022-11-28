@@ -6,6 +6,11 @@ function roleChange(e){
 	
 	var userRole = document.getElementById("userRole").value;
 	
+	if(userRole=="ROLE_ADMIN"){
+		alert("이 사람은 관리자입니다.")
+	}
+	
+	
 	if(confirm("권한을 변경하시겠습니까?")){
 		
 		var role = e.value;
