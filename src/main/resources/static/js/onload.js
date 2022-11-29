@@ -9,11 +9,11 @@ async function checkbirth() {
 	//날짜 (https://gent.tistory.com/413)
 	var today = new Date();
 
-	var year = today.getFullYear();
+	
 	var month = ('0' + (today.getMonth() + 1)).slice(-2);
 	var day = ('0' + today.getDate()).slice(-2);
 
-	var dateString = year + '-' + month  + '-' + day;
+	var dateString = month  + '-' + day;
 	
 	const userId = document.getElementById('for_birth').value;
 	

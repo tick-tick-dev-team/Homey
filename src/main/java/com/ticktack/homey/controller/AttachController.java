@@ -50,8 +50,6 @@ public class AttachController {
 	@DeleteMapping("/attach/{attachId}")
 	public boolean deleteAttach(@PathVariable Long attachId) {
 
-		System.out.println("attachController - deleteAttach attachId = " + attachId);
-
 		Optional<Attach> attach = attachService.findById(attachId);
 		if(attach.isPresent()) {
 			attachService.deleteAttach(attach.get().getATTF_ID());
@@ -81,7 +79,6 @@ public class AttachController {
 		String originalFileName = attach.getATTF_REALNM();
 		
 		UrlResource urlResource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
-		System.out.println("uploadFileName=" + originalFileName);
 		
 		// 한글 깨짐 방지 UTF-8 인코딩
 		String encodedOriginalFileName = UriUtils.encode(originalFileName, StandardCharsets.UTF_8);
@@ -99,11 +96,9 @@ public class AttachController {
 	@ResponseBody
 	@PostMapping("/tmp/new")
 	public Resource createTmp (MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		System.out.println("attachController : createTmp");
 		
 		// 임시 파일 저장
 		Optional.ofNullable(file).ifPresent(f -> {
-			System.out.println("파일명 : " + f.getOriginalFilename());
 			try {
 				fileStore.storeTmpFile(f);
 			} catch (IllegalStateException e) {
@@ -120,7 +115,6 @@ public class AttachController {
 	@ResponseBody
 	@PostMapping("/users/{userId}/profile")
 	public Attach createTmp2 (@PathVariable Long userId, MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		System.out.println("attachController : createTmp2");
 		
 		// 임시 파일 저장
 		if(Optional.ofNullable(file).isPresent()) {
@@ -147,7 +141,7 @@ public class AttachController {
 	@ResponseBody
 	@PostMapping("/users/{userId}/profileReset/{attfId}")
 	public boolean profileReset (@PathVariable Long userId, @PathVariable Long attfId, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {		
-		System.out.println("----------------attachController : profileReset");
+
 		profileCheck(userId);
 		
 		// 파일 존재여부 확인
@@ -165,7 +159,7 @@ public class AttachController {
 	 * --> 해당 메서드를 어디에 정의해야 할지 다같이 논의 필요
 	 * */
 	public void profileCheck(Long userId) {
-		System.out.println("----------------attachController : profileCheck");
+
 		Long deleteAttfId;
 
 		Optional<User> user = userService.findById(userId);

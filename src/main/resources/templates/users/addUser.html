@@ -27,6 +27,8 @@ layout:decorate="~{layout/default_layout}">
 	<div class="content-wrap">
 		<p class="mainText">Homey 회원가입</p>
 		<p>Homey는 필수적인 정보만으로 회원을 관리합니다.</p>
+		<p>Homey는 개인정보를 받지 않으므로 ID와 비밀번호를 찾을 수 없습니다.</p>
+		<p>신중하게 정보를 입력해주세요.</p>
 		<!-- <div><img src="/img/welcome.gif"></div> -->
 		<!-- <p>닉네임에는 공백이 들어갈 수 없습니다.</p> -->
 		<form th:action="@{/users/new}" method="post" onsubmit="return gowith();">

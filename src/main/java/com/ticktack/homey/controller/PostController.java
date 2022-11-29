@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.Attach;
-import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.Home;
 import com.ticktack.homey.domain.Post;
 import com.ticktack.homey.domain.PostForm;
@@ -22,7 +21,6 @@ import com.ticktack.homey.domain.PostFormFile;
 import com.ticktack.homey.domain.User;
 import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.file.FileStore;
-import com.ticktack.homey.repository.post.PostRepository;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.CommentService;
 import com.ticktack.homey.service.HomeService;
@@ -36,24 +34,19 @@ public class PostController {
 	private final HomeService homeService;
 	private final PostService postService;
 	private final AttachService attachService;
-	private final CommentService commentService;
-	// 더미데이터 가져오기
-	private final DummyData dummyData;
+
 
 	// 파일 업로드
 	private final FileStore fileStore;
 	
 	public PostController(UserService userService, PostService postService, HomeService homeService,
-			AttachService attachService, CommentService commentService, 
-			FileStore fileStore, DummyData dummyData) {
+			AttachService attachService, FileStore fileStore) {
 		super();
 		this.userService = userService;
 		this.homeService = homeService;
 		this.postService = postService;
 		this.attachService = attachService;
-		this.commentService = commentService;
 		this.fileStore = fileStore;
-		this.dummyData = dummyData;
 	}
 
 	// test용 selectHome

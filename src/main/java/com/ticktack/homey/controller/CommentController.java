@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ticktack.homey.domain.Comment;
 import com.ticktack.homey.domain.CommentImgForm;
 import com.ticktack.homey.domain.User;
-import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.service.CommentService;
 import com.ticktack.homey.service.UserService;
@@ -21,13 +20,11 @@ import com.ticktack.homey.service.UserService;
 public class CommentController {
 
 	private final CommentService commentService;
-	private final DummyData dummyData;
 	private final UserService userService;
 	private final AttachRepository attachRepository;
 	
-	public CommentController(CommentService commentService, UserService userService, AttachRepository attachRepository, DummyData dummyData) {
+	public CommentController(CommentService commentService, UserService userService, AttachRepository attachRepository) {
 		this.commentService = commentService;
-		this.dummyData = dummyData;
 		this.userService = userService;
 		this.attachRepository = attachRepository;
 	}
@@ -72,9 +69,7 @@ public class CommentController {
 		if(u.getAttf_id()!=null) {
 			form.setATTF_OBJ(attachRepository.findById(u.getAttf_id()).get());
 		}
-		System.out.println(form.toString());
-		
-		
+			
 		return form;
 	}
 	
@@ -89,7 +84,7 @@ public class CommentController {
 		// 해당 댓글 or 답글 찾기
 		// Comment result = commentService.findById(comm).get();
 		removeResult = commentService.commDelete(comm);
-		System.out.println("삭제값 : "+removeResult);
+
 		return removeResult;
 	}
 	
@@ -103,8 +98,6 @@ public class CommentController {
 		Comment result = commentService.findById(comm).get();
 		result.setCommCont(comm.getCommCont());
 		result = commentService.commUpdate(result);
-		
-		System.out.println("수정 : " + result.toString());
 		
 		return result;
 	}
