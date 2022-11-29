@@ -88,3 +88,12 @@ button.btn-submit:hover {
 	background: #F3F3F2;
 }
 
+
+@media all and (max-width:640px){
+
+	.content-wrap ul {
+	width : 90%;
+	}
+
+}
+
