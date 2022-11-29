@@ -69,7 +69,7 @@ public class UserController {
 		home.setHomename(form.getUsernick()+"의 집");
 		homeService.createHome(home);
 		
-		return "/loginForm";
+		return "loginForm";
 	}
 	
 	/*별명중복체크*/
@@ -188,7 +188,9 @@ public class UserController {
 		User result = userService.findById(userId).get();
 		String findBirth = result.getUserbirth().toString();
 		
-		String Birth = findBirth.substring(0, 10);
+		String Birth = findBirth.substring(5, 10);
+		
+		System.out.println(Birth);
 		
 		return Birth;
 	}
