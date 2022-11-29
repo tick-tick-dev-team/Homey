@@ -59,8 +59,6 @@ public class PostServiceImpl implements PostService{
 		Long writer_user_id = (form.getPOST_UWRITER()==null) ? form.getPOST_WRITER() : form.getPOST_UWRITER();
 		User writer = userRepository.findById(writer_user_id).get();
 		
-		System.out.println("==================writer id============" + writer_user_id + "========" + writer.getUsernick());
-		
 		form.setWriterNick(writer.getUsernick());
 		
 		if(writer.getAttf_id()!=null) {

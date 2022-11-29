@@ -190,8 +190,6 @@ public class UserController {
 		
 		String Birth = findBirth.substring(5, 10);
 		
-		System.out.println(Birth);
-		
 		return Birth;
 	}
 	

@@ -39,22 +39,22 @@ function roleChange(e){
 				}
 				alert("변경이 완료되었습니다!");
 			} else {
-				alert("변경이 실패되었습니다. * 운영자한테 문의하시길 바랍니다");
+				alert("변경이 실패되었습니다. * 관리자에게 문의하시길 바랍니다");
 			}
 		});
 	} else {
 		e.value = e.getAttribute("role");
-		console.log(e.getAttribute("role"));
+
 		return;
 	}
 }
 
 function useChange(e){
 	var use = e.value;
-	console.log(use);
+
 	var li = e.parentNode;
 	var homeId = li.querySelector("#homename").getAttribute("homeId");
-	console.log(homeId);
+
 	homeId = parseInt(homeId);
 	
     fetch('/homes/' + homeId + '/homeUse', {
@@ -78,7 +78,7 @@ function useChange(e){
 			}
 			alert("변경이 완료되었습니다!");
 		} else {
-			alert("변경이 실패되었습니다. * 운영자한테 문의하시길 바랍니다");
+			alert("변경이 실패되었습니다. * 관리자에게 문의하시길 바랍니다");
 		}
 	});
 }
