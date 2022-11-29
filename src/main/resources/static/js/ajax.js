@@ -48,9 +48,6 @@ function AjaxAttachFn(api, url , fileData){
 	
 	var result;
 	
-	for (var value of fileData.values()) {
-		console.log(value);
-	}
 	httpRequest = new XMLHttpRequest(); 
 	httpRequest.open(api, url, false);
     httpRequest.setRequestHeader('Content-Type',false);
