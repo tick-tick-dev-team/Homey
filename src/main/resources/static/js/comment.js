@@ -142,9 +142,9 @@ function CommUpdateForm(e){
 	
 	var div = document.createElement("div");
 	div.setAttribute('class',"input-wrap");
-	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="commCont" name="commCont" value="'+content+ '" maxlength="450">'
+	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="commCont" name="commCont" value="'+content+ '" maxlength="150">'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdate(this)" th:text="수정">수정</a>'
-					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a><span id="commLength">0 /450 Byte</span>';
+					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="UpdateCancel(this)" th:text="취소">취소</a><span id="commLength">0 /300 Byte</span>';
 	li.appendChild(div);
 	
 	p.setAttribute('style',"display:none;");
@@ -231,10 +231,10 @@ function CommentReplyAdd(e){
 	addli.classList.add("replyContent");
 	var div = document.createElement("div");
 	div.classList.add("input-wrap");
- 	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="replyCommCont" name="commCont" maxlength="450">'
+ 	div.innerHTML = '<input autocomplete="off" class="updateInput" type="text" id="replyCommCont" name="commCont" maxlength="150">'
  					+ '<input type="hidden" id="commUpid" name="commUpid" value="'+ commId +'">'
 					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyAdd(this)" th:text="등록">등록</a>'
-					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyCancel(this)" th:text="취소">취소</a><span id="commLength">0 /450 Byte</span>';
+					+ '&nbsp;<a class="btn-border bg-white" href="javascript:;" onclick="replyCancel(this)" th:text="취소">취소</a><span id="commLength">0 /300 Byte</span>';
 	addli.appendChild(div);				
  	preElement.after(addli);
  	e.setAttribute('style',"display:none;");
@@ -325,10 +325,11 @@ function commContValidation(content){
 	var stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
 	console.log(stringByteLength + " Bytes");
 	
-	lenMaxSize = 450;
+	//lenMaxSize = 300;
 	
-	if(stringByteLength > 450){
-		alert("최대 글자 수는 150자 미만입니다.");
+	if(stringByteLength > 300){
+		e.value = e.value.substr(0, stringByteLength);
+		alert("최대 글자 수는 한글로 100자 미만입니다.");
 		return false;
 	} else {
 		return true;
@@ -337,8 +338,12 @@ function commContValidation(content){
 
 function byteCal(e){
 	var content = e.value; 
-	var regex = /[\0-\x7f]|([0-\u07ff]|(.))/g;
-	var stringByteLength = content.replace(regex,"$&$1$2").length;
+	var stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
 	var span = e.parentNode.querySelector("#commLength");
-	span.innerHTML = "<b>"+stringByteLength + "</b> /450 Byte";
+	if(stringByteLength > 300){
+		e.value = content.substr(0, stringByteLength);
+		span.innerHTML = "<b style='color:red;'>"+stringByteLength + "</b> /300 Byte";
+	} else {
+		span.innerHTML = "<b>"+stringByteLength + "</b> /300 Byte";
+	}
 }

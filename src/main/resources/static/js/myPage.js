@@ -75,7 +75,7 @@ function getProfileImg(e) {
 		})
 		.then((response) => response.json())
 		.then((attach) => {
-			swal("프로필 변경 성공" + attach.attf_REALNM);
+			swal("프로필 이미지 변경 완료되었습니다.");
 			displayProfile(attach);
 		})
 		.catch((error) => {
@@ -130,21 +130,24 @@ function imgReset(e){
 	
 }
 
-function imgValidation(files){	
-    [...files].forEach(file => {
-	    if (!file.type.match("image/.*")) {
-	    	swal('이미지 파일만 업로드가 가능합니다.');
-			return false;
-	    }
-	});
-	return true;
-}
+//파일 사이즈 검증
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
         swal('파일 사이즈는 1MB까지 등록 가능합니다.');
         return false;
     }
+	return true;
+}
+
+//이미지인지 검증
+function imgValidation(files){	
+
+    if (![...files][0].type.match("image/.*")) {
+    	swal('이미지 파일만 업로드가 가능합니다.');
+		return false;
+    }
+	
 	return true;
 }
 

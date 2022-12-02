@@ -64,12 +64,16 @@
 @media all and (max-width:640px){
 	
 	.loginForm label {
-	margin-right: 0.5rem;
+		text-align: left;
 	}
 	
 	
 	.loginForm input {
-	margin-right: 0;
-    width: 70%;
+		margin-right: 0;
+   		width: 70%;
+	}
+	
+	.loginForm button {
+		width: 85%;
 	}
 }
