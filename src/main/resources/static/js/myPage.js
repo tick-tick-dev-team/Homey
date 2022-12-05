@@ -112,18 +112,18 @@ function imgReset(e){
 			.then(function(response){
 				response.text().then(function(result){
 					if(Boolean(result)){
-						swal("리셋 성공!");
 						const img = document.querySelector('.upload');
 						img.setAttribute('src', "/img/user_icon.png");
 						document.getElementById('attf_id').value = "";
+						
+						swal("변경이 완료되었습니다.", {
+					      icon: "success",
+					    });
 					}
 				})
-			})
-	    swal("변경이 완료되었습니다.", {
-	      icon: "success",
-	    });
-		
+			});
 	  } else {
+		swal("잠시후 다시 시도해주시기 바랍니다.");
 		return;
 	  }
 	});
@@ -134,7 +134,9 @@ function imgReset(e){
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
-        swal('파일 사이즈는 1MB까지 등록 가능합니다.');
+		swal("파일 사이즈는 1MB까지 등록 가능합니다.", {
+	      icon: "warning",
+	    });
         return false;
     }
 	return true;
@@ -144,7 +146,9 @@ function fileSizeValidation(files) {
 function imgValidation(files){	
 
     if (![...files][0].type.match("image/.*")) {
-    	swal('이미지 파일만 업로드가 가능합니다.');
+    	swal("파일 사이즈는 1MB까지 등록 가능합니다.", {
+	      icon: "warning",
+	    });
 		return false;
     }
 	
@@ -157,7 +161,9 @@ function pwdCheck() {
 	const btn = document.getElementById('pwdCheckBtn');
 	
 	if(userpass.value == ""){
-		swal("비밀번호를 입력하세요.");
+		swal("비밀번호를 입력하세요.", {
+	      icon: "warning",
+	    });
 		return;
 	}
 	const formData = new FormData();
@@ -187,7 +193,9 @@ function pwdCheck() {
 function check_pw(){
 		if(document.getElementById('userpass').getAttribute('readonly') != "readonly" 
 			&& document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
-			swal("기존 비밀번호를 체크하세요.")
+			swal("기존 비밀번호를 체크하세요.", {
+		      icon: "warning",
+		    });
 			document.getElementById('updatePw').value = "";
 			document.getElementById('updatePwConfirm').value = "";
 			document.getElementById('userpass').focus();
@@ -216,7 +224,9 @@ function sumitBtn(){
 	
 	
 	if(nickChage == ""){
-		swal("변경할 닉네임을 입력하세요!");
+		swal("변경할 닉네임을 입력하세요", {
+	      icon: "warning",
+	    });
 		return false;	
 	}
 	if(usernick == nickChage){
@@ -226,7 +236,9 @@ function sumitBtn(){
 	}
 	const btncolor = document.getElementById('nickCheckBtn').style.backgroundColor;
 	if(btncolor != "rgb(37, 133, 217)"){
-		swal("닉네임 중복체크를 확인하세요!");
+		swal("닉네임 중복체크를 확인하세요", {
+	      icon: "warning",
+	    });
 		return false;
 	} else {
 		return true;	
@@ -240,7 +252,9 @@ async function check_id(){
 		const u = document.getElementById('usernick').value;
 		
 		if(userN == ""){
-			swal("변경할 닉네임을 입력하세요!");
+			swal("변경할 닉네임을 입력하세요", {
+	     		icon: "warning",
+	    	});
 			return;	
 		}
 		if( userN == u){
@@ -294,19 +308,27 @@ function pwValication(frm){
 	var result = true;
 	
 	if(frm.userpass.value == ""){
-		swal("기존 비밀번호를 체크해주세요.");
+		swal("기존 비밀번호를 체크해주세요.", {
+	      icon: "warning",
+	    });
 		return false;
 	}
 	if(frm.updatePw.value == "" ){
-		swal("변경할 비밀번호를 입력해주세요.");
+		swal("변경할 비밀번호를 입력해주세요.", {
+	      icon: "warning",
+	    });
 		return false;
 	}
 	if(document.getElementById('pwdCheckBtn').innerHTML != "체크완료✔"){
-		swal("기존 비밀번호를 입력 후 체크해주세요.");
+		swal("기존 비밀번호를 입력 후 체크해주세요.", {
+	      icon: "warning",
+	    });
 		return false;
 	}
 	if(check.innerHTML == "비밀번호가 일치하지 않습니다."){
-		swal("변경할 비밀번호가 일치하지 않습니다.");
+		swal("변경할 비밀번호가 일치하지 않습니다.", {
+	      icon: "warning",
+	    });
 		return false;
 	}
 	return true;

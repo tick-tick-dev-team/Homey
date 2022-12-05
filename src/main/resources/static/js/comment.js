@@ -107,12 +107,33 @@ function CommentDelete(e){
 		swal({
 		  text: "답글까지 모두 삭제됩니다. 삭제하시겠습니까?",
 		  buttons: true,
-		}).then((willDelete) => { result = willDelete});
-	}else {
+		}).then((willDelete) => { 
+			if(willDelete) {
+				var li = e.closest("li");
+				var commId = li.getAttribute( 'commId' );
+				var data = {
+			    		commId : commId
+			    };
+		
+				var result = JSON.parse(AjaxFn('POST', '/commentDelete' , data));
+				
+				// 대댓글 삭제
+				if(result) {
+					var list = document.querySelectorAll('li');
+					 for (let i=0; i< list.length; i++){
+						 if(list[i].getAttribute('commupid') == commId){
+							list[i].remove(); 
+						 }
+					 }
+					 li.remove();
+				}
+			} else {
+				return;
+			}  
+		});
+		
+	} else {
 		result = true;
-	}
-	
-	if(result){
 		var li = e.closest("li");
 		var commId = li.getAttribute( 'commId' );
 		var data = {
@@ -131,8 +152,6 @@ function CommentDelete(e){
 			 }
 			 li.remove();
 		}
-	} else {
-		return;
 	}
 	
 }   // function 댓글 삭제 END
@@ -334,7 +353,7 @@ function commContValidation(content){
 	
 	if(stringByteLength > 300){
 		e.value = e.value.substr(0, stringByteLength);
-		alert("최대 글자 수는 한글로 100자 미만입니다.");
+		swal("최대 글자 수는 한글로 100자 미만입니다.");
 		return false;
 	} else {
 		return true;

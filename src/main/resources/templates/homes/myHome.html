@@ -26,7 +26,7 @@ layout:decorate="~{layout/default_layout}">
 		<div class = "forstyle">
 			<section>
 				<div class="content-wrap">
-					<form th:action="@{|/homes/${homeId}/update|}" method="post" onsubmit="gowith()" enctype="multipart/form-data">
+					<form th:action="@{|/homes/${homeId}/update|}" method="post" onsubmit="return gowith()" enctype="multipart/form-data">
 							<input type="hidden" id="attf_id" name="attfid" th:value="${home.attfid}">
 							<input type="hidden" id="homeid" name="homeid" th:value="${home.homeid}">
 							<input type="hidden" name="userid" th:value="${home.userid}">

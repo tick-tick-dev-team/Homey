@@ -56,7 +56,9 @@ function setThumbnail(event) {
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
-    	swal('파일 사이즈는 1MB까지 등록 가능합니다.');
+    	swal("파일 사이즈는 1MB까지 등록 가능합니다.", {
+	      icon: "warning",
+	    });
         return false;
     }
 	return true;
@@ -66,7 +68,9 @@ function fileSizeValidation(files) {
 function imgValidation(files){	
 
     if (![...files][0].type.match("image/.*")) {
-    	swal('이미지 파일만 업로드가 가능합니다.');
+    	swal("이미지 파일만 업로드가 가능합니다.", {
+	      icon: "warning",
+	    });
 		return false;
     }
 	
@@ -78,40 +82,58 @@ function imgValidation(files){
 
 //이미지 리셋하기
 function imgReset(e){
-	if(confirm("이미지를 리셋하시겠어요?")){
-		const attfId = document.getElementById('attf_id').value;
-		
-		// img를 넣을 부모 태그
-        const parent = document.querySelector(".imgbox"); 
-        
-        // 부모 태그 안 기존 이미지 있으면 삭제 //이미지 박스 안 이미지를 아예 삭제하고 새로운 이미지를 넣어줘야한다.
-        while (parent.innerHTML!='') {
-            parent.innerHTML="";
-        }
-        
-        //deleteAttach 속성 true로 변경
-        if(attfId) { 
-        	// id값 이미 있으면 deleteAttach 속성 true로 변경
-            const deleteAttach = document.querySelector('#deleteAttach');
-            deleteAttach.value = true;
-        }
-
-        //기본 이미지로 만들어준다.
-		const img = document.createElement("img");
-		img.setAttribute('src', "/img/defaultHome.png");
-		//document.getElementById('attf_id').value = "";
-		parent.appendChild(img);
-
-		reader.readAsDataURL(event.target.files[0]); //바이너리 파일을 읽어들일때 사용
-	}else {
-		swal("이미지 리셋 실패");
-		return;
-	}
+	swal({
+	  text: "이미지를 리셋하시겠습니까?",
+	  buttons: true,
+	})
+	.then((willDelete) => {
+		if (willDelete) {
+			const attfId = document.getElementById('attf_id').value;
+			
+			// img를 넣을 부모 태그
+	        const parent = document.querySelector(".imgbox"); 
+	        
+	        // 부모 태그 안 기존 이미지 있으면 삭제 //이미지 박스 안 이미지를 아예 삭제하고 새로운 이미지를 넣어줘야한다.
+	        while (parent.innerHTML!='') {
+	            parent.innerHTML="";
+	        }
+	        
+	        //deleteAttach 속성 true로 변경
+	        if(attfId) { 
+	        	// id값 이미 있으면 deleteAttach 속성 true로 변경
+	            const deleteAttach = document.querySelector('#deleteAttach');
+	            deleteAttach.value = true;
+	        }
+	
+	        //기본 이미지로 만들어준다.
+			const img = document.createElement("img");
+			img.setAttribute('src', "/img/defaultHome.png");
+			//document.getElementById('attf_id').value = "";
+			parent.appendChild(img);
+	
+			reader.readAsDataURL(event.target.files[0]); //바이너리 파일을 읽어들일때 사용
+		} else {
+			swal("잠시후 다시 시도해주시기 바랍니다.", {
+		      icon: "error",
+		    });
+			return;
+		}
+	});
 }
 
 
 //수정버튼 눌렀을시
 function gowith(){
 	//alert("수정완료되었습니다");
-	swal("수정완료되었습니다.");
+	swal({
+	  text: "홈을 수정하시겠습니까?",
+	  buttons: true,
+	})
+	.then((willDelete) => {
+		if (willDelete) {
+			return true;
+		} else {
+			return false;
+		}
+	});
 }

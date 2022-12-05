@@ -18,7 +18,7 @@ async function check_id(){
 		const target = document.getElementById('target_btn');
 		
 		if (document.getElementById('formnick').value==''){
-			alert('별명을 입력해주세요.')
+			swal('별명을 입력해주세요.')
 			return;
 		}
 
@@ -116,15 +116,21 @@ function gowith(){
 	
 
 	if(a != userN + ' 사용가능✔'){
-		alert("닉네임 중복 체크를 하세요.");
+		swal("닉네임 중복 체크를 하세요.", {
+	      icon: "warning",
+	    });
 		return false;
 	}
 	if(b!="비밀번호가 일치합니다."){
-		alert("비밀번호 일치 여부를 확인하세요.");
+		swal("비밀번호 일치 여부를 확인하세요.", {
+	      icon: "warning",
+	    });
 		return false;
 	}
 	else {
-		alert("회원가입 완료");		
+		swal("회원가입이 완료되었습니다.", {
+	      icon: "success",
+	    });		
 		return true;
 	}
 	

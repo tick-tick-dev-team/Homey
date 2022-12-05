@@ -72,7 +72,9 @@ function isFileImage(file) {
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
-        alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+        swal("파일 사이즈는 1MB까지 등록 가능합니다.", {
+	   		icon: "warning",
+	    });
         return false;
     }
 	return true;

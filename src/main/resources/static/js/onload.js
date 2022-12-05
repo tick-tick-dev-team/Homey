@@ -24,7 +24,7 @@ async function checkbirth() {
 	.then(response => response.text())
 	.then(function(text){
 		if(text == dateString){
-		    alert("이 집 주인의 생일은 " + text + "로 오늘입니다.\n생일을 진심으로 축하합니다!");
+			swal("생일을 진심으로 축하해주세요!", "이 집 주인의 생일은 " + text + "로 오늘입니다.", "info");
 		    changeCursor();
 			fireworks();
 			}
