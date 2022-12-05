@@ -102,7 +102,11 @@ function CommentDelete(e){
 	const commupid = li.getAttribute('commupid');
 	const commid = li.getAttribute('commid');
 	if( commid == commupid ){
-		result = confirm("답글까지 모두 삭제됩니다. 삭제하시겠습니까?");
+		//result = confirm("답글까지 모두 삭제됩니다. 삭제하시겠습니까?");
+		swal({
+		  text: "답글까지 모두 삭제됩니다. 삭제하시겠습니까?",
+		  buttons: true,
+		}).then((willDelete) => { result = willDelete});
 	}else {
 		result = true;
 	}
