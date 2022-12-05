@@ -50,7 +50,7 @@ layout:decorate="~{layout/default_layout}">
 	
 							<li><label>집설명 :</label> <input type="text" class="input" name="homeinst" th:value="${home.homeinst}" maxlength='300'></li>
 	
-							<li><label>테마 :</label> <input type="text" class="input" name="homethema" th:value="${home.homethema}"></li>
+							<!-- <li><label>테마 :</label> <input type="text" class="input" name="homethema" th:value="${home.homethema}"></li> -->
 							
 							<li th:if="${home.homeuse!='B'}"><label>집 사용여부 :</label> <input type="radio" class="radio" name="homeuse" th:value="Y" th:checked="${home.homeuse eq 'Y'}"><label>Y</label>
 							<input type="radio" name="homeuse" th:value="N" class="radio" th:checked="${home.homeuse eq 'N'}"><label>N</label>

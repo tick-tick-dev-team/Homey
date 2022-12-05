@@ -12,22 +12,14 @@ import com.ticktack.homey.auth.PrincipalDetailsService;
 import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.dummy.DummyDataImpl;
 import com.ticktack.homey.repository.attach.AttachRepository;
-
 import com.ticktack.homey.repository.attach.JpaAttachRepository;
-
-import com.ticktack.homey.repository.attach.MemoryAttachRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.JpaCommentRepository;
-import com.ticktack.homey.repository.comment.MemoryCommRepository;
-
 import com.ticktack.homey.repository.home.HomeRepository;
 import com.ticktack.homey.repository.home.JpaHomeRepository;
-import com.ticktack.homey.repository.home.MemoryHomeRepository;
 import com.ticktack.homey.repository.post.JpaPostRepository;
-import com.ticktack.homey.repository.post.MemoryPostRepository;
 import com.ticktack.homey.repository.post.PostRepository;
 import com.ticktack.homey.repository.user.JpaUserRepository;
-import com.ticktack.homey.repository.user.MemoryUserRepository;
 import com.ticktack.homey.repository.user.UserRepository;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.AttachServiceImpl;

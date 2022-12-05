@@ -91,7 +91,8 @@ function CommentAdd(e){
 	              + '<p class="content">'+ result.commCont +'</p>';
 	ul.appendChild(li);
 	e.previousElementSibling.value= ""; 
-		    
+	
+	byteCal(e.previousElementSibling);
 } 	// function 댓글 등록 END
 
 
@@ -342,7 +343,8 @@ function commContValidation(content){
 
 function byteCal(e){
 	var content = e.value; 
-	var stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+	var pattern = /[\0-\x7f]|([0-\u07ff]|(.))/g;
+	var stringByteLength = content.replace(pattern,"$&$1$2").length;
 	var span = e.parentNode.querySelector("#commLength");
 	if(stringByteLength > 300){
 		e.value = content.substr(0, stringByteLength);

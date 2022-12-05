@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ticktack.homey.auth.PrincipalDetails;
 import com.ticktack.homey.domain.User;
@@ -49,22 +48,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String checkNick(String usernick) {
 		
-		System.out.println(usernick);
-		
 		Boolean check1 = userRepository.findByNick(usernick).isPresent();
-		
-		 System.out.println("hi===="+check1);
 		 
 		 String check2 = check1.toString();
 		 
 		 return check2;
-		 
-//		 if(check1 == true) {
-//				return "사용 불가능한 별명입니다.";
-//			}
-//		 else {
-//				return "사용 가능한 별명입니다.";
-//		 }	
 		 
 		 
 	}
