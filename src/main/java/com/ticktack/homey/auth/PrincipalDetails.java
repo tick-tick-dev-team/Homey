@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ticktack.homey.domain.User;
-import com.ticktack.homey.repository.user.UserRepository;
 
 @SuppressWarnings("serial")
 public class PrincipalDetails implements UserDetails {
@@ -26,7 +25,6 @@ public class PrincipalDetails implements UserDetails {
 		this.user = user;
 	}
 	
-	@SuppressWarnings("serial")
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> collect = new ArrayList<>();

@@ -112,9 +112,6 @@ function imgReset(e){
 
 //수정버튼 눌렀을시
 function gowith(){
-	alert("수정완료되었습니다");
-	/*swal({text : "수정완료되었습니다." ,
-			icon : "success",
-			button : "확인"
-		});*/
+	//alert("수정완료되었습니다");
+	swal("수정완료되었습니다.");
 }
