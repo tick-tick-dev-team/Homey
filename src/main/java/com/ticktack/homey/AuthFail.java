@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 public class AuthFail extends SimpleUrlAuthenticationFailureHandler{
@@ -21,16 +20,11 @@ public class AuthFail extends SimpleUrlAuthenticationFailureHandler{
 		
 		if(exception instanceof BadCredentialsException) {
 			errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해주세요.";
-		} /*else if (exception instanceof UsernameNotFoundException) {
-			errorMessage = "존재하지 않는 계정입니다. 회원가입 후 로그인해주세요.";
-		}*/ else {
+		} else {
 			errorMessage = "존재하지 않는 계정입니다. 회원가입 후 로그인해주세요.";
 		}
 		
 		
-		
-		System.out.println("================here!!!!!!!");
-		System.out.println(errorMessage);
 		
 		
 		saveException(request, exception);

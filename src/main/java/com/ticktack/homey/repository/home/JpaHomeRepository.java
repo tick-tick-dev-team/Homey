@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ticktack.homey.domain.Home;
-import com.ticktack.homey.domain.Post;
 
 @Transactional
 public class JpaHomeRepository implements HomeRepository  {

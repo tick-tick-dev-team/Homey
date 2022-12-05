@@ -1,8 +1,6 @@
 package com.ticktack.homey.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +17,6 @@ public class PrincipalDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String usernick) throws UsernameNotFoundException{
 		User userEntity = userRepository.findBynick(usernick);
-		System.out.println("=============="+ userEntity);
 		if(userEntity != null) {
 			return new PrincipalDetails(userEntity); //UserDetails 값을 Authentication에 넣어주고 return하면
 			//시큐리티 Session에 loadUserByUsername 메소드가 UserDetails 반환값으로 가지고 간다.
