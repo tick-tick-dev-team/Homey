@@ -22,13 +22,12 @@ function nickChange(){
 
 function getImageFiles(e) {
 	const files = e.currentTarget.files;
-	console.log(files);
+
 	var frm = document.getElementById('profile');
 	const fileData = new FormData();
 	for(var i = 0; i < files.length; i++) {
 		fileData.append("files", files[0], files[0].name);
 	}
-	console.log(fileData);
 
     const uploadFiles = [];
 
@@ -39,13 +38,11 @@ function getImageFiles(e) {
         if ([...files].length < 2) {
         	
         	FetchFn('POST', '/profile' , fileData);
-        	//var result =  AjaxAttachFn('POST', '/profile' , fileData);
-            //console.log(result);
             
             uploadFiles.push(file);
             const reader = new FileReader();
             const img = document.querySelector('.upload');
-            console.log(img);
+  
             reader.onload = (e) => {
             	img.setAttribute('src', e.target.result);
             	img.setAttribute('data-file', file.name);
@@ -78,7 +75,7 @@ function getProfileImg(e) {
 		})
 		.then((response) => response.json())
 		.then((attach) => {
-			swal("프로필 변경 성공" + attach.attf_REALNM);
+			swal("프로필 이미지 변경 완료되었습니다.");
 			displayProfile(attach);
 		})
 		.catch((error) => {
@@ -93,8 +90,7 @@ function getProfileImg(e) {
 function displayProfile (attach) {
 	const img = document.querySelector('.upload');
 	const attfId = document.getElementById('attf_id');
-	console.log(attach);
-	console.log(attach.attf_ID);
+
 	img.setAttribute('src', "/images/" + attach.attf_SERNM);
 	attfId.value = attach.attf_ID;
 }
@@ -134,21 +130,24 @@ function imgReset(e){
 	
 }
 
-function imgValidation(files){	
-    [...files].forEach(file => {
-	    if (!file.type.match("image/.*")) {
-	    	swal('이미지 파일만 업로드가 가능합니다.');
-			return false;
-	    }
-	});
-	return true;
-}
+//파일 사이즈 검증
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
         swal('파일 사이즈는 1MB까지 등록 가능합니다.');
         return false;
     }
+	return true;
+}
+
+//이미지인지 검증
+function imgValidation(files){	
+
+    if (![...files][0].type.match("image/.*")) {
+    	swal('이미지 파일만 업로드가 가능합니다.');
+		return false;
+    }
+	
 	return true;
 }
 
@@ -215,14 +214,13 @@ function sumitBtn(){
 	const nickChage = document.getElementById('nickChage').value.split(' ').join('');
 	document.getElementById('nickChage').value = nickChage;
 	
-	console.log(nickChage);
 	
 	if(nickChage == ""){
 		swal("변경할 닉네임을 입력하세요!");
 		return false;	
 	}
 	if(usernick == nickChage){
-		console.log("닉네임이 그대로인 경우");
+
 		document.getElementById('nickCheckBtn').style.backgroundColor = "#2585D9";
 		document.getElementById('nickCheckBtn').style.color = "#fff";
 	}
@@ -241,7 +239,6 @@ async function check_id(){
 		const btn = document.getElementById('nickCheckBtn');
 		const u = document.getElementById('usernick').value;
 		
-		console.log(userN);
 		if(userN == ""){
 			swal("변경할 닉네임을 입력하세요!");
 			return;	
@@ -262,7 +259,6 @@ async function check_id(){
 			})
 			.then(res => res.text())
 			.then(function(text){
-					console.log(text);
 					var result = text;
 					if(result == "false"){
 						document.getElementById('nickCheckBtn').style.backgroundColor= "#2585D9";
@@ -282,9 +278,6 @@ async function check_id(){
 function UpdatePwBtn(){
 	const frm = document.getElementById('pwUpdateFrm');
 	const check = document.getElementById('check');
-	
-	console.log(frm);
-	console.log(check);
 	
 	if(pwValication(frm)){
 		frm.userpass.value = frm.updatePw.value;

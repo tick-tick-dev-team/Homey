@@ -24,14 +24,10 @@ function setThumbnail(event) {
     const files = event.currentTarget.files;
 
     if(!fileSizeValidation(files)) {
-        console.log("fileSize fail");
+
         event.target.value = "";
         return;
     }
-    console.log("fileSize pass");
-    
-
-    console.log("file is an image.");
 	
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -50,7 +46,7 @@ function setThumbnail(event) {
 
         // isFileImage 체크해서  image이면 img태그 생성
         if(isFileImage(files[0])) {
-            console.log("file is an image.");
+
             const img = document.createElement("img");
             img.setAttribute("src", event.target.result);
             img_wrap.appendChild(img);

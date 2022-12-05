@@ -142,7 +142,6 @@ public class PostController {
 		
 		// 새로운 파일 없음 & 기존 파일 삭제하는 경우
 		if(form.isDeleteAttach() && form.getATTF_ID()!=null) { // 기존파일 삭제
-			System.out.println("form.isDeleteAttach() = " + form.isDeleteAttach() + " / form.getATTF_ID() = " + form.getATTF_ID());
 			fileStore.deleteStoreFile(attachService.findById(form.getATTF_ID()));
 			form.setATTF_ID(null);
 		}

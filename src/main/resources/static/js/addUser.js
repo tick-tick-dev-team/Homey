@@ -91,8 +91,6 @@ function passwordShowHide(){
 	const PwConfirm = document.getElementById('pw2');
 	const eyeIconImg = document.getElementById('eyeIcon').childNodes[0];
 	
-	console.log(eyeIconImg);
-	
 	var inputType = Pw.getAttribute("type");
 	if(inputType == "password"){
 		Pw.setAttribute("type", "text");
