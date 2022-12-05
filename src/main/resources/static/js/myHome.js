@@ -56,7 +56,7 @@ function setThumbnail(event) {
 function fileSizeValidation(files) {
 	var maxSize  = 1048576;
     if([...files][0].size > maxSize) {
-        alert('파일 사이즈는 1MB까지 등록 가능합니다.');
+    	swal('파일 사이즈는 1MB까지 등록 가능합니다.');
         return false;
     }
 	return true;
@@ -66,7 +66,7 @@ function fileSizeValidation(files) {
 function imgValidation(files){	
 
     if (![...files][0].type.match("image/.*")) {
-    	alert('이미지 파일만 업로드가 가능합니다.');
+    	swal('이미지 파일만 업로드가 가능합니다.');
 		return false;
     }
 	
@@ -104,7 +104,7 @@ function imgReset(e){
 
 		reader.readAsDataURL(event.target.files[0]); //바이너리 파일을 읽어들일때 사용
 	}else {
-		alert("이미지 리셋 실패");
+		swal("이미지 리셋 실패");
 		return;
 	}
 }
@@ -112,5 +112,9 @@ function imgReset(e){
 
 //수정버튼 눌렀을시
 function gowith(){
-		alert("수정완료되었습니다.");
+	alert("수정완료되었습니다");
+	/*swal({text : "수정완료되었습니다." ,
+			icon : "success",
+			button : "확인"
+		});*/
 }
