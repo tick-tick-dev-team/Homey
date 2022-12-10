@@ -409,13 +409,14 @@ i.btn-delete {
 	#main-header ul{
 		display:block;
 		align-items: center;
+		width:15rem;
+		margin : 0 auto;
 	}
 	
 	#main-header li {
 		margin-right: auto;
 		margin-left: auto;
-		text-align: right;
-		width:5em;
+
 	
 	}
 	
@@ -425,11 +426,7 @@ i.btn-delete {
 	}
 	
 	nav a{
-	    width:5em;
-	    display:flex; justify-content:space-between; /*space around 쓰면 왼쪽이 너비가 달라서 정렬이 엉망이 된다. 그래서 between으로 끝으로 붙이고 padding으로 좌우 여백 준다. space around보다 between을 더 자주 쓴다.*/
-	    align-items:center; /*이거 없으면 위쪽으로 쏠린다.*/
-	    color:#fff;
-	    padding:-2px;
+	    display:block;
 	}
 	
 	/*열고 닫기*/
@@ -514,7 +511,6 @@ i.btn-delete {
 		margin-right: auto;
 		margin-left: auto;
 		font-size:1em;
-		text-align: right;
 		width:5em;
 	
 	}
