@@ -131,9 +131,9 @@ function gowith(){
 	})
 	.then((willDelete) => {
 		if (willDelete) {
-			return true;
+			document.getElementById("frm").submit();	
 		} else {
-			return false;
+			return;
 		}
 	});
 }
