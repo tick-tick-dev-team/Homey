@@ -104,6 +104,12 @@ function imgReset(e){
 	            const deleteAttach = document.querySelector('#deleteAttach');
 	            deleteAttach.value = true;
 	        }
+
+			// 파일 객체 있으면 삭제
+			const input_attachObj = document.querySelector("input#uploadFile");
+			if(input_attachObj) {
+				input_attachObj.value = "";   
+			}
 	
 	        //기본 이미지로 만들어준다.
 			const img = document.createElement("img");
@@ -111,7 +117,7 @@ function imgReset(e){
 			//document.getElementById('attf_id').value = "";
 			parent.appendChild(img);
 	
-			reader.readAsDataURL(event.target.files[0]); //바이너리 파일을 읽어들일때 사용
+			//reader.readAsDataURL(event.target.files[0]); //바이너리 파일을 읽어들일때 사용
 		} else {
 			swal("잠시후 다시 시도해주시기 바랍니다.", {
 		      icon: "error",
