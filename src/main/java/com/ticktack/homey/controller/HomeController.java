@@ -157,15 +157,18 @@ public class HomeController {
 
 		//새로운 파일 있는 경우
 		if(attach!=null) {
-			// 기존 파일 삭제
-			fileStore.deleteStoreFile(Optional.ofNullable(homeService.findByHFId(homeid).getAttf_obj()));
+			if(form.getAttfid()!=null) {
+				// 기존 파일 삭제
+				fileStore.deleteStoreFile(Optional.ofNullable(homeService.findByHFId(homeid).getAttf_obj()));
+			}
 			form.setAttfid(homeService.createAttach(attach).getATTF_ID());
-		}
-		// 새로운 파일 없음 & 기존 파일 삭제하는 경우
-		if(form.isDeleteAttach() && form.getAttfid()==null) { 
-			// 기존파일 삭제
-			fileStore.deleteStoreFile(attachService.findById(form.getAttfid()));
-			form.setAttfid(null);
+		} else {
+			// 새로운 파일 없음 & 기존 파일 삭제하는 경우
+			if(form.isDeleteAttach() && form.getAttfid()!=null) { 
+				// 기존파일 삭제
+				fileStore.deleteStoreFile(attachService.findById(form.getAttfid()));
+				form.setAttfid(null);
+			}
 		}
 
 		form.setHomeid(homeid);

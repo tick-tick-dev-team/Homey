@@ -133,20 +133,19 @@ public class PostController {
 		
 		// 새로운 파일 있는 경우
 		if(attach!=null) {
-			// 기존 파일 삭제
-			Long attf_id = form.getATTF_ID();
-
-			fileStore.deleteStoreFile(Optional.ofNullable(attachService.findById(attf_id).get()));
+			if(form.getATTF_ID()!=null) {
+				// 기존 파일 삭제
+				Long attf_id = form.getATTF_ID();
+				fileStore.deleteStoreFile(Optional.ofNullable(attachService.findById(attf_id).get()));
+			}
 			form.setATTF_ID(postService.createAttach(attach).getATTF_ID());
-			
-		}
-		
-		// 새로운 파일 없음 & 기존 파일 삭제하는 경우
-		if(form.isDeleteAttach() && form.getATTF_ID()!=null) { // 기존파일 삭제
-			Long attf_id = form.getATTF_ID();
-
-			fileStore.deleteStoreFile(Optional.ofNullable(attachService.findById(attf_id).get()));
-			form.setATTF_ID(null);
+		} else {
+			// 새로운 파일 없음 & 기존 파일 삭제하는 경우
+			if(form.isDeleteAttach() && form.getATTF_ID()!=null) { // 기존파일 삭제
+				Long attf_id = form.getATTF_ID();
+				fileStore.deleteStoreFile(Optional.ofNullable(attachService.findById(attf_id).get()));
+				form.setATTF_ID(null);
+			}			
 		}
 
 		form.setPOST_HOME(homeId);
