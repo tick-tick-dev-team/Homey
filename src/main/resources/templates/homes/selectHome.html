@@ -88,9 +88,9 @@ layout:decorate="~{layout/default_layout}">
 
 								<div th:if="${writer.user_id==post.POST_WRITER || writer.user_id==home.userid || writer.userpower=='ROLE_ADMIN'}" class="btn-wrap flex-end">
 									<a class="btn-border bg-white" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
-									<form id="removeForm" method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
+									<form th:id="'removeForm' + ${post.POST_ID}" method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
 										<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
-										<button id="btnDelete" class="bg-white btn-border" type="button">삭제</button>
+										<button class="bg-white btn-border" type="button" th:postid = "${post.POST_ID}" th:onclick="deletePost(this.getAttribute('postid'));">삭제</button>
 									</form>
 								</div>
 							</li>

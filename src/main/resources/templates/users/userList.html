@@ -114,7 +114,7 @@
 					<!-- 추후 userpower는 fetch로 수정 -->
 					<li class="flex-between" th:each="home:${homes}">
 						<span class="list-col list-col-3" id="homename" th:homeId="${home.homeid}">
-							<a class="hypertext" th:href="|/home/${home.homeid}|" th:text="${home.homename}">MANGO의 집</a>
+							<a class="hypertext" th:href="|/homes/${home.homeid}|" th:text="${home.homename}">MANGO의 집</a>
 						</span>
 						<span class="list-col list-col-4" id="homeinst" th:text="${home.homeinst}">요즘 사이버펑크가 좋다</span>
 						
