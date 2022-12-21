@@ -31,6 +31,7 @@ layout:decorate="~{layout/default_layout}">
 							<input type="hidden" id="homeid" name="homeid" th:value="${home.homeid}">
 							<input type="hidden" name="userid" th:value="${home.userid}">
 							<input type="hidden" id="deleteAttach" name="deleteAttach" th:value="${home.deleteAttach}">
+							<input type="hidden" id="homebgm" name="homebgm" th:value="${home.homebgm}">
 						<ul>
 						<li>	
 							<div class="imgbox">
@@ -44,14 +45,17 @@ layout:decorate="~{layout/default_layout}">
 								<input type=button style="align:center;" class="img-btn" onclick="imgReset(this)" value="기본이미지로 변경">
 							</div>
 						</li>
-						
+						<li><label>BGM 업로드 :</label>
+							<div class="form-group">
+								<input type="file" name="homebgm" class="form-control-file" accept=".mp3">
+							</div>
 						
 							<li><label>집이름 :</label> <input type="text" id="readOnly" class="input" name="homename" th:value="${home.homename}" readonly="readonly"></li>
 	
 							<li><label>집설명 :</label> <input type="text" class="input" name="homeinst" th:value="${home.homeinst}" maxlength='300'></li>
-	
+
 							<!-- <li><label>테마 :</label> <input type="text" class="input" name="homethema" th:value="${home.homethema}"></li> -->
-							
+
 							<li th:if="${home.homeuse!='B'}"><label>집 사용여부 :</label> <input type="radio" class="radio" name="homeuse" th:value="Y" th:checked="${home.homeuse eq 'Y'}"><label>Y</label>
 							<input type="radio" name="homeuse" th:value="N" class="radio" th:checked="${home.homeuse eq 'N'}"><label>N</label>
 							</li>

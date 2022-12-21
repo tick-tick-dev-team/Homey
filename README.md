@@ -49,3 +49,42 @@ setReplyComments(comment)
 ### findBynick
 로그인을 하기위해 사용, User 타입을 반환, 결과가 단 하나(getSingleResult)이다. 
 추가로 로그인한 유저 정보를 확인하는데에도 쓰도록 만들었다.
+
+## 배경음악 기능 추가를 위한 DB DDL
+``` sql
+CREATE TABLE tb_bgm(  
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
+    create_time DATETIME COMMENT 'Create Time',
+    bgm_id VARCHAR(255) COMMENT 'bgm_id',
+    bgm_path varchar(255) COMMENT 'bgm_filepath' #BGM 파일은 저장시에 랜덤으로 한다. 
+) COMMENT '집 배경 테이블';
+```
+
+```mermaid
+---
+title: DB 구조
+---
+classDiagram
+    note for home "bgm 테이블의 bgm id를 가짐"
+    home <|-- tb_bgm
+    class home{
+        +HOME_ID
+        USER_ID
+		HOME_NAME
+		HOME_INST
+		HOME_USE
+		HOME_THEMA
+		ATTF_ID
+		-BGM_ID
+
+    }
+	
+	class tb_bgm{
+        +id
+        create_time
+		bgm_id
+		bgm_path
+		bgm_name
+    }
+
+```

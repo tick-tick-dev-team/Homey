@@ -11,7 +11,9 @@ public class HomeForm {
 		private String homeuse;
 		private String homethema;
 		private Long attfid;
-		
+		private String homebgm;
+
+
 		//홈프로필 파일 정보객체
 		private Attach attf_obj;
 		
@@ -60,7 +62,13 @@ public class HomeForm {
 		public void setAttfid(Long attfid) {
 			this.attfid = attfid;
 		}
+		public String getHomebgm() {
+			return this.homebgm;
+		}
 
+		public void setHomebgm(String homebgm) {
+			this.homebgm = homebgm;
+		}
 		
 
 		public Attach getAttf_obj() {

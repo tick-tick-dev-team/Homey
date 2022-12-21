@@ -19,7 +19,8 @@ public class Home {
 	   HOME_INST            VARCHAR(300) NULL COMMENT '집설명',
 	   HOME_USE             CHAR(1) NOT NULL COMMENT '활성화여부',
 	   HOME_THEMA           VARCHAR(36) NULL COMMENT '테마'
-	   ATTF_ID              BIGINT NULL COMMENT '첨부파일ID'*/
+	   ATTF_ID              BIGINT NULL COMMENT '첨부파일ID'
+	   BGM_ID				VARCHAR(256) NULL COMMENT '집 배경음악 */
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="home_id")
@@ -38,8 +39,9 @@ public class Home {
 	private String homethema;
 	@Column(name="attf_id")
 	private Long attfid;
-	
-	
+	@Column(name="bgm_id")
+	private String bgmid;
+
 	public Long getHomeid() {
 		return homeid;
 	}
@@ -83,6 +85,16 @@ public class Home {
 	public void setAttfid(Long attfid) {
 		this.attfid = attfid;
 	}
+
+	public String getBgmid() {
+		return this.bgmid;
+	}
+
+	public void setBgmid(String bgmid) {
+		this.bgmid = bgmid;
+	}
+
+
 	// popdo 결과값 테스트용 추가
 	@Override
 	public String toString() {
@@ -101,7 +113,7 @@ public class Home {
 		form.setHomeuse(this.getHomeuse());
 		form.setHomethema(this.getHomethema());
 		form.setAttfid(this.getAttfid());
-		
+		form.setHomebgm(this.getBgmid());
 		return form;
 	}
 	

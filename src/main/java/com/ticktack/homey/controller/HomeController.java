@@ -28,6 +28,7 @@ import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.HomeService;
 import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.UserService;
+import com.ticktack.homey.service.bgm.IBgmService;
 
 @Controller
 public class HomeController {
@@ -43,6 +44,9 @@ public class HomeController {
 	
 	@Autowired
 	private AttachService attachService;
+
+	@Autowired
+	private IBgmService bgmService;
 	
 	// 파일 업로드
 	@Autowired
@@ -178,6 +182,7 @@ public class HomeController {
 		homeService.updateHome(updatedHome);
 		redirectAttributes.addAttribute("homeid", form.getHomeid());
 
+		bgmService.findById("");
 		//selecthome으로 반환
 		return "redirect:/homes/{homeId}";
 	}

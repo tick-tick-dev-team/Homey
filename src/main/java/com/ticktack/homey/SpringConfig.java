@@ -13,6 +13,7 @@ import com.ticktack.homey.dummy.DummyData;
 import com.ticktack.homey.dummy.DummyDataImpl;
 import com.ticktack.homey.repository.attach.AttachRepository;
 import com.ticktack.homey.repository.attach.JpaAttachRepository;
+import com.ticktack.homey.repository.bgm.BgmRepository;
 import com.ticktack.homey.repository.comment.CommentRepository;
 import com.ticktack.homey.repository.comment.JpaCommentRepository;
 import com.ticktack.homey.repository.home.HomeRepository;
@@ -31,6 +32,8 @@ import com.ticktack.homey.service.PostService;
 import com.ticktack.homey.service.PostServiceImpl;
 import com.ticktack.homey.service.UserService;
 import com.ticktack.homey.service.UserServiceImpl;
+import com.ticktack.homey.service.bgm.BgmServiceImpl;
+import com.ticktack.homey.service.bgm.IBgmService;
 
 @Configuration
 public class SpringConfig {
@@ -107,6 +110,16 @@ public class SpringConfig {
 		return new CommentServiceImpl(commentRepository());
 	}
 	
+	@Bean
+	public BgmRepository bgmRepository(){
+		return new BgmRepository(em);
+	}
+
+	@Bean
+	public IBgmService bgmService(){
+		return new BgmServiceImpl(bgmRepository());
+	}
+
 	@Bean
 	public DummyData dummyData () {
 		return new DummyDataImpl(userService(), postService(), attachService(), commentService());

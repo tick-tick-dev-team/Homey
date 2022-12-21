@@ -13,9 +13,11 @@ public class HomeFormFile {
 	String homeuse;
 	String homethema;
 	Long attfid;
-	
+	String bgmFileName;
+
 	//file
 	MultipartFile attf_obj;
+	MultipartFile bgm_obj;
 	
 	//첨부파일 삭제여부
 	boolean deleteAttach = false;
@@ -63,7 +65,12 @@ public class HomeFormFile {
 		this.attfid = attfid;
 	}
 
-
+	public String getBgmFileName(){
+		return this.bgmFileName;
+	}
+	public void setBgmFileName(String bgmFileName){
+		this.bgmFileName = bgmFileName;
+	}
 	
 	public MultipartFile getAttf_obj() {
 		return attf_obj;
@@ -71,6 +78,14 @@ public class HomeFormFile {
 	public void setAttf_obj(MultipartFile attf_obj) {
 		this.attf_obj = attf_obj;
 	}
+
+	public MultipartFile getBgm_obj() {
+		return this.bgm_obj;
+	}
+	public void setBgm_obj(MultipartFile bgm_obj) {
+		this.bgm_obj = bgm_obj;
+	}
+
 	public boolean isDeleteAttach() {
 		return deleteAttach;
 	}
