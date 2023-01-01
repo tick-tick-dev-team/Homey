@@ -34,7 +34,15 @@ layout:decorate="~{layout/default_layout}">
 	<h2 sec:authorize="isAuthenticated()">친구집 놀러가기♬</h2>
 	<h2 sec:authorize="isAnonymous()">친구집에 놀러가려면 로그인이 필요해요♬</h2>
 	
-	<p th:if="${homes.size==0}" class="no-homes" >등록된 홈이 없습니다.</p>
+	<div sec:authorize="isAuthenticated()" class="search_div">
+		<form th:action="@{/homes}" method="get">
+		<label>집 검색 :</label> <input type="text" class="main_input" name="keyword"/><button class="main_search" type="submit">검색</button>
+		</form>
+	</div>
+	
+
+	
+	<p th:if="${homes.size==0}" class="no-homes" >찾으시는 집이 없습니다.</p>
 	
 	<ul th:unless="${homes.size==0}"  class="flex-start" id="main-homelist">
 		<li th:each="home : ${homes}">

@@ -65,4 +65,11 @@ public class JpaHomeRepository implements HomeRepository  {
 		return Optional.ofNullable(result);
 	}
 
+	@Override
+	public List<Home> findByKeyword(String keyword){
+		return em.createQuery("select h from Home h where h.homename like '%'||:keyword||'%' and h.homeuse=:homeuse", Home.class)
+				.setParameter("keyword", keyword)
+				.setParameter("homeuse", "Y")
+				.getResultList();
+	}
 }

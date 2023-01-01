@@ -6,6 +6,47 @@ h2 {
 	font-family: 'Gamja Flower', cursive;
 	text-align: center;
 }
+
+
+.search_div{
+	margin-left: 1rem;
+	margin-bottom: 2rem;
+	font-size: 2em;
+	font-family: 'Gamja Flower', cursive;
+}
+
+.main_input{
+    font-size: 1.3rem;
+	margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+	font-family: 'Gamja Flower', cursive;
+}
+
+.main_search{
+	font-size: 1.5rem;
+	color: #0080ff;
+	padding: 0.5rem 2rem;
+	border: 1px solid #ccc;
+	border-radius: 3em;
+	font-family: 'Gamja Flower', cursive;
+}
+
+
+p {
+	font-family: 'Gamja Flower', cursive;
+	font-size: 1.5rem;
+}
+
 #main-homelist {
 	text-align: center;
 }

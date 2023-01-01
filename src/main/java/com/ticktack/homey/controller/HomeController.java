@@ -78,12 +78,21 @@ public class HomeController {
 	
 	//로그인 프로세스는 스프링시큐리티에서 /login method = "post"로 제공된다.
 
-	//로그인 성공시, 첫화면, index페이지, logout시 반환
+	//로그인 성공시, 첫화면, index페이지, logout시 반환, 검색화면
 	@GetMapping("/homes")
-	public String hometown(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
+	public String hometown(@AuthenticationPrincipal PrincipalDetails principal, Model model, @RequestParam(value="keyword", required = false) String keyword) {
 		//Authentication 객체를 통해 유저 정보를 가져올 수 있다.
-		List<Home> homes = homeService.findByHomes();
-		model.addAttribute("homes", homes);
+		
+		if(keyword==null) {
+			List<Home> homes = homeService.findByHomes();
+			model.addAttribute("homes", homes);
+			System.err.println("HERE ======="+keyword);
+		} else {
+			//List<Home> homes = homeService.findByHomes();
+			List<Home> homes = homeService.findByKeyword(keyword);
+			model.addAttribute("homes", homes);
+			System.err.println("HERE???? ======="+keyword);
+		}
 		
 		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용
 		if(principal != null) {
@@ -99,8 +108,6 @@ public class HomeController {
 		
 		return "homes/Homes";
 	}
-	
-	
 	
 
 	//selectHome
