@@ -83,15 +83,12 @@ public class HomeController {
 	public String hometown(@AuthenticationPrincipal PrincipalDetails principal, Model model, @RequestParam(value="keyword", required = false) String keyword) {
 		//Authentication 객체를 통해 유저 정보를 가져올 수 있다.
 		
-		if(keyword==null) {
+		if(keyword==null) {//keyword 없을 시
 			List<Home> homes = homeService.findByHomes();
 			model.addAttribute("homes", homes);
-			System.err.println("HERE ======="+keyword);
-		} else {
-			//List<Home> homes = homeService.findByHomes();
+		} else { //keyword 있을 시
 			List<Home> homes = homeService.findByKeyword(keyword);
 			model.addAttribute("homes", homes);
-			System.err.println("HERE???? ======="+keyword);
 		}
 		
 		//db의 로그인한 유저정보 조회, 필요시 @AuthenticationPrincipal과 PrincipalDetails 파라미터와 함께 사용
