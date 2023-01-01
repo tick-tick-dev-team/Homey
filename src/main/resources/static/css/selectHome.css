@@ -69,6 +69,7 @@ section.profile {
 
 /* 바로 아래 자식 li에만 적용 */
 .postList .list-wrap li {
+    word-break: break-word;
     height: auto;
     background-color: #fff;
     margin-bottom: 1em;

@@ -9,7 +9,8 @@ h2 {
 
 
 .search_div{
-	margin-left: 1rem;
+	text-align : center;
+	/* margin-left: 1rem; */
 	margin-bottom: 2rem;
 	font-size: 2em;
 	font-family: 'Gamja Flower', cursive;
