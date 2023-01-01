@@ -30,4 +30,7 @@ public interface HomeService {
 	// 첨부파일 정보 삭제
 	public Long deleteAttach(Long attf_id);
 	
+	//home 조회
+	public List<Home> findByKeyword(String keyword);
+	
 }

@@ -88,4 +88,9 @@ public class HomeServiceImpl implements HomeService {
 		attachRepository.delete(attf_id);
 		return attf_id;
 	}
+	
+	@Override
+	public List<Home> findByKeyword(String keyword){
+		return homeRepository.findByKeyword(keyword);
+	}
 }
