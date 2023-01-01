@@ -80,7 +80,7 @@ layout:decorate="~{layout/default_layout}">
 										<img th:if="${post.writerProfile != null}" th:src="|/images/${post.writerProfile.ATTF_SERNM}|" alt="">
 										<img th:unless="${post.writerProfile != null}" src="/img/user_icon.png">
 									</span>
-									<span th:text="|작성자 ${post.writerNick}|"></span> 
+									<a th:href="@{/homes/{id}(id=${post.POST_WRITER})}"> <span th:text="|작성자 ${post.writerNick}|"></span></a> 
 									
 									<span th:if="${post.POST_DATE==post.POST_UPDATE}" th:text="|최초 작성일 : ${#temporals.format(post.POST_DATE, 'yyyy-MM-dd HH:mm')}|">최초 작성일</span> 
 									<span th:unless="${post.POST_DATE==post.POST_UPDATE}" th:text="|수정일 : ${#temporals.format(post.POST_UPDATE, 'yyyy-MM-dd HH:mm')}|">수정일</span>
@@ -121,7 +121,7 @@ layout:decorate="~{layout/default_layout}">
 											<img th:if="${comment.ATTF_OBJ != null}" th:src="|/images/${comment.ATTF_OBJ.ATTF_SERNM}|" alt="">
 											<img th:unless="${comment.ATTF_OBJ != null}" src="/img/user_icon.png">
 										</span>
-										<span th:text="| ${comment.userNick}|">작성자</span>
+										<a th:href="@{/homes/{id}(id=${comment.commWriter})}"><span th:text="| ${comment.userNick}|">작성자</span></a>
 										<span th:text="${#dates.format(comment.commUdate, 'yyyy-MM-dd HH:mm')}">작성일자</span>
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->

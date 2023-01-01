@@ -50,7 +50,7 @@ public class JpaHomeRepository implements HomeRepository  {
 		병합시 값이 없으면 null로 업데이트 할 위험도 있다. (병합은 모든 필드를 교체한다.)
 		병합은 편리하게 사용할 수 있다는 장점이 있지만, 모든 필드를 교체한다는 위험성 때문에 사용을 지양해야 한다.
 		출처: https://leveloper.tistory.com/37 [꾸준하게:티스토리]
-*/		
+		 */		
 		em.merge(home);
 		
 		return home;
