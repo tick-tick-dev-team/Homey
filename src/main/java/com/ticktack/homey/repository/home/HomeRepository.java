@@ -25,6 +25,6 @@ public interface HomeRepository {
 	//user_id로 home 조회 - 10.15 popdo 추가
 	Optional<Home> findByUserId(Long userId);
 
-	//home 조회
+	//keyword로 home 조회
 	List<Home> findByKeyword(String keyword);
 }
