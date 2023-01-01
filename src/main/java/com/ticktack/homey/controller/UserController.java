@@ -111,6 +111,14 @@ public class UserController {
 			Optional<Attach> profile = attachService.findById(result.getAttf_id());
 			profile.ifPresent(p -> model.addAttribute("attach", p));
 		}
+		
+		// 로그인한 사용자
+		User writer = userService.findBynick(principal);
+		model.addAttribute("writer", writer);
+		
+		Home homeInfo = homeService.findByUserId(principal.getUser().getUser_id()).get();
+		model.addAttribute("userhome", homeInfo);
+		
 		return "users/myPage";
 	}
 	

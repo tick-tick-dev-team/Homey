@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
 .login {
 	width: 100%;
 	height: 100%;
@@ -69,6 +78,7 @@
 	
 	
 	.loginForm input {
+		-webkit-appearance: none;
 		margin-right: 0;
    		width: 70%;
 	}

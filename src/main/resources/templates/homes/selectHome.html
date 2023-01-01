@@ -28,7 +28,8 @@ layout:decorate="~{layout/default_layout}">
 	<script type="text/javascript" th:src="@{/js/ajax.js}" ></script>
 	<script src ="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script type="text/javascript" th:src="@{/js/onload.js}" ></script>
-</th:block>	
+	<script type="text/javascript" th:src="@{/js/selectHome.js}" ></script>
+</th:block>
 	
 <body id="selectHome" class="theme224" layout:fragment="content">
 	<!-- 생일 시 꽃가루 효과를 위한 canvas-->
@@ -53,7 +54,7 @@ layout:decorate="~{layout/default_layout}">
 				
 					<p th:if="${home.homeuse=='N'}" ><B><I><font color="red">이 집은 사용하지 않는 집입니다.</font></I></B></p>
 					
-					<p th:if="${home.homeuse=='B'}" ><B><I><font color="red">이 집은 관리자에 의해 제한 된 집입니다.</font></I></B></p>
+					<p th:if="${home.homeuse=='B'}" ><B><I><font color="red">이 집은 관리자에 의해 제한된 집입니다.</font></I></B></p>
 				</div>
 			</div>
 		</section>
@@ -87,9 +88,9 @@ layout:decorate="~{layout/default_layout}">
 
 								<div th:if="${writer.user_id==post.POST_WRITER || writer.user_id==home.userid || writer.userpower=='ROLE_ADMIN'}" class="btn-wrap flex-end">
 									<a class="btn-border bg-white" th:href="@{|/posts/${post.POST_HOME}/update/${post.POST_ID}|}" th:text="수정">수정</a>
-									<form method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
+									<form th:id="'removeForm' + ${post.POST_ID}" method="POST" th:action="@{|/posts/${post.POST_HOME}/delete/${post.POST_ID}|}">
 										<input type="hidden" name="POST_ID" id="POST_ID" th:value="${post.POST_ID}" />
-										<button class="bg-white btn-border" type="submit" name="submit">삭제</button>
+										<button class="bg-white btn-border" type="button" th:postid = "${post.POST_ID}" th:onclick="deletePost(this.getAttribute('postid'));">삭제</button>
 									</form>
 								</div>
 							</li>

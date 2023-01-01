@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
 .imgbox {
 	border-radius:50%;
 	overflow: hidden;

@@ -59,13 +59,13 @@ function CommentAdd(e){
 	};
 	var result =  JSON.parse(AjaxFn('POST', '/commentAdd' , data));
 	
-	var div = document.querySelector('[postid="'+postId+'"]');
-	var ul = div.querySelector('ul');
+	var div = e.parentNode.parentNode;
+	//var div = document.querySelector('[postid="'+postId+'"]');
 	var li = document.createElement("li");
 	li.setAttribute('commId', result.commId );
 	li.setAttribute('commUpid', result.commUpid );
 	var imgSrc;
-
+	var ul = div.querySelector('ul');
 	if(result.attf_OBJ != null){
 		imgSrc = '/images/'+ result.attf_OBJ.attf_SERNM;
 	} else {
@@ -85,10 +85,11 @@ function CommentAdd(e){
 	              + 	'<div class="btn-wrap flex-end">'
 	              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
 	              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
-	              +			'<a id="replyBtn" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>'
+	              +			'<a id="replyBtn" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" >답글</a>'
 	              + '	</div>'
 	           	  + '</div>'
 	              + '<p class="content">'+ result.commCont +'</p>';
+
 	ul.appendChild(li);
 	e.previousElementSibling.value= ""; 
 	
