@@ -20,16 +20,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
 import com.ticktack.homey.domain.Attach;
-import com.ticktack.homey.domain.User;
 import com.ticktack.homey.file.FileStore;
 import com.ticktack.homey.service.AttachService;
 import com.ticktack.homey.service.PostService;
-import com.ticktack.homey.service.UserService;
 
 @Controller
 public class AttachController {
 	
-	private final UserService userService;
 	private final PostService postService;
 	private final AttachService attachService;
 	
@@ -37,10 +34,9 @@ public class AttachController {
 	// 파일 처리 관련 클래스
 	private final FileStore fileStore;
 	
-	public AttachController(UserService userService, PostService postService, AttachService attachService, 
+	public AttachController(PostService postService, AttachService attachService, 
 			FileStore fileStore) {
 		super();
-		this.userService = userService;
 		this.postService = postService;
 		this.attachService = attachService;
 		this.fileStore = fileStore;
@@ -108,81 +104,6 @@ public class AttachController {
 			}
 		});
 		return new UrlResource("file:" + fileStore.getTmpFullPath(file.getOriginalFilename()));
-	}
-	
-	// 임시파일 업로드
-	// 프로필 등록
-	@ResponseBody
-	@PostMapping("/users/{userId}/profile")
-	public Attach createTmp2 (@PathVariable Long userId, MultipartFile file, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		
-		// 임시 파일 저장
-		if(Optional.ofNullable(file).isPresent()) {
-			
-			profileCheck(userId); 
-			Attach attach = fileStore.storeFile(file);
-			
-			// attach db에 저장
-			attachService.createAttach(attach);
-			// user의 프로필로 저장
-			Optional<User> user = userService.findById(userId);
-			user.ifPresent(u -> {
-				u.setAttf_id(attach.getATTF_ID());
-				userService.updateUser(u);
-			});
-			return attach;
-		}
-		return null;
-	}
-	
-	/*
-	 * 프로필 파일 리셋 및 리셋 결과값 - 10.08 popdo 추가
-	 * */ 
-	@ResponseBody
-	@PostMapping("/users/{userId}/profileReset/{attfId}")
-	public boolean profileReset (@PathVariable Long userId, @PathVariable Long attfId, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {		
-
-		profileCheck(userId);
-		
-		// 파일 존재여부 확인
-		Optional<Attach> deleteAttach = attachService.findById(attfId);
-		if(deleteAttach.isPresent()) {
-			return false;
-		} else {
-			return true;
-		}
-
-	}
-	
-	/*
-	 * 기존 파일 있는지 확인 삭제 처리 - 10.08 popdo 추가
-	 * --> 해당 메서드를 어디에 정의해야 할지 다같이 논의 필요
-	 * */
-	public void profileCheck(Long userId) {
-
-		Long deleteAttfId;
-
-		Optional<User> user = userService.findById(userId);
-		if(user.get().getAttf_id()!= null) {
-			deleteAttfId = user.get().getAttf_id();
-			user.get().setAttf_id(null);
-			Optional<User> test = Optional.ofNullable(userService.updateUser(user.get()));
-			if(test.get().getAttf_id() == null) {
-				Optional<Attach> deleteAttach = attachService.findById(deleteAttfId);
-				if(deleteAttach.isPresent()) {
-					attachService.deleteAttach(deleteAttach.get().getATTF_ID());
-					try {
-						fileStore.deleteStoreFile(deleteAttach);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else {
-					System.out.println("--> [Error] deleteAttach.isPresent() : 기존파일이 존재하지 않습니다.");
-				} 
-			} else {
-				System.out.println("--> [Error] test.get().getAttf_id() == null : user의 기존 파일 null 처리가 정상적으로 처리되지 않았습니다.");
-			}		
-		}
 	}
 	
 	

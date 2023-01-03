@@ -48,7 +48,7 @@ document.addEventListener('keyup', (e) => {
 function CommentAdd(e){
 	var commCont = e.previousElementSibling.value;
 	
-	if(!commContValidation(commCont)){
+	if(!commContValidation(e.previousElementSibling)){
 		return false;
 	}
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );	
@@ -191,7 +191,7 @@ function CommUpdate(e){
 	var postId = li.parentNode.parentNode.getAttribute( 'postid' );
 	var content = div.querySelector('[id=commCont]').value;
 	
-	if(!commContValidation(content)){
+	if(!commContValidation(div.querySelector('[id=commCont]'))){
 		return false;
 	}
 	
@@ -272,7 +272,7 @@ function replyAdd(e){
 	const commCont = e.previousElementSibling.previousElementSibling.value;
 	const postId = li.parentNode.parentNode.getAttribute( 'postid' );
 	
-	if(!commContValidation(commCont)){
+	if(!commContValidation(e.previousElementSibling.previousElementSibling)){
 		return false;
 	}
 	
@@ -347,29 +347,49 @@ function convertFromStringToTime(responseDate) {
 
 function commContValidation(content){
 	
-	var stringByteLength = content.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
-	console.log(stringByteLength + " Bytes");
+	var len = 0;
+	var j;
 	
+	for (var i=0, j=content.value.length; i<j; i++, len++) {
+        if ((content.value.charCodeAt(i)<0)||(content.value.charCodeAt(i)>300) ){
+			if(len > 300){
+				content.value = content.value.substring(0,i);
+				swal("최대 글자 수는 한글로 100자 미만입니다.");
+				return false;
+			} else {
+				return true;
+			} 
+ 
+        }
+    }         
+
+	//var stringByteLength = content.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+	//console.log(stringByteLength + " Bytes");
+	
+	console.log(len + " Bytes");
 	//lenMaxSize = 300;
-	
-	if(stringByteLength > 300){
-		e.value = e.value.substr(0, stringByteLength);
-		swal("최대 글자 수는 한글로 100자 미만입니다.");
-		return false;
-	} else {
-		return true;
-	}
+
 }
 
 function byteCal(e){
-	var content = e.value; 
-	var pattern = /[\0-\x7f]|([0-\u07ff]|(.))/g;
-	var stringByteLength = content.replace(pattern,"$&$1$2").length;
+	var content = e.value;
+	
+	var len = 0;
+	var j;
 	var span = e.parentNode.querySelector("#commLength");
-	if(stringByteLength > 300){
-		e.value = content.substr(0, stringByteLength);
-		span.innerHTML = "<b style='color:red;'>"+stringByteLength + "</b> /300 Byte";
-	} else {
-		span.innerHTML = "<b>"+stringByteLength + "</b> /300 Byte";
-	}
+	
+	for (var i=0, j=content.length; i<j; i++, len++) {
+        if ((content.charCodeAt(i)<0)||(content.charCodeAt(i)>300) ){ 
+           	if(len > 300){
+				e.value = content.substring(0, i);
+				span.innerHTML = "<b style='color:red;'>"+len + "</b> /300 Byte";
+			} else {
+				span.innerHTML = "<b>"+len + "</b> /300 Byte";
+			}
+        }
+    }         
+
+//	var pattern = /[\0-\x7f]|([0-\u07ff]|(.))/g;
+//	var stringByteLength = content.replace(pattern,"$&$1$2").length;
+
 }
