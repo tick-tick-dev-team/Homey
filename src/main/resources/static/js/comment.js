@@ -380,15 +380,17 @@ function byteCal(e){
 	var content = e.value;
 	
 	for (var i=0, j=content.length; i<j; i++, len++) {
-        if ((content.charCodeAt(i)<0)||(content.charCodeAt(i)>300) ){
+        if ((content.charCodeAt(i)<0)||(content.charCodeAt(i)> 127) ){
          	len = len+1;
 		}
        	if(len > 300){
 			swal("글자 수가 초과되었습니다.");
 			e.value = content.substring(0, i);
-			span.innerHTML = "<b style='color:red;'>"+len + "</b> /300 Byte";
+			span.innerHTML = "<b style='color:red;'>"+ len + "</b> /300 Byte";
+			e.focus();
 		} else {
 			span.innerHTML = "<b>"+len + "</b> /300 Byte";
+			e.focus();
     	}
     }         
 
