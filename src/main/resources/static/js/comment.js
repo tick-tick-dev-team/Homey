@@ -51,6 +51,7 @@ function CommentAdd(e){
 	if(!commContValidation(e.previousElementSibling)){
 		return false;
 	}
+	
 	var postId = e.parentNode.parentNode.getAttribute( 'postId' );	
 	var data = {
 	    		commCont   : commCont,
@@ -352,15 +353,16 @@ function commContValidation(content){
 	
 	for (var i=0, j=content.value.length; i<j; i++, len++) {
         if ((content.value.charCodeAt(i)<0)||(content.value.charCodeAt(i)>300) ){
-			if(len > 300){
-				content.value = content.value.substring(0,i);
-				swal("최대 글자 수는 한글로 100자 미만입니다.");
-				return false;
-			} else {
-				return true;
-			} 
+			len = len+1;
+		}
+		if(len > 300){
+			content.value = content.value.substring(0,i);
+			swal("최대 글자 수는 한글로 100자 미만입니다.");
+			return false;
+		} else {
+			return true;
+		} 
  
-        }
     }         
 
 	//var stringByteLength = content.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
@@ -372,21 +374,22 @@ function commContValidation(content){
 }
 
 function byteCal(e){
+	
+	var len=0, j; 
+	var span = e.parentNode.querySelector("#commLength");
 	var content = e.value;
 	
-	var len = 0;
-	var j;
-	var span = e.parentNode.querySelector("#commLength");
-	
 	for (var i=0, j=content.length; i<j; i++, len++) {
-        if ((content.charCodeAt(i)<0)||(content.charCodeAt(i)>300) ){ 
-           	if(len > 300){
-				e.value = content.substring(0, i);
-				span.innerHTML = "<b style='color:red;'>"+len + "</b> /300 Byte";
-			} else {
-				span.innerHTML = "<b>"+len + "</b> /300 Byte";
-			}
-        }
+        if ((content.charCodeAt(i)<0)||(content.charCodeAt(i)>300) ){
+         	len = len+1;
+		}
+       	if(len > 300){
+			swal("글자 수가 초과되었습니다.");
+			e.value = content.substring(0, i);
+			span.innerHTML = "<b style='color:red;'>"+len + "</b> /300 Byte";
+		} else {
+			span.innerHTML = "<b>"+len + "</b> /300 Byte";
+    	}
     }         
 
 //	var pattern = /[\0-\x7f]|([0-\u07ff]|(.))/g;
