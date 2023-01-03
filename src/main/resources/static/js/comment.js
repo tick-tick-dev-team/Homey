@@ -93,8 +93,8 @@ function CommentAdd(e){
 
 	ul.appendChild(li);
 	e.previousElementSibling.value= ""; 
-	
-	byteCal(e.previousElementSibling);
+	console.log(e.nextElementSibling);
+	e.nextElementSibling.innerHTML = "0 /300 Byte";
 } 	// function 댓글 등록 END
 
 
@@ -375,6 +375,7 @@ function commContValidation(content){
 
 function byteCal(e){
 	
+	console.log(e);
 	var len=0, j; 
 	var span = e.parentNode.querySelector("#commLength");
 	var content = e.value;
@@ -384,16 +385,16 @@ function byteCal(e){
          	len = len+1;
 		}
        	if(len > 300){
-			swal("글자 수가 초과되었습니다.");
-			e.value = content.substring(0, i);
-			span.innerHTML = "<b style='color:red;'>"+ len + "</b> /300 Byte";
 			e.focus();
+			content = content.substring(0, i);
+			e.value = content;
+			span.innerHTML = "<b>300</b> /300 Byte";
 		} else {
 			span.innerHTML = "<b>"+len + "</b> /300 Byte";
 			e.focus();
+			e.value = content;
     	}
     }         
-
 //	var pattern = /[\0-\x7f]|([0-\u07ff]|(.))/g;
 //	var stringByteLength = content.replace(pattern,"$&$1$2").length;
 
