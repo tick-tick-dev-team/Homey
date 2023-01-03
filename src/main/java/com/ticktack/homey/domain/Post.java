@@ -1,5 +1,6 @@
 package com.ticktack.homey.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class Post {
 	
 	// 게시물 최초 등록일
 	@Column(name="POST_DATE")
-	LocalDateTime POST_DATE;
+	Instant POST_DATE;
 	
 	// 게시물 수정자 ID
 	@Column(name="POST_UWRITER")
@@ -33,7 +34,7 @@ public class Post {
 	
 	// 게시물 수정일
 	@Column(name="POST_UPDATE")
-	LocalDateTime POST_UPDATE;
+	Instant POST_UPDATE;
 	
 	// Home ID
 	@Column(name="HOME_ID")
@@ -62,10 +63,10 @@ public class Post {
 	public void setPOST_WRITER(Long pOST_WRITER) {
 		POST_WRITER = pOST_WRITER;
 	}
-	public LocalDateTime getPOST_DATE() {
+	public Instant getPOST_DATE() {
 		return POST_DATE;
 	}
-	public void setPOST_DATE(LocalDateTime pOST_DATE) {
+	public void setPOST_DATE(Instant pOST_DATE) {
 		POST_DATE = pOST_DATE;
 	}
 	public Long getPOST_UWRITER() {
@@ -74,10 +75,10 @@ public class Post {
 	public void setPOST_UWRITER(Long pOST_UWRITER) {
 		POST_UWRITER = pOST_UWRITER;
 	}
-	public LocalDateTime getPOST_UPDATE() {
+	public Instant getPOST_UPDATE() {
 		return POST_UPDATE;
 	}
-	public void setPOST_UPDATE(LocalDateTime pOST_UPDATE) {
+	public void setPOST_UPDATE(Instant pOST_UPDATE) {
 		POST_UPDATE = pOST_UPDATE;
 	}
 	public Long getPOST_HOME() {

@@ -26,6 +26,7 @@
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/fileControl.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/selectHome.js}" ></script>
 </th:block>	
 
 <body id="PostForm" layout:fragment="content">
@@ -44,8 +45,9 @@
 				
 				<div class="form-group">
 					<label for="content"></label>
-					<textarea required class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
+					<textarea onkeyup="limitByte(event);" required class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
 					th:text="${post.POST_CONT}" name="POST_CONT" id="POST_CONT" cols="20" rows="5" maxlength="450"></textarea>
+					<p id="postLength" style="text-align: right;">0byte / 450byte</p>
 					<input type="hidden" id="ATTF_ID" name="ATTF_ID" th:value="${post.ATTF_ID}">
 					<!-- 파일 첨부 추가 -->
 

@@ -25,6 +25,7 @@
 <!-- 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/fileControl.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/selectHome.js}" ></script>
 </th:block>	
 
 <body id="PostForm" layout:fragment="content">
@@ -38,8 +39,9 @@
 		
 				<div class="form-group">
 					<label for="POST_CONT"></label>
-					<textarea required class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
-					name="POST_CONT" id="POST_CONT" cols="20" rows="5" maxlength="450"></textarea>
+					<textarea onkeyup="limitByte(event);" required class="form-textarea" autocomplete="off" placeholder="내용을 입력하세요" 
+					name="POST_CONT" id="POST_CONT" cols="20" rows="5"></textarea>
+					<p id="postLength" style="text-align: right;">0byte / 450byte</p>
 					<label for="ATTF_OBJ">첨부파일</label>
 					<input onchange="setThumbnail(event);" type="file" name="ATTF_OBJ" id="ATTF_OBJ" >
 					<ul id="image-container">

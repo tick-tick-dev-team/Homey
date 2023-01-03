@@ -1,6 +1,7 @@
 
 package com.ticktack.homey.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,13 +16,13 @@ public class PostForm {
 	private Long POST_WRITER;
 	
 	// 게시물 최초 등록일
-	private LocalDateTime POST_DATE;
+	private Instant POST_DATE;
 	
 	// 게시물 수정자 ID
 	private Long POST_UWRITER;
 	
 	// 게시물 수정일
-	private LocalDateTime POST_UPDATE;
+	private Instant POST_UPDATE;
 	
 	// Home ID
 	private Long POST_HOME;
@@ -93,11 +94,11 @@ public class PostForm {
 //	}
 	
 	
-	public LocalDateTime getPOST_DATE() {
+	public Instant getPOST_DATE() {
 		return POST_DATE;
 	}
 
-	public void setPOST_DATE(LocalDateTime pOST_DATE) {
+	public void setPOST_DATE(Instant pOST_DATE) {
 		POST_DATE = pOST_DATE;
 	}
 
@@ -109,11 +110,11 @@ public class PostForm {
 		POST_UWRITER = pOST_UWRITER;
 	}
 
-	public LocalDateTime getPOST_UPDATE() {
+	public Instant getPOST_UPDATE() {
 		return POST_UPDATE;
 	}
 
-	public void setPOST_UPDATE(LocalDateTime pOST_UPDATE) {
+	public void setPOST_UPDATE(Instant pOST_UPDATE) {
 		POST_UPDATE = pOST_UPDATE;
 	}
 
