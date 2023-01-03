@@ -1,6 +1,7 @@
 
 package com.ticktack.homey.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -160,8 +161,8 @@ public class PostFormFile {
 		post.setPOST_CONT(this.getPOST_CONT());
 		post.setPOST_HOME(this.getPOST_HOME());
 		
-		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> post.setPOST_DATE(LocalDateTime.parse(s)));
-		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> post.setPOST_UPDATE(LocalDateTime.parse(s)));
+		Optional.ofNullable(this.getPOST_DATE()).ifPresent(s -> post.setPOST_DATE(Instant.parse(s)));
+		Optional.ofNullable(this.getPOST_UPDATE()).ifPresent(s -> post.setPOST_UPDATE(Instant.parse(s)));
 		
 		post.setPOST_WRITER(this.getPOST_WRITER());
 		post.setPOST_UWRITER(this.getPOST_UWRITER());

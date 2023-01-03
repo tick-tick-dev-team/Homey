@@ -1,5 +1,6 @@
 package com.ticktack.homey.repository.post;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,8 @@ public class JpaPostRepository implements PostRepository {
 	@Transactional
 	public Post save(Post post) {
 		// id, 생성일, 수정일 넣고 저장
-		post.setPOST_DATE(LocalDateTime.now());
+		// post.setPOST_DATE(LocalDateTime.now());
+		post.setPOST_DATE(Instant.now());
 		post.setPOST_UPDATE(post.getPOST_DATE());
 		em.persist(post);
 		return post;
@@ -41,7 +43,7 @@ public class JpaPostRepository implements PostRepository {
 	@Override
 	@Transactional
 	public Post update(Post post) {
-		post.setPOST_UPDATE(LocalDateTime.now());
+		post.setPOST_UPDATE(Instant.now());
 		em.merge(post);
 		return post;
 	}
