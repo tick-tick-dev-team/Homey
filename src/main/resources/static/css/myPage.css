@@ -56,6 +56,11 @@ img {
 	border-radius: 5px;
 }
 
+#userjoin {
+	color : #646464;
+	background: #e5e5e5;
+}
+
 .tabcontent button.mypageCheck:hover {
     background: #f1f1f1;;
 }

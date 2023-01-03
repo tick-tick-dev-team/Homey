@@ -9,6 +9,7 @@ window.onload=function(){
     
     //readOnly 회색처리
     document.getElementById("readOnly").style.background = "#e5e5e5";
+    document.getElementById("readOnly").style.color = "#646464";
     
 }
 
