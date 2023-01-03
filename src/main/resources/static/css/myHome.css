@@ -70,8 +70,8 @@ img {
 }
 
 .radio {
-	    width: 3%;
-
+	appearance : radio;
+	width: 3%;
 }
 
 
