@@ -93,7 +93,7 @@ function CommentAdd(e){
 
 	ul.appendChild(li);
 	e.previousElementSibling.value= ""; 
-	console.log(e.nextElementSibling);
+	
 	e.nextElementSibling.innerHTML = "0 /300 Byte";
 } 	// function 댓글 등록 END
 

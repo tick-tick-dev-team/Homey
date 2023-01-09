@@ -246,8 +246,8 @@ function sumitBtn(){
 }
 
 async function check_id(){
-
-		const userN = document.getElementById('nickChage').value.split(' ').join('');
+		document.getElementById('nickChage').value = document.getElementById('nickChage').value.split(' ').join('');
+		const userN =document.getElementById('nickChage').value; 
 		const btn = document.getElementById('nickCheckBtn');
 		const u = document.getElementById('usernick').value;
 		
