@@ -15,32 +15,39 @@ function deletePost(postId) {
 
 var limitNum = 450;
 
-function setContentLen (len, id){
-	// var len = getContentLen();
+function setContentLen (){
+	var len = getContentLen();
+	var postLength = document.getElementById("postLength");
+	
 	var showLength = len + 'byte / ' + limitNum + 'byte';
-	document.getElementById(id).textContent = showLength;       
- }
+	postLength.textContent = showLength;       
+}
 
-function limitByte () { // 글자수 체크
+function getContentLen () {
 	var len=0, j; 
-
 	var content = document.getElementById("POST_CONT");
-
 	var contentValue = content.value;
 
 	for (var i=0, j=contentValue.length; i<j; i++, len++) {
 		if ((contentValue.charCodeAt(i)<0)||(contentValue.charCodeAt(i)>127) ){ 
 		   len = len+1; 
 		}
-		if (len >= limitNum) {
-			swal("글자 수가 초과되었습니다.");
-			content.value = contentValue.substring(0,i); 
-			content.focus(); 
-			setContentLen();
-			return;     
-		}
-	 }
-	 setContentLen(len,"postLength");
+	}
+	return i, len;	
+}
+
+function limitByte () { // 글자수 체크
+
+	var i, len = getContentLen();
+
+	if (len >= limitNum) {
+		swal("글자 수가 초과되었습니다.");
+		content.value = contentValue.substring(0,i); 
+		content.focus(); 
+		setContentLen();
+		return;     
+	}
+	setContentLen();
  }
 
 window.onload = function(){
