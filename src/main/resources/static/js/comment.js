@@ -39,6 +39,7 @@ function imgFetch(userId, span){
 	});
 }
 */
+const LINE_FEED = 10;
 
 document.addEventListener('keyup', (e) => {
 	byteCal(e.target);
@@ -84,8 +85,8 @@ function CommentAdd(e){
 	              + 		'<span>'+ resultDate +' ' + resultTime +'</span>'
 	              + 	'</div>'
 	              + 	'<div class="btn-wrap flex-end">'
-	              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
-	              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+	              + 		'<a id="updateBtn" class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+	              + 		'<a id="deleteBtn" class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
 	              +			'<a id="replyBtn" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" >답글</a>'
 	              + '	</div>'
 	           	  + '</div>'
@@ -218,12 +219,14 @@ function CommUpdate(e){
 function UpdateCancel(e){
 	
 	var li = e.parentNode.parentNode;
-	var updateBtn = li.querySelectorAll('a')[0];
+	var p_div = li.querySelector('div');
+	var updateBtn = p_div.querySelector("#updateBtn");
 	var p = li.querySelector('p');
 	var div = e.parentNode;
 	
 	updateBtn.setAttribute('style',"display:inline;");
 	p.setAttribute('style',"display:block;");
+	
 	div.remove();
 	
 }
@@ -305,8 +308,8 @@ function replyAdd(e){
 		              + 		'<span>'+ resultDate +' ' + resultTime +'</span>'
 		              + 	'</div>'
 		              + 	'<div class="btn-wrap flex-end">'
-		              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
-		              + 		'<a class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
+		              + 		'<a id="updateBtn" class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>&nbsp;'
+		              + 		'<a id="deleteBtn" class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>&nbsp;'
 		              + '	</div>'
 		           	  + '</div>'
 		              + '<p class="content">'+ result.commCont +'</p>';
@@ -375,27 +378,87 @@ function commContValidation(content){
 
 function byteCal(e){
 	
-	console.log(e);
-	var len=0, j; 
 	var span = e.parentNode.querySelector("#commLength");
 	var content = e.value;
+	var contentLength = e.value.byteLength();
 	
-	for (var i=0, j=content.length; i<j; i++, len++) {
+	if(contentLength > 300){ 
+		content = getLimitedByteText(content, 300);
+		span.innerHTML = "<b>"+ content.byteLength() + "</b> /300 Byte";
+		e.value = content;
+		e.focus();
+	}else {
+		span.innerHTML = "<b>"+ contentLength + "</b> /300 Byte";
+		e.focus();
+	}
+	
+/*	var len= 0, j; 
+	var span = e.parentNode.querySelector("#commLength");
+	var content = e.value;
+	var i = 0;
+	
+	for (i, j=content.length; i<j; i++, len++) {
         if ((content.charCodeAt(i)<0)||(content.charCodeAt(i)> 127) ){
          	len = len+1;
-		}
-       	if(len > 300){
-			e.focus();
-			content = content.substring(0, i);
-			e.value = content;
-			span.innerHTML = "<b>300</b> /300 Byte";
-		} else {
-			span.innerHTML = "<b>"+len + "</b> /300 Byte";
-			e.focus();
-			e.value = content;
-    	}
-    }         
-//	var pattern = /[\0-\x7f]|([0-\u07ff]|(.))/g;
-//	var stringByteLength = content.replace(pattern,"$&$1$2").length;
+		}		
+    }
+    if(len > 300){
+		content = content.substring(0, i);
+		span.innerHTML = "<b>"+ len-(len-i) + "</b> /300 Byte";
+		e.value = content;
+		e.focus();
+	} else {
+		e.value = content;
+		e.focus();
+		span.innerHTML = "<b>"+ len + "</b> /300 Byte";
+	}  */
 
+
+
+}
+
+/**
+ * 문자열의 바이트수 리턴
+ * @returns {Number}
+ */
+String.prototype.byteLength = function() {
+    var l= 0;
+     
+    for(var idx=0; idx < this.length; idx++) {
+        var c = escape(this.charAt(idx));
+         
+        if( c.length==1 ) l ++;
+        else if( c.indexOf("%u")!=-1 ) l += 2;
+        else if( c.indexOf("%")!=-1 ) l += c.length/3;
+    }
+     
+    return l;
+}
+
+function getLimitedByteText(inputText, maxByte) {
+  const characters = inputText.split('')
+  let validText = ''
+  let totalByte = 0
+
+  for (let i = 0; i < characters.length; i += 1) {
+    const character = characters[i]
+    const decimal = character.charCodeAt(0)
+    const byte = getByteLength(decimal) // 글자 한 개가 몇 바이트 길이인지 구해주기
+
+    // 현재까지의 바이트 길이와 더해 최대 바이트 길이를 넘지 않으면 
+    if (totalByte + byte <= maxByte) { 
+      totalByte += byte      // 바이트 길이 값을 더해 현재까지의 총 바이트 길이 값을 구함
+      validText += character // 글자를 더해 현재까지의 총 문자열 값을 구함
+    } else {                 // 최대 바이트 길이를 넘으면
+      break                  // for 루프 종료
+    }
+  }
+
+  return validText
+}
+
+
+
+function getByteLength(decimal) {
+  return (decimal >> 7) || (LINE_FEED === decimal) ? 2 : 1
 }

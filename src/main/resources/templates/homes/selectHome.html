@@ -126,8 +126,8 @@ layout:decorate="~{layout/default_layout}">
 									</div>
 									<!-- 추후 사용자 정보 비교해서 버튼 보이기 -->
 									<div class="btn-wrap flex-end">
-										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
-										<a th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
+										<a id="updateBtn" th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommUpdateForm(this)" th:text="수정">수정</a>
+										<a id="deleteBtn" th:if="${writer.user_id==comment.commWriter}" class="btn-border bg-white" href="javascript:;" onclick="CommentDelete(this)" th:text="삭제">삭제</a>
 										<a id="replyBtn" th:if="${comment.commUpid == comment.commId}" class="btn-border bg-white" href="javascript:;" onclick="CommentReplyAdd(this)" th:text="답글">답글</a>
 									</div>
 								</div>
