@@ -210,7 +210,7 @@ function CommUpdate(e){
 		li.querySelectorAll('span')[2].textContent = resultDate + " " + resultTime;
 		p.textContent = result.commCont;
 		p.setAttribute('style',"display:block;");
-		li.querySelectorAll('a')[0].setAttribute('style',"display:inline;");
+		li.querySelector('#updateBtn').setAttribute('style',"display:inline;");
 		div.remove();
 	}	 
 } // function 댓글 수정 end 
@@ -318,7 +318,7 @@ function replyAdd(e){
         var list = document.querySelectorAll('li');
      	for (let i=0; i< list.length; i++){
      		if(list[i].getAttribute('commid') == commUpid){
-     			list[i].querySelectorAll('a')[2].setAttribute('style',"display:inline;");
+     			list[i].querySelector('#replyBtn').setAttribute('style',"display:inline;");
      		}
      	}
 	}
