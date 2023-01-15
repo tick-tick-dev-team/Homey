@@ -203,6 +203,7 @@ a.hypertext:hover {
 	color : #777777;
 	padding-left : 0.5em;
 	font-size: 8px;
+	display : block;
 }
 
 

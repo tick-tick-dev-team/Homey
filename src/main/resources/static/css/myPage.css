@@ -55,7 +55,10 @@ img {
 .mypageCheck {
 	border-radius: 5px;
 }
-
+#userbirth {
+	text-align: left;
+	color : #000;
+}
 #userjoin {
 	color : #646464;
 	background: #e5e5e5;
